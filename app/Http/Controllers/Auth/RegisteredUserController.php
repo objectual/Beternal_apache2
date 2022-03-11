@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\Models\Country;
+use App\Models\StateProvince;
+use App\Models\City;
 
 class RegisteredUserController extends Controller
 {
@@ -20,7 +23,21 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        $countries = Country::all();
+        if(count($countries) > 0)
+        {
+            $state_provinces = StateProvince::where(['country_id'=>$countries[0]->id, 'status'=>1])->get();
+        }
+        if(count($state_provinces) > 0)
+        {
+            $cities = City::where(['state_province_id'=>$state_provinces[0]->id, 'status'=>1])->get();
+        }
+        $countries = Country::all();
+        return view('auth.register', compact(
+            'countries',
+            'state_provinces',
+            'cities'
+        ));
     }
 
     /**
@@ -41,6 +58,10 @@ class RegisteredUserController extends Controller
             'address' => ['required', 'string','min:5', 'max:255'],
             'image' => 'image|mimes:jpeg,png,jpg,svg,bmp',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'country_id' => ['required'],
+            'state_province_id' => ['required'],
+            'city_id' => ['required'],
+            'zip_postal_code' => ['required'],
         ]);
         if(request()->file('image')){
             // dd('is image');
@@ -62,6 +83,11 @@ class RegisteredUserController extends Controller
             'role_id'           =>  2,
             'profile_image'     =>  $image_new,
             'password'          =>  Hash::make($request->password),
+            'plan_id'           =>  1,
+            'country_id'        =>  $request->country_id,
+            'state_province_id' =>  $request->state_province_id,
+            'city_id'           =>  $request->city_id,
+            'zip_postal_code'   =>  $request->zip_postal_code,
         ]);
 
         event(new Registered($user));

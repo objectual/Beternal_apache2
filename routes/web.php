@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\admin\AdminDashboardController;
+use App\Http\Controllers\StateProvinceController;
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\admin\UserRoleController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +25,9 @@ Route::get('/', function () {
     return view('frontend.home');
 });
 
+Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
+Route::get('/cities/{id}', [CityController::class, 'getCities']);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
@@ -27,12 +35,40 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 Route::middleware('auth')->group(function () {
     Route::get('/splash',[dashboardController::class, 'splash'])->name('splash');
-    Route::get('/my-account',[dashboardController::class, 'myAccountPage'])->name('user.profile');
-    Route::get('/edit-account',[dashboardController::class, 'myAccountEdit'])->name('user.profile.edit');
-    Route::post('/edit-account',[dashboardController::class, 'myAccountUpdate'])->name('user.profile.update');
+    Route::get('/my-account',[UserController::class, 'myAccountPage'])->name('user.profile');
+    Route::get('/edit-account',[UserController::class, 'myAccountEdit'])->name('user.profile.edit');
+    Route::post('/edit-account',[UserController::class, 'myAccountUpdate'])->name('user.profile.update');
 });
 Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('dashboard',[AdminDashboardController::class,'index'])->name('admin.dashboard');
-    Route::get('users',[AdminDashboardController::class,'allUsers'])->name('admin.users');
-    Route::get('roles',[AdminDashboardController::class,'allRoles'])->name('admin.roles');
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/',[UserController::class,'index'])->name('admin.users');
+        Route::get('show/{id}',[UserController::class,'show'])->name('admin.users.show');
+        Route::post('update',[UserController::class,'store'])->name('admin.users.update');
+    });
+    Route::group(['prefix' => 'roles'], function () {
+        Route::get('/',[UserRoleController::class,'index'])->name('admin.roles');
+        Route::get('add-form',[UserRoleController::class,'addForm'])->name('admin.roles.add-form');
+        Route::post('add-update',[UserRoleController::class,'store'])->name('admin.roles.add-update');
+        Route::get('show/{id}',[UserRoleController::class,'show'])->name('admin.roles.show');
+    });
+    Route::group(['prefix' => 'countries'], function () {
+        Route::get('/',[CountryController::class,'index'])->name('admin.countries');
+        Route::get('add-form',[CountryController::class,'addForm'])->name('admin.countries.add-form');
+        Route::post('add-update',[CountryController::class,'store'])->name('admin.countries.add-update');
+        Route::get('show/{id}',[CountryController::class,'show'])->name('admin.countries.show');
+    });
+    Route::group(['prefix' => 'provinces'], function () {
+        Route::get('/',[StateProvinceController::class,'index'])->name('admin.provinces');
+        Route::get('add-form',[StateProvinceController::class,'addForm'])->name('admin.provinces.add-form');
+        Route::post('add-update',[StateProvinceController::class,'store'])->name('admin.provinces.add-update');
+        Route::get('show/{id}',[StateProvinceController::class,'show'])->name('admin.provinces.show');
+    });
+    Route::group(['prefix' => 'cities'], function () {
+        Route::get('/',[CityController::class,'index'])->name('admin.cities');
+        Route::get('add-form',[CityController::class,'addForm'])->name('admin.cities.add-form');
+        Route::post('add-update',[CityController::class,'store'])->name('admin.cities.add-update');
+        Route::get('show/{id}',[CityController::class,'show'])->name('admin.cities.show');
+        Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
+    });
 });

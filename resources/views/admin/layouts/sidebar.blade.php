@@ -34,7 +34,7 @@ use Illuminate\Support\Facades\Route;
             </a>
           </li>
           <li class="nav-item menu-open">
-            <a href="{{ route('admin.users') }}" class="nav-link @if(Route::currentRouteName() == 'admin.users' || Route::currentRouteName() == 'admin.roles') active @endif">
+            <a href="{{ route('admin.users') }}" class="nav-link @if(Route::currentRouteName() == 'admin.users') active @endif">
               <i class="nav-icon fas fa-user-alt"></i>
               <p>
                 Users
@@ -48,6 +48,17 @@ use Illuminate\Support\Facades\Route;
                   <p>All Users</p>
                 </a>
               </li>
+            </ul>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="{{ route('admin.roles') }}" class="nav-link @if(Route::currentRouteName() == 'admin.roles') active @endif">
+              <i class="nav-icon fas fa-user-alt"></i>
+              <p>
+                Roles
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ route('admin.roles') }}" class="nav-link @if(Route::currentRouteName() == 'admin.roles') active @endif">
                   <i class="far fa-circle nav-icon"></i>
@@ -55,9 +66,78 @@ use Illuminate\Support\Facades\Route;
                 </a>
               </li>
               <li class="nav-item">
-                <a href="javascript:;" class="nav-link">
+                <a href="{{ route('admin.roles.add-form') }}" class="nav-link @if(Route::currentRouteName() == 'admin.roles.add-form') active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Create Role</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="{{ route('admin.countries') }}" class="nav-link @if(Route::currentRouteName() == 'admin.countries') active @endif">
+              <i class="nav-icon fas fa-user-alt"></i>
+              <p>
+                Countries
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.countries') }}" class="nav-link @if(Route::currentRouteName() == 'admin.countries') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Countries</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.countries.add-form') }}" class="nav-link @if(Route::currentRouteName() == 'admin.countries.add-form') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Create Country</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="{{ route('admin.provinces') }}" class="nav-link @if(Route::currentRouteName() == 'admin.provinces') active @endif">
+              <i class="nav-icon fas fa-user-alt"></i>
+              <p>
+                State / Provinces
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.provinces') }}" class="nav-link @if(Route::currentRouteName() == 'admin.provinces') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Provinces</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.provinces.add-form') }}" class="nav-link @if(Route::currentRouteName() == 'admin.provinces.add-form') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Create Province</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="{{ route('admin.cities') }}" class="nav-link @if(Route::currentRouteName() == 'admin.cities') active @endif">
+              <i class="nav-icon fas fa-user-alt"></i>
+              <p>
+                Cities
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.cities') }}" class="nav-link @if(Route::currentRouteName() == 'admin.cities') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Cities</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.cities.add-form') }}" class="nav-link @if(Route::currentRouteName() == 'admin.cities.add-form') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Create City</p>
                 </a>
               </li>
             </ul>
