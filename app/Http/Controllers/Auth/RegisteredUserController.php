@@ -24,11 +24,13 @@ class RegisteredUserController extends Controller
     public function create()
     {
         $countries = Country::all();
+        $state_provinces = [];
+        $cities = [];
         if(count($countries) > 0)
         {
             $state_provinces = StateProvince::where(['country_id'=>$countries[0]->id, 'status'=>1])->get();
         }
-        if(count($state_provinces) > 0)
+        if(isset($state_provinces) && count($state_provinces) > 0)
         {
             $cities = City::where(['state_province_id'=>$state_provinces[0]->id, 'status'=>1])->get();
         }
@@ -83,7 +85,7 @@ class RegisteredUserController extends Controller
             'role_id'           =>  2,
             'profile_image'     =>  $image_new,
             'password'          =>  Hash::make($request->password),
-            'plan_id'           =>  1,
+            'plan_id'           =>  0,
             'country_id'        =>  $request->country_id,
             'state_province_id' =>  $request->state_province_id,
             'city_id'           =>  $request->city_id,

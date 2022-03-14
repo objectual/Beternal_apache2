@@ -38,6 +38,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-account',[UserController::class, 'myAccountPage'])->name('user.profile');
     Route::get('/edit-account',[UserController::class, 'myAccountEdit'])->name('user.profile.edit');
     Route::post('/edit-account',[UserController::class, 'myAccountUpdate'])->name('user.profile.update');
+    Route::group(['prefix' => 'recipents'], function () {
+        Route::get('/',[UserController::class,'allRecipents'])->name('user.recipents');
+        Route::get('add-form',[UserController::class,'addForm'])->name('user.recipents.add-form');
+        Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
+        Route::get('/cities/{id}', [CityController::class, 'getCities']);
+        // Route::get('show/{id}',[UserController::class,'show'])->name('admin.users.show');
+        // Route::post('update',[UserController::class,'store'])->name('admin.users.update');
+    });
 });
 Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('dashboard',[AdminDashboardController::class,'index'])->name('admin.dashboard');

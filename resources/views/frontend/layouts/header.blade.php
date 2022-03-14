@@ -53,7 +53,7 @@
               >
             </li>
             <li class="nav-item px-2">
-              <a class="nav-link active" aria-current="page" href="#"
+              <a class="nav-link active" aria-current="page" href="{{ route('user.recipents') }}"
                 ><span class="icon-Recipents header-icons"></span
                 ><span class="header-span">Recipents</span></a
               >

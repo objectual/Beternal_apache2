@@ -8,6 +8,9 @@ use App\Models\User;
 use App\Models\Country;
 use App\Models\StateProvince;
 use App\Models\City;
+use App\Models\UserContact;
+use App\Models\ContactStatus;
+use App\Models\Group;
 use App\helpers;
 use Auth;
 
@@ -141,5 +144,27 @@ class UserController extends Controller
         // Auth::login($user);
 
         return redirect()->route('user.profile.update');
+    }
+
+    public function allRecipents() {
+        return view('frontend.recipents.allRecipents');
+    }
+
+    public function addForm() {
+        $id = Auth::user()->id;
+        $countries =  Country::all();
+        $contact_status =  ContactStatus::all();
+        $contacts = UserContact::where('user_id', $id)
+        ->get(['contact_status_id']);
+        $groups =  Group::where('user_id', $id)
+        ->get(['id', 'group_title']);
+        // if($contacts->isEmpty()) {
+        //     dd('not found');
+        // }
+        return view('frontend.recipents.addRecipentForm', compact(
+            'countries',
+            'contact_status',
+            'groups'
+        ));
     }
 }

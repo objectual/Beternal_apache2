@@ -13,11 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('contacts', function (Blueprint $table) {
-            $table->unsignedBigInteger('contact_status_id')->after('response_status');
+        Schema::create('user_contacts', function (Blueprint $table) {
+            $table->id();
+            $table->integer('priority')->nullable();
+            $table->integer('response_status')->default(1);
+            $table->unsignedBigInteger('contact_status_id');
             $table->foreign('contact_status_id')->references('id')->on('contact_status')->onDelete('cascade');
-            $table->unsignedBigInteger('user_id')->after('contact_status_id');
+            $table->unsignedBigInteger('contact_id');
+            $table->foreign('contact_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -28,8 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('contacts', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('user_contacts');
     }
 };
