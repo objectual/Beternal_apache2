@@ -85,7 +85,7 @@ class RegisteredUserController extends Controller
             'role_id'           =>  2,
             'profile_image'     =>  $image_new,
             'password'          =>  Hash::make($request->password),
-            'plan_id'           =>  0,
+            'plan_id'           =>  1,
             'country_id'        =>  $request->country_id,
             'state_province_id' =>  $request->state_province_id,
             'city_id'           =>  $request->city_id,
