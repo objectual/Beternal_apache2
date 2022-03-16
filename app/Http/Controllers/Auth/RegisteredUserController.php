@@ -96,6 +96,13 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        $details = [
+            'title' => 'Mail from ObjectualSystemLimited.com',
+            'body' => 'This is for testing email'
+        ];
+       
+        \Mail::to($user->email)->send(new \App\Mail\MyMail($details));
+
         return redirect()->route('user.profile');
     }
 }

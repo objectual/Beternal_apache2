@@ -41,8 +41,10 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'recipents'], function () {
         Route::get('/',[UserController::class,'allRecipents'])->name('user.recipents');
         Route::get('add-form',[UserController::class,'addForm'])->name('user.recipents.add-form');
+        Route::post('/add-recipent', [UserController::class, 'addRecipent'])->name('user.recipents.add-recipent');
         Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
         Route::get('/cities/{id}', [CityController::class, 'getCities']);
+        Route::get('/add-group/{group_title}', [UserController::class, 'addGroup']);
         // Route::get('show/{id}',[UserController::class,'show'])->name('admin.users.show');
         // Route::post('update',[UserController::class,'store'])->name('admin.users.update');
     });

@@ -186,7 +186,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Zip / Postal Code</span>
                                 </div>
-                                <input id="zip_postal_code" name="zip_postal_code" type="number" value="{{ old('zip_postal_code') ?? $user[0]->zip_postal_code }}" class="form-control text-end" aria-describedby="basic-addon1" required />
+                                <input id="zip_postal_code" name="zip_postal_code" type="text" value="{{ old('zip_postal_code') ?? $user[0]->zip_postal_code }}" class="form-control text-end" aria-describedby="basic-addon1" required />
                                 @if($errors->has('zip_postal_code'))
                                     <div class="error">{{ $errors->first('zip_postal_code') }}</div>
                                 @endif               

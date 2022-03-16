@@ -52,93 +52,14 @@
                         <p class="sel-text color-primary mt-3">Add </p>
                     </a>
                 </div>
+                @if(isset($user_recipents))
+                @foreach($user_recipents as $key => $recipent)
                 <div class="col-lg-2 text-center col-4 position-relative">
-                    <img class="recipent-img" src="{{ asset('public/assets/images/recipent.png')}}" />
-                    <a href="#" class="">
-                        <img class="delete-recipent" src="{{ asset('public/assets/images/delete.svg')}}" />
-                    </a>
-                    <p class="cl-white sel-text mt-3">Susan D.</p>
+                    <img class="recipent-img" src="{{ asset($recipent->profile_image)}}" />
+                    <p class="cl-white sel-text mt-3">{{ $recipent->name }} {{ $recipent->last_name }}</p>
                 </div>
-                <div class="col-lg-2 text-center col-4 position-relative">
-                    <img class="recipent-img" src="{{ asset('public/assets/images/recipent.png')}}" />
-                    <a href="#" class="">
-                        <img class="delete-recipent" src="{{ asset('public/assets/images/delete.svg')}}" />
-                    </a>
-                    <p class="cl-white sel-text mt-3">Susan D.</p>
-                </div>
-                <div class="col-lg-2 text-center col-4 position-relative">
-                    <img class="recipent-img" src="{{ asset('public/assets/images/recipent.png')}}" />
-                    <a href="#" class="">
-                        <img class="delete-recipent" src="{{ asset('public/assets/images/delete.svg')}}" />
-                    </a>
-                    <p class="cl-white sel-text mt-3">Susan D.</p>
-
-                </div>
-                <div class="col-lg-2 text-center col-4 position-relative">
-                    <img class="recipent-img" src="{{ asset('public/assets/images/recipent.png')}}" />
-                    <a href="#" class="">
-                        <img class="delete-recipent" src="{{ asset('public/assets/images/delete.svg')}}" />
-                    </a>
-                    <p class="cl-white sel-text mt-3">Susan D.</p>
-
-                </div>
-                <div class="col-lg-2 text-center col-4 position-relative">
-                    <img class="recipent-img" src="{{ asset('public/assets/images/recipent.png')}}" />
-                    <a href="#" class="">
-                        <img class="delete-recipent" src="{{ asset('public/assets/images/delete.svg')}}" />
-                    </a>
-                    <p class="cl-white sel-text mt-3">Susan D.</p>
-
-                </div>
-                <div class="col-lg-2 text-center col-4 position-relative">
-                    <img class="recipent-img" src="{{ asset('public/assets/images/recipent.png')}}" />
-                    <a href="#" class="">
-                        <img class="delete-recipent" src="{{ asset('public/assets/images/delete.svg')}}" />
-                    </a>
-                    <p class="cl-white sel-text mt-3">Susan D.</p>
-
-                </div>
-                <div class="col-lg-2 text-center col-4 position-relative">
-                    <img class="recipent-img" src="{{ asset('public/assets/images/recipent.png')}}" />
-                    <a href="#" class="">
-                        <img class="delete-recipent" src="{{ asset('public/assets/images/delete.svg')}}" />
-                    </a>
-                    <p class="cl-white sel-text mt-3">Susan D.</p>
-
-                </div>
-                <div class="col-lg-2 text-center col-4 position-relative">
-                    <img class="recipent-img" src="{{ asset('public/assets/images/recipent.png')}}" />
-                    <a href="#" class="">
-                        <img class="delete-recipent" src="{{ asset('public/assets/images/delete.svg')}}" />
-                    </a>
-                    <p class="cl-white sel-text mt-3">Susan D.</p>
-
-                </div>
-                <div class="col-lg-2 text-center col-4 position-relative">
-                    <img class="recipent-img" src="{{ asset('public/assets/images/recipent.png')}}" />
-                    <a href="#" class="">
-                        <img class="delete-recipent" src="{{ asset('public/assets/images/delete.svg')}}" />
-                    </a>
-                    <p class="cl-white sel-text mt-3">Susan D.</p>
-
-                </div>
-                <div class="col-lg-2 text-center col-4 position-relative">
-                    <img class="recipent-img" src="{{ asset('public/assets/images/recipent.png')}}" />
-                    <a href="#" class="">
-                        <img class="delete-recipent" src="{{ asset('public/assets/images/delete.svg')}}" />
-                    </a>
-                    <p class="cl-white sel-text mt-3">Susan D.</p>
-
-                </div>
-
-                <div class="col-lg-2 text-center col-4 position-relative">
-                    <img class="recipent-img" src="{{ asset('public/assets/images/recipent.png')}}" />
-                    <a href="#" class="">
-                        <img class="delete-recipent" src="{{ asset('public/assets/images/delete.svg')}}" />
-                    </a>
-                    <p class="cl-white sel-text mt-3">Susan D.</p>
-
-                </div>
+                @endforeach
+                @endif
             </div>
             <div class="row mt-3 mb-2">
                 <div class="col-lg-4"></div>

@@ -5,170 +5,178 @@
     <div class="scroll-div recipent-div">
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
-                <div class="bg-add">
+                <form method="POST" action="{{ route('user.recipents.add-recipent') }}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="bg-add">
 
-                    <div class="row mt-4">
-                        <div class="col-lg-4"></div>
-                        <div class="col-lg-4">
-                            <div class="text-center">
-                                <img src="{{ asset('/public/media/image/default.png') }}" id="output"
-                                    class="image-upload mb-2" style="border-radius: 100%" />
-                                @if($errors->has('image'))
-                                <div class="error">{{ $errors->first('image') }}</div>
-                                @endif
-                                <a class="mt-5 cl-white upload upload-web px-3">
-                                    <label class="icon-upload" for="file">&nbsp;&nbsp;Upload Image</label>
-                                    <input type="file" accept="image/*" name="image" id="file"
-                                        onchange="loadFile(event)" style="display: none;">
-                                </a>
+                        <div class="row mt-4">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-4">
+                                <div class="text-center">
+                                    <img src="{{ asset('/public/media/image/default.png') }}" id="output"
+                                        class="image-upload mb-2" style="border-radius: 100%" />
+                                    @if($errors->has('image'))
+                                    <div class="error">{{ $errors->first('image') }}</div>
+                                    @endif
+                                    <a class="mt-5 cl-white upload upload-web px-3">
+                                        <label class="icon-upload" for="file">&nbsp;&nbsp;Upload Image</label>
+                                        <input type="file" accept="image/*" name="image" id="file"
+                                            onchange="loadFile(event)" style="display: none;">
+                                    </a>
 
 
-                                <script>
-                                var loadFile = function(event) {
-                                    var image = document.getElementById('output');
-                                    image.src = URL.createObjectURL(event.target.files[0]);
-                                };
-                                </script>
+                                    <script>
+                                    var loadFile = function(event) {
+                                        var image = document.getElementById('output');
+                                        image.src = URL.createObjectURL(event.target.files[0]);
+                                    };
+                                    </script>
 
+                                </div>
                             </div>
+                            <div class="col-lg-4"></div>
                         </div>
-                        <div class="col-lg-4"></div>
-                    </div>
 
-                    <div class="row mt-4">
-                        <div class="col-lg-12 mb-4">
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text add-label" id="basic-addon2">Full Name</span>
+                        <div class="row mt-4">
+                            <div class="col-lg-12 mb-4">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text add-label" id="basic-addon2">Full Name</span>
+                                    </div>
+                                    <input type="text" name="name" class="form-control add-input"
+                                        placeholder="Required Field" aria-describedby="basic-addon1" required />
                                 </div>
-                                <input type="text" name="name" class="form-control add-input"
-                                    placeholder="Required Field" aria-describedby="basic-addon1" required />
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text add-label" id="basic-addon2">Last Name</span>
+                                    </div>
+                                    <input type="text" name="last_name" class="form-control add-input"
+                                        placeholder="Required Field" aria-describedby="basic-addon1" required />
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text add-label" id="basic-addon2">EMAIL</span>
+                                    </div>
+                                    <input type="email" name="email" class="form-control add-input"
+                                        placeholder="Required Field" aria-describedby="basic-addon1" required />
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text add-label" id="basic-addon2">PHONE</span>
+                                    </div>
+                                    <input type="text" name="phone" class="form-control add-input" placeholder="Required Field"
+                                        aria-describedby="basic-addon1" />
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text add-label" id="basic-addon2">ADDRESS 1</span>
+                                    </div>
+                                    <input type="text" name="address" class="form-control add-input"
+                                        placeholder="Required Field" aria-describedby="basic-addon1" required />
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text add-label" id="basic-addon2">ADDRESS 2</span>
+                                    </div>
+                                    <input type="text" name="address_2" class="form-control add-input"
+                                        placeholder="Optional" aria-describedby="basic-addon1" required />
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text add-label" id="basic-addon2">Country</span>
+                                    </div>
+                                    <select id="country_id" name="country_id" class="form-control add-input"
+                                        aria-describedby="basic-addon1" onChange="selectCountry()" required />
+                                    <option value="">Select Country</option>
+                                    @if(isset($countries))
+                                    @foreach($countries as $key => $country)
+                                    <option value="{{ $country->id }}">{{ $country->country_name }}</option>
+                                    @endforeach
+                                    @endif
+                                    </select>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text add-label" id="basic-addon2">State /
+                                            Province</span>
+                                    </div>
+                                    <select id="state_province_id" name="state_province_id"
+                                        class="form-control add-input" aria-describedby="basic-addon1"
+                                        onChange="selectProvince()" required />
+                                    <option value="">Select State / Province</option>
+                                    </select>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text add-label" id="basic-addon2">City</span>
+                                    </div>
+                                    <select id="city_id" name="city_id" class="form-control add-input"
+                                        aria-describedby="basic-addon1" required />
+                                    <option value="">Select City</option>
+                                    </select>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text add-label" id="basic-addon2">Zip / Postal
+                                            Code</span>
+                                    </div>
+                                    <input type="text" name="zip_postal_code" class="form-control add-input" placeholder="Required Field"
+                                        aria-describedby="basic-addon1" required />
+                                </div>
+                                <h4 class="text-white">STATUS</h4>
                             </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text add-label" id="basic-addon2">Last Name</span>
+                            <div class="row">
+                                @if(isset($contact_status))
+                                @foreach($contact_status as $key => $contact)
+                                @php $id_name = 'contact_' . ++$key; @endphp
+                                <div class="col-lg-4 col-6">
+                                    <label
+                                        class="container-check label-add cl-white">{{ strtoupper($contact->contact_title) }}
+                                        <input type="checkbox" class="contact-status" id="{{ $id_name }}"
+                                            name="contact_status_id" value="{{ $contact->id }}"
+                                            onclick="selectContact(this)" />
+                                        <span class="checkmark add-check"></span>
+                                    </label>
                                 </div>
-                                <input type="text" name="last_name" class="form-control add-input"
-                                    placeholder="Required Field" aria-describedby="basic-addon1" required />
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text add-label" id="basic-addon2">EMAIL</span>
-                                </div>
-                                <input type="email" name="email" class="form-control add-input"
-                                    placeholder="Required Field" aria-describedby="basic-addon1" required />
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text add-label" id="basic-addon2">PHONE</span>
-                                </div>
-                                <input type="text" class="form-control add-input" placeholder="Required Field"
-                                    aria-describedby="basic-addon1" />
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text add-label" id="basic-addon2">ADDRESS 1</span>
-                                </div>
-                                <input type="text" name="address" class="form-control add-input"
-                                    placeholder="Required Field" aria-describedby="basic-addon1" required />
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text add-label" id="basic-addon2">ADDRESS 2</span>
-                                </div>
-                                <input type="text" name="address_2" class="form-control add-input"
-                                    placeholder="Optional" aria-describedby="basic-addon1" required />
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text add-label" id="basic-addon2">Country</span>
-                                </div>
-                                <select id="country_id" name="country_id" class="form-control add-input"
-                                    aria-describedby="basic-addon1" onChange="selectCountry()" required />
-                                <option value="">Select Country</option>
-                                @if(isset($countries))
-                                @foreach($countries as $key => $country)
-                                <option value="{{ $country->id }}">{{ $country->country_name }}</option>
                                 @endforeach
                                 @endif
-                                </select>
                             </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text add-label" id="basic-addon2">State / Province</span>
+                            <h4 class="text-white mt-3 mb-3">EXISTING GROUP</h4>
+                            <div class="row" id="user_group">
+                                @if(isset($groups))
+                                @foreach($groups as $key => $group)
+                                @php $id_name = 'group_' . ++$key; @endphp
+                                <div class="col-lg-4 col-4">
+                                    <label
+                                        class="container-check label-add cl-white">{{ strtoupper($group->group_title) }}
+                                        <input type="checkbox" class="user-group" id="{{ $id_name }}" name="group_id"
+                                            value="{{ $group->id }}" onclick="selectGroup(this)" />
+                                        <span class="checkmark add-check"></span>
+                                    </label>
                                 </div>
-                                <select id="state_province_id" name="state_province_id" class="form-control add-input"
-                                    aria-describedby="basic-addon1" onChange="selectProvince()" required />
-                                <option value="">Select State / Province</option>
-                                </select>
+                                @endforeach
+                                @endif
                             </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text add-label" id="basic-addon2">City</span>
-                                </div>
-                                <select id="city_id" name="city_id" class="form-control add-input"
-                                    aria-describedby="basic-addon1" required />
-                                <option value="">Select City</option>
-                                </select>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text add-label" id="basic-addon2">Zip / Postal Code</span>
-                                </div>
-                                <input type="text" class="form-control add-input" placeholder="Required Field"
-                                    aria-describedby="basic-addon1" />
-                            </div>
-                            <h4 class="text-white">STATUS</h4>
-                        </div>
-                        <div class="row">
-                            @if(isset($contact_status))
-                            @foreach($contact_status as $key => $contact)
-                            @php $id_name = 'contact_' . ++$key; @endphp
-                            <div class="col-lg-4 col-6">
-                                <label
-                                    class="container-check label-add cl-white">{{ strtoupper($contact->contact_title) }}
-                                    <input type="checkbox" class="contact-status" id="{{ $id_name }}"
-                                        name="contact_status_id" value="{{ $contact->id }}"
-                                        onclick="selectContact(this)" />
-                                    <span class="checkmark add-check"></span>
-                                </label>
-                            </div>
-                            @endforeach
-                            @endif
-                        </div>
-                        <h4 class="text-white mt-3 mb-3">EXISTING GROUP</h4>
-                        @if(isset($groups))
-                        @foreach($groups as $key => $group)
-                        @php $id_name = 'group_' . ++$key; @endphp
-                        <div class="col-lg-4 col-4">
-                            <label class="container-check label-add cl-white">{{ strtoupper($group->group_title) }}
-                                <input type="checkbox" class="user-group" id="{{ $id_name }}" name="group_id"
-                                    value="{{ $group->id }}" onclick="selectGroup(this)" />
-                                <span class="checkmark add-check"></span>
-                            </label>
-                        </div>
-                        @endforeach
-                        @endif
 
-                        <div class="input-group mb-3">
-                            <div class="input-group-append">
-                                <span class="input-group-text add-label" id="basic-addon2">GROUP</span>
-                            </div>
-                            <input type="text" class="form-control add-input"
-                                placeholder="Dropdowm menu w/ custom field" aria-describedby="basic-addon1" />
-                            <button data-bs-toggle="modal" data-bs-target="#confirmModal" class="recipent-add-btn
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text add-label" id="basic-addon2">GROUP</span>
+                                </div>
+                                <input type="text" id="group_title" name="group_title" class="form-control add-input"
+                                    placeholder="Dropdowm menu w/ custom field" aria-describedby="basic-addon1" />
+                                <span data-bs-toggle="modal" data-bs-target="#confirmModal" class="recipent-add-btn
                           btn 
                           bg-primary  
                           schedule-div
                         ">
-                                <span class="schedule">ADD</span>
-                            </button>
-                        </div>
+                                    <span class="schedule" onclick="addGroup()">ADD</span>
+                                </span>
+                            </div>
 
-                    </div>
-                    <div class="row padding-add padd-bottom">
-                        <div class="col-lg-12 text-center mt-4 mb-4">
-                            <button data-bs-toggle="modal" data-bs-target="#confirmModal" class="recipent-mob-btn
+                        </div>
+                        <div class="row padding-add padd-bottom">
+                            <div class="col-lg-12 text-center mt-4 mb-4">
+                                <button type="submit" data-bs-toggle="modal" data-bs-target="#confirmModal" class="recipent-mob-btn
                             btn
                             w-100
                             bg-primary 
@@ -178,13 +186,14 @@
                             mt-3
                             schedule-div
                           ">
-                                <span class="schedule mt-3">ADD RECIPENT</span>
-                            </button>
+                                    <span class="schedule mt-3">ADD RECIPENT</span>
+                                </button>
+
+                            </div>
 
                         </div>
-
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -268,5 +277,30 @@ function selectGroup(current) {
         inputs[i].checked = false;
     }
     current.checked = true;
+}
+
+function addGroup() {
+    var user_input = document.getElementById('group_title');
+    // var option = select.options[select.selectedIndex];
+    var group_title = user_input.value;
+
+    $.ajax({
+        url: 'add-group/' + group_title,
+        type: 'get',
+        success: function(response) {
+            if (response != null) {
+                user_input.value = '';
+                var id = response.id;
+                var group_title = response.group_title;
+                var group_id = 'new_group_' + id;
+                var new_group =
+                    '<div class="col-lg-4 col-4"><label class="container-check label-add cl-white">' +
+                    group_title + '<input type="checkbox" class="user-group" id="' + group_id +
+                    '" name="group_id" value="' + id +
+                    '" onclick="selectGroup(this)" /><span class="checkmark add-check"></span></label></div>';
+                $("#user_group").append(new_group);
+            }
+        }
+    });
 }
 </script>
