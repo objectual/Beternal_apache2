@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -199,6 +197,19 @@ class UserController extends Controller
         $check_email =  User::where('email', $request->email)->get(['id', 'email']);
 
         if ($check_email->isEmpty()) {
+            $request->validate([
+                'name' => ['required', 'string','min:3', 'max:255'],
+                'last_name' => ['required', 'string','min:3', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'phone' => ['required','digits_between:5,14'],
+                'address' => ['required', 'string','min:5', 'max:255'],
+                'image' => 'image|mimes:jpeg,png,jpg,svg,bmp',
+                'country_id' => ['required'],
+                'state_province_id' => ['required'],
+                'city_id' => ['required'],
+                'zip_postal_code' => ['required'],
+            ]);
+            
             if (request()->file('image')) {
                 $image = request()->file('image');
                 $image_new = time() . $image->getClientOriginalName();

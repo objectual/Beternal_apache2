@@ -79,7 +79,7 @@
                                         <span class="input-group-text add-label" id="basic-addon2">ADDRESS 2</span>
                                     </div>
                                     <input type="text" name="address_2" class="form-control add-input"
-                                        placeholder="Optional" aria-describedby="basic-addon1" required />
+                                        placeholder="Optional" aria-describedby="basic-addon1" />
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
@@ -229,6 +229,13 @@ function selectCountry() {
                     $("#state_province_id").append(o);
                 }
             }
+            else
+            {
+                var default_province = new Option("Select State / Province", "");
+                var default_city = new Option("Select City", "");
+                $("#state_province_id").append(default_province);
+                $("#city_id").append(default_city);
+            }
         }
     });
 }
@@ -271,7 +278,6 @@ function selectContact(current) {
 }
 
 function selectGroup(current) {
-    alert(current.id)
     var inputs = document.querySelectorAll('.user-group');
     for (var i = 0; i < inputs.length; i++) {
         inputs[i].checked = false;
