@@ -23,7 +23,7 @@ use App\Http\Controllers\user\MediaController;
 
 Route::get('/', function () {
     // echo 'test';exit;
-    return view('frontend.home')->name('home');
+    return view('frontend.home');
 });
 
 Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
