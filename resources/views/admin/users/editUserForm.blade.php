@@ -95,10 +95,13 @@
                   <div class="form-group col-lg-6">
                     <label for="status">User Role</label>
                     <select name="role_id" class="form-control select2" style="width: 100%;">
-                      <option value="{{ $user[0]->role_id }}" selected>{{ $user[0]->role_name }}</option>
                       @if(isset($user_roles))
                       @foreach($user_roles as $key => $role)
+                      @if($user[0]->role_id == $role->id)
+                      <option value="{{ $role->id }}" selected>{{ $role->role_name }}</option>
+                      @else
                       <option value="{{ $role->id }}">{{ $role->role_name }}</option>
+                      @endif
                       @endforeach
                       @endif
                     </select>

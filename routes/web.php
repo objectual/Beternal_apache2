@@ -8,6 +8,7 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\admin\UserRoleController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\user\MediaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,7 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     // echo 'test';exit;
-    return view('frontend.home');
+    return view('frontend.home')->name('home');
 });
 
 Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
@@ -47,6 +48,19 @@ Route::middleware('auth')->group(function () {
         Route::get('/add-group/{group_title}', [UserController::class, 'addGroup']);
         // Route::get('show/{id}',[UserController::class,'show'])->name('admin.users.show');
         // Route::post('update',[UserController::class,'store'])->name('admin.users.update');
+    });
+    Route::group(['prefix' => 'medias'], function () {
+        Route::get('/',[MediaController::class,'media'])->name('user.medias');
+        Route::get('capture-video',[MediaController::class,'captureVideo'])->name('user.medias.capture-video');
+        Route::get('capture-audio',[MediaController::class,'captureAudio'])->name('user.medias.capture-audio');
+        Route::get('capture-image',[MediaController::class,'captureImage'])->name('user.medias.capture-image');
+        Route::get('my-media',[MediaController::class,'myMedia'])->name('user.medias.my-media');
+    });
+    Route::group(['prefix' => 'legacy'], function () {
+        Route::get('/',[MediaController::class,'legacy'])->name('user.legacy');
+    });
+    Route::group(['prefix' => 'schedule-media'], function () {
+        Route::get('/',[MediaController::class,'scheduleMedia'])->name('user.schedule-media');
     });
 });
 Route::middleware('admin')->prefix('admin')->group(function () {
