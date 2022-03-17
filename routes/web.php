@@ -96,3 +96,7 @@ Route::middleware('admin')->prefix('admin')->group(function () {
         Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
     });
 });
+
+Route::get('/test', function() {
+    dd('working');
+});
