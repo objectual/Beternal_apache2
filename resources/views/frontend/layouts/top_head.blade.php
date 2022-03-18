@@ -31,7 +31,7 @@
                         <hr class="dropdown-divider"/>
                     </li>
                     <li>
-                        <form method="POST" action="{{ route('logout') }}">
+                        <form method="POST" class="padding-li" action="{{ route('logout') }}">
                             @csrf                        
                             <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
