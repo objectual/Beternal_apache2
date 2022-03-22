@@ -2898,7 +2898,11 @@ hr {
 }
 
 .main-footer ul li {
-  padding: 5px 0px;
+  padding: 0px 0px;
+}
+
+.padding-li {
+  padding: 0.25rem 1rem;
 }
 
 .success-bg {
@@ -3191,4 +3195,10 @@ body {
   background-color: rgb(255, 255, 255, 0.5);
   padding: 5% 0px;
   margin-bottom: 100px !important;
+}
+
+
+.landing_video {
+  height: 430px;
+  width: 100%;
 }
