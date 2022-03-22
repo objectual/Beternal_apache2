@@ -43,10 +43,17 @@
                     <div class="form-group">
                       <label for="country">Country</label>
                       <select id="country_id" name="country_id" class="form-control select2" style="width: 100%;" onChange="selectCountry()" required>
-                        <option value="{{ $city[0]->country_id }}" selected>{{ $city[0]->country_name }}</option>
                         @if(isset($countries))
                         @foreach($countries as $key => $country)
-                        <option value="{{ $country->id }}">{{ $country->country_name }}</option>
+                        @if($country->id == $city[0]->country_id)
+                        <option value="{{ $country->id }}" selected>
+                          {{ $country->country_name }}
+                        </option>
+                        @else
+                        <option value="{{ $country->id }}">
+                          {{ $country->country_name }}
+                        </option>
+                        @endif
                         @endforeach
                         @endif
                       </select>
@@ -54,10 +61,17 @@
                     <div class="form-group">
                       <label for="state_province">State / Province</label>
                       <select name="state_province_id" id="state_province_id" class="form-control select2" style="width: 100%;" required>
-                        <option value="{{ $city[0]->state_province_id }}" selected>{{ $city[0]->name }}</option>
                         @if(isset($provinces))
                         @foreach($provinces as $key => $province)
-                        <option value="{{ $province->id }}">{{ $province->name }}</option>
+                        @if($province->id == $city[0]->state_province_id)
+                        <option value="{{ $province->id }}" selected>
+                          {{ $province->name }}
+                        </option>
+                        @else
+                        <option value="{{ $province->id }}">
+                          {{ $province->name }}
+                        </option>
+                        @endif
                         @endforeach
                         @endif
                       </select>

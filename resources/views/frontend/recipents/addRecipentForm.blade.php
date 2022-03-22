@@ -65,7 +65,7 @@
                                         <span class="input-group-text add-label" id="basic-addon2">PHONE</span>
                                     </div>
                                     <input type="text" name="phone" class="form-control add-input" placeholder="Required Field"
-                                        aria-describedby="basic-addon1" />
+                                        aria-describedby="basic-addon1" required />
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">

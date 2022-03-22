@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\UserRoleController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\user\MediaController;
+use App\Http\Controllers\user\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,7 @@ Route::get('/', function () {
 
 Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
 Route::get('/cities/{id}', [CityController::class, 'getCities']);
+Route::get('/filter-recipent/{contact_id}', [UserController::class, 'filterRecipent']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -61,6 +63,9 @@ Route::middleware('auth')->group(function () {
     });
     Route::group(['prefix' => 'schedule-media'], function () {
         Route::get('/',[MediaController::class,'scheduleMedia'])->name('user.schedule-media');
+    });
+    Route::group(['prefix' => 'payment'], function () {
+        Route::get('/',[PaymentController::class,'payment'])->name('user.payment');
     });
 });
 Route::middleware('admin')->prefix('admin')->group(function () {
