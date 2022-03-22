@@ -7,3 +7,48 @@
 .dataTables_filter{
     float: right;
 }
+
+
+.menu-dash {
+    border: none;
+    background: none;
+  }
+  
+  
+  .menu-dash img {
+      height: 20px;
+      width: 20px;
+      margin-right: 10px;
+  }
+
+  .open-men {
+    left: 250px !important;
+    width: 100%;
+  }
+
+
+  .menu-close img {
+    height: 35px;
+    width: 35px;
+  }
+
+  .menu-close {
+    background: none;
+    border: none;
+  }
+
+  @media screen and (min-width: 992px) and (max-width: 5000px) { 
+    .menu-close {
+        display:none;
+    }
+    .menu-dash {
+        display:none;
+    }
+   }
+
+
+  @media screen and (min-width: 280px) and (max-width: 991px) { 
+    .nav-sidebar .nav-item>.nav-link {
+        width: 100%;
+    }
+}

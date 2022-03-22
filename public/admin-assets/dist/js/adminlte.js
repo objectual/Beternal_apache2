@@ -2960,3 +2960,12 @@
 
 })));
 //# sourceMappingURL=adminlte.js.map
+
+$( document ).ready(function() {
+  $(".menu-dash").click(function(){
+    $(".main-sidebar").addClass("open-men");
+  });
+  $(".menu-close").click(function(){
+    $(".main-sidebar").removeClass("open-men");
+  });
+});
