@@ -118,6 +118,14 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="col-lg-12 mt-2">
+                            <div class="input-group mb-3">
+                                <input type="checkbox" onclick="showPassword()" style="margin-top: 20; margin-right: 5;">
+                                <div class="input-group-append">
+                                    <span class="input-group-text input-back account-label" id="basic-addon2">Show Password</span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-6 mt-2">
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
@@ -195,6 +203,21 @@
 @endsection
 
 <script type="text/javascript">
+    function showPassword() {
+        var pass = document.getElementById("password");
+        var confirm_pass = document.getElementById("password_confirmation");
+        if (pass.type === "password") {
+            pass.type = "text";
+        } else {
+            pass.type = "password";
+        }
+        if (confirm_pass.type === "password") {
+            confirm_pass.type = "text";
+        } else {
+            confirm_pass.type = "password";
+        }
+    }
+
     function selectCountry() {
         var select = document.getElementById('country_id');
         var option = select.options[select.selectedIndex];

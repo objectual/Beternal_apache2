@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules;
 use App\Models\User;
 use App\Models\Country;
 use App\Models\StateProvince;
@@ -158,10 +160,17 @@ class UserController extends Controller
 
     public function allRecipents()
     {
-        $user_recipents =  UserRecipient::where('user_id', Auth::user()->id)
+        $id = Auth::user()->id;
+        $contact_status =  ContactStatus::all();
+        $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
+        $user_contacts =  UserContact::where('user_id', $id)->get(['id', 'contact_id']);
+
+        $user_recipents =  UserRecipient::where('user_id', $id)
         ->join('users', 'user_recipients.recipient_id', '=', 'users.id')
-        ->get(['user_recipients.recipient_id', 'users.name', 'users.last_name', 'users.profile_image']);
-        return view('frontend.recipents.allRecipents', compact('user_recipents'));
+        ->leftjoin('user_groups', 'user_recipients.recipient_id', '=', 'user_groups.recipient_id')
+        ->get(['user_recipients.recipient_id', 'users.name', 'users.last_name', 'users.profile_image', 'user_groups.recipient_id as group_recipient_id', 'user_groups.group_id']);
+        
+        return view('frontend.recipents.allRecipents', compact('contact_status', 'groups', 'user_recipents'));
     }
 
     public function addForm()
@@ -169,10 +178,8 @@ class UserController extends Controller
         $id = Auth::user()->id;
         $countries =  Country::all();
         $contact_status =  ContactStatus::all();
-        $contacts = UserContact::where('user_id', $id)
-            ->get(['contact_status_id']);
-        $groups =  Group::where('user_id', $id)
-            ->get(['id', 'group_title']);
+        $contacts = UserContact::where('user_id', $id)->get(['contact_status_id']);
+        $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
         
         return view('frontend.recipents.addRecipentForm', compact(
             'countries',
@@ -278,5 +285,14 @@ class UserController extends Controller
         }
 
         return redirect()->route('user.recipents');
+    }
+
+    public function filterRecipent($contact_id)
+    {
+        $selected_contact = UserContact::where(['contact_status_id' => $contact_id, 'user_id' => Auth::user()->id])
+        ->join('users', 'user_contacts.contact_id', '=', 'users.id')
+        ->leftjoin('user_groups', 'users.id', '=', 'user_groups.recipient_id')
+        ->get(['user_contacts.contact_id', 'users.name', 'users.last_name', 'users.profile_image', 'user_groups.recipient_id', 'user_groups.group_id']);
+        return $selected_contact;
     }
 }

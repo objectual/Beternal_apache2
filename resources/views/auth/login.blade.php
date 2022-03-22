@@ -29,7 +29,10 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1"><i class="icon-lock"></i></span>
                                 </div>
-                                <input type="password" id="password" type="password" name="password" required autocomplete="current-password" class="form-control survey-placeholder" placeholder="Password" aria-label="Password"  aria-describedby="basic-addon1" /> 
+                                <input type="password" id="password" type="password" name="password" required autocomplete="current-password" class="form-control survey-placeholder" placeholder="Password" aria-label="Password"  aria-describedby="basic-addon1" />
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1" onclick="showPassword()"><i class="icon-lock"></i></span>
+                                </div> 
                                 @if($errors->has('password'))
                                         <div class="error">{{ $errors->first('password') }}</div>
                                 @endif
@@ -67,3 +70,14 @@
         </div>
     </div>
 @endsection
+
+<script type="text/javascript">
+    function showPassword() {
+        var pass = document.getElementById("password");
+        if (pass.type === "password") {
+            pass.type = "text";
+        } else {
+            pass.type = "password";
+        }
+    }
+</script>

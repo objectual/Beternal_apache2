@@ -21,7 +21,7 @@
                     <p class="head1">{{ Auth::user()->name }} {{ Auth::user()->last_name }}</p>
                     <p class="head2">{{ Auth::user()->email }}</p>
                     <p class="mb-2 head3">{{ Auth::user()->phone }}</p>
-                    <a href="{{ route('user.profile.edit') }}" class="btn btn-primary arial-bold btn-upgrade">
+                    <a href="{{ route('user.payment') }}" class="btn btn-primary arial-bold btn-upgrade">
                     Upgrades
                     </a>
                 </div>

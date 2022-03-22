@@ -61,9 +61,11 @@
                                 <td>{{ ucfirst($user->role->role_name) }}</td>
                                 <td>{{ ucfirst($user->title) }}</td>
                                 <td>
+                                  @if(Auth::user()->id != $user->id)
                                   <a href="{{ url('admin/users/show/'.$user->id) }}">
                                     <i class="fas fa-edit"></i>
                                   </a>
+                                  @endif
                                   <a href="#">
                                     X
                                   </a>
