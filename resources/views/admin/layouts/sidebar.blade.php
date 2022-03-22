@@ -4,9 +4,14 @@ use Illuminate\Support\Facades\Route;
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
+    <div class="d-flex">
     <a href="{{ url('/') }}" class="brand-link">
       <img src="{{ asset('/public/assets/images/logo-white.png')}}" alt="AdminLTE Logo" class="main-admin-logo  img-circle elevation-3" style="opacity: .8">
     </a>
+    <button class="menu-close"><img src="{{ asset('/public/assets/images/cross.png') }}" /></button>
+    </div>
+
+
 
     <!-- Sidebar -->
     <div class="sidebar">

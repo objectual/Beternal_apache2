@@ -31,7 +31,7 @@
                                 </div>
                                 <input type="password" id="password" type="password" name="password" required autocomplete="current-password" class="form-control survey-placeholder" placeholder="Password" aria-label="Password"  aria-describedby="basic-addon1" />
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1" onclick="showPassword()"><i class="icon-lock"></i></span>
+                                    <span class="input-group-text eye-pass" id="basic-addon1" onclick="showPassword()"><img style="height: 20px; width: 20px;" src="{{ asset('/public/assets/images/eye.png') }}" /></span>
                                 </div> 
                                 @if($errors->has('password'))
                                         <div class="error">{{ $errors->first('password') }}</div>

@@ -164,7 +164,7 @@
                                 </div>
                                 <input type="text" id="group_title" name="group_title" class="form-control add-input"
                                     placeholder="Dropdowm menu w/ custom field" aria-describedby="basic-addon1" />
-                                <span data-bs-toggle="modal" data-bs-target="#confirmModal" class="recipent-add-btn
+                                <span  style="padding-top: 20px;" data-bs-toggle="modal" data-bs-target="#confirmModal" class="recipent-add-btn
                           btn 
                           bg-primary  
                           schedule-div
