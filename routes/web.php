@@ -10,6 +10,7 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\user\MediaController;
 use App\Http\Controllers\user\PaymentController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,16 @@ Route::get('/', function () {
 Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
 Route::get('/cities/{id}', [CityController::class, 'getCities']);
 Route::get('/filter-recipent/{contact_id}', [UserController::class, 'filterRecipent']);
+
+// start footer routes
+Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('contact-us');
+Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('about-us');
+Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
+Route::get('/our-team', [HomeController::class, 'ourTeam'])->name('our-team');
+Route::get('/our-solution', [HomeController::class, 'ourSolution'])->name('our-solution');
+Route::get('/term-and-conditions', [HomeController::class, 'termAndConditions'])->name('term-and-conditions');
+Route::get('/help-and-support', [HomeController::class, 'helpAndSupport'])->name('help-and-support');
+// end footer routes
 
 Route::get('/dashboard', function () {
     return view('dashboard');
