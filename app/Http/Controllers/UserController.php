@@ -180,11 +180,20 @@ class UserController extends Controller
         $contact_status =  ContactStatus::all();
         $contacts = UserContact::where('user_id', $id)->get(['contact_status_id']);
         $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
+        $user_contact = array();
+        if(!$contacts->isEmpty())
+        {
+            foreach($contacts as $contact)
+            {
+                array_push($user_contact, $contact->contact_status_id); 
+            }
+        }
         
         return view('frontend.recipents.addRecipentForm', compact(
             'countries',
             'contact_status',
-            'groups'
+            'groups',
+            'user_contact'
         ));
     }
 

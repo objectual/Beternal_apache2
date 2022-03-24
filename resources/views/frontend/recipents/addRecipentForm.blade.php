@@ -129,6 +129,7 @@
                                 @if(isset($contact_status))
                                 @foreach($contact_status as $key => $contact)
                                 @php $id_name = 'contact_' . ++$key; @endphp
+                                @if(!(in_array($contact->id, $user_contact)))
                                 <div class="col-lg-4 col-6">
                                     <label
                                         class="container-check label-add cl-white">{{ strtoupper($contact->contact_title) }}
@@ -138,6 +139,7 @@
                                         <span class="checkmark add-check"></span>
                                     </label>
                                 </div>
+                                @endif
                                 @endforeach
                                 @endif
                             </div>
