@@ -42,7 +42,7 @@
                         <div class="col-lg-6 mt-2">
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
-                                    <span class="input-group-text input-back account-label" id="basic-addon2">Full Name</span>
+                                    <span class="input-group-text input-back account-label" id="basic-addon2">First Name</span>
                                 </div>
                                 <input id="name" name="name" type="text" value="{{ old('name') }}" class="form-control text-end" aria-describedby="basic-addon1" required />
                                 @if($errors->has('name'))
@@ -103,7 +103,7 @@
                                 </div>
                                 <input id="password" name="password" type="password" value="{{ old('password') }}" class="form-control text-end" old autocomplete="new-password" aria-describedby="basic-addon1" required />
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text eye-pass-reg" id="basic-addon1"><img style="height: 20px; width: 20px;" src="{{ asset('/public/assets/images/eye.png') }}" /></span>
+                                    <span class="input-group-text eye-pass-reg" id="basic-addon1"><img style="height: 20px; width: 20px;" src="{{ asset('/public/assets/images/eye.png') }}" onclick="showPassword()" /></span>
                                 </div> 
                                 @if($errors->has('password'))
                                 <div class="error">{{ $errors->first('password') }}</div>
@@ -117,19 +117,11 @@
                                 </div>
                                 <input id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}" type="password" class="form-control text-end" autocomplete="new-password" aria-describedby="basic-addon1" required />
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text eye-pass-reg" id="basic-addon1"><img style="height: 20px; width: 20px;" src="{{ asset('/public/assets/images/eye.png') }}" /></span>
+                                    <span class="input-group-text eye-pass-reg" id="basic-addon1"><img style="height: 20px; width: 20px;" src="{{ asset('/public/assets/images/eye.png') }}" onclick="showConfirmPassword()" /></span>
                                 </div> 
                                 @if($errors->has('password_confirmation'))
                                 <div class="error">{{ $errors->first('password_confirmation') }}</div>
                                 @endif
-                            </div>
-                        </div>
-                        <div class="col-lg-12 mt-2">
-                            <div class="input-group mb-3">
-                                <input type="checkbox" onclick="showPassword()" style="margin-top: 20; margin-right: 5;">
-                                <div class="input-group-append">
-                                    <span class="input-group-text input-back account-label" id="basic-addon2">Show Password</span>
-                                </div>
                             </div>
                         </div>
                         <div class="col-lg-6 mt-2">
@@ -211,12 +203,15 @@
 <script type="text/javascript">
     function showPassword() {
         var pass = document.getElementById("password");
-        var confirm_pass = document.getElementById("password_confirmation");
         if (pass.type === "password") {
             pass.type = "text";
         } else {
             pass.type = "password";
         }
+    }
+
+    function showConfirmPassword() {
+        var confirm_pass = document.getElementById("password_confirmation");
         if (confirm_pass.type === "password") {
             confirm_pass.type = "text";
         } else {

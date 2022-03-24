@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-md-2 mb-2 padding-right-mobile-rec">
                         <select class="form-select padding-custom" id="user_group" required>
-                            <option selected disabled value="">Group</option>
+                            <option selected value="">Group</option>
                             @if(isset($groups))
                             @foreach($groups as $key => $group)
                             <option value="{{ $group->id }}">{{ $group->group_title }}</option>
@@ -35,7 +35,7 @@
                     </div>
                     <div class="col-md-2 mb-2 padding-right-mobile-rec">
                         <select class="form-select padding-custom" id="user_contact" required>
-                            <option selected disabled value="">Status</option>
+                            <option selected value="">Status</option>
                             @if(isset($contact_status))
                             @foreach($contact_status as $key => $contact)
                             <option value="{{ $contact->id }}">{{ $contact->contact_title }}</option>
@@ -177,6 +177,22 @@
                         var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><img class="recipent-img" src="' + display_image + '" /><p class="cl-white sel-text mt-3">' + name + ' ' + last_name + '</p></div>';
                         $("#show_recipents").append(recipent);
                     }
+                }
+            }
+        }
+        else if (group_id == '') {
+            $('#show_recipents').empty();
+            if (len > 0) {
+                $("#show_recipents").append(add_new);
+                for (var i = 0; i < len; i++) {
+                    
+                        var name = obj[i].name;
+                        var last_name = obj[i].last_name;
+                        var profile_image = obj[i].profile_image;
+                        var display_image = profile_image.substring(1);
+                        var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><img class="recipent-img" src="' + display_image + '" /><p class="cl-white sel-text mt-3">' + name + ' ' + last_name + '</p></div>';
+                        $("#show_recipents").append(recipent);
+                    
                 }
             }
         }
