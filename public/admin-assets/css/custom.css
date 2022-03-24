@@ -52,3 +52,8 @@
         width: 100%;
     }
 }
+
+.os-viewport-native-scrollbars-invisible.os-viewport {
+  height: inherit; 
+      margin-bottom: 50px;
+  }
