@@ -485,7 +485,7 @@ body {
     background: #fff;
     border: none;
     border-radius: 0px;
-    padding: 19px;
+    padding: 19px 7px;
 }
 
 .form-control {
@@ -3230,3 +3230,6 @@ body {
     width: 135px;
 }
 
+.form-control {
+    font-size: 0.9rem;
+}
