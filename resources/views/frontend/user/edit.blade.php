@@ -51,7 +51,7 @@
                         <div class="col-lg-6 mt-2">
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
-                                    <span class="input-group-text input-back account-label" id="basic-addon2">Full Name</span>
+                                    <span class="input-group-text input-back account-label" id="basic-addon2">First Name</span>
                                 </div>
                                 <input id="name" name="name" type="text" value="{{ old('name') ?? $user[0]->name }}" class="form-control text-end" aria-describedby="basic-addon1" required/>
                                 @if($errors->has('name'))

@@ -53,11 +53,11 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string','min:3', 'max:255'],
-            'last_name' => ['required', 'string','min:3', 'max:255'],
+            'name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
+            'last_name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => ['required','digits_between:5,14'],
-            'address' => ['required', 'string','min:5', 'max:255'],
+            'phone' => ['required', 'digits_between:5,14'],
+            'address' => ['required', 'string', 'min:5', 'max:255'],
             'image' => 'image|mimes:jpeg,png,jpg,svg,bmp',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'country_id' => ['required'],

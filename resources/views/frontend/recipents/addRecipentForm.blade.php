@@ -41,37 +41,37 @@
                             <div class="col-lg-12 mb-4">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text add-label" id="basic-addon2">Full Name</span>
+                                        <span class="input-group-text add-label" id="basic-addon2">First Name</span>
                                     </div>
-                                    <input type="text" name="name" class="form-control add-input"
+                                    <input type="text" name="name" value="{{ old('name') }}" class="form-control add-input"
                                         placeholder="Required Field" aria-describedby="basic-addon1" required />
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
                                         <span class="input-group-text add-label" id="basic-addon2">Last Name</span>
                                     </div>
-                                    <input type="text" name="last_name" class="form-control add-input"
+                                    <input type="text" name="last_name" value="{{ old('last_name') }}" class="form-control add-input"
                                         placeholder="Required Field" aria-describedby="basic-addon1" required />
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
                                         <span class="input-group-text add-label" id="basic-addon2">EMAIL</span>
                                     </div>
-                                    <input type="email" name="email" class="form-control add-input"
+                                    <input type="email" name="email" value="{{ old('email') }}" class="form-control add-input"
                                         placeholder="Required Field" aria-describedby="basic-addon1" required />
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
                                         <span class="input-group-text add-label" id="basic-addon2">PHONE</span>
                                     </div>
-                                    <input type="text" name="phone" class="form-control add-input" placeholder="Required Field"
+                                    <input type="text" name="phone" value="{{ old('phone') }}" class="form-control add-input" placeholder="Required Field"
                                         aria-describedby="basic-addon1" required />
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
                                         <span class="input-group-text add-label" id="basic-addon2">ADDRESS 1</span>
                                     </div>
-                                    <input type="text" name="address" class="form-control add-input"
+                                    <input type="text" name="address" value="{{ old('address') }}" class="form-control add-input"
                                         placeholder="Required Field" aria-describedby="basic-addon1" required />
                                 </div>
                                 <div class="input-group mb-3">
@@ -120,7 +120,7 @@
                                         <span class="input-group-text add-label" id="basic-addon2">Zip / Postal
                                             Code</span>
                                     </div>
-                                    <input type="text" name="zip_postal_code" class="form-control add-input" placeholder="Required Field"
+                                    <input type="text" name="zip_postal_code" value="{{ old('zip_postal_code') }}" class="form-control add-input" placeholder="Required Field"
                                         aria-describedby="basic-addon1" required />
                                 </div>
                                 <h4 class="text-white">STATUS</h4>

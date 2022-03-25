@@ -88,8 +88,8 @@ class UserController extends Controller
     {
         if ($request->password == null) {
             $request->validate([
-                'name' => ['required', 'string', 'min:3', 'max:255'],
-                'last_name' => ['required', 'string', 'min:3', 'max:255'],
+                'name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
+                'last_name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)],
                 // 'email' => Rules::unique('users')->ignore(Auth::user()->id),
                 'phone' => ['required', 'digits_between:5,14'],
@@ -102,8 +102,8 @@ class UserController extends Controller
             ]);
         } else {
             $request->validate([
-                'name' => ['required', 'string', 'min:3', 'max:255'],
-                'last_name' => ['required', 'string', 'min:3', 'max:255'],
+                'name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
+                'last_name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)],
                 'phone' => ['required', 'digits_between:5,14'],
                 'address' => ['required', 'string', 'min:5', 'max:255'],
@@ -155,7 +155,7 @@ class UserController extends Controller
 
         // Auth::login($user);
 
-        return redirect()->route('user.profile.update');
+        return redirect()->route('user.profile');
     }
 
     public function allRecipents()
@@ -214,8 +214,8 @@ class UserController extends Controller
 
         if ($check_email->isEmpty()) {
             $request->validate([
-                'name' => ['required', 'string','min:3', 'max:255'],
-                'last_name' => ['required', 'string','min:3', 'max:255'],
+                'name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
+                'last_name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'phone' => ['required','digits_between:5,14'],
                 'address' => ['required', 'string','min:5', 'max:255'],
