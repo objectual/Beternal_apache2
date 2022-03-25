@@ -24,13 +24,14 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', function () {
-    // echo 'test';exit;
     return view('frontend.home');
 });
 
+// start routes for ajax request
 Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
 Route::get('/cities/{id}', [CityController::class, 'getCities']);
 Route::get('/filter-recipent/{contact_id}', [UserController::class, 'filterRecipent']);
+// end routes for ajax request
 
 // start footer routes
 Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('contact-us');
@@ -43,7 +44,7 @@ Route::get('/help-and-support', [HomeController::class, 'helpAndSupport'])->name
 // end footer routes
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('frontend.dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
@@ -59,8 +60,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
         Route::get('/cities/{id}', [CityController::class, 'getCities']);
         Route::get('/add-group/{group_title}', [UserController::class, 'addGroup']);
-        // Route::get('show/{id}',[UserController::class,'show'])->name('admin.users.show');
-        // Route::post('update',[UserController::class,'store'])->name('admin.users.update');
     });
     Route::group(['prefix' => 'medias'], function () {
         Route::get('/',[MediaController::class,'media'])->name('user.medias');
@@ -79,6 +78,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/',[PaymentController::class,'payment'])->name('user.payment');
     });
 });
+
 Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('dashboard',[AdminDashboardController::class,'index'])->name('admin.dashboard');
     Route::group(['prefix' => 'users'], function () {
@@ -111,8 +111,4 @@ Route::middleware('admin')->prefix('admin')->group(function () {
         Route::get('show/{id}',[CityController::class,'show'])->name('admin.cities.show');
         Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
     });
-});
-
-Route::get('/test', function() {
-    dd('working');
 });
