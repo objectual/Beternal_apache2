@@ -87,8 +87,8 @@ class MediaController extends Controller
 
     public function myMedia()
     {
-        // $videos = Media::where(['type' => 'video', 'user_id' => Auth::user()->id])
-        // ->get(['*']);
+        $videos = Media::where(['type' => 'video', 'user_id' => Auth::user()->id])
+        ->get(['*']);
         return view('frontend.media.myMedia');
     }
 
