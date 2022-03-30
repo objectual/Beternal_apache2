@@ -34,6 +34,7 @@ class MediaController extends Controller
 
     public function uploadVideo(Request $request)
     {
+        dd('working');
         $this->validate($request, [
             'title' => 'required|string|alpha|max:255',
             'description' => 'required|string|alpha|max:255',
@@ -89,7 +90,7 @@ class MediaController extends Controller
     {
         $videos = Media::where(['type' => 'video', 'user_id' => Auth::user()->id])
         ->get(['*']);
-        return view('frontend.media.myMedia');
+        return view('frontend.media.myMedia' , compact('videos'));
     }
 
     public function legacy()

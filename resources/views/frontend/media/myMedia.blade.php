@@ -82,55 +82,18 @@
                 </div>
             </div>
             <div class="row mt-3 px-2">
+                @if(isset($videos))
+                @foreach($videos as $key => $video)
                 <div class="col-lg-2 px-1 col-12">
                     <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
                         <div class="play-bt-exm-one"></div>
                         <span class="ab-img-span">Nina Brethart &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group 2</span></span>
                         <span class="above-img-span">First Contact</span>
-                        <span class="above-img-span">Video 1 <span class="date-time"> 30-11-2021 &nbsp; 3:04pm</span></span>
+                        <span class="above-img-span">{{ $video->title }} <span class="date-time"> 30-11-2021 &nbsp; 3:04pm</span></span>
                     </a>
                 </div>
-                <div class="col-lg-2 px-1 col-12">
-                    <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-4.jpg" data-lightbox="example-set" data-title="Or press the right arrow on your keyboard."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-4.jpg" alt="" />
-                        <div class="play-bt-exm-one"></div>
-                        <span class="ab-img-span">Nina Brethart &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group 2</span></span>
-                        <span class="above-img-span">First Contact</span>
-                        <span class="above-img-span">Video 1 <span class="date-time"> 30-11-2021 &nbsp; 3:04pm</span></span>
-                    </a>
-                </div>
-                <div class="col-lg-2 px-1 col-12">
-                    <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-5.jpg" data-lightbox="example-set" data-title="The next image in the set is preloaded as you're viewing."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-5.jpg" alt="" />
-                        <div class="play-bt-exm-one"></div>
-                        <span class="ab-img-span">Nina Brethart &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group 2</span></span>
-                        <span class="above-img-span">First Contact</span>
-                        <span class="above-img-span">Video 1 <span class="date-time"> 30-11-2021 &nbsp; 3:04pm</span></span>
-                    </a>
-                </div>
-                <div class="col-lg-2 px-1 col-12">
-                    <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
-                        <div class="play-bt-exm-one"></div>
-                        <span class="ab-img-span">Nina Brethart &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group 2</span></span>
-                        <span class="above-img-span">First Contact</span>
-                        <span class="above-img-span">Video 1<span class="date-time"> 30-11-2021 &nbsp; 3:04pm</span></span>
-                    </a>
-                </div>
-                <div class="col-lg-2 px-1 col-12">
-                    <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
-                        <div class="play-bt-exm-one"></div>
-                        <span class="ab-img-span">Nina Brethart &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group 2</span></span>
-                        <span class="above-img-span">First Contact</span>
-                        <span class="above-img-span">Video 1 <span class="date-time"> 30-11-2021 &nbsp; 3:04pm</span></span>
-                    </a>
-                </div>
-                <div class="col-lg-2 px-1 col-12">
-                    <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-4.jpg" data-lightbox="example-set" data-title="Or press the right arrow on your keyboard."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-4.jpg" alt="" />
-                        <div class="play-bt-exm-one"></div>
-                        <span class="ab-img-span">Nina Brethart &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group 2</span></span>
-                        <span class="above-img-span">First Contact</span>
-                        <span class="above-img-span">Video 1 <span class="date-time"> 30-11-2021 &nbsp; 3:04pm</span></span>
-                    </a>
-                </div>
-
+                @endforeach
+                @endif
             </div>
             <h4 class="mt-4 text-white">My Photo</h4>
             <div class="row">
