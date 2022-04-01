@@ -10,6 +10,7 @@ use App\Models\UserRecipient;
 use App\Models\Group;
 use App\Models\ShareMedia;
 use App\Models\ShareMediaGroup;
+use App\Models\Plan;
 use Storage;
 
 class MediaController extends Controller
@@ -22,22 +23,28 @@ class MediaController extends Controller
     public function captureVideo()
     {
         $id = Auth::user()->id;
-
         $user_recipents =  UserRecipient::where('user_id', $id)
         ->join('users', 'user_recipients.recipient_id', '=', 'users.id')
         ->get(['user_recipients.recipient_id', 'users.name', 'users.last_name', 'users.profile_image']);
 
         $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
+        $plan_details =  Plan::where('id', Auth::user()->plan_id)->get(['*']);
 
-        return view('frontend.media.captureVideo', compact('user_recipents', 'groups'));
+        $my_media =  Media::where(['type' => 'video', 'user_id' => $id])
+        ->orWhere(['type' => 'audio', 'user_id' => $id])
+        ->count();
+
+        return view('frontend.media.captureVideo', compact(
+            'user_recipents',
+            'groups',
+            'plan_details',
+            'my_media'
+        ));
     }
 
     public function uploadVideo(Request $request)
     {
-        dd('working');
         $this->validate($request, [
-            'title' => 'required|string|alpha|max:255',
-            'description' => 'required|string|alpha|max:255',
             'file_name' => 'required|file|mimetypes:video/mp4',
         ]);
 
@@ -65,10 +72,14 @@ class MediaController extends Controller
                 }
             }
             if (!(empty($request->group_id))) {
-                $share_video_in_group = new ShareMediaGroup();
-                $share_video_in_group->media_id = $video->id;
-                $share_video_in_group->group_id = $request->group_id;
-                $share_video_in_group->save();
+                if (count($request->group_id) > 0) {
+                    for ($i = 0; $i < count($request->group_id); $i++) {
+                        $share_video_in_group = new ShareMediaGroup();
+                        $share_video_in_group->media_id = $video->id;
+                        $share_video_in_group->group_id = $request->group_id[$i];
+                        $share_video_in_group->save();
+                    }
+                }
             }
             return redirect()->route('user.medias.my-media');
         } else {

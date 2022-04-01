@@ -3,7 +3,7 @@
 @section("content")
 <div class="container-fluid bg-create pb-4 h-auto upgrade-back">
     <div class="scroll-div">
-        <form method="POST" action="{{ route('user.medias.upload-video') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('user.medias.upload-video') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
             @csrf
             <div class="row">
                 <div class="col-lg-3"></div>
@@ -42,12 +42,14 @@
                     </div>
                     <div class="mt-5">
                         <div class="mb-3 w-100">
-                            <label for="exampleInputEmail1" class="form-label text-white">Video Title</label>
-                            <input type="text" name="title" value="{{ old('title') }}" class="form-control capture-form" placeholder="Video Title Here" required>
+                            <label for="video_title" class="form-label text-white">Video Title</label>
+                            <input type="text" id="title" name="title" value="{{ old('title') }}" class="form-control capture-form" placeholder="Video Title Here" required>
+                            <div class="col-12" id="show_title_msg"></div>
                         </div>
                         <div class="mb-3 w-100">
                             <label for="exampleInputPassword1" class="form-label  text-white">Description</label>
-                            <textarea class="form-control capture-form" name="description" placeholder="Description Here" required>{{ old('description') }}</textarea>
+                            <textarea class="form-control capture-form" id="description" name="description" placeholder="Description Here" required>{{ old('description') }}</textarea>
+                            <div class="col-12" id="show_description_msg"></div>
                         </div>
                     </div>
                     <!-- <div class="row m-0 mb-3">
@@ -113,15 +115,6 @@
                         @endforeach
                         @endif
                     </div>
-                    <p class="text-white mt-2">Select Type</p>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="media_type" value="share" required>
-                        <label class="form-check-label text-white" for="group_id">Share Media</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="media_type" value="legacy" required>
-                        <label class="form-check-label text-white" for="group_id">Legacy</label>
-                    </div>
                     <!-- <div class="row pt-4">
                         <div class="col-12 ">
                             <button data-bs-toggle="modal" data-bs-target="#redirectModal" class="btn upg-add-img-btn w-100">Save Your Memory</button>
@@ -134,6 +127,9 @@
                         <div class="col-12 ">
                             <button class="btn upg-add-img-btn w-100">Save Your Memory</button>
                         </div>
+                    </div>
+                    <div class="row pt-4">
+                        <div class="col-12" id="show_msg"></div>
                     </div>
                 </div>
                 <div class="col-lg-3"></div>
@@ -225,7 +221,8 @@
                     }
                 }
             }
-        } else {
+        }
+        else {
             var all_recipient = '<div class="col-lg-2 col-3 rec-images"><img src="' + base_path + '/public/media/image/all-users.png"><p class="cl-white sel-text mt-3"><input class="form-check-input" type="checkbox" id="all_recipient" name="all_recipient" value="all" onclick="selectAllRecipient(this)"> All</p></div>';
             $('#show_recipents').empty();
             $("#show_recipents").append(all_recipient);
@@ -281,7 +278,8 @@
                     }
                 }
             }
-        } else {
+        }
+        else {
             var all_group = '<div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" id="all_group" name="all_group" value="all" onclick="selectAllGroup(this)"><label class="form-check-label text-white" for="group_id">All</label></div>';
             $('#show_groups').empty();
             $("#show_groups").append(all_group);
@@ -299,15 +297,46 @@
 
     function selectAllGroup(current) {
         var inputs = document.querySelectorAll('.user-group');
-        if(current.checked == true) {
+        if (current.checked == true) {
             for (var i = 0; i < inputs.length; i++) {
                 inputs[i].checked = true;
             }
         }
-        if(current.checked == false) {
+        if (current.checked == false) {
             for (var i = 0; i < inputs.length; i++) {
                 inputs[i].checked = false;
             }
+        }
+    }
+
+    function validateForm() {
+        var title = document.getElementById('title').value;
+        var description = document.getElementById('description').value;
+        var plan_details = JSON.parse('<?php echo json_encode($plan_details) ?>');
+        var my_media = JSON.parse('<?php echo json_encode($my_media) ?>');
+        var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+        var msg = '<span class="cl-white">Sorry format not matched! only alphanumeric characters allowed</span>';
+
+        if (format.test(title)) {
+            $('#show_title_msg').empty();
+            $("#show_title_msg").append(msg);
+            return false;
+        }
+        if (format.test(description)) {
+            $('#show_title_msg').empty();
+            $('#show_description_msg').empty();
+            $("#show_description_msg").append(msg);
+            return false;
+        }
+        if (my_media < plan_details[0].video_audio_limit) {
+            return true;
+        }
+        else {
+            $('#show_title_msg').empty();
+            $('#show_description_msg').empty();
+            $('#show_msg').empty();
+            $("#show_msg").append('<span class="cl-white">Sorry your limit for upload video / audio has been fully filled !</span>');
+            return false;
         }
     }
 </script>

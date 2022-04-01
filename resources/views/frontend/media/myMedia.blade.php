@@ -70,26 +70,25 @@
             <h4 class="text-white">My Video</h4>
             <div class="row">
                 <div class="col-lg-12 mt-3">
-                    <div class="video">
-                        <video id="ban_video" class="tv_video">
+                    <div class="video" id="current_video">
+                        <video id="ban_video" class="tv_video" controls>
                             <source src="{{ asset('/public/assets/images/video.mp4') }}" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
-
-                        <div class="play-bt"></div>
-                        <div class="pause-bt" style="display: none"></div>
+                        <!-- <div class="play-bt"></div>
+                        <div class="pause-bt" style="display: none"></div> -->
                     </div>
                 </div>
             </div>
             <div class="row mt-3 px-2">
                 @if(isset($videos))
                 @foreach($videos as $key => $video)
+                @php $date_time = explode(" ", $video->created_at); @endphp
                 <div class="col-lg-2 px-1 col-12">
-                    <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
+                    <a class="example-image-link" id="{{ $video->file_name }}" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="selectVideo(this)"><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
                         <div class="play-bt-exm-one"></div>
-                        <span class="ab-img-span">Nina Brethart &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group 2</span></span>
-                        <span class="above-img-span">First Contact</span>
-                        <span class="above-img-span">{{ $video->title }} <span class="date-time"> 30-11-2021 &nbsp; 3:04pm</span></span>
+                        <span class="above-img-span">{{ $video->title }}</span>
+                        <span class="above-img-span">{{ $date_time[0] }} &nbsp; {{ $date_time[1] }}</span>
                     </a>
                 </div>
                 @endforeach
@@ -216,3 +215,12 @@
     </div>
 </div>
 @endsection
+
+<script type="text/javascript">
+    function selectVideo(current) {
+        var base_path = 'http://localhost/love-kumar/beternal/Beternal_apache2/public/';
+        var select_for_play = '<video id="ban_video" class="tv_video" controls><source src="' + base_path + current.id + '" />Your browser does not support the video tag.</video>';
+        $('#current_video').empty();
+        $("#current_video").append(select_for_play);
+    }
+</script>
