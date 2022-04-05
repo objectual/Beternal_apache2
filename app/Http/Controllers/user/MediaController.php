@@ -113,4 +113,48 @@ class MediaController extends Controller
     {
         return view('frontend.schedule.scheduleMedia');
     }
+
+    public function store(Request $request)
+    {
+        if ($request->hasFile('video')) {
+
+            $file_name = $request->file('video')->store('videos', ['disk' => 'my_files']);
+
+            $media = new Media();
+            $media->title = 'live video';
+            $media->description = 'live video description';
+            $media->path = '/';
+            $media->file_name = $file_name;
+            $media->type = 'video';
+            $media->user_id = Auth::user()->id;
+            $media->save();
+
+            return  response()->json(['success' => ($media) ? 1 : 0, 'message' => ($media) ? 'Video uploaded successfully.' : "Some thing went wrong. Try again !."]);
+        
+            // if($media) {
+            //     if (!(empty($request->recipient_id))) {
+            //         if (count($request->recipient_id) > 0) {
+            //             for ($i = 0; $i < count($request->recipient_id); $i++) {
+            //                 $share_video = new ShareMedia();
+            //                 $share_video->media_id = $media->id;
+            //                 $share_video->recipient_id = $request->recipient_id[$i];
+            //                 $share_video->save();
+            //             }
+            //         }
+            //     }
+            //     if (!(empty($request->group_id))) {
+            //         if (count($request->group_id) > 0) {
+            //             for ($i = 0; $i < count($request->group_id); $i++) {
+            //                 $share_video_in_group = new ShareMediaGroup();
+            //                 $share_video_in_group->media_id = $media->id;
+            //                 $share_video_in_group->group_id = $request->group_id[$i];
+            //                 $share_video_in_group->save();
+            //             }
+            //         }
+            //     }
+
+            //     return  response()->json(['success' => ($media) ? 1 : 0, 'message' => ($media) ? 'Video uploaded successfully.' : "Some thing went wrong. Try again !."]);
+            // }
+        }
+    }
 }

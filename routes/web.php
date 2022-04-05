@@ -65,6 +65,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/',[MediaController::class,'media'])->name('user.medias');
         Route::get('capture-video',[MediaController::class,'captureVideo'])->name('user.medias.capture-video');
         Route::post('upload-video', [MediaController::class,'uploadVideo'])->name('user.medias.upload-video');
+        Route::post('store-video', [MediaController::class,'store'])->name('user.medias.store-video');
         Route::get('capture-audio',[MediaController::class,'captureAudio'])->name('user.medias.capture-audio');
         Route::get('capture-image',[MediaController::class,'captureImage'])->name('user.medias.capture-image');
         Route::get('my-media',[MediaController::class,'myMedia'])->name('user.medias.my-media');
