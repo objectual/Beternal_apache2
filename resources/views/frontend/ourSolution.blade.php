@@ -26,6 +26,7 @@
                             the status quo
                         </h1>
                     </div>
+                    
                 </div>
                 <div class="container-fluid text-center bg-black we-give-back-main">
                     <div class="col-md-7 p-4 m-auto text-white we-give-back">
@@ -41,6 +42,16 @@
                             legacy. Your way. Be eternal.
                         </p>
                         <a href="./create-account.html" class="solution-sign-up-btn">SIGN UP</a>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-6 p-0-m">
+                        <video class="landing_video" controls>
+                            <source src="{{ asset('/public/assets/images/solution.mp4') }}" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                        </div>
+                        <div class="col-lg-3"></div>
                     </div>
                 </div>
                 <div class="container-fluid text-center reclaim-back-img">

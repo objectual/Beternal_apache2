@@ -165,11 +165,11 @@
                                     <span class="input-group-text add-label" id="basic-addon2">GROUP</span>
                                 </div>
                                 <input type="text" id="group_title" name="group_title" class="form-control add-input"
-                                    placeholder="Dropdowm menu w/ custom field" aria-describedby="basic-addon1" />
-                                <span  style="padding-top: 20px;" data-bs-toggle="modal" data-bs-target="#confirmModal" class="recipent-add-btn
+                                    placeholder="Enter Here.." aria-describedby="basic-addon1" />
+                                <span  data-bs-toggle="modal" data-bs-target="#confirmModal" class="recipent-add-btn
                           btn 
                           bg-primary  
-                          schedule-div
+                          schedule-div recipent-schedule
                         ">
                                     <span class="schedule" onclick="addGroup()">ADD</span>
                                 </span>
