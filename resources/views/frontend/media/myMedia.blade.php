@@ -1,6 +1,7 @@
 @extends("frontend.layouts.layout")
 @section("title","My Media")
 @section("content")
+@php $base_url = url(''); @endphp
 <div class="container-fluid bg-create pt-2 pb-2 scroll-height-mobile mobile-padding">
     <div class="col-lg-10 offset-lg-1">
         <div class="scroll-div">
@@ -218,7 +219,9 @@
 
 <script type="text/javascript">
     function selectVideo(current) {
-        var base_path = 'http://localhost/love-kumar/beternal/Beternal_apache2/public/';
+        // var base_path = 'http://localhost/love-kumar/beternal/Beternal_apache2/public/';
+        var base_url = '<?=$base_url?>';
+        var base_path = base_url + '/public/';
         var select_for_play = '<video id="ban_video" class="tv_video" controls><source src="' + base_path + current.id + '" />Your browser does not support the video tag.</video>';
         $('#current_video').empty();
         $("#current_video").append(select_for_play);

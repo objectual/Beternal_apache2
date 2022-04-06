@@ -1,6 +1,7 @@
 @extends("frontend.layouts.layout")
 @section("title","Capture Video")
 @section("content")
+@php $base_url = url(''); @endphp
 <div class="container-fluid bg-create pb-4 h-auto upgrade-back">
     <div class="scroll-div">
         <form method="POST" action="{{ route('user.medias.upload-video') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
@@ -449,7 +450,8 @@
 <script type="text/javascript">
     function recipentByName(current) {
         var obj = JSON.parse('<?php echo json_encode($user_recipents) ?>');
-        var base_path = 'http://localhost/love-kumar/beternal/Beternal_apache2';
+        // var base_path = 'http://localhost/love-kumar/beternal/Beternal_apache2';
+        var base_path = '<?=$base_url?>';
 
         if (obj != null) {
             len = obj.length;
@@ -523,7 +525,8 @@
 
     function groupByName(current) {
         var obj = JSON.parse('<?php echo json_encode($groups) ?>');
-        var base_path = 'http://localhost/love-kumar/beternal/Beternal_apache2';
+        // var base_path = 'http://localhost/love-kumar/beternal/Beternal_apache2';
+        var base_path = '<?=$base_url?>';
 
         if (obj != null) {
             len = obj.length;
