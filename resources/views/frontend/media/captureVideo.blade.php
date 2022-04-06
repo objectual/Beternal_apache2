@@ -260,7 +260,7 @@
                     let recorded = document.getElementById("recorded");
                     let downloadLocalButton = document.getElementById("downloadLocalButton");
 
-                    let recordingTimeMS = 5000; //video limit 5 sec
+                    let recordingTimeMS = 10000; //video limit 5 sec
                     var localstream;
 
                     window.log = function(msg) {
@@ -342,14 +342,42 @@
                         downloadButton.addEventListener("click", function() {
                             let title = document.getElementById("title_2").value;
                             let description = document.getElementById("description_2").value;
-                            alert(title)
-                            alert(description)
-                            // let recipient_id = document.getElementById("recipient_id_2").value;
-                            // let group_id = document.getElementById("group_id_2").value;
-                            // formData.append('title', title);
-                            // formData.append('description', description);
-                            // formData.append('recipient_id', recipient_id);
-                            // formData.append('group_id', group_id);
+                            let recipient = document.querySelectorAll('.user-recipient-2');
+                            let group = document.querySelectorAll('.user-group-2');
+                            let plan_details = JSON.parse('<?php echo json_encode($plan_details) ?>');
+                            let my_media = JSON.parse('<?php echo json_encode($my_media) ?>');
+                            let format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+                            let msg = '<span class="cl-white">Sorry format not matched! only alphanumeric characters allowed</span>';
+                            if (format.test(title)) {
+                                $('#show_title_msg_2').empty();
+                                $("#show_title_msg_2").append(msg);
+                                return false;
+                            }
+                            if (format.test(description)) {
+                                $('#show_title_msg_2').empty();
+                                $('#show_description_msg_2').empty();
+                                $("#show_description_msg_2").append(msg);
+                                return false;
+                            }
+                            if (my_media >= plan_details[0].video_audio_limit) {
+                                $('#show_title_msg_2').empty();
+                                $('#show_description_msg_2').empty();
+                                $('#show_msg_2').empty();
+                                $("#show_msg_2").append('<span class="cl-white">Sorry your limit for upload video / audio has been fully filled !</span>');
+                                return false;
+                            }
+                            formData.append('title', title);
+                            formData.append('description', description);
+                            for (var i = 0; i < recipient.length; i++) {
+                                if (recipient[i].checked == true) {
+                                    formData.append('recipient_id[]', recipient[i].value);
+                                }
+                            }
+                            for (var i = 0; i < group.length; i++) {
+                                if (group[i].checked == true) {
+                                    formData.append('group_id[]', group[i].value);
+                                }
+                            }
                             if (title != '' && description != '') {
                                 $.ajax({
                                     url: this.getAttribute('data-url'),

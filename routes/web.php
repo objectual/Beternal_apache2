@@ -48,7 +48,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'user')->group(function () {
     Route::get('/splash',[dashboardController::class, 'splash'])->name('splash');
     Route::get('/my-account',[UserController::class, 'myAccountPage'])->name('user.profile');
     Route::get('/edit-account',[UserController::class, 'myAccountEdit'])->name('user.profile.edit');

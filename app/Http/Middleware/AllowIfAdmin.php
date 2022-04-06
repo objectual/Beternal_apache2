@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Auth;
 
 class AllowIfAdmin
 {
@@ -17,7 +18,7 @@ class AllowIfAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(\Auth::user()->role->role_slug == 'admin'){
+        if(Auth::user()->role->role_slug == 'admin'){
             return $next($request);
         }
         return redirect(RouteServiceProvider::HOME);
