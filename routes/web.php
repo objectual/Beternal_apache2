@@ -27,6 +27,16 @@ Route::get('/', function () {
     return view('frontend.home');
 });
 
+// Route::get('/my-test', function () {
+//     return view('frontend.home');
+// });
+
+Route::get('/test', function () {
+    return view('index');
+});
+
+Route::resource('videos', MediaController::class);
+
 // start routes for ajax request
 Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
 Route::get('/cities/{id}', [CityController::class, 'getCities']);
