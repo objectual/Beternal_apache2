@@ -49,7 +49,7 @@
 
             <div class="d-flex icons-clr-chnage">
                 <div class="col text-center mob-view">
-                    <a href="#" class="icon-video media-icon-clr">
+                    <a href="{{ route('user.medias.capture-video') }}" class="icon-video media-icon-clr">
                         <p class="arial-bold text-white mt-2">UPLOAD VIDEO</p>
                         <!-- <input type="file" accept="image/*;capture=camera"> -->
                     </a>
@@ -70,7 +70,7 @@
             </div>
             <h4 class="text-white">My Video</h4>
             <div class="row">
-                <div class="col-lg-12 mt-3">
+                <div class="col-lg-6 mt-3">
                     <div class="video" id="current_video">
                         <video id="ban_video" class="tv_video" controls>
                             <source src="{{ asset('/public/assets/images/video.mp4') }}" type="video/mp4" />

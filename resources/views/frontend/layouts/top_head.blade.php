@@ -19,7 +19,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                     <li>
-                        <a class="dropdown-item" href="./notification.html">Notifications</a>
+                        <a class="dropdown-item" href="{{ route('user.notifications') }}">Notifications</a>
                     </li>
                     <li>
                         <hr class="dropdown-divider"/>

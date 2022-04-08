@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
-                <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
                     @csrf
                     <div class="row">
                         <div class="col-lg-12">
@@ -44,7 +44,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">First Name</span>
                                 </div>
-                                <input id="name" name="name" type="text" value="{{ old('name') }}" class="form-control text-end" aria-describedby="basic-addon1" required />
+                                <input id="name" name="name" type="text" value="{{ old('name') }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 @if($errors->has('name'))
                                 <div class="error">{{ $errors->first('name') }}</div>
                                 @endif
@@ -55,7 +55,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Last Name</span>
                                 </div>
-                                <input id="last_name" name="last_name" type="text" value="{{ old('last_name') }}" class="form-control text-end" aria-describedby="basic-addon1" required />
+                                <input id="last_name" name="last_name" type="text" value="{{ old('last_name') }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 @if($errors->has('last_name'))
                                 <div class="error">{{ $errors->first('last_name') }}</div>
                                 @endif
@@ -66,7 +66,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Email</span>
                                 </div>
-                                <input id="email" name="email" type="email" value="{{ old('email') }}" class="form-control text-end" aria-describedby="basic-addon1" required />
+                                <input id="email" name="email" type="email" value="{{ old('email') }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 @if($errors->has('email'))
                                 <div class="error">{{ $errors->first('email') }}</div>
                                 @endif
@@ -77,7 +77,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Phone Number</span>
                                 </div>
-                                <input id="phone" name="phone" type="text" value="{{ old('phone') }}" class="form-control text-end" aria-describedby="basic-addon1" required />
+                                <input id="phone" name="phone" type="text" value="{{ old('phone') }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 @if($errors->has('phone'))
                                 <div class="error">{{ $errors->first('phone') }}</div>
                                 @endif
@@ -89,7 +89,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Address</span>
                                 </div>
-                                <input id="address" name="address" type="text" value="{{ old('address') }}" class="form-control text-end" aria-describedby="basic-addon1" required />
+                                <input id="address" name="address" type="text" value="{{ old('address') }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                             </div>
                             @if($errors->has('address'))
                             <div class="error">{{ $errors->first('address') }}</div>
@@ -101,13 +101,14 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Password</span>
                                 </div>
-                                <input id="password" name="password" type="password" value="{{ old('password') }}" class="form-control text-end" old autocomplete="new-password" aria-describedby="basic-addon1" required />
+                                <input id="password" name="password" type="password" value="{{ old('password') }}" class="form-control text-end" old autocomplete="new-password" aria-describedby="basic-addon1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 <div class="input-group-prepend">
                                     <span class="input-group-text eye-pass-reg" id="basic-addon1"><img style="height: 20px; width: 20px;" src="{{ asset('/public/assets/images/eye.png') }}" onclick="showPassword()" /></span>
-                                </div> 
+                                </div>
                                 @if($errors->has('password'))
                                 <div class="error">{{ $errors->first('password') }}</div>
                                 @endif
+                                <div class="col-12 text-white">At least 8 characters eg. Aa123456</div>
                             </div>
                         </div>
                         <div class="col-lg-6 mt-2">
@@ -115,13 +116,14 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Confirm Password</span>
                                 </div>
-                                <input id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}" type="password" class="form-control text-end" autocomplete="new-password" aria-describedby="basic-addon1" required />
+                                <input id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}" type="password" class="form-control text-end" autocomplete="new-password" aria-describedby="basic-addon1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 <div class="input-group-prepend">
                                     <span class="input-group-text eye-pass-reg" id="basic-addon1"><img style="height: 20px; width: 20px;" src="{{ asset('/public/assets/images/eye.png') }}" onclick="showConfirmPassword()" /></span>
-                                </div> 
+                                </div>
                                 @if($errors->has('password_confirmation'))
                                 <div class="error">{{ $errors->first('password_confirmation') }}</div>
                                 @endif
+                                <div class="col-12 text-white" id="show_confirm_pass_msg"></div>
                             </div>
                         </div>
                         <div class="col-lg-6 mt-2">
@@ -129,7 +131,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Country</span>
                                 </div>
-                                <select id="country_id" name="country_id" class="form-control text-end" aria-describedby="basic-addon1" onChange="selectCountry()" required />
+                                <select id="country_id" name="country_id" class="form-control text-end" aria-describedby="basic-addon1" onChange="selectCountry()" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 <option value="">Select Country</option>
                                 @if(isset($countries))
                                 @foreach($countries as $key => $country)
@@ -147,7 +149,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">State / Province</span>
                                 </div>
-                                <select id="state_province_id" name="state_province_id" class="form-control text-end" aria-describedby="basic-addon1" onChange="selectProvince()" required />
+                                <select id="state_province_id" name="state_province_id" class="form-control text-end" aria-describedby="basic-addon1" onChange="selectProvince()" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 <option value="">Select State / Province</option>
                                 </select>
                                 @if($errors->has('state_province_id'))
@@ -160,7 +162,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">City</span>
                                 </div>
-                                <select id="city_id" name="city_id" class="form-control text-end" aria-describedby="basic-addon1" required />
+                                <select id="city_id" name="city_id" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 <option value="">Select City</option>
                                 </select>
                                 @if($errors->has('city_id'))
@@ -173,7 +175,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Zip / Postal Code</span>
                                 </div>
-                                <input id="zip_postal_code" name="zip_postal_code" type="text" value="{{ old('zip_postal_code') }}" class="form-control text-end" aria-describedby="basic-addon1" required />
+                                <input id="zip_postal_code" name="zip_postal_code" type="text" value="{{ old('zip_postal_code') }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 @if($errors->has('zip_postal_code'))
                                 <div class="error">{{ $errors->first('zip_postal_code') }}</div>
                                 @endif
@@ -278,5 +280,15 @@
                 }
             }
         });
+    }
+
+    function validateForm() {
+        var pass = document.getElementById("password").value;
+        var password_confirmation = document.getElementById("password_confirmation").value;
+        $('#show_confirm_pass_msg').empty();
+        if (pass != password_confirmation) {
+            $("#show_confirm_pass_msg").append('Password & confirm password are not matched!');
+            return false;
+        }
     }
 </script>

@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\user\MediaController;
 use App\Http\Controllers\user\PaymentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\user\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,16 +27,6 @@ use App\Http\Controllers\HomeController;
 Route::get('/', function () {
     return view('frontend.home');
 });
-
-// Route::get('/my-test', function () {
-//     return view('frontend.home');
-// });
-
-Route::get('/test', function () {
-    return view('index');
-});
-
-Route::resource('videos', MediaController::class);
 
 // start routes for ajax request
 Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
@@ -88,6 +79,9 @@ Route::middleware('auth', 'user')->group(function () {
     });
     Route::group(['prefix' => 'payment'], function () {
         Route::get('/',[PaymentController::class,'payment'])->name('user.payment');
+    });
+    Route::group(['prefix' => 'notifications'], function () {
+        Route::get('/',[NotificationController::class,'index'])->name('user.notifications');
     });
 });
 
