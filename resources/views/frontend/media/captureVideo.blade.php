@@ -4,8 +4,9 @@
 @php $base_url = url(''); @endphp
 <div class="container-fluid bg-create pb-4 h-auto upgrade-back">
     <div class="scroll-div">
-        <form method="POST" action="{{ route('user.medias.upload-video') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <form method="POST" action="{{ route('user.medias.upload-media') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
             @csrf
+            <input type="hidden" id="media_type" name="media_type" value="video">
             <div class="row">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-6 mt-4">
@@ -23,9 +24,7 @@
                                 <div class="pb-3">
                                     <img src="{{ asset('/public/assets/images/device-gallery.svg') }}" class="gallery-img">
                                 </div>
-                                <!-- <span class="icon-upload" style="color: #ffaa00;">&nbsp;&nbsp;Device Gallery</span> -->
-
-                                @if($errors->has('image'))
+                                @if($errors->has('file_name'))
                                 <div class="error">{{ $errors->first('file_name') }}</div>
                                 @endif
                                 <label style="color: #ffaa00;" for="file">&nbsp;&nbsp;Device Gallery</label>
@@ -48,16 +47,11 @@
                             <div class="col-12" id="show_title_msg"></div>
                         </div>
                         <div class="mb-3 w-100">
-                            <label for="exampleInputPassword1" class="form-label  text-white">Description</label>
+                            <label for="description" class="form-label  text-white">Description</label>
                             <textarea class="form-control capture-form" id="description" name="description" placeholder="Description Here" required>{{ old('description') }}</textarea>
                             <div class="col-12" id="show_description_msg"></div>
                         </div>
                     </div>
-                    <!-- <div class="row m-0 mb-3">
-                        <div class="col-lg-2 p-0 col-4 text-white">Date:</div>
-                        <div class="col-lg-7 col-2"></div>
-                        <div class="col-lg-3 col-6 text-white text-end p-0">22/11/2021</div>
-                    </div> -->
                     <div class="row">
                         <div class="mb-3 w-100">
                             <div class="">
@@ -116,14 +110,6 @@
                         @endforeach
                         @endif
                     </div>
-                    <!-- <div class="row pt-4">
-                        <div class="col-12 ">
-                            <button data-bs-toggle="modal" data-bs-target="#redirectModal" class="btn upg-add-img-btn w-100">Save Your Memory</button>
-                        </div>
-                        <div class="col-12 mt-3 ">
-                            <a href="./delivery.html" class="btn upg-select-del-btn w-100">Select Delivery</a>
-                        </div>
-                    </div> -->
                     <div class="row pt-4">
                         <div class="col-12 ">
                             <button class="btn upg-add-img-btn w-100">Save Your Memory</button>
@@ -158,7 +144,6 @@
                     <div class="col-md-6" id="recorded" style="display:none">
                         <h2>Preview</h2>
                         <video id="recording" width="160" height="120" controls></video><br /><br />
-                        <!-- <a id="downloadButton" class="btn btn-primary" data-url="{{route('user.medias.store-video')}}">save</a> -->
                         <a id="downloadLocalButton" class="btn btn-primary">Download</a>
                     </div>
                 </div>
@@ -239,7 +224,7 @@
                                 </div>
                                 <div class="row pt-4">
                                     <div class="col-12 ">
-                                        <button class="btn upg-add-img-btn w-100" id="downloadButton" data-url="{{route('user.medias.store-video')}}">Save Your Memory</button>
+                                        <button class="btn upg-add-img-btn w-100" id="downloadButton" data-url="{{route('user.medias.store-media')}}">Save Your Memory</button>
                                     </div>
                                 </div>
                                 <div class="row pt-4">
@@ -261,7 +246,7 @@
                     let recorded = document.getElementById("recorded");
                     let downloadLocalButton = document.getElementById("downloadLocalButton");
 
-                    let recordingTimeMS = 10000; //video limit 5 sec
+                    let recordingTimeMS = 10000; //video limit 10 sec
                     var localstream;
 
                     window.log = function(msg) {
@@ -324,7 +309,7 @@
                                     recording.src = URL.createObjectURL(recordedBlob);
 
                                     formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
-                                    formData.append('video', recordedBlob);
+                                    formData.append('file_name', recordedBlob);
 
                                     downloadLocalButton.href = recording.src;
                                     downloadLocalButton.download = "RecordedVideo.webm";
@@ -341,6 +326,7 @@
                     }
                     if (downloadButton) {
                         downloadButton.addEventListener("click", function() {
+                            let media_type = document.getElementById("media_type").value;
                             let title = document.getElementById("title_2").value;
                             let description = document.getElementById("description_2").value;
                             let recipient = document.querySelectorAll('.user-recipient-2');
@@ -367,6 +353,7 @@
                                 $("#show_msg_2").append('<span class="cl-white">Sorry your limit for upload video / audio has been fully filled !</span>');
                                 return false;
                             }
+                            formData.append('media_type', media_type);
                             formData.append('title', title);
                             formData.append('description', description);
                             for (var i = 0; i < recipient.length; i++) {
@@ -451,7 +438,7 @@
     function recipentByName(current) {
         var obj = JSON.parse('<?php echo json_encode($user_recipents) ?>');
         // var base_path = 'http://localhost/love-kumar/beternal/Beternal_apache2';
-        var base_path = '<?=$base_url?>';
+        var base_path = '<?= $base_url ?>';
 
         if (obj != null) {
             len = obj.length;
@@ -526,7 +513,7 @@
     function groupByName(current) {
         var obj = JSON.parse('<?php echo json_encode($groups) ?>');
         // var base_path = 'http://localhost/love-kumar/beternal/Beternal_apache2';
-        var base_path = '<?=$base_url?>';
+        var base_path = '<?= $base_url ?>';
 
         if (obj != null) {
             len = obj.length;
@@ -538,7 +525,6 @@
             var for_all_group = 'all_group';
         }
         if (current.id == 'modal_search_by_group') {
-            alert(current.id)
             var group_name = document.getElementById('group_name_2').value;
             var div_group = $('#show_groups_2');
             var for_group_id = 'group_id_2[]';

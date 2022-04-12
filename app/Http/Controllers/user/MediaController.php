@@ -42,54 +42,23 @@ class MediaController extends Controller
         ));
     }
 
-    public function uploadVideo(Request $request)
-    {
-        $this->validate($request, [
-            'file_name' => 'required|file|mimetypes:video/mp4',
-        ]);
-
-        $video = new Media();
-        $video->title = $request->title;
-        $video->description = $request->description;
-        $video->path = 'test';
-        if ($request->hasFile('file_name')) {
-            $path = $request->file('file_name')->store('videos', ['disk' => 'my_files']);
-            $video->file_name = $path;
-        }
-        $video->type = 'video';
-        $video->user_id = Auth::user()->id;
-        $video->save();
-        
-        if($video) {
-            if (!(empty($request->recipient_id))) {
-                if (count($request->recipient_id) > 0) {
-                    for ($i = 0; $i < count($request->recipient_id); $i++) {
-                        $share_video = new ShareMedia();
-                        $share_video->media_id = $video->id;
-                        $share_video->recipient_id = $request->recipient_id[$i];
-                        $share_video->save();
-                    }
-                }
-            }
-            if (!(empty($request->group_id))) {
-                if (count($request->group_id) > 0) {
-                    for ($i = 0; $i < count($request->group_id); $i++) {
-                        $share_video_in_group = new ShareMediaGroup();
-                        $share_video_in_group->media_id = $video->id;
-                        $share_video_in_group->group_id = $request->group_id[$i];
-                        $share_video_in_group->save();
-                    }
-                }
-            }
-            return redirect()->route('user.medias.my-media');
-        } else {
-            return redirect()->route('user.medias.capture-video');
-        }
-    }
-
     public function captureAudio()
     {
-        return view('frontend.media.captureAudio');
+        $id = Auth::user()->id;
+        $user_recipents = userRecipients($id);
+        $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
+        $plan_details =  Plan::where('id', Auth::user()->plan_id)->get(['*']);
+
+        $my_media =  Media::where(['type' => 'video', 'user_id' => $id])
+        ->orWhere(['type' => 'audio', 'user_id' => $id])
+        ->count();
+
+        return view('frontend.media.captureAudio', compact(
+            'user_recipents',
+            'groups',
+            'plan_details',
+            'my_media'
+        ));
     }
 
     public function captureImage()
@@ -97,35 +66,85 @@ class MediaController extends Controller
         return view('frontend.media.captureImage');
     }
 
-    public function myMedia()
+    public function uploadMedia(Request $request)
     {
-        $videos = Media::where(['type' => 'video', 'user_id' => Auth::user()->id])
-        ->get(['*']);
-        return view('frontend.media.myMedia' , compact('videos'));
-    }
+        if ($request->media_type == 'video') {
+            $this->validate($request, [
+                'file_name' => 'required|file|mimetypes:video/mp4',
+            ]);
+            $folder = 'videos';
+        }
+        if ($request->media_type == 'audio') {
+            $this->validate($request, [
+                'file_name' => 'required|file|mimetypes:audio/mpeg,mpga,mp3,wav',
+            ]);
+            $folder = 'audios';
+        }
 
-    public function legacy()
-    {
-        return view('frontend.legacy.legacy');
-    }
-
-    public function scheduleMedia()
-    {
-        return view('frontend.schedule.scheduleMedia');
+        $media = new Media();
+        $media->title = $request->title;
+        $media->description = $request->description;
+        $media->path = 'test';
+        if ($request->hasFile('file_name')) {
+            $path = $request->file('file_name')->store($folder, ['disk' => 'my_files']);
+            $media->file_name = $path;
+        }
+        $media->type = $request->media_type;
+        $media->user_id = Auth::user()->id;
+        $media->save();
+        
+        if($media) {
+            if (!(empty($request->recipient_id))) {
+                if (count($request->recipient_id) > 0) {
+                    for ($i = 0; $i < count($request->recipient_id); $i++) {
+                        $share_media = new ShareMedia();
+                        $share_media->media_id = $media->id;
+                        $share_media->recipient_id = $request->recipient_id[$i];
+                        $share_media->save();
+                    }
+                }
+            }
+            if (!(empty($request->group_id))) {
+                if (count($request->group_id) > 0) {
+                    for ($i = 0; $i < count($request->group_id); $i++) {
+                        $share_media_in_group = new ShareMediaGroup();
+                        $share_media_in_group->media_id = $media->id;
+                        $share_media_in_group->group_id = $request->group_id[$i];
+                        $share_media_in_group->save();
+                    }
+                }
+            }
+            return redirect()->route('user.medias.my-media');
+        } else {
+            if ($request->media_type == 'video') {
+                return redirect()->route('user.medias.capture-video');
+            }
+            if ($request->media_type == 'audio') {
+                return redirect()->route('user.medias.capture-audio');
+            }
+        }
     }
 
     public function store(Request $request)
     {
-        if ($request->hasFile('video')) {
+        if ($request->hasFile('file_name')) {
 
-            $file_name = $request->file('video')->store('videos', ['disk' => 'my_files']);
+            $media_type = $request->input('media_type');
+            if ($media_type == 'video') {
+                $folder = 'videos';
+            }
+            if ($media_type == 'audio') {
+                $folder = 'audios';
+            }
+
+            $file_name = $request->file('file_name')->store($folder, ['disk' => 'my_files']);
 
             $media = new Media();
             $media->title = $request->input('title');
             $media->description = $request->input('description');
             $media->path = '/';
             $media->file_name = $file_name;
-            $media->type = 'video';
+            $media->type = $media_type;
             $media->user_id = Auth::user()->id;
             $media->save();
         
@@ -153,4 +172,29 @@ class MediaController extends Controller
             return  response()->json(['success' => ($media) ? 1 : 0, 'message' => ($media) ? 'Video uploaded successfully.' : "Some thing went wrong. Try again !."]);
         }
     }
+
+    public function myMedia()
+    {
+        $videos = Media::where(['type' => 'video', 'user_id' => Auth::user()->id])
+        ->get(['*']);
+
+        $audios = Media::where(['type' => 'audio', 'user_id' => Auth::user()->id])
+        ->get(['*']);
+
+        return view('frontend.media.myMedia' , compact(
+            'videos',
+            'audios'
+        ));
+    }
+
+    public function legacy()
+    {
+        return view('frontend.legacy.legacy');
+    }
+
+    public function scheduleMedia()
+    {
+        return view('frontend.schedule.scheduleMedia');
+    }
+
 }

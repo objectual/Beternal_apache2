@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Models\UserRecipient;
   
     function userDetails($id) {
         $user = User::where('users.id', $id)
@@ -11,6 +12,13 @@ use App\Models\User;
         ->join('cities', 'users.city_id', '=', 'cities.id')
         ->get(['users.*', 'user_roles.role_name', 'plans.title', 'countries.country_name', 'state_province.name as province_name', 'cities.city_name']);
         return $user;    
+    }
+
+    function userRecipients($id) {
+        $user_recipents =  UserRecipient::where('user_id', $id)
+        ->join('users', 'user_recipients.recipient_id', '=', 'users.id')
+        ->get(['user_recipients.recipient_id', 'users.name', 'users.last_name', 'users.profile_image']);
+        return $user_recipents;
     }
    
 ?>
