@@ -187,14 +187,44 @@ class MediaController extends Controller
         ));
     }
 
+    public function sharedMediaRecipents()
+    {
+        return view('frontend.media.sharedMediaRecipents');
+    }
+
+    public function sharedMedia()
+    {
+        return view('frontend.media.sharedMediaSingleRecipent');
+    }
+
+    public function myMediaDetails()
+    {
+        return view('frontend.media.myMediaDetails');
+    }
+
     public function legacy()
     {
         return view('frontend.legacy.legacy');
     }
 
+    public function successLegacy()
+    {
+        return view('frontend.legacy.successLegacy');
+    }
+
     public function scheduleMedia()
     {
         return view('frontend.schedule.scheduleMedia');
+    }
+
+    public function deliveryMedia()
+    {
+        return view('frontend.schedule.scheduleMedia');
+    }
+
+    public function successSchedule()
+    {
+        return view('frontend.schedule.successSchedule');
     }
 
 }

@@ -5,7 +5,7 @@
         <h3 class="legacy">YOUR LEGACY. YOUR WAY.</h3>
       </li>
       <li><a href="{{ route('contact-us') }}">Contact us</a></li>
-      <li><a href="{{ route('about-us') }}">About us</a></li>
+      <li><a href="{{ route('splash') }}">About us</a></li>
       <li><a href="{{ route('privacy-policy') }}">Privacy Policy</a></li>
       <li><a href="{{ route('our-team') }}">Our Team</a></li>
       <li><a href="{{ route('our-solution') }}">Our Solution </a></li>

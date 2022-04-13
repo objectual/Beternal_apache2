@@ -304,4 +304,9 @@ class UserController extends Controller
         ->get(['user_contacts.contact_id', 'users.name', 'users.last_name', 'users.profile_image', 'user_groups.recipient_id', 'user_groups.group_id']);
         return $selected_contact;
     }
+
+    public function viewRecipent()
+    {
+        return view('frontend.recipents.viewRecipent');
+    }
 }

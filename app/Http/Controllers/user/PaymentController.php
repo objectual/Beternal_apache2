@@ -11,4 +11,9 @@ class PaymentController extends Controller
     {
         return view('frontend.payments.payment');
     }
+
+    public function paymentSuccessfull()
+    {
+        return view('frontend.payments.paymentSuccessfull');
+    }
 }

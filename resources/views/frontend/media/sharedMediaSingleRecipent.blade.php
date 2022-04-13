@@ -1,11 +1,11 @@
 @extends("frontend.layouts.layout")
-@section("title","Schedule Media")
+@section("title","Share Media")
 @section("content")
-<div class="container-fluid shared-back-light mobile-padding pb-5">
+<div class="container-fluid shared-back-light mobile-padding bg-repeat-size schedule-media-back pb-5">
     <div class="row">
         <div class="col-lg-10 offset-lg-1">
             <div class="scroll-div">
-                <div class="row pt-3 pb-3">
+                <div class="row pt-3 pb-5">
                     <div class="col-lg-1">
                         <p class="filter-text text-white">FILTER BY:</p>
                     </div>
@@ -27,17 +27,6 @@
                             <option selected>Status</option>
                         </select>
                     </div>
-                    <div class="col-lg-1">
-                        <button class="sort-btn d-flex justify-content-center
-                          btn
-                          mb-2
-                          w-100 
-                          text-center
-                          py-2 
-                        "><img src="{{ asset('/public/assets/images/sort.svg') }}">
-                            <span class="mx-2 sort-txt d-none">Sort By Date</span>
-                        </button>
-                    </div>
                     <div class="col-lg-2">
                         <button class="filter-btn
                                     btn
@@ -49,18 +38,42 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <a class=" " href="#">
-                            <div class="video">
-                                <video id="ban_video" class="tv_video">
-                                    <source src="{{ asset('/public/assets/images/video.mp4') }}" type="video/mp4" />
-                                    Your browser does not support the video tag.
-                                </video>
 
-                                <div class="play-bt"></div>
-                                <div class="pause-bt" style="display: none"></div>
-                            </div>
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-3 mb-3 shared-media-bg edit text-center">
+
+                        <img class="mt-5 acc-img" src="{{ asset('/public/assets/images/recipent.png') }}">
+                        <p class="head1">NINA BRETHERT</p>
+                        <p class="head2 view-more mb-5">(View more details)</p>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="col-lg-6 mb-5 m-auto">
+                    <button class="w-100 my-media-btn">Filter by Media Type</button>
+                </div>
+                <div class="d-flex shared-media">
+                    <div class="col text-center mob-view">
+                        <a href="#" class="icon-video media-icon-clr">
+                            <p class="arial-bold text-white mt-2">UPLOAD VIDEO</p>
+                            <!-- <input type="file" accept="image/*;capture=camera"> -->
+                        </a>
+                    </div>
+                    <div class="col text-center mob-view">
+                        <a href="#" class="icon-audio active media-icon-clr">
+                            <p class="arial-bold text-white mt-2">UPLOAD AUDIO</p>
+                        </a>
+                    </div>
+                    <div class="col text-center mob-view">
+                        <a href="#" class="icon-photos media-icon-clr">
+                            <p class="arial-bold text-white mt-2">UPLOAD PHOTO</p>
+                        </a>
+                    </div>
+                </div>
+                <h4 class="mt-4 text-white"><b>PHOTOS</b></h4>
+                <div class="row">
+                    <div class="col-lg-12 mt-3">
+                        <a class="example-image-link" href="./images/image.png" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image h-auto" src="{{ asset('/public/assets/images/image.png') }}" alt="" />
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-6 col-6">
@@ -70,7 +83,7 @@
                                         <span class="above-img-span">Group 2</span>
                                     </div>
                                 </div>
-                                <span class="above-img-span">First Contact</span>
+                                <span class="above-img-span">Video 1 30-11-2021 3:04pm</span>
                                 <div class="row">
                                     <div class="col-lg-6 col-6">
                                         <span class="above-img-span">Image</span>
@@ -314,6 +327,7 @@
                             </div>
                         </a>
                     </div>
+
                     <div class="col-lg-2 col-12 px-1 col-4">
                         <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
                             <div class="bg-black border-shared-img">

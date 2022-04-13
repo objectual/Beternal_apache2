@@ -103,6 +103,6 @@ class RegisteredUserController extends Controller
        
         \Mail::to($user->email)->send(new \App\Mail\MyMail($details));
 
-        return redirect()->route('dashboard');
+        return redirect()->route('success-signup');
     }
 }

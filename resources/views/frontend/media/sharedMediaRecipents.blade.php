@@ -1,11 +1,11 @@
 @extends("frontend.layouts.layout")
-@section("title","Schedule Media")
+@section("title","Share Media Recipients")
 @section("content")
-<div class="container-fluid shared-back-light mobile-padding pb-5">
+<div class="container-fluid shared-back-light mobile-padding bg-repeat-size schedule-media-back pb-5">
     <div class="row">
         <div class="col-lg-10 offset-lg-1">
             <div class="scroll-div">
-                <div class="row pt-3 pb-3">
+                <div class="row pt-3 pb-5">
                     <div class="col-lg-1">
                         <p class="filter-text text-white">FILTER BY:</p>
                     </div>
@@ -26,17 +26,6 @@
                         <select class="form-select filter-select sch-media-form" aria-label="Default select example">
                             <option selected>Status</option>
                         </select>
-                    </div>
-                    <div class="col-lg-1">
-                        <button class="sort-btn d-flex justify-content-center
-                          btn
-                          mb-2
-                          w-100 
-                          text-center
-                          py-2 
-                        "><img src="{{ asset('/public/assets/images/sort.svg') }}">
-                            <span class="mx-2 sort-txt d-none">Sort By Date</span>
-                        </button>
                     </div>
                     <div class="col-lg-2">
                         <button class="filter-btn
@@ -70,7 +59,7 @@
                                         <span class="above-img-span">Group 2</span>
                                     </div>
                                 </div>
-                                <span class="above-img-span">First Contact</span>
+                                <span class="above-img-span">Video 1 30-11-2021 3:04pm</span>
                                 <div class="row">
                                     <div class="col-lg-6 col-6">
                                         <span class="above-img-span">Image</span>
@@ -314,6 +303,7 @@
                             </div>
                         </a>
                     </div>
+
                     <div class="col-lg-2 col-12 px-1 col-4">
                         <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
                             <div class="bg-black border-shared-img">

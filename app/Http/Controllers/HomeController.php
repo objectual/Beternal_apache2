@@ -11,9 +11,9 @@ class HomeController extends Controller
         return view('frontend.contactUs');
     }
 
-    public function aboutUs()
+    public function splash()
     {
-        return view('frontend.aboutUs');
+        return view('frontend.splash.index');
     }
 
     public function privacyPolicy()
@@ -39,5 +39,20 @@ class HomeController extends Controller
     public function helpAndSupport()
     {
         return view('frontend.helpAndSupport');
+    }
+
+    public function forgetCode()
+    {
+        return view('frontend.forgetCode');
+    }
+
+    public function successSignup()
+    {
+        return view('frontend.successSignup');
+    }
+
+    public function survey()
+    {
+        return view('frontend.survey');
     }
 }

@@ -53,16 +53,18 @@
             </div>
             <div class="row select-recipent-bottom-padding" id="show_recipents">
                 <div class="col-lg-2 col-4 text-center">
-                    <a href="recipents/add-form" class="">
-                        <img class="recipent-img" src="{{ asset('public/assets/images/add.svg')}}" />
+                    <a href="{{ route('user.recipents.add-form') }}" class="">
+                        <img class="recipent-img" src="{{ asset('public/assets/images/add.svg') }}" />
                         <p class="sel-text color-primary mt-3">Add </p>
                     </a>
                 </div>
                 @if(isset($user_recipents))
                 @foreach($user_recipents as $key => $recipent)
                 <div class="col-lg-2 text-center col-4 position-relative">
-                    <img class="recipent-img" src="{{ asset($recipent->profile_image) }}" style="border-radius: 100%" />
-                    <p class="cl-white sel-text mt-3">{{ $recipent->name }} {{ $recipent->last_name }}</p>
+                    <a href="{{ route('user.recipents.view-recipent') }}" class="">
+                        <img class="recipent-img" src="{{ asset($recipent->profile_image) }}" style="border-radius: 100%" />
+                        <p class="cl-white sel-text mt-3">{{ $recipent->name }} {{ $recipent->last_name }}</p>
+                    </a>
                 </div>
                 @endforeach
                 @endif
@@ -93,7 +95,7 @@
                     var last_name = obj[i].last_name;
                     name = name.toLowerCase();
                     last_name = last_name.toLowerCase();
-                    if(recipent_name == name || recipent_name == last_name) {
+                    if (recipent_name == name || recipent_name == last_name) {
                         var profile_image = obj[i].profile_image;
                         var display_image = profile_image.substring(1);
                         alert(profile_image)
@@ -131,7 +133,7 @@
                         len = response.length;
                     }
                     if (len > 0) {
-                        if(group_id == response[0].group_id) {
+                        if (group_id == response[0].group_id) {
                             var name = response[0].name;
                             var last_name = response[0].last_name;
                             var profile_image = response[0].profile_image;
@@ -142,8 +144,7 @@
                     }
                 }
             });
-        }
-        else if (contact_id != '') {
+        } else if (contact_id != '') {
             $('#show_recipents').empty();
             $.ajax({
                 url: 'filter-recipent/' + contact_id,
@@ -164,13 +165,12 @@
                     }
                 }
             });
-        }
-        else if (group_id != '') {
+        } else if (group_id != '') {
             $('#show_recipents').empty();
             if (len > 0) {
                 $("#show_recipents").append(add_new);
                 for (var i = 0; i < len; i++) {
-                    if(group_id == obj[i].group_id) {
+                    if (group_id == obj[i].group_id) {
                         var name = obj[i].name;
                         var last_name = obj[i].last_name;
                         var profile_image = obj[i].profile_image;
@@ -180,20 +180,19 @@
                     }
                 }
             }
-        }
-        else if (group_id == '') {
+        } else if (group_id == '') {
             $('#show_recipents').empty();
             if (len > 0) {
                 $("#show_recipents").append(add_new);
                 for (var i = 0; i < len; i++) {
-                    
-                        var name = obj[i].name;
-                        var last_name = obj[i].last_name;
-                        var profile_image = obj[i].profile_image;
-                        var display_image = profile_image.substring(1);
-                        var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><img class="recipent-img" src="' + display_image + '" /><p class="cl-white sel-text mt-3">' + name + ' ' + last_name + '</p></div>';
-                        $("#show_recipents").append(recipent);
-                    
+
+                    var name = obj[i].name;
+                    var last_name = obj[i].last_name;
+                    var profile_image = obj[i].profile_image;
+                    var display_image = profile_image.substring(1);
+                    var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><img class="recipent-img" src="' + display_image + '" /><p class="cl-white sel-text mt-3">' + name + ' ' + last_name + '</p></div>';
+                    $("#show_recipents").append(recipent);
+
                 }
             }
         }

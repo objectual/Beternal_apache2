@@ -12,6 +12,7 @@ use App\Http\Controllers\user\MediaController;
 use App\Http\Controllers\user\PaymentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\user\NotificationController;
+use App\Http\Controllers\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +37,7 @@ Route::get('/filter-recipent/{contact_id}', [UserController::class, 'filterRecip
 
 // start footer routes
 Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('contact-us');
-Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('about-us');
+Route::get('/splash', [HomeController::class, 'splash'])->name('splash');
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
 Route::get('/our-team', [HomeController::class, 'ourTeam'])->name('our-team');
 Route::get('/our-solution', [HomeController::class, 'ourSolution'])->name('our-solution');
@@ -44,13 +45,16 @@ Route::get('/term-and-conditions', [HomeController::class, 'termAndConditions'])
 Route::get('/help-and-support', [HomeController::class, 'helpAndSupport'])->name('help-and-support');
 // end footer routes
 
+Route::get('/survey', [HomeController::class, 'survey'])->name('servey');
+
 Route::get('/dashboard', function () {
     return view('frontend.dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 Route::middleware('auth', 'user')->group(function () {
-    Route::get('/splash',[dashboardController::class, 'splash'])->name('splash');
+    // Route::get('/splash',[dashboardController::class, 'splash'])->name('splash');
+    Route::get('/success-signup', [HomeController::class, 'successSignup'])->name('success-signup');
     Route::get('/my-account',[UserController::class, 'myAccountPage'])->name('user.profile');
     Route::get('/edit-account',[UserController::class, 'myAccountEdit'])->name('user.profile.edit');
     Route::post('/edit-account',[UserController::class, 'myAccountUpdate'])->name('user.profile.update');
@@ -58,6 +62,7 @@ Route::middleware('auth', 'user')->group(function () {
         Route::get('/',[UserController::class,'allRecipents'])->name('user.recipents');
         Route::get('add-form',[UserController::class,'addForm'])->name('user.recipents.add-form');
         Route::post('/add-recipent', [UserController::class, 'addRecipent'])->name('user.recipents.add-recipent');
+        Route::get('view-recipent',[UserController::class,'viewRecipent'])->name('user.recipents.view-recipent');
         Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
         Route::get('/cities/{id}', [CityController::class, 'getCities']);
         Route::get('/add-group/{group_title}', [UserController::class, 'addGroup']);
@@ -70,15 +75,26 @@ Route::middleware('auth', 'user')->group(function () {
         Route::post('upload-media',[MediaController::class,'uploadMedia'])->name('user.medias.upload-media');
         Route::post('store-media', [MediaController::class,'store'])->name('user.medias.store-media');
         Route::get('my-media',[MediaController::class,'myMedia'])->name('user.medias.my-media');
+        Route::get('shared-media-recipents',[MediaController::class,'sharedMediaRecipents'])->name('user.medias.shared-media-recipents');
+        Route::get('shared-media',[MediaController::class,'sharedMedia'])->name('user.medias.shared-media');
+        Route::get('my-media-details',[MediaController::class,'myMediaDetails'])->name('user.medias.my-media-details');
     });
     Route::group(['prefix' => 'legacy'], function () {
         Route::get('/',[MediaController::class,'legacy'])->name('user.legacy');
+        Route::get('/success-legacy',[MediaController::class,'successLegacy'])->name('user.success-legacy');
     });
     Route::group(['prefix' => 'schedule-media'], function () {
         Route::get('/',[MediaController::class,'scheduleMedia'])->name('user.schedule-media');
+        Route::get('/delivery',[MediaController::class,'deliveryMedia'])->name('user.delivery');
+        Route::get('/success-schedule',[MediaController::class,'successSchedule'])->name('user.success-schedule');
+    });
+    Route::group(['prefix' => 'subscription'], function () {
+        Route::get('/',[SubscriptionController::class,'plans'])->name('user.subscription');
+        Route::get('/subscription-successfull',[SubscriptionController::class,'subscriptionSuccessfull'])->name('user.subscription-successfull');
     });
     Route::group(['prefix' => 'payment'], function () {
         Route::get('/',[PaymentController::class,'payment'])->name('user.payment');
+        Route::get('/payment-successfull',[PaymentController::class,'paymentSuccessfull'])->name('user.payment-successfull');
     });
     Route::group(['prefix' => 'notifications'], function () {
         Route::get('/',[NotificationController::class,'index'])->name('user.notifications');
