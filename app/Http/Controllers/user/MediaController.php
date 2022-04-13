@@ -219,7 +219,7 @@ class MediaController extends Controller
 
     public function deliveryMedia()
     {
-        return view('frontend.schedule.scheduleMedia');
+        return view('frontend.schedule.delivery');
     }
 
     public function successSchedule()
