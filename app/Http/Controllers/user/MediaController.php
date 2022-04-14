@@ -24,15 +24,15 @@ class MediaController extends Controller
     {
         $id = Auth::user()->id;
         $user_recipents =  UserRecipient::where('user_id', $id)
-        ->join('users', 'user_recipients.recipient_id', '=', 'users.id')
-        ->get(['user_recipients.recipient_id', 'users.name', 'users.last_name', 'users.profile_image']);
+            ->join('users', 'user_recipients.recipient_id', '=', 'users.id')
+            ->get(['user_recipients.recipient_id', 'users.name', 'users.last_name', 'users.profile_image']);
 
         $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
         $plan_details =  Plan::where('id', Auth::user()->plan_id)->get(['*']);
 
         $my_media =  Media::where(['type' => 'video', 'user_id' => $id])
-        ->orWhere(['type' => 'audio', 'user_id' => $id])
-        ->count();
+            ->orWhere(['type' => 'audio', 'user_id' => $id])
+            ->count();
 
         return view('frontend.media.captureVideo', compact(
             'user_recipents',
@@ -50,8 +50,8 @@ class MediaController extends Controller
         $plan_details =  Plan::where('id', Auth::user()->plan_id)->get(['*']);
 
         $my_media =  Media::where(['type' => 'video', 'user_id' => $id])
-        ->orWhere(['type' => 'audio', 'user_id' => $id])
-        ->count();
+            ->orWhere(['type' => 'audio', 'user_id' => $id])
+            ->count();
 
         return view('frontend.media.captureAudio', compact(
             'user_recipents',
@@ -63,7 +63,18 @@ class MediaController extends Controller
 
     public function captureImage()
     {
-        return view('frontend.media.captureImage');
+        $id = Auth::user()->id;
+        $user_recipents = userRecipients($id);
+        $groups = Group::where('user_id', $id)->get(['id', 'group_title']);
+        $plan_details = Plan::where('id', Auth::user()->plan_id)->get(['*']);
+        $my_media = Media::where(['type' => 'photo', 'user_id' => $id])->count();
+
+        return view('frontend.media.captureImage', compact(
+            'user_recipents',
+            'groups',
+            'plan_details',
+            'my_media'
+        ));
     }
 
     public function uploadMedia(Request $request)
@@ -92,8 +103,8 @@ class MediaController extends Controller
         $media->type = $request->media_type;
         $media->user_id = Auth::user()->id;
         $media->save();
-        
-        if($media) {
+
+        if ($media) {
             if (!(empty($request->recipient_id))) {
                 if (count($request->recipient_id) > 0) {
                     for ($i = 0; $i < count($request->recipient_id); $i++) {
@@ -127,61 +138,109 @@ class MediaController extends Controller
 
     public function store(Request $request)
     {
-        if ($request->hasFile('file_name')) {
-
-            $media_type = $request->input('media_type');
-            if ($media_type == 'video') {
-                $folder = 'videos';
-            }
-            if ($media_type == 'audio') {
-                $folder = 'audios';
-            }
-
-            $file_name = $request->file('file_name')->store($folder, ['disk' => 'my_files']);
+        $media_type = $request->input('media_type');
+        if($media_type == 'photo') {
+            $folder = 'photo/';
+            $image = $request->input('image');  // your base64 encoded
+            $image = str_replace('data:image/jpeg;base64,', '', $image);
+            $image = str_replace(' ', '+', $image);
+            $imageName = uniqid().'.'.'png';
+            $file_name = $folder.$imageName;
+            \File::put(public_path('photo'). '/' . $imageName, base64_decode($image));
 
             $media = new Media();
-            $media->title = $request->input('title');
-            $media->description = $request->input('description');
+            $media->title = $request->input('title_2');
+            $media->description = $request->input('description_2');
             $media->path = '/';
             $media->file_name = $file_name;
             $media->type = $media_type;
             $media->user_id = Auth::user()->id;
             $media->save();
-        
+
             if ($media) {
-                $recipient = $request->input('recipient_id');
-                $group = $request->input('group_id');
-                if (count($recipient) > 0) {
-                    for ($i = 0; $i < count($recipient); $i++) {
-                        $share_video = new ShareMedia();
-                        $share_video->media_id = $media->id;
-                        $share_video->recipient_id = $recipient[$i];
-                        $share_video->save();
+                $recipient = $request->input('recipient_id_2');
+                $group = $request->input('group_id_2');
+                if ($recipient != null) {
+                    if (count($recipient) > 0) {
+                        for ($i = 0; $i < count($recipient); $i++) {
+                            $share_video = new ShareMedia();
+                            $share_video->media_id = $media->id;
+                            $share_video->recipient_id = $recipient[$i];
+                            $share_video->save();
+                        }
                     }
                 }
-                if (count($group) > 0) {
-                    for ($i = 0; $i < count($group); $i++) {
-                        $share_video_in_group = new ShareMediaGroup();
-                        $share_video_in_group->media_id = $media->id;
-                        $share_video_in_group->group_id = $group[$i];
-                        $share_video_in_group->save();
+                if ($group != null) {
+                    if (count($group) > 0) {
+                        for ($i = 0; $i < count($group); $i++) {
+                            $share_video_in_group = new ShareMediaGroup();
+                            $share_video_in_group->media_id = $media->id;
+                            $share_video_in_group->group_id = $group[$i];
+                            $share_video_in_group->save();
+                        }
                     }
                 }
             }
+            return redirect()->route('user.medias.my-media');
+        }
+        else
+        {
+            if ($request->hasFile('file_name')) {
 
-            return  response()->json(['success' => ($media) ? 1 : 0, 'message' => ($media) ? 'Video uploaded successfully.' : "Some thing went wrong. Try again !."]);
+                $media_type = $request->input('media_type');
+                if ($media_type == 'video') {
+                    $folder = 'videos';
+                }
+                if ($media_type == 'audio') {
+                    $folder = 'audios';
+                }
+
+                $file_name = $request->file('file_name')->store($folder, ['disk' => 'my_files']);
+
+                $media = new Media();
+                $media->title = $request->input('title');
+                $media->description = $request->input('description');
+                $media->path = '/';
+                $media->file_name = $file_name;
+                $media->type = $media_type;
+                $media->user_id = Auth::user()->id;
+                $media->save();
+
+                if ($media) {
+                    $recipient = $request->input('recipient_id');
+                    $group = $request->input('group_id');
+                    if (count($recipient) > 0) {
+                        for ($i = 0; $i < count($recipient); $i++) {
+                            $share_video = new ShareMedia();
+                            $share_video->media_id = $media->id;
+                            $share_video->recipient_id = $recipient[$i];
+                            $share_video->save();
+                        }
+                    }
+                    if (count($group) > 0) {
+                        for ($i = 0; $i < count($group); $i++) {
+                            $share_video_in_group = new ShareMediaGroup();
+                            $share_video_in_group->media_id = $media->id;
+                            $share_video_in_group->group_id = $group[$i];
+                            $share_video_in_group->save();
+                        }
+                    }
+                }
+
+                return  response()->json(['success' => ($media) ? 1 : 0, 'message' => ($media) ? 'Video uploaded successfully.' : "Some thing went wrong. Try again !."]);
+            }
         }
     }
 
     public function myMedia()
     {
         $videos = Media::where(['type' => 'video', 'user_id' => Auth::user()->id])
-        ->get(['*']);
+            ->get(['*']);
 
         $audios = Media::where(['type' => 'audio', 'user_id' => Auth::user()->id])
-        ->get(['*']);
+            ->get(['*']);
 
-        return view('frontend.media.myMedia' , compact(
+        return view('frontend.media.myMedia', compact(
             'videos',
             'audios'
         ));
@@ -226,5 +285,4 @@ class MediaController extends Controller
     {
         return view('frontend.schedule.successSchedule');
     }
-
 }
