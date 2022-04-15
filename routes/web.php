@@ -39,7 +39,7 @@ Route::get('/filter-recipent/{contact_id}', [UserController::class, 'filterRecip
 Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('contact-us');
 Route::get('/splash', [HomeController::class, 'splash'])->name('splash');
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
-Route::get('/our-team', [HomeController::class, 'ourTeam'])->name('our-team');
+// Route::get('/our-team', [HomeController::class, 'ourTeam'])->name('our-team');
 Route::get('/our-solution', [HomeController::class, 'ourSolution'])->name('our-solution');
 Route::get('/term-and-conditions', [HomeController::class, 'termAndConditions'])->name('term-and-conditions');
 Route::get('/help-and-support', [HomeController::class, 'helpAndSupport'])->name('help-and-support');

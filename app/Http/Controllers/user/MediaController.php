@@ -5,6 +5,7 @@ namespace App\Http\Controllers\user;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Models\Media;
 use App\Models\UserRecipient;
 use App\Models\Group;
@@ -146,7 +147,7 @@ class MediaController extends Controller
             $image = str_replace(' ', '+', $image);
             $imageName = uniqid().'.'.'png';
             $file_name = $folder.$imageName;
-            \File::put(public_path('photo'). '/' . $imageName, base64_decode($image));
+            File::put(public_path('photo'). '/' . $imageName, base64_decode($image));
 
             $media = new Media();
             $media->title = $request->input('title_2');

@@ -21,10 +21,10 @@ class HomeController extends Controller
         return view('frontend.privacyPolicy');
     }
 
-    public function ourTeam()
-    {
-        return view('frontend.ourTeam');
-    }
+    // public function ourTeam()
+    // {
+    //     return view('frontend.ourTeam');
+    // }
 
     public function ourSolution()
     {
