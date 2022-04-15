@@ -20,7 +20,7 @@
                             </a>
                         </div>
                         <div class="col-md-4 text-center">
-                            <a href="#">
+                            <a>
                                 <div class="pb-3 media-icon-height">
                                     <img src="{{ asset('/public/assets/images/device-gallery.svg') }}" class="gallery-img">
                                 </div>
@@ -47,8 +47,8 @@
                             <div class="col-12" id="show_title_msg"></div>
                         </div>
                         <div class="mb-3  w-100">
-                            <label for="description" class="form-label  text-white" required>Description</label>
-                            <textarea class="form-control capture-form" id="description" name="description" placeholder="Description Here">{{ old('description') }}</textarea>
+                            <label for="description" class="form-label  text-white">Description</label>
+                            <textarea class="form-control capture-form" id="description" name="description" placeholder="Description Here" required>{{ old('description') }}</textarea>
                             <div class="col-12" id="show_description_msg"></div>
                         </div>
                     </div>

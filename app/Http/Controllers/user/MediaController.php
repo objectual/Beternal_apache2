@@ -92,11 +92,17 @@ class MediaController extends Controller
             ]);
             $folder = 'audios';
         }
+        if ($request->media_type == 'photo') {
+            $this->validate($request, [
+                'file_name' => 'required|image|mimes:jpeg,png,jpg,svg,bmp',
+            ]);
+            $folder = 'photo';
+        }
 
         $media = new Media();
         $media->title = $request->title;
         $media->description = $request->description;
-        $media->path = 'test';
+        $media->path = '/';
         if ($request->hasFile('file_name')) {
             $path = $request->file('file_name')->store($folder, ['disk' => 'my_files']);
             $media->file_name = $path;
@@ -133,6 +139,8 @@ class MediaController extends Controller
             }
             if ($request->media_type == 'audio') {
                 return redirect()->route('user.medias.capture-audio');
+            } else {
+                return redirect()->route('user.medias.capture-image');
             }
         }
     }
@@ -140,14 +148,14 @@ class MediaController extends Controller
     public function store(Request $request)
     {
         $media_type = $request->input('media_type');
-        if($media_type == 'photo') {
+        if ($media_type == 'photo') {
             $folder = 'photo/';
             $image = $request->input('image');  // your base64 encoded
             $image = str_replace('data:image/jpeg;base64,', '', $image);
             $image = str_replace(' ', '+', $image);
-            $imageName = uniqid().'.'.'png';
-            $file_name = $folder.$imageName;
-            File::put(public_path('photo'). '/' . $imageName, base64_decode($image));
+            $imageName = uniqid() . '.' . 'png';
+            $file_name = $folder . $imageName;
+            File::put(public_path('photo') . '/' . $imageName, base64_decode($image));
 
             $media = new Media();
             $media->title = $request->input('title_2');
@@ -183,9 +191,7 @@ class MediaController extends Controller
                 }
             }
             return redirect()->route('user.medias.my-media');
-        }
-        else
-        {
+        } else {
             if ($request->hasFile('file_name')) {
 
                 $media_type = $request->input('media_type');
@@ -241,9 +247,29 @@ class MediaController extends Controller
         $audios = Media::where(['type' => 'audio', 'user_id' => Auth::user()->id])
             ->get(['*']);
 
+        $photos = Media::where(['type' => 'photo', 'user_id' => Auth::user()->id])
+            ->get(['*']);
+
+        if (!$photos->isEmpty()) {
+            foreach ($photos as $key => $photo) {
+                $recipients = ShareMedia::where('media_id', $photo->id)
+                ->join('users', 'share_media.recipient_id', '=', 'users.id')
+                ->get(['share_media.recipient_id', 'users.name', 'users.last_name']);
+                if (!$recipients->isEmpty()) {
+                    $photo->recipient_first_name = $recipients[0]->name;
+                    $photo->recipient_last_name = $recipients[0]->last_name;
+                }
+                else {
+                    $photo->recipient_first_name = 'N/A';
+                    $photo->recipient_last_name = '';
+                }
+            }
+        }
+
         return view('frontend.media.myMedia', compact(
             'videos',
-            'audios'
+            'audios',
+            'photos'
         ));
     }
 

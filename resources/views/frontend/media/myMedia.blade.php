@@ -5,6 +5,7 @@
 <div class="container-fluid bg-create pt-2 pb-2 scroll-height-mobile mobile-padding">
     <div class="col-lg-10 offset-lg-1">
         <div class="scroll-div">
+
             <div class="row pt-3 pb-5 media-icons">
                 <div class="col-lg-1">
                     <p class="filter-text text-white">FILTER BY:</p>
@@ -65,21 +66,23 @@
                     </a>
                 </div>
             </div>
+
             <div class="col-lg-6 mt-5 mb-5 m-auto FilterbyMediaType-btn">
                 <button class="w-100 my-media-btn">Filter by Media Type</button>
             </div>
-            <h4 class="text-white">My Video</h4>
+
+            <h4 class="text-white text-center">My Video</h4>
             <div class="row">
-                <div class="col-lg-6 mt-3">
+                <div class="col-lg-2 mt-3"></div>
+                <div class="col-lg-8 mt-3">
                     <div class="video" id="current_video">
                         <video id="ban_video" class="tv_video" controls>
                             <source src="{{ asset('/public/assets/images/video.mp4') }}" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
-                        <!-- <div class="play-bt"></div>
-                        <div class="pause-bt" style="display: none"></div> -->
                     </div>
                 </div>
+                <div class="col-lg-2 mt-3"></div>
             </div>
             <div class="row mt-3 px-2">
                 @if(isset($videos))
@@ -95,73 +98,37 @@
                 @endforeach
                 @endif
             </div>
-            <h4 class="mt-4 text-white">My Photo</h4>
+
+            <h4 class="mt-4 text-white text-center">My Photo</h4>
             <div class="row">
-                <div class="col-lg-12 mt-3">
-                    <div class="video">
-                        <video id="ban_video" class="tv_video">
-                            <source src="{{ asset('/public/assets/images/video.mp4') }}" type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
+                <div class="col-lg-2 mt-3"></div>
+                <div class="col-lg-8 mt-3">
+                    <div class="image" id="current_photo">
+                        <picture id="ban_image" class="tv_image">
+                            <img src="@if(!$photos->isEmpty()){{ asset( 'public/'.$photos[0]->file_name )}}@else{{ asset('/public/assets/images/my-media-default-image.jpg') }}@endif" type="image" height="500" width="720" />
+                        </picture>
                     </div>
                 </div>
+                <div class="col-lg-2 mt-3"></div>
             </div>
             <div class="row mt-3 px-2">
+                @if(isset($photos))
+                @foreach($photos as $key => $photo)
+                @php $date_time = explode(" ", $photo->created_at); @endphp
                 <div class="col-lg-2 px-1 col-12">
-                    <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
-                        <!-- <div class="play-bt-exm-one"></div> -->
-                        <span class="ab-img-span">Nina Brethart &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group 2</span></span>
+                    <a class="example-image-link" id="{{ $photo->file_name }}" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="selectPhoto(this)"><img class="example-image" src="{{ asset( 'public/'.$photo->file_name )}}" alt="" />
+                        <span class="ab-img-span">{{ $photo->recipient_first_name }} {{ $photo->recipient_last_name }} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group 2</span></span>
                         <span class="above-img-span">First Contact</span>
-                        <span class="above-img-span">Video 1 <span class="date-time"> 30-11-2021 &nbsp; 3:04pm</span></span></a>
+                        <span class="above-img-span">{{ $photo->title }}<span class="date-time"> {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}</span></span></a>
                 </div>
-                <div class="col-lg-2 px-1 col-12">
-                    <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-4.jpg" data-lightbox="example-set" data-title="Or press the right arrow on your keyboard."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-4.jpg" alt="" />
-                        <!-- <div class="play-bt-exm-one"></div>  -->
-                        <span class="ab-img-span">Nina Brethart &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group 2</span></span>
-                        <span class="above-img-span">First Contact</span>
-                        <span class="above-img-span">Video 1 <span class="date-time"> 30-11-2021 &nbsp; 3:04pm</span></span></a>
-                </div>
-                <div class="col-lg-2 px-1 col-12">
-                    <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-5.jpg" data-lightbox="example-set" data-title="The next image in the set is preloaded as you're viewing."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-5.jpg" alt="" />
-                        <!-- <div class="play-bt-exm-one"></div> -->
-                        <span class="ab-img-span">Nina Brethart &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group 2</span></span>
-                        <span class="above-img-span">First Contact</span>
-                        <span class="above-img-span">Video 1 <span class="date-time"> 30-11-2021 &nbsp; 3:04pm</span></span></a>
-                </div>
-                <div class="col-lg-2 px-1 col-12">
-                    <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-6.jpg" data-lightbox="example-set" data-title="Click anywhere outside the image or the X to the right to close."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-6.jpg" alt="" />
-                        <!-- <div class="play-bt-exm-one"></div> -->
-                        <span class="ab-img-span">Nina Brethart &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group 2</span></span>
-                        <span class="above-img-span">First Contact</span>
-                        <span class="above-img-span">Video 1 <span class="date-time"> 30-11-2021 &nbsp; 3:04pm</span></span></a>
-                </div>
-                <div class="col-lg-2 px-1 col-12">
-                    <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
-                        <!-- <div class="play-bt-exm-one"></div> -->
-                        <span class="ab-img-span">Nina Brethart &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group 2</span></span>
-                        <span class="above-img-span">First Contact</span>
-                        <span class="above-img-span">Video 1 <span class="date-time"> 30-11-2021 &nbsp; 3:04pm</span></span></a>
-                </div>
-                <div class="col-lg-2 px-1 col-12">
-                    <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-4.jpg" data-lightbox="example-set" data-title="Or press the right arrow on your keyboard."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-4.jpg" alt="" />
-                        <!-- <div class="play-bt-exm-one"></div> -->
-                        <span class="ab-img-span">Nina Brethart &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group 2</span></span>
-                        <span class="above-img-span">First Contact</span>
-                        <span class="above-img-span">Video 1 <span class="date-time"> 30-11-2021 &nbsp; 3:04pm</span></span></a>
-                </div>
+                @endforeach
+                @endif
             </div>
-            <h4 class="mt-4 text-white">My Audio</h4>
+
+            <h4 class="mt-4 text-white text-center">My Audio</h4>
             <div class="row">
-                <!-- <div class="col-lg-12 mt-3">
-                    <div class="video">
-                        <video id="ban_video" class="tv_video">
-                            <source src="{{ asset('/public/assets/images/video.mp4') }}" type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
-                        <div class="audio-icon-bt"></div>
-                    </div>
-                </div> -->
-                <div class="col-lg-6 mt-3">
+                <div class="col-lg-2 mt-3"></div>
+                <div class="col-lg-8 mt-3">
                     <div class="audio" id="current_audio">
                         <audio id="ban_audio" class="tv_audio" controls>
                             <source src="{{ asset('/public/assets/images/game_play_music.mp3') }}" type="audio/mp3" />
@@ -169,6 +136,7 @@
                         </audio>
                     </div>
                 </div>
+                <div class="col-lg-2 mt-3"></div>
             </div>
             <div class="row mt-3 px-2">
                 @if(isset($audios))
@@ -184,6 +152,7 @@
                 @endforeach
                 @endif
             </div>
+
         </div>
     </div>
 </div>
@@ -204,5 +173,13 @@
         var select_for_play = '<audio id="ban_audio" class="tv_audio" controls><source src="' + base_path + current.id + '" />Your browser does not support the video tag.</audio>';
         $('#current_audio').empty();
         $("#current_audio").append(select_for_play);
+    }
+
+    function selectPhoto(current) {
+        var base_url = '<?= $base_url ?>';
+        var base_path = base_url + '/public/';
+        var select_for_show = '<picture id="ban_image" class="tv_image"><img src="' + base_path + current.id + '" type="image" height="500" width="720" /></picture>';
+        $('#current_photo').empty();
+        $("#current_photo").append(select_for_show);
     }
 </script>

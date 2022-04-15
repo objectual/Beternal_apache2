@@ -4,82 +4,124 @@
 @php $base_url = url(''); @endphp
 <div class="container-fluid bg-create pb-4 h-auto upgrade-back">
     <div class="scroll-div">
-        <div class="row">
-            <div class="col-lg-4"></div>
-            <div class="col-lg-4 mt-4">
-                <div class="d-flex mt-4">
-                    <div class="col-md-4 text-center">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#captureImage">
-                            <div class="pb-3 media-icon-height">
-                                <img src="{{ asset('/public/assets/images/capture-image.svg') }}" class="camera-img">
-                            </div>
-                            <span class="" style="color: #ffaa00;">&nbsp;&nbsp;Capture Image</span>
-                        </a>
+        <form method="POST" action="{{ route('user.medias.upload-media') }}" id="main_form" enctype="multipart/form-data" onsubmit="return validateForm(this)">
+            @csrf
+            <input type="hidden" id="media_type" name="media_type" value="photo">
+            <div class="row">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6 mt-4">
+                    <div class="d-flex mt-4">
+                        <div class="col-md-4 text-center">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#captureImage">
+                                <div class="pb-3 media-icon-height">
+                                    <img src="{{ asset('/public/assets/images/capture-image.svg') }}" class="camera-img">
+                                </div>
+                                <span class="" style="color: #ffaa00;">&nbsp;&nbsp;Capture Image</span>
+                            </a>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <a>
+                                <div class="pb-3 media-icon-height">
+                                    <img src="{{ asset('/public/assets/images/device-gallery.svg') }}" class="gallery-img">
+                                </div>
+                                @if($errors->has('file_name'))
+                                <div class="error">{{ $errors->first('file_name') }}</div>
+                                @endif
+                                <label style="color: #ffaa00;" for="file">&nbsp;&nbsp;Device Gallery</label>
+                                <input type="file" accept="image/*" name="file_name" id="file" style="display: none;">
+                            </a>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <a href="{{ route('user.medias.my-media') }}">
+                                <div class="pb-3 media-icon-height">
+                                    <img src="{{ asset('/public/assets/images/view-gallery.svg') }}" class="view-gallery-img">
+                                </div>
+                                <span class="" style="color: #ffaa00;">&nbsp;&nbsp;View Gallery</span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-md-4 text-center">
-                        <a href="#">
-                            <div class="pb-3 media-icon-height">
-                                <img src="{{ asset('/public/assets/images/device-gallery.svg') }}" class="gallery-img">
-                            </div>
-                            <span class="" style="color: #ffaa00;">&nbsp;&nbsp;Device Gallery</span>
-                        </a>
+                    <div class="mt-5">
+                        <div class="mb-3 w-100">
+                            <label for="photo_title" class="form-label text-white">Photo Title</label>
+                            <input type="text" id="title" name="title" value="{{ old('title') }}" class="form-control capture-form" placeholder="Photo Title Here" required>
+                            <div class="col-12" id="show_title_msg"></div>
+                        </div>
+                        <div class="mb-3  w-100">
+                            <label for="description" class="form-label text-white">Description</label>
+                            <textarea class="form-control capture-form" id="description" name="description" placeholder="Description Here" required>{{ old('description') }}</textarea>
+                            <div class="col-12" id="show_description_msg"></div>
+                        </div>
                     </div>
-                    <div class="col-md-4 text-center">
-                        <a href="{{ route('user.medias.my-media') }}">
-                            <div class="pb-3 media-icon-height">
-                                <img src="{{ asset('/public/assets/images/view-gallery.svg') }}" class="view-gallery-img">
+                    <div class="row">
+                        <div class="mb-3 w-100">
+                            <div class="">
+                                <div class="input-group">
+                                    <input type="text" id="name" class="form-control search-input" placeholder="Search by Recipient's Name">
+                                    <div class="input-group-append">
+                                        <img class="search-ico" src="{{ asset('public/assets/images/search.png')}}" id="main_serach_by_name" onclick="recipentByName(this)" />
+                                    </div>
+                                </div>
                             </div>
-                            <span class="" style="color: #ffaa00;">&nbsp;&nbsp;View Gallery</span>
-                        </a>
+                        </div>
+                        <p class="text-white">Assign Recipient</p>
+                        <div class="row mb-3" id="show_recipents">
+                            @if(isset($user_recipents) && !$user_recipents->isEmpty())
+                            <div class="col-lg-2 col-3 rec-images">
+                                <img src="{{ asset('public/media/image/all-users.png') }}">
+                                <p class="cl-white sel-text mt-3">
+                                    <input class="form-check-input" type="checkbox" id="all_recipient" name="all_recipient" value="all recipient" onclick="selectAllRecipient(this)">
+                                    All
+                                </p>
+                            </div>
+                            @foreach($user_recipents as $key => $recipent)
+                            <div class="col-lg-2 col-3 rec-images">
+                                <img src="{{ asset($recipent->profile_image) }}">
+                                <p class="cl-white sel-text mt-3">
+                                    <input class="form-check-input user-recipient" type="checkbox" name="recipient_id[]" value="{{ $recipent->recipient_id }}">
+                                    {{ $recipent->name }}
+                                </p>
+                            </div>
+                            @endforeach
+                            @endif
+                        </div>
                     </div>
-                </div>
-                <div class="mt-5">
                     <div class="mb-3 w-100">
-                        <label for="exampleInputEmail1" class="form-label text-white">Image Title</label>
-                        <input type="text" class="form-control capture-form" placeholder="Enter here">
+                        <div class="">
+                            <div class="input-group">
+                                <input type="text" id="group_name" class="form-control search-input" placeholder="Search by Group's Name">
+                                <div class="input-group-append">
+                                    <img class="search-ico" src="{{ asset('public/assets/images/search.png')}}" id="main_serach_by_group" onclick="groupByName(this)" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3  w-100">
-                        <label for="exampleInputPassword1" class="form-label  text-white">Description</label>
-                        <textarea class="form-control capture-form" placeholder="Description Here"></textarea>
+                    <p class="text-white">Select Group</p>
+                    <div id="show_groups">
+                        @if(isset($groups) && !$groups->isEmpty())
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="all_group" name="all_group" value="all group" onclick="selectAllGroup(this)">
+                            <label class="form-check-label text-white" for="group_id">All</label>
+                        </div>
+                        @foreach($groups as $key => $group)
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input user-group" type="checkbox" name="group_id[]" value="{{ $group->id }}">
+                            <label class="form-check-label text-white" for="group_id">{{ strtoupper($group->group_title) }}</label>
+                        </div>
+                        @endforeach
+                        @endif
+                    </div>
+                    <div class="row pt-4">
+                        <div class="col-12 ">
+                            <button class="btn upg-add-img-btn w-100">Save Your Memory</button>
+                        </div>
+                    </div>
+                    <div class="row pt-4">
+                        <div class="col-12" id="show_msg"></div>
                     </div>
                 </div>
-                <div class="row m-0 mb-3">
-                    <div class="col-lg-2 p-0 col-4 text-white">Date:</div>
-                    <div class="col-lg-7 col-2"></div>
-                    <div class="col-lg-3 col-6 text-white text-end p-0">22/11/2021</div>
-                </div>
-                <div class="row">
-                    <p class="text-white">Assign Recipient</p>
-                    <div class="row mb-3">
-                        <div class="col-lg-2 col-3 rec-images"><img src="{{ asset('/public/assets/images/christopher-campbell-rDEOVtE7vOs-unsplash.jpg') }}"></div>
-                        <div class="col-lg-2 col-3 rec-images"><img src="{{ asset('/public/assets/images/christopher-campbell-rDEOVtE7vOs-unsplash.jpg') }}"></div>
-                        <div class="col-lg-2 col-3 rec-images"><img src="{{ asset('/public/assets/images/christopher-campbell-rDEOVtE7vOs-unsplash.jpg') }}"></div>
-                    </div>
-                </div>
-                <p class="text-white">Select Group</p>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                    <label class="form-check-label text-white" for="inlineRadio1">Friends</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                    <label class="form-check-label text-white" for="inlineRadio2">Family</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                    <label class="form-check-label text-white" for="inlineRadio3">Others</label>
-                </div>
-                <div class="row  pt-4">
-                    <div class="col-12 ">
-                        <button data-bs-toggle="modal" data-bs-target="#redirectModal" class="btn upg-add-img-btn w-100">Save Your Memory</button>
-                    </div>
-                    <!-- <div class="col-12 mt-3 ">
-                                    <a href="./delivery.html" class="btn upg-select-del-btn w-100">Select Delivery</a>
-                                 </div> -->
-                </div>
+                <div class="col-lg-3"></div>
             </div>
-            <div class="col-lg-4"></div>
-        </div>
+        </form>
     </div>
 </div>
 
@@ -90,7 +132,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
-                <form method="POST" action="{{ route('user.medias.store-media') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
+                <form method="POST" action="{{ route('user.medias.store-media') }}" id="modal_form" enctype="multipart/form-data" onsubmit="return validateForm(this)">
                     @csrf
                     <input type="hidden" id="media_type" name="media_type" value="photo">
                     <div class="container-fluid bg-create pb-4 h-auto upgrade-back mt-2">
@@ -396,32 +438,46 @@
         }
     }
 
-    function validateForm() {
-        var title = document.getElementById('title_2').value;
-        var description = document.getElementById('description_2').value;
+    function validateForm(current) {
+        if (current.id == 'main_form') {
+            var title_id = 'title';
+            var description_id = 'description'
+            var title_msg = $('#show_title_msg');
+            var description_msg = $('#show_description_msg');
+            var show_msg = $('#show_msg');
+        }
+        if (current.id == 'modal_form') {
+            var title_id = 'title_2';
+            var description_id = 'description_2'
+            var title_msg = $('#show_title_msg_2');
+            var description_msg = $('#show_description_msg_2');
+            var show_msg = $('#show_msg_2');
+        }
+        var title = document.getElementById(title_id).value;
+        var description = document.getElementById(description_id).value;
         var plan_details = JSON.parse('<?php echo json_encode($plan_details) ?>');
         var my_media = JSON.parse('<?php echo json_encode($my_media) ?>');
         var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
         var msg = '<span class="cl-white">Sorry format not matched! only alphanumeric characters allowed</span>';
 
         if (format.test(title)) {
-            $('#show_title_msg_2').empty();
-            $("#show_title_msg_2").append(msg);
+            title_msg.empty();
+            title_msg.append(msg);
             return false;
         }
         if (format.test(description)) {
-            $('#show_title_msg_2').empty();
-            $('#show_description_msg_2').empty();
-            $("#show_description_msg_2").append(msg);
+            title_msg.empty();
+            description_msg.empty();
+            description_msg.append(msg);
             return false;
         }
         if (my_media < plan_details[0].photo_limit) {
             return true;
         } else {
-            $('#show_title_msg_2').empty();
-            $('#show_description_msg_2').empty();
-            $('#show_msg_2').empty();
-            $("#show_msg_2").append('<span class="cl-white">Sorry your limit for upload video / audio has been fully filled !</span>');
+            title_msg.empty();
+            description_msg.empty();
+            show_msg.empty();
+            show_msg.append('<span class="cl-white">Sorry your limit for upload video / audio has been fully filled !</span>');
             return false;
         }
     }
