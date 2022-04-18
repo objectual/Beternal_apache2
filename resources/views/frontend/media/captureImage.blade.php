@@ -12,7 +12,7 @@
                             <div class="pb-3 media-icon-height">
                                 <img src="{{ asset('/public/assets/images/capture-image.svg') }}" class="camera-img">
                             </div>
-                            <span class="" style="color: #ffaa00;">&nbsp;&nbsp;Capture Image</span>
+                            <span class="" style="color: #F7DB02;">&nbsp;&nbsp;Capture Image</span>
                         </a>
                     </div>
                     <div class="col-md-4 text-center">
@@ -20,7 +20,7 @@
                             <div class="pb-3 media-icon-height">
                                 <img src="{{ asset('/public/assets/images/device-gallery.svg') }}" class="gallery-img">
                             </div>
-                            <span class="" style="color: #ffaa00;">&nbsp;&nbsp;Device Gallery</span>
+                            <span class="" style="color: #F7DB02;">&nbsp;&nbsp;Device Gallery</span>
                         </a>
                     </div>
                     <div class="col-md-4 text-center">
@@ -28,7 +28,7 @@
                             <div class="pb-3 media-icon-height">
                                 <img src="{{ asset('/public/assets/images/view-gallery.svg') }}" class="view-gallery-img">
                             </div>
-                            <span class="" style="color: #ffaa00;">&nbsp;&nbsp;View Gallery</span>
+                            <span class="" style="color: #F7DB02;">&nbsp;&nbsp;View Gallery</span>
                         </a>
                     </div>
                 </div>

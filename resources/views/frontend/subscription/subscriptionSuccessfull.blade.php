@@ -12,7 +12,7 @@
                         <img class="signup-success" src="{{ asset('/public/assets/images/success-signup.svg') }}" />
                         <div class="text-center mb-4">
                             <button data-bs-toggle="modal" data-bs-target="#confirmModal" class="btn pay-succ-btn mb-3 m-auto text-center py-2 mt-3">
-                                <span class="schedule">OKAY</span>
+                                <span class="schedule">GOT IT</span>
                             </button>
                         </div>
                     </div>

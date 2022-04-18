@@ -129,6 +129,10 @@ span.header-icons:before {
     src: url(../fonts/FranklinGotItcTEEMedCon-Bold.ttf);
 }
 
+.FranklinGotTRegCon {
+    font-family: FranklinGotTRegCon;
+}
+
 a {
     text-decoration: none;
 }
@@ -153,11 +157,11 @@ body {
 .profile-img {
     height: 50px;
     width: 50px;
-    border: 3px solid #ffaa00;
+    border: 3px solid #F7DB02;
 }
 
 .profile-name {
-    color: #ffaa00;
+    color: #F7DB02;
     text-transform: uppercase;
     font-size: 0.9rem;
 }
@@ -213,19 +217,19 @@ body {
 }
 
 .menu-active {
-    color: #ffaa00 !important;
+    color: #F7DB02 !important;
 }
 
 .icon-active {
-    fill: #ffaa00;
+    fill: #F7DB02;
 }
 
 .home-control .active {
-    color: #ffaa00 !important;
+    color: #F7DB02 !important;
 }
 
 .btn-get {
-    background-color: #ffaa00 !important;
+    background-color: #F7DB02 !important;
     color: #000 !important;
     border: none;
     padding: 10px 20px;
@@ -261,7 +265,7 @@ body {
     color: #000;
     border-radius: 5px;
     padding: 9px 55px;
-    background-color: #ffaa00;
+    background-color: #F7DB02;
     border-style: none;
 }
 .media-icon-clr::before {
@@ -273,7 +277,7 @@ body {
 .my-media-btn {
     font-weight: bolder;
     color: #000;
-    background-color: #ffaa00;
+    background-color: #F7DB02;
     border: none;
     padding: 10px;
     border-radius: 5px;
@@ -324,10 +328,10 @@ body {
     color: #000;
 }
 .like:hover {
-    color: #000;
+    color: #F7DB02;
 }
 .dislike:hover {
-    color: #000;
+    color: #F7DB02;
 }
 
 .dislike {
@@ -336,7 +340,7 @@ body {
 }
 
 .active-live {
-    color: #ffaa00;
+    color: #fff;
 }
 .select-recipent-bottom-padding {
     padding-bottom: 5%;
@@ -349,7 +353,7 @@ body {
     border: 0;
     border-radius: 5px;
     color: #000;
-    background-color: #ffaa00;
+    background-color: #F7DB02;
     padding: 15px;
 }
 
@@ -385,8 +389,8 @@ body {
 }
 
 .event-active {
-    border: 1px solid #ffaa00 !important;
-    color: #ffaa00 !important;
+    border: 1px solid #F7DB02 !important;
+    color: #F7DB02 !important;
 }
 
 .delivery-calendar tbody {
@@ -394,7 +398,7 @@ body {
 }
 
 .sunday {
-    background: #ffaa00;
+    background: #F7DB02;
     color: #000;
 }
 
@@ -405,7 +409,7 @@ body {
 
 .time-digit {
     font-size: 25px;
-    color: #ffaa00;
+    color: #F7DB02;
     margin-left: 35px;
 }
 
@@ -549,7 +553,7 @@ body {
 }
 .create-acc-btn {
     padding: 50px;
-    background-color: #ffaa00;
+    background-color: #F7DB02;
 }
 .create-acc-btn span {
     font-size: 13px;
@@ -602,6 +606,7 @@ body {
 .image-upload {
     height: 150px;
     width: 150px;
+    object-fit: cover;
 }
 .cl-black {
     color: #000;
@@ -645,6 +650,7 @@ body {
 }
 
 .payment-h3 {
+    text-align: center !important;
 }
 /**** Add Recipent Css *****/
 
@@ -691,6 +697,7 @@ body {
 }
 .edit {
     border-radius: 5px;
+    background-color: rgb(255, 255, 255, 0.5);
 }
 .head1 {
     font-size: 25px;
@@ -743,7 +750,7 @@ body {
   transform: translate(-50%, -50%); */
 }
 .splash-btn {
-    background-color: #ffaa00;
+    background-color: #F7DB02;
     color: black;
     font-size: 14px;
     border-radius: 5px;
@@ -752,14 +759,14 @@ body {
 }
 
 .color-secondary {
-    color: #ffaa00;
+    color: #F7DB02;
 }
 .mob-view a:hover {
-    color: #ffaa00 !important;
+    color: #F7DB02 !important;
 }
 .mob-view p:hover,
 .mob-view p:hover .icon-video {
-    color: #ffaa00 !important;
+    color: #F7DB02 !important;
 }
 .forget-dropdown {
     display: none;
@@ -784,7 +791,7 @@ body {
 .message-area {
     background-color: #fff;
     height: 160px;
-    width: 74%;
+    width: 100%;
     border: 0px;
     border-radius: 0.25rem;
 }
@@ -815,9 +822,10 @@ body {
 .footer-span {
     color: #fff !important;
     font-size: 20px !important;
+    text-transform: uppercase;
 }
 .team-mem {
-    color: #ffaa00;
+    color: #F7DB02;
 }
 .team-mem-img {
     width: 45%;
@@ -842,13 +850,13 @@ body {
     transform: rotate(-2deg);
 }
 .accordion-button:not(.collapsed)::after {
-    color: #ffaa00;
+    color: #F7DB02;
     background-image: url(../images/dropdown-yellow.png);
     transform: rotate(0deg);
 }
 .accordion-button {
-    background: #fff !important;
-    color: #000 !important;
+    background-color: rgb(0 0 0 / 50%);
+    color: transparent !important;
     font-size: 20px;
 }
 .accordion-item:first-of-type .accordion-button {
@@ -902,7 +910,7 @@ body {
     border-radius: 50%;
 }
 .upg-add-img-btn {
-    border: 2px solid #ffaa00;
+    border: 2px solid #F7DB02;
     margin-right: 10px;
     text-align: center;
     border-radius: 5px;
@@ -911,13 +919,13 @@ body {
 }
 .upg-add-img-btn,
 button {
-    color: #ffaa00;
+    color: #F7DB02;
 }
 .upg-select-del-btn {
     text-align: center;
     border-radius: 5px;
     padding: 10px;
-    background-color: #ffaa00;
+    background-color: #F7DB02;
 }
 .upg-select-del-btn,
 button {
@@ -957,7 +965,7 @@ button {
     text-align: center;
     border-radius: 5px;
     padding: 10px 10px;
-    background-color: #ffaa00;
+    background-color: #F7DB02;
     text-transform: uppercase;
     color: #000;
     font-size: 13px;
@@ -971,11 +979,11 @@ button {
     text-align: center;
     border-radius: 5px;
     padding: 5px 45px;
-    background-color: #ffaa00;
+    background-color: #F7DB02;
 }
 .signup-btn {
-    border: 1px solid #ffaa00;
-    color: #ffaa00;
+    border: 1px solid #F7DB02;
+    color: #F7DB02;
     text-align: center;
     border-radius: 5px;
     padding: 5px 45px;
@@ -1115,17 +1123,14 @@ textarea {
     }
     .view-gallery-img {
         width: 76% !important;
-        padding-right: 13px !important;
-        padding-left: 18px !important;
+        /* padding-right: 13px !important;
+        padding-left: 18px !important; */
     }
     .record-img {
         width: 75% !important;
         padding-right: 12px !important;
         padding-left: 12px !important;
-    }
-    .upgrade-back span {
-        font-size: 11px;
-    }
+    } 
     .login h4 {
         font-size: 20px;
     }
@@ -1275,7 +1280,7 @@ textarea {
     height: 20px;
 }
 .contact-us {
-    background-color: rgb(255, 255, 255, 0.5);
+    background-color: rgb(0 0 0 / 50%);
     padding: 20px 40px;
     text-align: center;
     border-radius: 5px;
@@ -1317,6 +1322,13 @@ textarea {
     display: none;
 }
 @media screen and (min-width: 320px) and (max-width: 991px) {
+    .footer-user-img {
+        margin-top: -12px;
+        height: auto !important; 
+    }
+    .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show>.nav-link {
+        color: rgb(255 255 255 / 90%) !important;
+    }
     .sort-txt {
         display: block !important;
     }
@@ -1339,9 +1351,7 @@ textarea {
     .we-give-back-main {
         padding: 15px 20px !important;
     }
-    .we-give-back {
-        padding: 0 !important;
-    }
+   
     .we-give-back h1 {
         font-size: 25px;
         padding-bottom: 5px !important;
@@ -1361,10 +1371,7 @@ textarea {
     }
     .row-one {
         display: block !important;
-    }
-    .reclaim-back-img > div h1 {
-        color: #fff !important;
-    }
+    } 
     .we-give-back p {
         font-size: 14px;
     }
@@ -1455,7 +1462,7 @@ textarea {
         font-family: "FranklinGotItcTEEMedCon";
         font-size: 14px;
         margin-top: 10px;
-        color: #ffaa00;
+        color: #F7DB02;
         display: block !important;
     }
     .without-menu {
@@ -1495,6 +1502,7 @@ textarea {
     }
     .profile-name {
         font-size: 0.7rem;
+        color: #000 !important;
     }
     .image-upload {
         height: 100px !important;
@@ -1717,9 +1725,7 @@ textarea {
     .mail-bottom {
         border-bottom: transparent !important;
     }
-    .forget-border-form {
-        padding: 0px;
-    }
+  
     .new-pass-head {
         font-size: 17px !important;
         margin-top: 30px !important;
@@ -1798,7 +1804,7 @@ textarea {
         display: none !important;
     }
     #dropdownUser1 {
-        color: #ffaa00 !important;
+        color: #000 !important;
     }
     #mob-col {
         width: 110px !important;
@@ -1847,7 +1853,7 @@ textarea {
         font-size: 15px !important;
     }
     .btn-pay {
-        background-color: #ffaa00;
+        background-color: #F7DB02;
         border: none;
         border-radius: 5px;
     }
@@ -1855,7 +1861,7 @@ textarea {
         color: black;
     }
     .login-btn-one {
-        background-color: #ffaa00 !important;
+        background-color: #F7DB02 !important;
     }
     .login-btn-one span {
         color: black !important;
@@ -1888,12 +1894,12 @@ textarea {
     }
     .newbuttoons a {
         width: 100%;
-        background: #fff;
-        color: black;
+        background-color: rgb(0 0 0 / 60%);
+        color: #fff;
         border-style: none;
         border-radius: 5px;
         margin-bottom: 10px;
-        padding: 10px 10px 10px 10px;
+        padding: 10px 10px 10px 20px;
     }
     .newbuttoons {
         padding-right: 0px !important;
@@ -1919,7 +1925,7 @@ textarea {
         width: 90% !important;
     }
     .recipent-mob-btn {
-        background-color: #ffaa00 !important;
+        background-color: #F7DB02 !important;
     }
     .recipent-mob-btn span {
         color: black !important;
@@ -1963,7 +1969,7 @@ textarea {
     }
 
     .create-button {
-        background-color: #ffaa00 !important;
+        background-color: #F7DB02 !important;
     }
     .create-button span {
         color: black;
@@ -2063,7 +2069,7 @@ textarea {
         display: none;
     }
     .survey-mob-btn {
-        background-color: #ffaa00 !important;
+        background-color: #F7DB02 !important;
     }
     .survey-mob-btn span {
         color: #000;
@@ -2078,7 +2084,7 @@ textarea {
         font-weight: bolder;
     }
     .dash-admin::after {
-        color: #ffaa00 !important;
+        color: #F7DB02 !important;
     }
     .column-reverse {
         flex-direction: column-reverse !important;
@@ -2088,7 +2094,7 @@ textarea {
         font-size: 9px;
     }
     .dash-admin {
-        color: #000 !important;
+        color: #fff !important;
     }
 
     .dashboard-contain {
@@ -2098,7 +2104,6 @@ textarea {
     }
     .dashboard-contain img {
         width: 60px;
-        min-height: 75px;
     }
     .home a {
         font-size: 4.9rem;
@@ -2169,7 +2174,7 @@ textarea {
         width: 40px;
     }
     .top-nav {
-        background-color: transparent !important;
+        background-color: #F7DB02 !important;
         position: absolute;
         width: 100%;
     }
@@ -2214,7 +2219,7 @@ textarea {
         display: none;
     }
     .pay-succ-btn {
-        background: #ffaa00 !important;
+        background: #F7DB02 !important;
         padding: 0 35px;
     }
     .pay-succ-btn span {
@@ -2240,7 +2245,7 @@ textarea {
     .btn-pay {
         border: none;
         border-radius: 5px;
-        background-color: #ffaa00;
+        background-color: #F7DB02;
     }
     .btn-pay span {
         font-weight: bolder;
@@ -2295,7 +2300,7 @@ textarea {
         min-height: 220px;
     }
     .btn-get {
-        margin-top: 40%;
+        margin-top: 15%;
     }
     .home {
         padding-top: 40%;
@@ -2389,11 +2394,11 @@ ul {
     font-size: 2.8rem;
 }
 .footer-menu .icon-user {
-    font-size: 2.6rem;
+    font-size: 2.4rem !important;
 }
 .filter-btn {
     color: #000000;
-    background-color: #ffaa00;
+    background-color: #F7DB02;
 }
 .filter-text {
     font-family: "FranklinGotItcTEEMedCon";
@@ -2449,7 +2454,7 @@ ul {
     background: #000;
     display: block;
     /* text-align: center; */
-    color: #ffaa00;
+    color: #F7DB02;
     font-size: 14px;
 }
 .group-color {
@@ -2473,7 +2478,7 @@ ul {
     color: #000;
 }
 .legacy-btn {
-    background-color: #ffaa00;
+    background-color: #F7DB02;
     font-size: 14px;
     color: #fff;
 }
@@ -2495,7 +2500,7 @@ ul {
     height: 70px;
 }
 .upg-box {
-    background-color: #ffaa00;
+    background-color: #F7DB02;
 }
 .upg-box ul {
     list-style: none;
@@ -2593,6 +2598,7 @@ ul {
     font-size: 19px;
     vertical-align: middle;
     font-family: FranklinGotTRegCon;
+    text-transform: uppercase;
 }
 
 @media screen and (min-width: 320px) and (max-width: 991px) {
@@ -2613,7 +2619,7 @@ ul {
         background-color: #000;
     }
     .pay-succ-btn {
-        background: #ffaa00;
+        background: #F7DB02;
         padding: 0 35px;
     }
     .pay-succ-btn span {
@@ -2650,8 +2656,9 @@ ul {
     }
 
     .nav-header .navbar-collapse {
-        background: #fff;
+        background: #000;
         padding: 10px 0px;
+        margin-top: 35px;
     }
 }
 
@@ -2707,19 +2714,19 @@ ul {
 }
 
 .nav-header .nav-link:hover {
-    color: #ffaa00 !important;
+    color: #F7DB02 !important;
 }
 
 .footer-menu a:hover .footer-icons {
-    color: #ffaa00 !important;
+    color: #F7DB02 !important;
 }
 
 .footer-menu a:hover .footer-span {
-    color: #ffaa00 !important;
+    color: #F7DB02 !important;
 }
 
 .home a:hover .icon-video:before {
-    color: #ffaa00 !important;
+    color: #F7DB02 !important;
 }
 
 .survey-placeholder {
@@ -2732,11 +2739,11 @@ ul {
     border-bottom-left-radius: 5px;
 }
 a:hover {
-    color: #ffaa00;
+    color: #F7DB02;
 }
 
 .bg-primary {
-    background-color: #ffaa00 !important;
+    background-color: #F7DB02 !important;
 }
 
 .input-group .form-control {
@@ -2757,14 +2764,10 @@ a:hover {
     margin-bottom: 10%;
     margin-top: 10%;
 }
-
-.upgrade-back span {
-    font-family: Arial !important;
-}
+ 
 
 .view-gallery-img {
     width: 127px;
-    border-left: 1px solid #ddd;
     padding-right: 22px;
     padding-left: 20px;
 }
@@ -2776,13 +2779,12 @@ a:hover {
 }
 
 .form-check-input:checked {
-    background-color: #ffaa00;
-    border-color: #ffaa00;
+    background-color: #F7DB02;
+    border-color: #F7DB02;
 }
 
 .record-img {
     width: 105px;
-    border-right: 1px solid #ddd;
     padding-right: 22px;
     padding-left: 22px;
 }
@@ -2794,7 +2796,6 @@ a:hover {
 .record-video {
     width: 93%;
     height: 85px;
-    border-right: 1px solid #ddd;
     padding-right: 18px;
     padding-left: 12px;
 }
@@ -2804,7 +2805,7 @@ a:hover {
 }
 
 .btn-upgrade {
-    background-color: #ffaa00 !important;
+    background-color: #F7DB02 !important;
     color: #000 !important;
     border: none;
     padding: 10px 70px;
@@ -2815,6 +2816,7 @@ a:hover {
 .acc-img {
     height: 150px;
     width: 150px;
+    object-fit: cover;
 }
 
 .profile-icon {
@@ -2838,7 +2840,7 @@ a:hover {
 }
 
 .color-primary {
-    color: #ffaa00 !important;
+    color: #F7DB02 !important;
 }
 
 .navbar-light .navbar-toggler-icon {
@@ -2850,7 +2852,7 @@ a:hover {
 }
 
 .recipent-div .container-check input:checked ~ .checkmark {
-    background-color: #fa0;
+    background-color: #F7DB02;
 }
 
 .recipent-add-btn {
@@ -2907,6 +2909,7 @@ hr {
 
 body {
     overflow-x: hidden;
+    font-size: 1.3rem;
 }
 
 .login-chk .checkmark:after {
@@ -2973,8 +2976,8 @@ body {
 }
 
 .btn-plane {
-    background: #fa0;
-    border: #fa0;
+    background: #F7DB02;
+    border: #F7DB02;
 }
 
 .btn-plane:hover {
@@ -3000,7 +3003,8 @@ body {
     }
 }
 .navbar-nav .nav-link {
-    padding-right: 0.5rem !important;
+    padding-right: 2.5rem !important;
+    padding-left: 2.5rem !important;
 }
 .media-rec-text {
     display: none;
@@ -3034,6 +3038,8 @@ body {
     font-size: 14px;
     color: #f7db02;
     border-radius: 5px;
+    width: 150px;
+    margin: auto;
 }
 
 .header-menu {
@@ -3055,8 +3061,10 @@ body {
     border-radius: 5px;
     padding: 10px 20px;
     font-size: 14px;
-    border: 2px solid #fff;
-    background: transparent;
+    background: #F7DB02 !important;
+    color: #000;
+    text-transform: uppercase;
+    border: none;
 }
 .header-position {
     overflow: hidden;
@@ -3201,4 +3209,47 @@ body {
 
 .form-control {
     font-size: 0.9rem;
+}
+
+.footer-menu a {
+    margin: auto;
+} 
+
+.video-circle, .audio-circle, .gallery-circle {
+    width: 150px;
+}
+
+.footer-user-img {
+    width: 50px;
+}
+
+@media screen and (min-width: 280px) and (max-width: 991px) and (orientation : landscape){
+    .footer-menu {
+        background: #000 !important;
+    }
+}
+
+.color-check-green {
+    color: #38d414 !important;
+}
+
+.visa-img {
+    margin-top: 34px;
+}
+
+.accordion-item { 
+    border: 0px solid transparent !important;
+    background-color: rgb(255, 255, 255, 0.5) !important;
+}
+
+.accordion-button:not(.collapsed) { 
+    background-color: transparent; 
+}
+
+.accordion-button {
+    color: #fff !important;
+}
+
+.accordion-body {
+    color: #fff !important;
 }

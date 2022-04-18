@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col-lg-6 offset-lg-3">
         <div class="login contact-us">
-          <h4 class="mt-3 mb-3 forget-head">CONTACT US</h4>
+          <h4 class="mt-3 mb-3 forget-head text-white">CONNECT WITH US</h4>
           <div class=" mb-3">
             <div class="row">
               <div class="col-md-6 col-sm-12 mb-2">

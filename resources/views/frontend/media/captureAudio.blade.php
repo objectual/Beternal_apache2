@@ -16,7 +16,7 @@
                                 <div class="pb-3 media-icon-height">
                                     <img src="{{ asset('/public/assets/images/audio.svg') }}" class="record-img">
                                 </div>
-                                <span class="" style="color: #ffaa00;">&nbsp;&nbsp;Record Audio</span>
+                                <span class="" style="color: #F7DB02;">&nbsp;&nbsp;Record Audio</span>
                             </a>
                         </div>
                         <div class="col-md-4 text-center">
@@ -27,7 +27,7 @@
                                 @if($errors->has('file_name'))
                                 <div class="error">{{ $errors->first('file_name') }}</div>
                                 @endif
-                                <label style="color: #ffaa00;" for="file">&nbsp;&nbsp;Device Gallery</label>
+                                <label style="color: #F7DB02;" for="file">&nbsp;&nbsp;Device Gallery</label>
                                 <input type="file" accept="audio/*" name="file_name" id="file" style="display: none;">
                             </a>
                         </div>
@@ -36,7 +36,7 @@
                                 <div class="pb-3 media-icon-height">
                                     <img src="{{ asset('/public/assets/images/view-gallery.svg') }}" class="view-gallery-img">
                                 </div>
-                                <span class="" style="color: #ffaa00;">&nbsp;&nbsp;View Gallery</span>
+                                <span class="" style="color: #F7DB02;">&nbsp;&nbsp;View Gallery</span>
                             </a>
                         </div>
                     </div>

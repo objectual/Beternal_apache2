@@ -19,43 +19,50 @@
           <ul class="navbar-nav">
             <li class="nav-item px-2">
               <a class="nav-link menu-active" aria-current="page" href=""
-                ><span class="icon-home header-icons"></span
-                ><span class="header-span">Home</span></a
+                >
+                <!-- <span class="icon-home header-icons"></span> -->
+                <span class="header-span">Home</span></a
               >
             </li>
             <li class="nav-item px-2">
               <a class="nav-link active" aria-current="page" href="{{ route('dashboard') }}"
-                ><span class="icon-menu header-icons"></span
-                ><span class="header-span">Dashboard</span></a
+                >
+                <!-- <span class="icon-menu header-icons"></span> -->
+                <span class="header-span">Dashboard</span></a
               >
             </li>
             <li class="nav-item px-2">
               <a class="nav-link active" aria-current="page" href="{{ route('user.medias') }}"
-                ><span class="icon-add-data header-icons"></span
-                ><span class="header-span">Add Media</span></a>
+                >
+                <!-- <span class="icon-add-data header-icons"></span> -->
+                <span class="header-span">Add Media</span></a>
             </li>
             <li class="nav-item px-2">
               <a class="nav-link active" aria-current="page" href="{{ route('user.profile') }}"
-                ><span class="icon-user header-icons"></span
-                ><span class="header-span">User Profile</span></a
+                >
+                <!-- <span class="icon-user header-icons"></span> -->
+                <span class="header-span">User Profile</span></a
               >
             </li>
             <li class="nav-item px-2">
               <a class="nav-link active" aria-current="page" href="{{ route('user.legacy') }}"
-                ><span class="icon-legacy header-icons"></span
-                ><span class="header-span">Legacy</span></a
+                >
+                <!-- <span class="icon-legacy header-icons"></span> -->
+                <span class="header-span">Legacy</span></a
               >
             </li>
             <li class="nav-item px-2">
               <a class="nav-link active" aria-current="page" href="{{ route('user.delivery') }}"
-                ><span class="icon-event header-icons"></span
-                ><span class="header-span">Scheduled Media</span></a
+                >
+                <!-- <span class="icon-event header-icons"></span> -->
+                <span class="header-span">Scheduled Media</span></a
               >
             </li>
             <li class="nav-item px-2">
               <a class="nav-link active" aria-current="page" href="{{ route('user.recipents') }}"
-                ><span class="icon-Recipents header-icons"></span
-                ><span class="header-span">Recipents</span></a
+                >
+                <!-- <span class="icon-Recipents header-icons"></span> -->
+                <span class="header-span">Recipents</span></a
               >
             </li>
           </ul>

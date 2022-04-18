@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-6 text-center offset-lg-3">
                     <h1 class="mt-4 text-white">Anna Seth</h1>
-                    <span class="icon-checkbox modal-check-img"></span>
+                    <span class="icon-checkbox modal-check-img color-check-green"></span>
                     <p class="text-white">
                         You have successfully scheduled delivery of this memory on:
                         AUGUST 20, 2021
