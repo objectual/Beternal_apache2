@@ -31,8 +31,8 @@ class MediaController extends Controller
         $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
         $plan_details =  Plan::where('id', Auth::user()->plan_id)->get(['*']);
 
-        $my_media =  Media::where(['type' => 'video', 'user_id' => $id])
-            ->orWhere(['type' => 'audio', 'user_id' => $id])
+        $my_media =  Media::where('user_id', $id)
+            ->whereIn('type', ['video', 'audio'])
             ->count();
 
         return view('frontend.media.captureVideo', compact(
@@ -255,13 +255,22 @@ class MediaController extends Controller
                 $recipients = ShareMedia::where('media_id', $photo->id)
                 ->join('users', 'share_media.recipient_id', '=', 'users.id')
                 ->get(['share_media.recipient_id', 'users.name', 'users.last_name']);
+
+                $groups = ShareMediaGroup::where('media_id', $photo->id)
+                ->join('groups', 'share_media_groups.group_id', '=', 'groups.id')
+                ->get(['share_media_groups.group_id', 'groups.group_title']);
+
                 if (!$recipients->isEmpty()) {
                     $photo->recipient_first_name = $recipients[0]->name;
                     $photo->recipient_last_name = $recipients[0]->last_name;
                 }
+                if (!$groups->isEmpty()) {
+                    $photo->group_title = $groups[0]->group_title;
+                }
                 else {
                     $photo->recipient_first_name = 'N/A';
                     $photo->recipient_last_name = '';
+                    $photo->group_title = '';
                 }
             }
         }

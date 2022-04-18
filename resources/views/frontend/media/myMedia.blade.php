@@ -117,8 +117,8 @@
                 @php $date_time = explode(" ", $photo->created_at); @endphp
                 <div class="col-lg-2 px-1 col-12">
                     <a class="example-image-link" id="{{ $photo->file_name }}" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="selectPhoto(this)"><img class="example-image" src="{{ asset( 'public/'.$photo->file_name )}}" alt="" />
-                        <span class="ab-img-span">{{ $photo->recipient_first_name }} {{ $photo->recipient_last_name }} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group 2</span></span>
-                        <span class="above-img-span">First Contact</span>
+                        <span class="ab-img-span">{{ $photo->recipient_first_name }} {{ $photo->recipient_last_name }} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group : {{ $photo->group_title }}</span></span>
+                        <!-- <span class="above-img-span">First Contact</span> -->
                         <span class="above-img-span">{{ $photo->title }}<span class="date-time"> {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}</span></span></a>
                 </div>
                 @endforeach
