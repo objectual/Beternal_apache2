@@ -41,7 +41,7 @@
                             right. Your<br />
                             legacy. Your way. Be eternal.
                         </p>
-                        <a href="./create-account.html" class="solution-sign-up-btn">SIGN UP</a>
+                        <a href="./create-account.html" class="solution-sign-up-btn mt-4 d-block">SIGN UP</a>
                     </div>
                     <div class="row">
                         <div class="col-lg-3"></div>
@@ -64,36 +64,31 @@
                 </div>
                 <div class="container-fluid p-5 text-center bg-black">
                     <div class="col-md-8 m-auto">
-                        <h1 class="text-white">connect with us</h1>
+                        <h1 class="text-white mb-4">connect with us</h1>
                         <form>
-                            <p class="text-white text-center mb-2 sol-page-labels">Name *</p>
                             <div class="row-one">
-                                <div class="mb-3 col-md-6 name-form">
-                                    <!-- <label for="exampleInputEmail1" class="form-label text-white">Email address</label> -->
+                                <div class="mb-3 col-lg-6 col-12 name-form">
+                                     <label for="exampleInputPassword1" class="form-label text-white sol-page-labels text-start d-block">First Name *</label>
                                     <input type="text" class="form-control sol-form" />
-                                    <div id="emailHelp" class="form-text text-white">
-                                        First Name
-                                    </div>
+                                 
                                 </div>
-                                <div class="mb-3 col-md-6">
-                                    <!-- <label for="exampleInputEmail1" class="form-label text-white">Email address</label> -->
+                                <div class="mb-3 col-lg-6 col-12">                                    
+                                    <label for="exampleInputPassword1" class="form-label text-white sol-page-labels text-start d-block">Last Name *</label>
                                     <input type="text" class="form-control sol-form" />
-                                    <div id="emailHelp" class="form-text text-white">
-                                        Last Name
-                                    </div>
+                                   
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label text-white sol-page-labels">Email *</label>
+                                <label for="exampleInputPassword1" class="form-label text-white sol-page-labels text-start d-block">Email *</label>
                                 <input type="email" class="form-control sol-form" id="exampleInputPassword1" />
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label text-white sol-page-labels">Phone</label>
+                                <label for="exampleInputPassword1" class="form-label text-white sol-page-labels text-start d-block">Phone</label>
                                 <input type="text" class="form-control sol-form" id="exampleInputPassword1" />
                             </div>
 
                             <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label text-white sol-page-labels">Message</label>
+                                <label for="exampleFormControlTextarea1" class="form-label text-white sol-page-labels text-start d-block">Message</label>
                                 <textarea class="form-control sol-form" id="exampleFormControlTextarea1" rows="3"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary send-bthn-solution col-md-2 col-12">

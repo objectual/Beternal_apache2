@@ -4,11 +4,11 @@
 <div class="container-fluid survey-back survey-padding h-100">
     <div class="scroll-div survey-mob-padding">
         <div class="row col-md-10 m-auto px-4 pb-5 pt-5 survey-mob-padding">
-            <div class="col-lg-6 mt-3">
+            <div class="col-lg-10 mt-3">
                 <h3 class="sur-head cl-white">HOW ARE WE DOING?</h3>
-                <p class="cl-white">Would you recommend us to a friend?</p>
+                <p class="cl-white">We are very interested in your opinion. Let us know how we can improve or what you like. Thank you!</p>
             </div>
-            <div class="col-lg-6 mt-3 text-end sur-like">
+            <div class="col-lg-2 mt-3 text-end sur-like">
                 <a href="#" class="icon-like like active-live"></a>
                 <a href="#" class="icon-disLike dislike mx-2"></a>
             </div>

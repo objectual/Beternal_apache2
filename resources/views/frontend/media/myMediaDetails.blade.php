@@ -8,7 +8,7 @@
                 <div class="col-lg-12 mt-3">
                     <div class=" col-md-12 col-12 justify-content-end d-flex ">
                         <img src="{{ asset('/public/assets/images/edit-icon-media-details.png') }}" class="edit-icon-style">
-                        <p style="color:#FFAA00;" class="px-2">Edit</p>
+                        <p style="color:#F7DB02;" class="px-2">Edit</p>
                         <img src="{{ asset('/public/assets/images/delete-new.png') }}" class="delete-icon-style">
                         <p style="color:#C91717;" class="px-2">Delete</p>
                     </div>

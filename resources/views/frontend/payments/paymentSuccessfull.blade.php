@@ -8,11 +8,11 @@
                 <div class="row">
                     <div class="col-lg-8 text-center offset-lg-2">
                         <h2 class="mt-5 payment-h3 text-white">THANK YOU</h2>
-                        <h6 class="text-white pay-para">Your payment has been seccessfull.</h6>
+                        <h6 class="text-white pay-para">WELL DONE! Thank you for your payment. You have taken the first step to preserve your legacy.</h6>
                         <img class="signup-success" src="{{ asset('/public/assets/images/success-signup.svg') }}" />
                         <div class="text-center mb-4">
                             <button data-bs-toggle="modal" data-bs-target="#confirmModal" class="btn pay-succ-btn mb-3 m-auto text-center py-2 mt-3">
-                                <span class="schedule">OKAY</span>
+                                <span class="schedule">GOT IT</span>
                             </button>
                         </div>
                     </div>

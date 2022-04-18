@@ -19,7 +19,7 @@
                                     <div class="error">{{ $errors->first('image') }}</div>
                                     @endif
                                     <a class="mt-5 cl-white upload upload-web px-3">
-                                        <label class="icon-upload" for="file">&nbsp;&nbsp;Upload Image</label>
+                                        <label class="icon-upload" for="file">&nbsp;&nbsp;<span class="FranklinGotTRegCon">Upload Image</span></label>
                                         <input type="file" accept="image/*" name="image" id="file"
                                             onchange="loadFile(event)" style="display: none;">
                                     </a>
