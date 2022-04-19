@@ -1,9 +1,9 @@
 @extends("frontend.layouts.layout")
 @section("title","Our Solution")
 @section("content")
-<div class="bg-create scroll-height-mobile mobile-padding solution-bg">
+<div class="scroll-height-mobile mobile-padding">
     <div class="col-md-12 m-auto">
-        <div class="scroll-div">
+        <div class="scroll-div bg-solution">
             <div class="row">
                 <div class="container-fluid p-5 second-section-solution">
                     <div class="col-md-8 text-center m-auto our-sol-inner-div">
@@ -56,7 +56,7 @@
                 </div>
                 <div class="container-fluid text-center reclaim-back-img">
                     <div class="col-md-7 p-5 m-auto">
-                        <h1>
+                        <h1 class="text-white">
                             Reclaim your <br />
                             private life
                         </h1>

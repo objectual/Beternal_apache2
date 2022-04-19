@@ -738,11 +738,14 @@ body {
 /**** notification Css *****/
 
 .loader {
-    background-image: url(../images/loader.png);
-    background-position: center;
+    background-image: url(../images/splash-bg.jpg);
     background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
+    background-size: cover; 
+}
+.bg-solution {
+    background-image: url(../images/splash-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover; 
 }
 .loader p {
     color: #fff;
@@ -986,7 +989,7 @@ button {
     color: #F7DB02;
     text-align: center;
     border-radius: 5px;
-    padding: 5px 45px;
+    padding: 5px 36px;
     background-color: transparent;
 }
 /* Form css */
@@ -2683,7 +2686,7 @@ ul {
     }
 }
 
-.bg-sp-1 {
+/* .bg-sp-1 {
     background: url(../images/bg-sp-1.png);
     background-size: cover;
 }
@@ -2696,19 +2699,17 @@ ul {
 .bg-sp-3 {
     background: url(../images/bg-sp-3.png);
     background-size: cover;
-}
+} */
 
 .sp-head-1 {
     text-align: center;
     font-size: 30px;
-    font-family: arial;
     margin: 20px 0px;
 }
 
 .sp-head-2 {
     text-align: center;
     font-size: 22px;
-    font-family: arial;
     margin: 20px 0px;
 }
 
@@ -3079,18 +3080,11 @@ body {
     top: 0; /* Position the navbar at the top of the page */
     width: 100%; /* Full width */
 }
-.reclaim-back-img {
-    background-position: center !important;
-    padding: 100px 0px;
-    background-repeat: no-repeat;
-    background-size: cover !important;
-    background: url("../images/pexels-victor-freitas-847484.jpg");
+.reclaim-back-img { 
+    padding: 100px 0px; 
 }
 .break-free-back {
-    padding: 100px 0px !important;
-    background-repeat: no-repeat;
-    background-size: cover !important;
-    background: url("../images/digitalskyscape.jpg");
+    padding: 100px 0px !important; 
 }
 .second-section-solution {
     background-position: bottom !important;
@@ -3171,11 +3165,7 @@ body {
 }
 .dropdown {
     z-index: 9999;
-}
-
-.solution-bg {
-    background: #000;
-}
+} 
 
 .logi {
     z-index: 9999;
