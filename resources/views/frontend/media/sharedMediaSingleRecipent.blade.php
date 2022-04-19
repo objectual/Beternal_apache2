@@ -13,17 +13,17 @@
                         <div class="input-group filter-select sch-media-form">
                             <input type="text" class="form-control search-input" placeholder="Search by Recipient's Name">
                             <div class="input-group-append">
-                                <a href="#"><img class="search-ico" src="{{ asset('/public/assets/images/search.png') }}" /> </a>
+                                <a href="#"><img class="search-ico" src="{{ asset('/public/assets/images/search-white.png') }}" /> </a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-2 mb-2">
-                        <select class="form-select filter-select sch-media-form" aria-label="Default select example">
+                        <select class="form-select filter-border filter-select sch-media-form" aria-label="Default select example">
                             <option selected>Group</option>
                         </select>
                     </div>
                     <div class="col-lg-2 mb-2">
-                        <select class="form-select filter-select sch-media-form" aria-label="Default select example">
+                        <select class="form-select filter-border filter-select sch-media-form" aria-label="Default select example">
                             <option selected>Status</option>
                         </select>
                     </div>
@@ -54,18 +54,24 @@
                 </div>
                 <div class="d-flex shared-media">
                     <div class="col text-center mob-view">
-                        <a href="#" class="icon-video media-icon-clr">
+                        <a href="#" class=" media-icon-clr">
+                             <img src="{{ asset('/public/assets/images/video-circle.png') }}" class="shared-video-circle" /> 
+
                             <p class="arial-bold text-white mt-2">UPLOAD VIDEO</p>
                             <!-- <input type="file" accept="image/*;capture=camera"> -->
                         </a>
                     </div>
                     <div class="col text-center mob-view">
-                        <a href="#" class="icon-audio active media-icon-clr">
+                        <a href="#" class=" active media-icon-clr">
+                        <img src="{{ asset('/public/assets/images/audio-circle.png') }}" class="shared-audio-circle" /> 
+
                             <p class="arial-bold text-white mt-2">UPLOAD AUDIO</p>
                         </a>
                     </div>
                     <div class="col text-center mob-view">
-                        <a href="#" class="icon-photos media-icon-clr">
+                        <a href="#" class="  media-icon-clr">
+                        <img src="{{ asset('/public/assets/images/gallery-circle.png') }}" class="shared-gallery-circle" /> 
+
                             <p class="arial-bold text-white mt-2">UPLOAD PHOTO</p>
                         </a>
                     </div>
@@ -85,10 +91,10 @@
                                 </div>
                                 <span class="above-img-span">Video 1 30-11-2021 3:04pm</span>
                                 <div class="row">
-                                    <div class="col-lg-6 col-6">
+                                    <div class="col-lg-6 col-12">
                                         <span class="above-img-span">Image</span>
                                     </div>
-                                    <div class="col-lg-6 col-6 text-end">
+                                    <div class="col-lg-12 col-12 text-end">
                                         <span class="above-img-span">12-05-2022 10:08 PM</span>
                                     </div>
                                 </div>
@@ -97,277 +103,300 @@
                     </div>
                 </div>
                 <div class="row mt-3 px-2">
-                    <div class="col-lg-2 col-12 px-1 col-4">
+                    <div class="col-lg-2 col-6 px-1 col-4">
                         <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
-                                    </div>
-                                    <div class="col-lg-5 col-5 text-end">
-                                        <span class="above-img-span">Group 2</span>
-                                    </div>
-                                </div>
                                 <span class="above-img-span">First Contact</span>
-                                <div class="row">
-                                    <div class="col-lg-4 col-4">
-                                        <span class="above-img-span">Image</span>
-                                    </div>
-                                    <div class="col-lg-8 col-8 text-end">
-                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
-                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
-                            <div class="bg-black border-shared-img">
-                                <div class="row">
-                                    <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
-                                    </div>
-                                    <div class="col-lg-5 col-5 text-end">
-                                        <span class="above-img-span">Group 2</span>
-                                    </div>
-                                </div>
-                                <span class="above-img-span">First Contact</span>
-                                <div class="row">
-                                    <div class="col-lg-4 col-4">
-                                        <span class="above-img-span">Image</span>
-                                    </div>
-                                    <div class="col-lg-8 col-8 text-end">
-                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
-                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
-                            <div class="bg-black border-shared-img">
-                                <div class="row">
-                                    <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
-                                    </div>
-                                    <div class="col-lg-5 col-5 text-end">
-                                        <span class="above-img-span">Group 2</span>
-                                    </div>
-                                </div>
-                                <span class="above-img-span">First Contact</span>
-                                <div class="row">
-                                    <div class="col-lg-4 col-4">
-                                        <span class="above-img-span">Image</span>
-                                    </div>
-                                    <div class="col-lg-8 col-8 text-end">
-                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
-                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
-                            <div class="bg-black border-shared-img">
-                                <div class="row">
-                                    <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
-                                    </div>
-                                    <div class="col-lg-5 col-5 text-end">
-                                        <span class="above-img-span">Group 2</span>
-                                    </div>
-                                </div>
-                                <span class="above-img-span">First Contact</span>
-                                <div class="row">
-                                    <div class="col-lg-4 col-4">
-                                        <span class="above-img-span">Image</span>
-                                    </div>
-                                    <div class="col-lg-8 col-8 text-end">
-                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
-                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
-                            <div class="bg-black border-shared-img">
-                                <div class="row">
-                                    <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
-                                    </div>
-                                    <div class="col-lg-5 col-5 text-end">
-                                        <span class="above-img-span">Group 2</span>
-                                    </div>
-                                </div>
-                                <span class="above-img-span">First Contact</span>
-                                <div class="row">
-                                    <div class="col-lg-4 col-4">
-                                        <span class="above-img-span">Image</span>
-                                    </div>
-                                    <div class="col-lg-8 col-8 text-end">
-                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
-                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
-                            <div class="bg-black border-shared-img">
-                                <div class="row">
-                                    <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
-                                    </div>
-                                    <div class="col-lg-5 col-5 text-end">
-                                        <span class="above-img-span">Group 2</span>
-                                    </div>
-                                </div>
-                                <span class="above-img-span">First Contact</span>
-                                <div class="row">
-                                    <div class="col-lg-4 col-4">
-                                        <span class="above-img-span">Image</span>
-                                    </div>
-                                    <div class="col-lg-8 col-8 text-end">
-                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
-                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
-                            <div class="bg-black border-shared-img">
-                                <div class="row">
-                                    <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
-                                    </div>
-                                    <div class="col-lg-5 col-5 text-end">
-                                        <span class="above-img-span">Group 2</span>
-                                    </div>
-                                </div>
-                                <span class="above-img-span">First Contact</span>
-                                <div class="row">
-                                    <div class="col-lg-4 col-4">
-                                        <span class="above-img-span">Image</span>
-                                    </div>
-                                    <div class="col-lg-8 col-8 text-end">
-                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
-                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
-                            <div class="bg-black border-shared-img">
-                                <div class="row">
-                                    <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
-                                    </div>
-                                    <div class="col-lg-5 col-5 text-end">
-                                        <span class="above-img-span">Group 2</span>
-                                    </div>
-                                </div>
-                                <span class="above-img-span">First Contact</span>
-                                <div class="row">
-                                    <div class="col-lg-4 col-4">
-                                        <span class="above-img-span">Image</span>
-                                    </div>
-                                    <div class="col-lg-8 col-8 text-end">
-                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
-                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
-                            <div class="bg-black border-shared-img">
-                                <div class="row">
-                                    <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
-                                    </div>
-                                    <div class="col-lg-5 col-5 text-end">
-                                        <span class="above-img-span">Group 2</span>
-                                    </div>
-                                </div>
-                                <span class="above-img-span">First Contact</span>
-                                <div class="row">
-                                    <div class="col-lg-4 col-4">
-                                        <span class="above-img-span">Image</span>
-                                    </div>
-                                    <div class="col-lg-8 col-8 text-end">
-                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
-                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
-                            <div class="bg-black border-shared-img">
-                                <div class="row">
-                                    <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
-                                    </div>
-                                    <div class="col-lg-5 col-5 text-end">
-                                        <span class="above-img-span">Group 2</span>
-                                    </div>
-                                </div>
-                                <span class="above-img-span">First Contact</span>
-                                <div class="row">
-                                    <div class="col-lg-4 col-4">
-                                        <span class="above-img-span">Image</span>
-                                    </div>
-                                    <div class="col-lg-8 col-8 text-end">
-                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
 
-                    <div class="col-lg-2 col-12 px-1 col-4">
-                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
-                            <div class="bg-black border-shared-img">
-                                <div class="row">
-                                    <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
                                         <span class="above-img-span">Group 2</span>
                                     </div>
                                 </div>
-                                <span class="above-img-span">First Contact</span>
+                                <span class="ab-img-span">Nina Brethart</span>
+
                                 <div class="row">
-                                    <div class="col-lg-4 col-4">
+                                    <div class="col-lg-6 col-12">
                                         <span class="above-img-span">Image</span>
                                     </div>
-                                    <div class="col-lg-8 col-8 text-end">
+                                    <div class="col-lg-12 col-12 text-end">
                                         <span class="above-img-span">12-05-2022 10:08 PM</span>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
+                    <div class="col-lg-2 col-6 px-1 col-4">
                         <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
+                                <span class="above-img-span">First Contact</span>
+
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
                                         <span class="above-img-span">Group 2</span>
                                     </div>
                                 </div>
-                                <span class="above-img-span">First Contact</span>
+                                <span class="ab-img-span">Nina Brethart</span>
+
                                 <div class="row">
-                                    <div class="col-lg-4 col-4">
+                                    <div class="col-lg-6 col-12">
                                         <span class="above-img-span">Image</span>
                                     </div>
-                                    <div class="col-lg-8 col-8 text-end">
+                                    <div class="col-lg-12 col-12 text-end">
+                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-6 px-1 col-4">
+                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
+                            <div class="bg-black border-shared-img">
+                                <div class="row">
+                                    <div class="col-lg-7 col-7">
+                                <span class="above-img-span">First Contact</span>
+
+                                    </div>
+                                    <div class="col-lg-5 col-5 text-end">
+                                        <span class="above-img-span">Group 2</span>
+                                    </div>
+                                </div>
+                                <span class="ab-img-span">Nina Brethart</span>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <span class="above-img-span">Image</span>
+                                    </div>
+                                    <div class="col-lg-12 col-12 text-end">
+                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-6 px-1 col-4">
+                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
+                            <div class="bg-black border-shared-img">
+                                <div class="row">
+                                    <div class="col-lg-7 col-7">
+                                <span class="above-img-span">First Contact</span>
+
+                                    </div>
+                                    <div class="col-lg-5 col-5 text-end">
+                                        <span class="above-img-span">Group 2</span>
+                                    </div>
+                                </div>
+                                <span class="ab-img-span">Nina Brethart</span>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <span class="above-img-span">Image</span>
+                                    </div>
+                                    <div class="col-lg-12 col-12 text-end">
+                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-6 px-1 col-4">
+                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
+                            <div class="bg-black border-shared-img">
+                                <div class="row">
+                                    <div class="col-lg-7 col-7">
+                                <span class="above-img-span">First Contact</span>
+
+                                    </div>
+                                    <div class="col-lg-5 col-5 text-end">
+                                        <span class="above-img-span">Group 2</span>
+                                    </div>
+                                </div>
+                                <span class="ab-img-span">Nina Brethart</span>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <span class="above-img-span">Image</span>
+                                    </div>
+                                    <div class="col-lg-12 col-12 text-end">
+                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-6 px-1 col-4">
+                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
+                            <div class="bg-black border-shared-img">
+                                <div class="row">
+                                    <div class="col-lg-7 col-7">
+                                <span class="above-img-span">First Contact</span>
+
+                                    </div>
+                                    <div class="col-lg-5 col-5 text-end">
+                                        <span class="above-img-span">Group 2</span>
+                                    </div>
+                                </div>
+                                <span class="ab-img-span">Nina Brethart</span>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <span class="above-img-span">Image</span>
+                                    </div>
+                                    <div class="col-lg-12 col-12 text-end">
+                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-6 px-1 col-4">
+                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
+                            <div class="bg-black border-shared-img">
+                                <div class="row">
+                                    <div class="col-lg-7 col-7">
+                                <span class="above-img-span">First Contact</span>
+
+                                    </div>
+                                    <div class="col-lg-5 col-5 text-end">
+                                        <span class="above-img-span">Group 2</span>
+                                    </div>
+                                </div>
+                                <span class="ab-img-span">Nina Brethart</span>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <span class="above-img-span">Image</span>
+                                    </div>
+                                    <div class="col-lg-12 col-12 text-end">
+                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-6 px-1 col-4">
+                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
+                            <div class="bg-black border-shared-img">
+                                <div class="row">
+                                    <div class="col-lg-7 col-7">
+                                <span class="above-img-span">First Contact</span>
+
+                                    </div>
+                                    <div class="col-lg-5 col-5 text-end">
+                                        <span class="above-img-span">Group 2</span>
+                                    </div>
+                                </div>
+                                <span class="ab-img-span">Nina Brethart</span>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <span class="above-img-span">Image</span>
+                                    </div>
+                                    <div class="col-lg-12 col-12 text-end">
+                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-6 px-1 col-4">
+                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
+                            <div class="bg-black border-shared-img">
+                                <div class="row">
+                                    <div class="col-lg-7 col-7">
+                                <span class="above-img-span">First Contact</span>
+
+                                    </div>
+                                    <div class="col-lg-5 col-5 text-end">
+                                        <span class="above-img-span">Group 2</span>
+                                    </div>
+                                </div>
+                                <span class="ab-img-span">Nina Brethart</span>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <span class="above-img-span">Image</span>
+                                    </div>
+                                    <div class="col-lg-12 col-12 text-end">
+                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-6 px-1 col-4">
+                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
+                            <div class="bg-black border-shared-img">
+                                <div class="row">
+                                    <div class="col-lg-7 col-7">
+                                <span class="above-img-span">First Contact</span>
+
+                                    </div>
+                                    <div class="col-lg-5 col-5 text-end">
+                                        <span class="above-img-span">Group 2</span>
+                                    </div>
+                                </div>
+                                <span class="ab-img-span">Nina Brethart</span>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <span class="above-img-span">Image</span>
+                                    </div>
+                                    <div class="col-lg-12 col-12 text-end">
+                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-6 px-1 col-4">
+                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
+                            <div class="bg-black border-shared-img">
+                                <div class="row">
+                                    <div class="col-lg-7 col-7">
+                                <span class="above-img-span">First Contact</span>
+
+                                    </div>
+                                    <div class="col-lg-5 col-5 text-end">
+                                        <span class="above-img-span">Group 2</span>
+                                    </div>
+                                </div>
+                                <span class="ab-img-span">Nina Brethart</span>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <span class="above-img-span">Image</span>
+                                    </div>
+                                    <div class="col-lg-12 col-12 text-end">
+                                        <span class="above-img-span">12-05-2022 10:08 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-6 px-1 col-4">
+                        <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
+                            <div class="bg-black border-shared-img">
+                                <div class="row">
+                                    <div class="col-lg-7 col-7">
+                                <span class="above-img-span">First Contact</span>
+
+                                    </div>
+                                    <div class="col-lg-5 col-5 text-end">
+                                        <span class="above-img-span">Group 2</span>
+                                    </div>
+                                </div>
+                                <span class="ab-img-span">Nina Brethart</span>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <span class="above-img-span">Image</span>
+                                    </div>
+                                    <div class="col-lg-12 col-12 text-end">
                                         <span class="above-img-span">12-05-2022 10:08 PM</span>
                                     </div>
                                 </div>

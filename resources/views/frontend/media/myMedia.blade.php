@@ -50,18 +50,24 @@
 
             <div class="d-flex icons-clr-chnage">
                 <div class="col text-center mob-view">
-                    <a href="{{ route('user.medias.capture-video') }}" class="icon-video media-icon-clr">
+                    <a href="{{ route('user.medias.capture-video') }}" class="">
+                        <img src="{{ asset('/public/assets/images/video-circle.png') }}" class="shared-video-circle" /> 
+
                         <p class="arial-bold text-white mt-2">UPLOAD VIDEO</p>
                         <!-- <input type="file" accept="image/*;capture=camera"> -->
                     </a>
                 </div>
                 <div class="col text-center mob-view">
-                    <a href="{{ route('user.medias.capture-audio') }}" class="icon-audio active media-icon-clr">
+                    <a href="{{ route('user.medias.capture-audio') }}" class="">
+                    <img src="{{ asset('/public/assets/images/audio-circle.png') }}" class="shared-audio-circle" /> 
+
                         <p class="arial-bold text-white mt-2">UPLOAD AUDIO</p>
                     </a>
                 </div>
                 <div class="col text-center mob-view">
-                    <a href="{{ route('user.medias.capture-image') }}" class="icon-photos media-icon-clr">
+                    <a href="{{ route('user.medias.capture-image') }}" class="">
+                    <img src="{{ asset('/public/assets/images/gallery-circle.png') }}" class="shared-gallery-circle" /> 
+
                         <p class="arial-bold text-white mt-2">UPLOAD PHOTO</p>
                     </a>
                 </div>
@@ -71,7 +77,7 @@
                 <button class="w-100 my-media-btn">Filter by Media Type</button>
             </div>
 
-            <h4 class="text-white text-center">My Video</h4>
+            <h4 class="text-white text-center">Video</h4>
             <div class="row">
                 <div class="col-lg-2 mt-3"></div>
                 <div class="col-lg-8 mt-3">
@@ -99,13 +105,13 @@
                 @endif
             </div>
 
-            <h4 class="mt-4 text-white text-center">My Photo</h4>
+            <h4 class="mt-4 text-white text-center"> Photo</h4>
             <div class="row">
                 <div class="col-lg-2 mt-3"></div>
                 <div class="col-lg-8 mt-3">
                     <div class="image" id="current_photo">
                         <picture id="ban_image" class="tv_image">
-                            <img src="@if(!$photos->isEmpty()){{ asset( 'public/'.$photos[0]->file_name )}}@else{{ asset('/public/assets/images/my-media-default-image.jpg') }}@endif" type="image" height="500" width="720" />
+                            <img class="h-100 w-100" src="@if(!$photos->isEmpty()){{ asset( 'public/'.$photos[0]->file_name )}}@else{{ asset('/public/assets/images/my-media-default-image.jpg') }}@endif" type="image" height="500" width="720" />
                         </picture>
                     </div>
                 </div>
@@ -125,7 +131,7 @@
                 @endif
             </div>
 
-            <h4 class="mt-4 text-white text-center">My Audio</h4>
+            <h4 class="mt-4 text-white text-center">Audio</h4>
             <div class="row">
                 <div class="col-lg-2 mt-3"></div>
                 <div class="col-lg-8 mt-3">

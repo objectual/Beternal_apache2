@@ -1,7 +1,5 @@
 @media screen and (min-width: 320px) and (max-width: 991px) {
-  .play-bt{
-    left: 27% !important;
-  }
+  
   .tv_video{
     height: 250px !important;
   }
@@ -16,8 +14,9 @@
   border-radius: 50%;
   background: url(../images/Button-Play.png) no-repeat 5px;
   position: absolute;
-  top: 40%;
-  left: 45%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   cursor: pointer;
 }
 .pause-bt {
@@ -26,8 +25,9 @@
   border-radius: 50%;
   background: url(../images/Button-Pause.png) no-repeat 5px;
   position: absolute;
-  top: 40%;
-  left: 45%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   cursor: pointer;
 }
 
