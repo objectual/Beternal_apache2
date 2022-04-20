@@ -29,11 +29,9 @@ class MediaController extends Controller
             ->get(['user_recipients.recipient_id', 'users.name', 'users.last_name', 'users.profile_image']);
 
         $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
-        $plan_details =  Plan::where('id', Auth::user()->plan_id)->get(['*']);
+        $plan_details = Plan::where('id', Auth::user()->plan_id)->get(['*']);
 
-        $my_media =  Media::where('user_id', $id)
-            ->whereIn('type', ['video', 'audio'])
-            ->count();
+        $my_media = userAudioVideoCount($id);
 
         return view('frontend.media.captureVideo', compact(
             'user_recipents',
@@ -50,9 +48,7 @@ class MediaController extends Controller
         $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
         $plan_details =  Plan::where('id', Auth::user()->plan_id)->get(['*']);
 
-        $my_media =  Media::where(['type' => 'video', 'user_id' => $id])
-            ->orWhere(['type' => 'audio', 'user_id' => $id])
-            ->count();
+        $my_media = userAudioVideoCount($id);
 
         return view('frontend.media.captureAudio', compact(
             'user_recipents',
@@ -241,15 +237,46 @@ class MediaController extends Controller
 
     public function myMedia()
     {
-        $videos = Media::where(['type' => 'video', 'user_id' => Auth::user()->id])
-            ->get(['*']);
+        $id = Auth::user()->id;
+        $audios_videos = Media::where('user_id', $id)
+        ->whereIn('type', ['audio', 'video'])
+        ->get(['*']);
 
-        $audios = Media::where(['type' => 'audio', 'user_id' => Auth::user()->id])
-            ->get(['*']);
+        $photos = Media::where(['type' => 'photo', 'user_id' => $id])
+        ->get(['*']);
 
-        $photos = Media::where(['type' => 'photo', 'user_id' => Auth::user()->id])
-            ->get(['*']);
+        $user_recipents = userRecipients($id);
+        $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
 
+        if (!$audios_videos->isEmpty()) {
+            foreach ($audios_videos as $key => $media) {
+                $recipients = ShareMedia::where('media_id', $media->id)
+                ->join('users', 'share_media.recipient_id', '=', 'users.id')
+                ->get(['share_media.recipient_id', 'users.name', 'users.last_name']);
+
+                $groups = ShareMediaGroup::where('media_id', $media->id)
+                ->join('groups', 'share_media_groups.group_id', '=', 'groups.id')
+                ->get(['share_media_groups.group_id', 'groups.group_title']);
+
+                if (!$recipients->isEmpty()) {
+                    $media->recipient_id = $recipients[0]->recipient_id;
+                    $media->recipient_first_name = $recipients[0]->name;
+                    $media->recipient_last_name = $recipients[0]->last_name;
+                    $media->all_recipient = $recipients;
+                }
+                if (!$groups->isEmpty()) {
+                    $media->group_title = $groups[0]->group_title;
+                    $media->all_group = $groups;
+                }
+                else {
+                    $media->recipient_first_name = 'N/A';
+                    $media->recipient_last_name = '';
+                    $media->group_title = '';
+                    $media->all_recipient = null;
+                    $media->all_group = null;
+                }
+            }
+        }
         if (!$photos->isEmpty()) {
             foreach ($photos as $key => $photo) {
                 $recipients = ShareMedia::where('media_id', $photo->id)
@@ -276,9 +303,10 @@ class MediaController extends Controller
         }
 
         return view('frontend.media.myMedia', compact(
-            'videos',
-            'audios',
-            'photos'
+            'audios_videos',
+            'photos',
+            'user_recipents',
+            'groups'
         ));
     }
 

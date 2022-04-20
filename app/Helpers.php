@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Models\UserRecipient;
+use App\Models\Media;
   
     function userDetails($id) {
         $user = User::where('users.id', $id)
@@ -20,5 +21,9 @@ use App\Models\UserRecipient;
         ->get(['user_recipients.recipient_id', 'users.name', 'users.last_name', 'users.profile_image']);
         return $user_recipents;
     }
-   
-?>
+
+    function userAudioVideoCount($id) {
+        $audio_video_count =  Media::where('user_id', $id)->whereIn('type', ['video', 'audio'])
+        ->count();
+        return $audio_video_count;
+    }
