@@ -623,7 +623,9 @@ body {
 
 /**** Add Recipent Css *****/
 .recipent-img {
-    width: 70%;
+    width: 115px;
+    height: 115px;
+    object-fit: cover;
 }
 .bg-add {
     background-color: transparent;
@@ -736,11 +738,14 @@ body {
 /**** notification Css *****/
 
 .loader {
-    background-image: url(../images/loader.png);
-    background-position: center;
+    background-image: url(../images/splash-bg.jpg);
     background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
+    background-size: cover; 
+}
+.bg-solution {
+    background-image: url(../images/splash-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover; 
 }
 .loader p {
     color: #fff;
@@ -917,6 +922,10 @@ body {
     padding: 10px;
     background-color: transparent;
 }
+.upg-add-img-btn:hover {
+    background-color: #F7DB02;
+    color: #000;
+}
 .upg-add-img-btn,
 button {
     color: #F7DB02;
@@ -942,14 +951,8 @@ button {
     color: #fff;
 }
 .camera-img {
-    width: 128px;
-    border-right: 1px solid #ddd;
-    padding-right: 19px;
-    padding-left: 20px;
-}
-.gallery-img {
-    width: 120px;
-}
+    /* width: 128px; */ 
+} 
 .recipent-img img {
     width: 50%;
     border-radius: 50px;
@@ -986,7 +989,7 @@ button {
     color: #F7DB02;
     text-align: center;
     border-radius: 5px;
-    padding: 5px 45px;
+    padding: 5px 36px;
     background-color: transparent;
 }
 /* Form css */
@@ -1104,32 +1107,26 @@ textarea {
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
+    .record-images {
+        font-size: 1rem;
+    }
     .camera-img {
-        width: 75% !important;
-        padding-right: 24px !important;
-        padding-left: 24px !important;
+        width: 65px !important; 
     }
     .record-video {
-        width: 83% !important;
-        height: 56px !important;
-        padding-right: 18px !important;
-        padding-left: 12px;
+        width: 65px !important; 
     }
     .gallery-img {
-        width: 68%;
+        width: 65px;
     }
     .modal-dialog {
         margin: 8.75rem 30px !important;
     }
     .view-gallery-img {
-        width: 76% !important;
-        /* padding-right: 13px !important;
-        padding-left: 18px !important; */
+        width: 65px !important; 
     }
     .record-img {
-        width: 75% !important;
-        padding-right: 12px !important;
-        padding-left: 12px !important;
+        width: 65px !important; 
     } 
     .login h4 {
         font-size: 20px;
@@ -1495,7 +1492,13 @@ textarea {
         margin: 0px !important;
     }
     .success-img-bg {
-        margin-top: 20% !important;
+        width: 94%;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        position: absolute;
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
     }
     .profile-desig {
         font-size: 0.6rem;
@@ -1545,7 +1548,7 @@ textarea {
         height: 134% !important;
     }
     .shared-back-light {
-        height: 148% !important;
+        height: 110% !important;
     }
     .success-bg {
         padding-top: 21% !important ;
@@ -1784,7 +1787,7 @@ textarea {
     }
 
     .scroll-height-mobile {
-        height: 120% !important;
+        height: 110% !important;
     }
 
     .bg-create {
@@ -1950,10 +1953,7 @@ textarea {
         padding-top: 5%;
         position: absolute;
         color: #000 !important;
-    }
-    .sch-media-form {
-        background-color: #f3f9fc;
-    }
+    } 
     .schedule-media-back {
         background-color: #fff;
     }
@@ -2177,6 +2177,7 @@ textarea {
         background-color: #F7DB02 !important;
         position: absolute;
         width: 100%;
+        z-index: 999;
     }
     .bg {
         padding-top: 30%;
@@ -2405,10 +2406,33 @@ ul {
     font-size: 14px;
     margin-top: 10px;
 }
+
+.form-select-group {
+    background-color: #000000;
+    color: #fff;
+}
+.filter-border {
+    border: 1px solid #f7db02 !important;
+
+}
 .filter-select {
     height: 42px;
-    border: none !important;
+    background-color: #000000;
+    color: #fff;
 }
+
+.filter-select .search-input {
+    background-color: #000000;
+    border: 1px solid #f7db02 !important;
+    color: #fff;
+}
+
+.filter-select .search-ico {
+    background-color: #000000;
+    border: 1px solid #f7db02 !important;
+    color: #fff;
+}
+
 .play-bt-exm-one {
     width: 93px;
     height: 95px;
@@ -2635,7 +2659,7 @@ ul {
         width: 100%;
         padding: 7px !important;
         margin: 0px;
-        bottom: 15px;
+        bottom: 0px;
         text-align: center;
     }
     .toggle-btn-mobile {
@@ -2662,7 +2686,7 @@ ul {
     }
 }
 
-.bg-sp-1 {
+/* .bg-sp-1 {
     background: url(../images/bg-sp-1.png);
     background-size: cover;
 }
@@ -2675,19 +2699,17 @@ ul {
 .bg-sp-3 {
     background: url(../images/bg-sp-3.png);
     background-size: cover;
-}
+} */
 
 .sp-head-1 {
     text-align: center;
     font-size: 30px;
-    font-family: arial;
     margin: 20px 0px;
 }
 
 .sp-head-2 {
     text-align: center;
     font-size: 22px;
-    font-family: arial;
     margin: 20px 0px;
 }
 
@@ -2763,14 +2785,10 @@ a:hover {
     border-radius: 10px;
     margin-bottom: 10%;
     margin-top: 10%;
+    
 }
  
-
-.view-gallery-img {
-    width: 127px;
-    padding-right: 22px;
-    padding-left: 20px;
-}
+ 
 
 .capture-form:focus {
     border: 2px solid #fff;
@@ -2783,22 +2801,12 @@ a:hover {
     border-color: #F7DB02;
 }
 
-.record-img {
-    width: 105px;
-    padding-right: 22px;
-    padding-left: 22px;
-}
+ 
 
 .audio-pop {
     height: 55px;
 }
-
-.record-video {
-    width: 93%;
-    height: 85px;
-    padding-right: 18px;
-    padding-left: 12px;
-}
+ 
 
 .login-btn:hover {
     color: #fff;
@@ -3072,18 +3080,11 @@ body {
     top: 0; /* Position the navbar at the top of the page */
     width: 100%; /* Full width */
 }
-.reclaim-back-img {
-    background-position: center !important;
-    padding: 100px 0px;
-    background-repeat: no-repeat;
-    background-size: cover !important;
-    background: url("../images/pexels-victor-freitas-847484.jpg");
+.reclaim-back-img { 
+    padding: 100px 0px; 
 }
 .break-free-back {
-    padding: 100px 0px !important;
-    background-repeat: no-repeat;
-    background-size: cover !important;
-    background: url("../images/digitalskyscape.jpg");
+    padding: 100px 0px !important; 
 }
 .second-section-solution {
     background-position: bottom !important;
@@ -3164,11 +3165,7 @@ body {
 }
 .dropdown {
     z-index: 9999;
-}
-
-.solution-bg {
-    background: #000;
-}
+} 
 
 .logi {
     z-index: 9999;
@@ -3224,9 +3221,20 @@ body {
 }
 
 @media screen and (min-width: 280px) and (max-width: 991px) and (orientation : landscape){
+    
+    .success-bg {
+        padding-top: 38% !important; 
+    }
+    .success-img-bg {
+        width: 100% !important; 
+        position: inherit !important; 
+    }
     .footer-menu {
         background: #000 !important;
     }
+    .flex-nowrap {
+        height: auto !important;
+    }   
 }
 
 .color-check-green {
@@ -3252,4 +3260,32 @@ body {
 
 .accordion-body {
     color: #fff !important;
+}
+
+
+.record-modal .modal-content {
+    background-color: rgb(255, 255, 255, 0.3) !important;
+}
+
+.start-rec-btn {
+    border: 2px solid #F7DB02;
+    margin-right: 10px;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 20px;
+    background-color: transparent;
+    color:#F7DB02;
+}
+
+.rec-images img {
+    border: 2px solid #f7db02;
+}
+
+.rec-images p {
+    font-size: 0.9rem;
+}
+
+
+.shared-video-circle, .shared-audio-circle, .shared-gallery-circle {
+    width: 85px;
 }
