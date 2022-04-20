@@ -264,15 +264,18 @@ class MediaController extends Controller
                     $media->recipient_last_name = $recipients[0]->last_name;
                     $media->all_recipient = $recipients;
                 }
+                if ($recipients->isEmpty()) {
+                    $media->recipient_id = 0;
+                    $media->recipient_first_name = 'N/A';
+                    $media->recipient_last_name = '';
+                    $media->all_recipient = null;
+                }
                 if (!$groups->isEmpty()) {
                     $media->group_title = $groups[0]->group_title;
                     $media->all_group = $groups;
                 }
-                else {
-                    $media->recipient_first_name = 'N/A';
-                    $media->recipient_last_name = '';
+                if ($groups->isEmpty()) {
                     $media->group_title = '';
-                    $media->all_recipient = null;
                     $media->all_group = null;
                 }
             }
@@ -288,8 +291,10 @@ class MediaController extends Controller
                 ->get(['share_media_groups.group_id', 'groups.group_title']);
 
                 if (!$recipients->isEmpty()) {
+                    $photo->recipient_id = $recipients[0]->recipient_id;
                     $photo->recipient_first_name = $recipients[0]->name;
                     $photo->recipient_last_name = $recipients[0]->last_name;
+                    $photo->all_recipient = $recipients;
                 }
                 if (!$groups->isEmpty()) {
                     $photo->group_title = $groups[0]->group_title;

@@ -59,7 +59,7 @@
             <div class="d-flex icons-clr-chnage">
                 <div class="col text-center mob-view">
                     <a href="{{ route('user.medias.capture-video') }}" class="">
-                        <img src="{{ asset('/public/assets/images/video-circle.png') }}" class="shared-video-circle" /> 
+                        <img src="{{ asset('/public/assets/images/video-circle.png') }}" class="shared-video-circle" />
 
                         <p class="arial-bold text-white mt-2">UPLOAD VIDEO</p>
                         <!-- <input type="file" accept="image/*;capture=camera"> -->
@@ -67,14 +67,14 @@
                 </div>
                 <div class="col text-center mob-view">
                     <a href="{{ route('user.medias.capture-audio') }}" class="">
-                    <img src="{{ asset('/public/assets/images/audio-circle.png') }}" class="shared-audio-circle" /> 
+                        <img src="{{ asset('/public/assets/images/audio-circle.png') }}" class="shared-audio-circle" />
 
                         <p class="arial-bold text-white mt-2">UPLOAD AUDIO</p>
                     </a>
                 </div>
                 <div class="col text-center mob-view">
                     <a href="{{ route('user.medias.capture-image') }}" class="">
-                    <img src="{{ asset('/public/assets/images/gallery-circle.png') }}" class="shared-gallery-circle" /> 
+                        <img src="{{ asset('/public/assets/images/gallery-circle.png') }}" class="shared-gallery-circle" />
 
                         <p class="arial-bold text-white mt-2">UPLOAD PHOTO</p>
                     </a>
@@ -91,13 +91,8 @@
                 <!-- <button class="w-100 my-media-btn">Filter by Media Type</button> -->
             </div>
 
-<<<<<<< HEAD
             <h4 class="text-white text-center" id="video_heading">My Video</h4>
             <div class="row" id="video_display">
-=======
-            <h4 class="text-white text-center">Video</h4>
-            <div class="row">
->>>>>>> 8551c99698969737dd7d8c13bd1b6c0048ed4689
                 <div class="col-lg-2 mt-3"></div>
                 <div class="col-lg-8 mt-3">
                     <div class="video" id="current_video">
@@ -137,13 +132,8 @@
                 @endif
             </div>
 
-<<<<<<< HEAD
             <h4 class="mt-4 text-white text-center" id="photo_heading">My Photo</h4>
             <div class="row" id="photo_display">
-=======
-            <h4 class="mt-4 text-white text-center"> Photo</h4>
-            <div class="row">
->>>>>>> 8551c99698969737dd7d8c13bd1b6c0048ed4689
                 <div class="col-lg-2 mt-3"></div>
                 <div class="col-lg-8 mt-3">
                     <div class="image" id="current_photo">
@@ -179,13 +169,8 @@
                 @endif
             </div>
 
-<<<<<<< HEAD
             <h4 class="mt-4 text-white text-center" id="audio_heading">My Audio</h4>
             <div class="row" id="audio_display">
-=======
-            <h4 class="mt-4 text-white text-center">Audio</h4>
-            <div class="row">
->>>>>>> 8551c99698969737dd7d8c13bd1b6c0048ed4689
                 <div class="col-lg-2 mt-3"></div>
                 <div class="col-lg-8 mt-3">
                     <div class="audio" id="current_audio">
@@ -312,6 +297,9 @@
         var for_group = document.getElementById('group_title').value;
         var audios_videos = JSON.parse('<?php echo json_encode($audios_videos) ?>');
         var photos = JSON.parse('<?php echo json_encode($photos) ?>');
+        var all_videos = $('#all_videos');
+        var all_audios = $('#all_audios');
+        var all_photos = $('#all_photos');
 
         if (audios_videos != null) {
             var audios_videos_len = audios_videos.length;
@@ -321,26 +309,46 @@
         }
 
         if (for_recipient != '' && for_group != '') {
-            $('#all_videos').empty();
+            all_videos.empty();
+            all_audios.empty();
+            all_photos.empty();
             if (audios_videos_len > 0) {
                 for (var i = 0; i < audios_videos_len; i++) {
-                    if(audios_videos[i].all_recipient != null) {
+                    if (audios_videos[i].all_recipient != null) {
                         var all_recipient_len = audios_videos[i].all_recipient.length;
                         for (var j = 0; j < all_recipient_len; j++) {
                             var recipient = audios_videos[i].all_recipient[j];
-                            alert(recipient.recipient_id)
                             if (for_recipient == recipient.recipient_id) {
-                                alert('working')
+                                alert('data found')
+                                var file_name = audios_videos[i].file_name;
                                 var name = recipient.name;
                                 var last_name = recipient.last_name;
-                                // var profile_image = response[0].profile_image;
-                                // var display_image = profile_image.substring(1);
-
-                                var video = '<div class="col-lg-2 px-1 col-12"><a class="example-image-link" id="" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="selectVideo(this)"><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" /><div class="play-bt-exm-one"></div><span class="ab-img-span">'+ name +' '+ last_name +' &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group : group title</span></span><span class="above-img-span">video title<span class="date-time">date &nbsp; time</span></span></a></div>';
-
-                                // var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><img class="recipent-img" src="' + display_image + '" /><p class="cl-white sel-text mt-3">' + name + ' ' + last_name + '</p></div>';
-                                $("#all_videos").append(video);
-                                i = all_recipient_len;
+                                var media_title = audios_videos[i].title;
+                                var date_time = new Date(audios_videos[i].created_at);
+                                var year = date_time.getFullYear();
+                                var month = date_time.getMonth();
+                                var date = date_time.getDate();
+                                var hour = date_time.getHours();
+                                var minute = date_time.getMinutes();
+                                var second = date_time.getSeconds();
+                                var display_time = hour + ':' + minute + ':' + second;
+                                var display_date = year + '-' + month + '-' + date;
+                                if (audios_videos[i].type == 'video') {
+                                    var media_function = 'selectVideo(this)';
+                                    var media_button = 'play-bt-exm-one';
+                                }
+                                if (audios_videos[i].type == 'audio') {
+                                    var media_function = 'selectAudio(this)';
+                                    var media_button = 'audio-bt-exm-one';
+                                }
+                                var media = '<div class="col-lg-2 px-1 col-12"><a class="example-image-link" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="'+ media_function +'"><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" /><div class="'+ media_button +'"></div><span class="ab-img-span">' + name + ' ' + last_name + ' &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group : ' + for_group + '</span></span><span class="above-img-span">' + media_title + '<span class="date-time">' + display_date + ' &nbsp; ' + display_time + '</span></span></a></div>';
+                                if (audios_videos[i].type == 'video') {
+                                    all_videos.append(media);
+                                }
+                                if (audios_videos[i].type == 'audio') {
+                                    all_audios.append(media);
+                                }
+                                j = all_recipient_len;
                             }
                         }
                     }
