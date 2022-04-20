@@ -1,7 +1,9 @@
 <div class="row main-footer footer-resp m-0">
-  <div class="col-lg-4">
+  <div class="col-lg-4"></div>
+  <div class="col-lg-4 text-center">
     <ul>
       <li>
+        <h1 class="text-white foot-h1">bETERNAL</h1>
         <h3 class="legacy">YOUR LEGACY. YOUR WAY.</h3>
       </li>
       <li><a href="{{ route('contact-us') }}">Contact us</a></li>
@@ -17,7 +19,9 @@
       <li>designed + developed by deluxe multimedia</li>
     </ul>
   </div>
-  <div class="col-lg-8 form-div">
+  <div class="col-lg-4"></div>
+
+  <!-- <div class="col-lg-8 form-div">
     <div>
       <p>Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore
         magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
@@ -37,5 +41,5 @@
       </div>
       <div class="col-lg-7"></div>
     </div>
-  </div>
+  </div> -->
 </div>
