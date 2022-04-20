@@ -2886,6 +2886,7 @@ hr {
 
 .main-footer ul li {
     padding: 0px 0px;
+    line-height: 20px;
 }
 
 .padding-li {
@@ -3288,4 +3289,12 @@ body {
 
 .shared-video-circle, .shared-audio-circle, .shared-gallery-circle {
     width: 85px;
+}
+
+
+
+.foot-h1 {
+    font-size: 5rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
