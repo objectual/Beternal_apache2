@@ -287,6 +287,7 @@
     }
 
     function filterMedia() {
+        alert('working')
         var for_recipient = document.getElementById('recipient_id').value;
         var for_group = document.getElementById('group_title').value;
         var audios_videos = JSON.parse('<?php echo json_encode($audios_videos) ?>');

@@ -10,33 +10,33 @@
             <div class="row">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-6 mt-4">
-                    <div class="d-flex mt-4">
+                    <div class="d-flex justify-content-between mt-4">
                         <div class="col-md-4 text-center">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#captureImage">
                                 <div class="pb-3 media-icon-height">
-                                    <img src="{{ asset('/public/assets/images/audio.svg') }}" class="record-img">
+                                    <img src="{{ asset('/public/assets/images/audio.png') }}" class="record-img">
                                 </div>
-                                <span class="" style="color: #F7DB02;">&nbsp;&nbsp;Record Audio</span>
+                                <span class="record-images" style="color: #F7DB02;">&nbsp;&nbsp;Record Audio</span>
                             </a>
                         </div>
                         <div class="col-md-4 text-center">
                             <a>
                                 <div class="pb-3 media-icon-height">
-                                    <img src="{{ asset('/public/assets/images/device-gallery.svg') }}" class="gallery-img">
+                                    <img src="{{ asset('/public/assets/images/device-gallery.png') }}" class="gallery-img">
                                 </div>
                                 @if($errors->has('file_name'))
                                 <div class="error">{{ $errors->first('file_name') }}</div>
                                 @endif
-                                <label style="color: #F7DB02;" for="file">&nbsp;&nbsp;Device Gallery</label>
+                                <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Device Gallery</label>
                                 <input type="file" accept="audio/*" name="file_name" id="file" style="display: none;">
                             </a>
                         </div>
                         <div class="col-md-4 text-center">
                             <a href="{{ route('user.medias.my-media') }}">
                                 <div class="pb-3 media-icon-height">
-                                    <img src="{{ asset('/public/assets/images/view-gallery.svg') }}" class="view-gallery-img">
+                                    <img src="{{ asset('/public/assets/images/view-gallery.png') }}" class="view-gallery-img">
                                 </div>
-                                <span class="" style="color: #F7DB02;">&nbsp;&nbsp;View Gallery</span>
+                                <span class="record-images" style="color: #F7DB02;">&nbsp;&nbsp;View Gallery</span>
                             </a>
                         </div>
                     </div>
@@ -127,17 +127,17 @@
 
 <!-- Modal -->
 <!-- <div class="modal-dialog modal-dialog-centered"> -->
-<div class="modal fade" id="captureImage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade record-modal" id="captureImage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
                 <meta name="csrf-token" content="{{csrf_token()}}">
                 <div class="row">
                     <div class="col-md-6">
-                        <h2>Recording</h2>
+                        <h2 class="text-white">Recording</h2>
                         <audio id="preview" width="160" height="120" autoplay muted></audio><br /><br />
                         <div class="btn-group">
-                            <div id="startButton" class="btn btn-success"> Start </div>
+                            <div id="startButton" class="start-rec-btn px-3" > Start </div>
                             <div id="stopButton" class="btn btn-danger" style="display:none; margin-left:5px;"> Stop </div>
                         </div>
                     </div>
@@ -148,7 +148,7 @@
                     </div>
                 </div>
 
-                <div class="container-fluid bg-create pb-4 h-auto upgrade-back mt-2">
+                <div class=" pb-4 mt-2">
                     <div class="scroll-div">
                         <div class="row">
                             <div class="col-lg-12">
@@ -178,7 +178,7 @@
                                     <p class="text-white">Assign Recipient</p>
                                     <div class="row mb-3" id="show_recipents_2">
                                         @if(isset($user_recipents) && !$user_recipents->isEmpty())
-                                        <div class="col-lg-2 col-3 rec-images">
+                                        <div class="col-lg-2 col-3 text-center rec-images">
                                             <img src="{{ asset('public/media/image/all-users.png') }}">
                                             <p class="cl-white sel-text mt-3">
                                                 <input class="form-check-input" type="checkbox" id="all_recipient_2" name="all_recipient_2" value="all recipient" onclick="selectAllRecipient(this)">
@@ -186,7 +186,7 @@
                                             </p>
                                         </div>
                                         @foreach($user_recipents as $key => $recipent)
-                                        <div class="col-lg-2 col-3 rec-images">
+                                        <div class="col-lg-2 col-3 text-center rec-images">
                                             <img src="{{ asset($recipent->profile_image) }}">
                                             <p class="cl-white sel-text mt-3">
                                                 <input class="form-check-input user-recipient-2" type="checkbox" name="recipient_id_2[]" value="{{ $recipent->recipient_id }}">

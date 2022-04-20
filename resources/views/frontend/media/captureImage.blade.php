@@ -10,33 +10,33 @@
             <div class="row">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-6 mt-4">
-                    <div class="d-flex mt-4">
+                    <div class="d-flex justify-content-between mt-4">
                         <div class="col-md-4 text-center">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#captureImage">
                                 <div class="pb-3 media-icon-height">
-                                    <img src="{{ asset('/public/assets/images/capture-image.svg') }}" class="camera-img">
+                                    <img src="{{ asset('/public/assets/images/capture-image.png') }}" class="camera-img">
                                 </div>
-                                <span class="" style="color: #ffaa00;">&nbsp;&nbsp;Capture Image</span>
+                                <span class="record-images" style="color: #ffaa00;">&nbsp;&nbsp;Capture Image</span>
                             </a>
                         </div>
                         <div class="col-md-4 text-center">
                             <a>
                                 <div class="pb-3 media-icon-height">
-                                    <img src="{{ asset('/public/assets/images/device-gallery.svg') }}" class="gallery-img">
+                                    <img src="{{ asset('/public/assets/images/device-gallery.png') }}" class="gallery-img">
                                 </div>
                                 @if($errors->has('file_name'))
                                 <div class="error">{{ $errors->first('file_name') }}</div>
                                 @endif
-                                <label style="color: #ffaa00;" for="file">&nbsp;&nbsp;Device Gallery</label>
+                                <label class="record-images" style="color: #ffaa00;" for="file">&nbsp;&nbsp;Device Gallery</label>
                                 <input type="file" accept="image/*" name="file_name" id="file" style="display: none;">
                             </a>
                         </div>
                         <div class="col-md-4 text-center">
                             <a href="{{ route('user.medias.my-media') }}">
                                 <div class="pb-3 media-icon-height">
-                                    <img src="{{ asset('/public/assets/images/view-gallery.svg') }}" class="view-gallery-img">
+                                    <img src="{{ asset('/public/assets/images/view-gallery.png') }}" class="view-gallery-img">
                                 </div>
-                                <span class="" style="color: #ffaa00;">&nbsp;&nbsp;View Gallery</span>
+                                <span class="record-images" style="color: #ffaa00;">&nbsp;&nbsp;View Gallery</span>
                             </a>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
 
 <!-- Modal -->
 <!-- <div class="modal-dialog modal-dialog-centered"> -->
-<div class="modal fade" id="captureImage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade record-modal" id="captureImage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
