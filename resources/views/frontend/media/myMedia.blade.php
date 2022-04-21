@@ -26,8 +26,8 @@
                 <div class="col-lg-4 mb-2">
                     <select id="group_title" class="form-select filter-select sch-media-form" aria-label="Default select example">
                         <option selected value="">Group</option>
-                        @if(isset($groups))
-                        @foreach($groups as $key => $group)
+                        @if(isset($user_groups))
+                        @foreach($user_groups as $key => $group)
                         <option value="{{ $group->group_title }}">
                             {{ $group->group_title }}
                         </option>
@@ -105,8 +105,8 @@
                 <div class="col-lg-2 mt-3"></div>
             </div>
             <div class="row mt-3 px-2" id="all_videos">
-                @if(isset($audios_videos))
-                @foreach($audios_videos as $key => $video)
+                @if(isset($all_media))
+                @foreach($all_media as $key => $video)
                 @if($video->type == 'video')
                 @php $date_time = explode(" ", $video->created_at); @endphp
                 <div class="col-lg-2 px-1 col-12">
@@ -138,15 +138,16 @@
                 <div class="col-lg-8 mt-3">
                     <div class="image" id="current_photo">
                         <picture id="ban_image" class="tv_image">
-                            <img class="h-100 w-100" src="@if(!$photos->isEmpty()){{ asset( 'public/'.$photos[0]->file_name )}}@else{{ asset('/public/assets/images/my-media-default-image.jpg') }}@endif" type="image" height="500" width="720" />
+                            <img class="h-100 w-100" src="{{ asset('/public/assets/images/my-media-default-image.jpg') }}" type="image" height="500" width="720" />
                         </picture>
                     </div>
                 </div>
                 <div class="col-lg-2 mt-3"></div>
             </div>
             <div class="row mt-3 px-2" id="all_photos">
-                @if(isset($photos))
-                @foreach($photos as $key => $photo)
+                @if(isset($all_media))
+                @foreach($all_media as $key => $photo)
+                @if($photo->type == 'photo')
                 @php $date_time = explode(" ", $photo->created_at); @endphp
                 <div class="col-lg-2 px-1 col-12">
                     <a class="example-image-link" id="{{ $photo->file_name }}" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="selectPhoto(this)">
@@ -165,6 +166,7 @@
                         </span>
                     </a>
                 </div>
+                @endif
                 @endforeach
                 @endif
             </div>
@@ -183,8 +185,8 @@
                 <div class="col-lg-2 mt-3"></div>
             </div>
             <div class="row mt-3 px-2" id="all_audios">
-                @if(isset($audios_videos))
-                @foreach($audios_videos as $key => $audio)
+                @if(isset($all_media))
+                @foreach($all_media as $key => $audio)
                 @if($audio->type == 'audio')
                 @php $date_time = explode(" ", $audio->created_at); @endphp
                 <div class="col-lg-2 px-1 col-12">
@@ -295,36 +297,38 @@
     function filterMedia() {
         var for_recipient = document.getElementById('recipient_id').value;
         var for_group = document.getElementById('group_title').value;
-        var audios_videos = JSON.parse('<?php echo json_encode($audios_videos) ?>');
-        var photos = JSON.parse('<?php echo json_encode($photos) ?>');
+        var all_media = JSON.parse('<?php echo json_encode($all_media) ?>');
+        var base_url = '<?= $base_url ?>';
+        var base_path = base_url + '/public/';
         var all_videos = $('#all_videos');
         var all_audios = $('#all_audios');
         var all_photos = $('#all_photos');
 
-        if (audios_videos != null) {
-            var audios_videos_len = audios_videos.length;
-        }
-        if (photos != null) {
-            var photos_len = photos.length;
+        if (all_media != null) {
+            var all_media_len = all_media.length;
+        } else {
+            var all_media_len = 0;
         }
 
         if (for_recipient != '' && for_group != '') {
             all_videos.empty();
             all_audios.empty();
             all_photos.empty();
-            if (audios_videos_len > 0) {
-                for (var i = 0; i < audios_videos_len; i++) {
-                    if (audios_videos[i].all_recipient != null) {
-                        var all_recipient_len = audios_videos[i].all_recipient.length;
+            var select_for_show = '<picture id="ban_image" class="tv_image"><img src="' + base_path + 'assets/images/my-media-default-image.jpg" type="image" height="500" width="720" /></picture>';
+            $('#current_photo').empty();
+            $("#current_photo").append(select_for_show);
+            if (all_media_len > 0) {
+                for (var i = 0; i < all_media_len; i++) {
+                    if (all_media[i].all_recipient != null) {
+                        var all_recipient_len = all_media[i].all_recipient.length;
                         for (var j = 0; j < all_recipient_len; j++) {
-                            var recipient = audios_videos[i].all_recipient[j];
-                            if (for_recipient == recipient.recipient_id) {
-                                alert('data found')
-                                var file_name = audios_videos[i].file_name;
+                            var recipient = all_media[i].all_recipient[j];
+                            if (for_recipient == recipient.recipient_id && for_group == all_media[i].group_title) {
+                                var file_name = all_media[i].file_name;
                                 var name = recipient.name;
                                 var last_name = recipient.last_name;
-                                var media_title = audios_videos[i].title;
-                                var date_time = new Date(audios_videos[i].created_at);
+                                var media_title = all_media[i].title;
+                                var date_time = new Date(all_media[i].created_at);
                                 var year = date_time.getFullYear();
                                 var month = date_time.getMonth();
                                 var date = date_time.getDate();
@@ -333,20 +337,30 @@
                                 var second = date_time.getSeconds();
                                 var display_time = hour + ':' + minute + ':' + second;
                                 var display_date = year + '-' + month + '-' + date;
-                                if (audios_videos[i].type == 'video') {
+                                if (all_media[i].type == 'video') {
                                     var media_function = 'selectVideo(this)';
+                                    var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
                                     var media_button = 'play-bt-exm-one';
                                 }
-                                if (audios_videos[i].type == 'audio') {
+                                if (all_media[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
+                                    var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
                                     var media_button = 'audio-bt-exm-one';
                                 }
-                                var media = '<div class="col-lg-2 px-1 col-12"><a class="example-image-link" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="'+ media_function +'"><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" /><div class="'+ media_button +'"></div><span class="ab-img-span">' + name + ' ' + last_name + ' &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group : ' + for_group + '</span></span><span class="above-img-span">' + media_title + '<span class="date-time">' + display_date + ' &nbsp; ' + display_time + '</span></span></a></div>';
-                                if (audios_videos[i].type == 'video') {
+                                if (all_media[i].type == 'photo') {
+                                    var media_function = 'selectPhoto(this)';
+                                    var file = base_path + file_name;
+                                    var media_button = '';
+                                }
+                                var media = '<div class="col-lg-2 px-1 col-12"><a class="example-image-link" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><span class="ab-img-span">' + name + ' ' + last_name + ' &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group : ' + for_group + '</span></span><span class="above-img-span">' + media_title + '<span class="date-time">' + display_date + ' &nbsp; ' + display_time + '</span></span></a></div>';
+                                if (all_media[i].type == 'video') {
                                     all_videos.append(media);
                                 }
-                                if (audios_videos[i].type == 'audio') {
+                                if (all_media[i].type == 'audio') {
                                     all_audios.append(media);
+                                }
+                                if (all_media[i].type == 'photo') {
+                                    all_photos.append(media);
                                 }
                                 j = all_recipient_len;
                             }
@@ -354,55 +368,177 @@
                     }
                 }
             }
-        } else if (contact_id != '') {
-            $('#show_recipents').empty();
-            $.ajax({
-                url: 'filter-recipent/' + contact_id,
-                type: 'get',
-                success: function(response) {
-                    var len = 0;
-                    $("#show_recipents").append(add_new);
-                    if (response != null) {
-                        len = response.length;
-                    }
-                    if (len > 0) {
-                        var name = response[0].name;
-                        var last_name = response[0].last_name;
-                        var profile_image = response[0].profile_image;
-                        var display_image = profile_image.substring(1);
-                        var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><img class="recipent-img" src="' + display_image + '" /><p class="cl-white sel-text mt-3">' + name + ' ' + last_name + '</p></div>';
-                        $("#show_recipents").append(recipent);
-                    }
-                }
-            });
-        } else if (group_id != '') {
-            $('#show_recipents').empty();
-            if (len > 0) {
-                $("#show_recipents").append(add_new);
-                for (var i = 0; i < len; i++) {
-                    if (group_id == obj[i].group_id) {
-                        var name = obj[i].name;
-                        var last_name = obj[i].last_name;
-                        var profile_image = obj[i].profile_image;
-                        var display_image = profile_image.substring(1);
-                        var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><img class="recipent-img" src="' + display_image + '" /><p class="cl-white sel-text mt-3">' + name + ' ' + last_name + '</p></div>';
-                        $("#show_recipents").append(recipent);
+        } else if (for_recipient != '') {
+            all_videos.empty();
+            all_audios.empty();
+            all_photos.empty();
+            var select_for_show = '<picture id="ban_image" class="tv_image"><img src="' + base_path + 'assets/images/my-media-default-image.jpg" type="image" height="500" width="720" /></picture>';
+            $('#current_photo').empty();
+            $("#current_photo").append(select_for_show);
+            if (all_media_len > 0) {
+                for (var i = 0; i < all_media_len; i++) {
+                    if (all_media[i].all_recipient != null) {
+                        var all_recipient_len = all_media[i].all_recipient.length;
+                        for (var j = 0; j < all_recipient_len; j++) {
+                            var recipient = all_media[i].all_recipient[j];
+                            if (for_recipient == recipient.recipient_id) {
+                                var file_name = all_media[i].file_name;
+                                var name = recipient.name;
+                                var last_name = recipient.last_name;
+                                var media_title = all_media[i].title;
+                                var date_time = new Date(all_media[i].created_at);
+                                var year = date_time.getFullYear();
+                                var month = date_time.getMonth();
+                                var date = date_time.getDate();
+                                var hour = date_time.getHours();
+                                var minute = date_time.getMinutes();
+                                var second = date_time.getSeconds();
+                                var display_time = hour + ':' + minute + ':' + second;
+                                var display_date = year + '-' + month + '-' + date;
+                                if (all_media[i].type == 'video') {
+                                    var media_function = 'selectVideo(this)';
+                                    var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                                    var media_button = 'play-bt-exm-one';
+                                }
+                                if (all_media[i].type == 'audio') {
+                                    var media_function = 'selectAudio(this)';
+                                    var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                                    var media_button = 'audio-bt-exm-one';
+                                }
+                                if (all_media[i].type == 'photo') {
+                                    var media_function = 'selectPhoto(this)';
+                                    var file = base_path + file_name;
+                                    var media_button = '';
+                                }
+                                var media = '<div class="col-lg-2 px-1 col-12"><a class="example-image-link" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><span class="ab-img-span">' + name + ' ' + last_name + ' &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group : ' + all_media[i].group_title + '</span></span><span class="above-img-span">' + media_title + '<span class="date-time">' + display_date + ' &nbsp; ' + display_time + '</span></span></a></div>';
+                                if (all_media[i].type == 'video') {
+                                    all_videos.append(media);
+                                }
+                                if (all_media[i].type == 'audio') {
+                                    all_audios.append(media);
+                                }
+                                if (all_media[i].type == 'photo') {
+                                    all_photos.append(media);
+                                }
+                                j = all_recipient_len;
+                            }
+                        }
                     }
                 }
             }
-        } else if (group_id == '') {
-            $('#show_recipents').empty();
-            if (len > 0) {
-                $("#show_recipents").append(add_new);
-                for (var i = 0; i < len; i++) {
-
-                    var name = obj[i].name;
-                    var last_name = obj[i].last_name;
-                    var profile_image = obj[i].profile_image;
-                    var display_image = profile_image.substring(1);
-                    var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><img class="recipent-img" src="' + display_image + '" /><p class="cl-white sel-text mt-3">' + name + ' ' + last_name + '</p></div>';
-                    $("#show_recipents").append(recipent);
-
+        } else if (for_group != '') {
+            all_videos.empty();
+            all_audios.empty();
+            all_photos.empty();
+            var select_for_show = '<picture id="ban_image" class="tv_image"><img src="' + base_path + 'assets/images/my-media-default-image.jpg" type="image" height="500" width="720" /></picture>';
+            $('#current_photo').empty();
+            $("#current_photo").append(select_for_show);
+            if (all_media_len > 0) {
+                for (var i = 0; i < all_media_len; i++) {
+                    if (all_media[i].all_recipient != null) {
+                        var all_group_len = all_media[i].all_group.length;
+                        for (var j = 0; j < all_group_len; j++) {
+                            var group = all_media[i].all_group[j];
+                            if (for_group == group.group_title) {
+                                var file_name = all_media[i].file_name;
+                                var name = all_media[i].recipient_first_name;
+                                var last_name = all_media[i].recipient_last_name;
+                                var media_title = all_media[i].title;
+                                var date_time = new Date(all_media[i].created_at);
+                                var year = date_time.getFullYear();
+                                var month = date_time.getMonth();
+                                var date = date_time.getDate();
+                                var hour = date_time.getHours();
+                                var minute = date_time.getMinutes();
+                                var second = date_time.getSeconds();
+                                var display_time = hour + ':' + minute + ':' + second;
+                                var display_date = year + '-' + month + '-' + date;
+                                if (all_media[i].type == 'video') {
+                                    var media_function = 'selectVideo(this)';
+                                    var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                                    var media_button = 'play-bt-exm-one';
+                                }
+                                if (all_media[i].type == 'audio') {
+                                    var media_function = 'selectAudio(this)';
+                                    var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                                    var media_button = 'audio-bt-exm-one';
+                                }
+                                if (all_media[i].type == 'photo') {
+                                    var media_function = 'selectPhoto(this)';
+                                    var file = base_path + file_name;
+                                    var media_button = '';
+                                }
+                                var media = '<div class="col-lg-2 px-1 col-12"><a class="example-image-link" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><span class="ab-img-span">' + name + ' ' + last_name + ' &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group : ' + for_group + '</span></span><span class="above-img-span">' + media_title + '<span class="date-time">' + display_date + ' &nbsp; ' + display_time + '</span></span></a></div>';
+                                if (all_media[i].type == 'video') {
+                                    all_videos.append(media);
+                                }
+                                if (all_media[i].type == 'audio') {
+                                    all_audios.append(media);
+                                }
+                                if (all_media[i].type == 'photo') {
+                                    all_photos.append(media);
+                                }
+                                j = all_recipient_len;
+                            }
+                        }
+                    }
+                }
+            }
+        } else if (for_recipient == '' && for_group == '') {
+            all_videos.empty();
+            all_audios.empty();
+            all_photos.empty();
+            var select_for_show = '<picture id="ban_image" class="tv_image"><img src="' + base_path + 'assets/images/my-media-default-image.jpg" type="image" height="500" width="720" /></picture>';
+            $('#current_photo').empty();
+            $("#current_photo").append(select_for_show);
+            if (all_media_len > 0) {
+                for (var i = 0; i < all_media_len; i++) {
+                    // if (all_media[i].all_recipient != null) {
+                    //     var all_recipient_len = all_media[i].all_recipient.length;
+                    //     for (var j = 0; j < all_recipient_len; j++) {
+                    //         var recipient = all_media[i].all_recipient[j];
+                    //         if (for_recipient == recipient.recipient_id && for_group == all_media[i].group_title) {
+                                var file_name = all_media[i].file_name;
+                                var name = all_media[i].recipient_first_name;
+                                var last_name = all_media[i].recipient_last_name;
+                                var media_title = all_media[i].title;
+                                var date_time = new Date(all_media[i].created_at);
+                                var year = date_time.getFullYear();
+                                var month = date_time.getMonth();
+                                var date = date_time.getDate();
+                                var hour = date_time.getHours();
+                                var minute = date_time.getMinutes();
+                                var second = date_time.getSeconds();
+                                var display_time = hour + ':' + minute + ':' + second;
+                                var display_date = year + '-' + month + '-' + date;
+                                if (all_media[i].type == 'video') {
+                                    var media_function = 'selectVideo(this)';
+                                    var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                                    var media_button = 'play-bt-exm-one';
+                                }
+                                if (all_media[i].type == 'audio') {
+                                    var media_function = 'selectAudio(this)';
+                                    var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                                    var media_button = 'audio-bt-exm-one';
+                                }
+                                if (all_media[i].type == 'photo') {
+                                    var media_function = 'selectPhoto(this)';
+                                    var file = base_path + file_name;
+                                    var media_button = '';
+                                }
+                                var media = '<div class="col-lg-2 px-1 col-12"><a class="example-image-link" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><span class="ab-img-span">' + name + ' ' + last_name + ' &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group : ' + all_media[i].group_title + '</span></span><span class="above-img-span">' + media_title + '<span class="date-time">' + display_date + ' &nbsp; ' + display_time + '</span></span></a></div>';
+                                if (all_media[i].type == 'video') {
+                                    all_videos.append(media);
+                                }
+                                if (all_media[i].type == 'audio') {
+                                    all_audios.append(media);
+                                }
+                                if (all_media[i].type == 'photo') {
+                                    all_photos.append(media);
+                                }
+                    //         }
+                    //     }
+                    // }
                 }
             }
         }

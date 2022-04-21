@@ -238,18 +238,13 @@ class MediaController extends Controller
     public function myMedia()
     {
         $id = Auth::user()->id;
-        $audios_videos = Media::where('user_id', $id)
-        ->whereIn('type', ['audio', 'video'])
-        ->get(['*']);
-
-        $photos = Media::where(['type' => 'photo', 'user_id' => $id])
-        ->get(['*']);
+        $all_media = Media::where('user_id', $id)->get(['*']);
 
         $user_recipents = userRecipients($id);
-        $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
+        $user_groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
 
-        if (!$audios_videos->isEmpty()) {
-            foreach ($audios_videos as $key => $media) {
+        if (!$all_media->isEmpty()) {
+            foreach ($all_media as $key => $media) {
                 $recipients = ShareMedia::where('media_id', $media->id)
                 ->join('users', 'share_media.recipient_id', '=', 'users.id')
                 ->get(['share_media.recipient_id', 'users.name', 'users.last_name']);
@@ -280,38 +275,11 @@ class MediaController extends Controller
                 }
             }
         }
-        if (!$photos->isEmpty()) {
-            foreach ($photos as $key => $photo) {
-                $recipients = ShareMedia::where('media_id', $photo->id)
-                ->join('users', 'share_media.recipient_id', '=', 'users.id')
-                ->get(['share_media.recipient_id', 'users.name', 'users.last_name']);
-
-                $groups = ShareMediaGroup::where('media_id', $photo->id)
-                ->join('groups', 'share_media_groups.group_id', '=', 'groups.id')
-                ->get(['share_media_groups.group_id', 'groups.group_title']);
-
-                if (!$recipients->isEmpty()) {
-                    $photo->recipient_id = $recipients[0]->recipient_id;
-                    $photo->recipient_first_name = $recipients[0]->name;
-                    $photo->recipient_last_name = $recipients[0]->last_name;
-                    $photo->all_recipient = $recipients;
-                }
-                if (!$groups->isEmpty()) {
-                    $photo->group_title = $groups[0]->group_title;
-                }
-                else {
-                    $photo->recipient_first_name = 'N/A';
-                    $photo->recipient_last_name = '';
-                    $photo->group_title = '';
-                }
-            }
-        }
 
         return view('frontend.media.myMedia', compact(
-            'audios_videos',
-            'photos',
+            'all_media',
             'user_recipents',
-            'groups'
+            'user_groups'
         ));
     }
 
