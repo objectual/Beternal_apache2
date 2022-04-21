@@ -3,7 +3,7 @@
   <div class="col-lg-4 text-center">
     <ul>
       <li>
-        <h1 class="text-white foot-h1">bETERNAL</h1>
+        <img class="mt-2 mb-3" src="{{ asset('/public/assets/images/logo-white.png') }}" />
         <h3 class="legacy">YOUR LEGACY. YOUR WAY.</h3>
       </li>
       <li><a href="{{ route('contact-us') }}">Contact us</a></li>

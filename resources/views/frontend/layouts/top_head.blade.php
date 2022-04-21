@@ -49,7 +49,7 @@
         <div class="container-fluid index-btn-adjust">
             <ul class="navbar-nav index-home">  
                 <li class="nav-item margin-auto d-flex">
-                    <a href="{{ url('/') }}"><img src="{{ asset('/public/assets/images/logo-white.png')}}" class="img-logo" /></a>
+                    <a href="{{ route('splash') }}"><img src="{{ asset('/public/assets/images/logo-white.png')}}" class="img-logo" /></a>
                 </li>
             </ul>
             <div class="d-grid-mobile">

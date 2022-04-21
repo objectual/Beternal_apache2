@@ -1107,6 +1107,7 @@ textarea {
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
+  
     .record-images {
         font-size: 1rem;
     }
@@ -1249,7 +1250,7 @@ textarea {
         max-height: 480px !important;
     }
     .sel-text {
-        margin-top: -24px !important;
+        margin-top: 5px !important;
         font-size: 14px;
     }
     .delete-recipent {
@@ -1292,6 +1293,13 @@ textarea {
     }
 }
 @media screen and (min-width: 768px) and (max-width: 991px) {
+  
+    .padding-right-mobile-rec select {
+        height: 44px;
+    }
+    .select-recipent-btn {
+        padding: 9px 0px;
+    }
     .bg-dash {
         padding-top: 15%;
     }
@@ -1505,7 +1513,7 @@ textarea {
     }
     .profile-name {
         font-size: 0.7rem;
-        color: #000 !important;
+        color: #fff !important;
     }
     .image-upload {
         height: 100px !important;
@@ -1805,10 +1813,7 @@ textarea {
     }
     .index-foot {
         display: none !important;
-    }
-    #dropdownUser1 {
-        color: #000 !important;
-    }
+    } 
     #mob-col {
         width: 110px !important;
     }
@@ -2113,7 +2118,8 @@ textarea {
         font-size: 14px;
     }
     .recipent-img {
-        width: 100%;
+        width: 80px;
+        height: 80px;
     }
     /* Create-upload */
     .home-control {
@@ -2169,15 +2175,13 @@ textarea {
     .footer-span {
         display: none;
     }
-    .footer-menu img {
-        height: 40px;
-        width: 40px;
+    .footer-menu img { 
+        width: 36px !important;
     }
     .top-nav {
-        background-color: #F7DB02 !important;
+        background-color: #000000  !important;
         position: absolute;
         width: 100%;
-        z-index: 999;
     }
     .bg {
         padding-top: 30%;
@@ -2387,12 +2391,12 @@ ul {
 }
 
 .footer-menu span {
-    font-size: 2.2rem;
+    font-size: 1.7rem;
     color: rgb(187, 187, 187);
 }
 
 .footer-menu .icon-home {
-    font-size: 2.8rem;
+    font-size: 2.3rem !important;
 }
 .footer-menu .icon-user {
     font-size: 2.4rem !important;
@@ -2626,6 +2630,9 @@ ul {
 }
 
 @media screen and (min-width: 320px) and (max-width: 991px) {
+    .footer-menu .icon-home {
+        font-size: 2rem !important;
+    }
     .recipent-schedule {
         padding-top: 10px;
     }
@@ -2654,7 +2661,8 @@ ul {
     }
     .footer-menu {
         border-top: none !important;
-        display: block !important;
+        background-color: #000;
+        display: flex !important;
         position: absolute;
         width: 100%;
         padding: 7px !important;
@@ -2676,7 +2684,6 @@ ul {
     .nav-header .navbar-toggler {
         background-color: #e0e0e0;
         padding: 2px 5px;
-        margin-top: -5px;
     }
 
     .nav-header .navbar-collapse {
@@ -2852,7 +2859,10 @@ a:hover {
 }
 
 .navbar-light .navbar-toggler-icon {
-    background-image: url(../images/menu.png) !important;
+    background-image: url(../images/plus-white.png) !important;
+    margin-top: -6px;
+    height: 26px;
+    width: 26px;
 }
 
 .nav-header .navbar-toggler {
@@ -3148,7 +3158,7 @@ body {
 }
 
 .dropdown-menu-dark .dropdown-item {
-    color: #000000;
+    color: #fff;
     font-size: 17px;
 }
 
@@ -3162,7 +3172,7 @@ body {
 }
 
 .dropdown-menu-dark .dropdown-item:hover {
-    color: #000;
+    color: #F7DB02;
 }
 .dropdown {
     z-index: 9999;
@@ -3173,7 +3183,10 @@ body {
 }
 
 .sort-btn {
-    background: #fff;
+    background: #000;
+}
+.sort-txt {
+ color: #fff;
 }
 
 .thank-you {
@@ -3297,4 +3310,12 @@ body {
     font-size: 5rem;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+.dropdown-menu[data-bs-popper] {
+    background-color: #000;
+}
+
+.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show>.nav-link {
+    color: rgb(255 255 255 / 90%);
 }
