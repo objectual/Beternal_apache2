@@ -20,7 +20,7 @@
                     </div>
 
                     <!-- payment method -->
-                    <div class="col-lg-7 col-8">
+                    <div class="col-lg-7 col-12">
                         <p class="card-label">CARD NAME</p>
                         <div class="input-group mb-3">
                             <input type="email" class="form-control py-2 input-radius" aria-describedby="basic-addon1" />
