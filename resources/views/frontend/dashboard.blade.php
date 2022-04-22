@@ -2,10 +2,10 @@
 @section("title","Dashboard")
 @section("content")
 <div class="container-fluid login-back-light dashboard-back mobile-padding">
-  <div class="scroll-div">
+  <div class="scroll-div center-cent">
     <div class="row">
       <div class="col-lg-1"></div>
-      <div class="col-lg-10 mt-4">
+      <div class="col-lg-10">
         <div class="row">
           <a href="{{ route('user.profile') }}" class="col-lg-6 mt-3 text-center position-relative col-6">
             <div class=" p-3 dashboard-contain">

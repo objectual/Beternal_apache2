@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="{{ asset('/public/assets/css/lightbox.min.css') }}" />
+
 @extends("frontend.layouts.layout")
 @section("title","Legacy")
 @section("content")
@@ -13,7 +15,7 @@
                         <div class="input-group filter-select sch-media-form">
                             <input type="text" class="form-control search-input" placeholder="Search by Recipient's Name">
                             <div class="input-group-append">
-                                <a href="#"><img class="search-ico" src="{{ asset('/public/assets/images/search.png') }}" /> </a>
+                                <a href="#"><img class="search-ico" src="{{ asset('/public/assets/images/search-white.png') }}" /> </a>
                             </div>
                         </div>
                     </div>
@@ -61,7 +63,7 @@
                                 <div class="play-bt"></div>
                                 <div class="pause-bt" style="display: none"></div>
                             </div>
-                            <div class="bg-black border-shared-img">
+                            <div class="bg-black legacy-main-box">
                                 <div class="row">
                                     <div class="col-lg-6 col-6">
                                         <span class="ab-img-span">Nina Brethart</span>
@@ -84,21 +86,22 @@
                     </div>
                 </div>
                 <div class="row mt-3 px-2">
-                    <div class="col-lg-2 col-12 px-1 col-4">
+                    <div class="col-lg-2 col-6 px-1 col-4 col-md-4">
                         <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
-                            <p class="text-white dummy-data">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsums</p>
                             <!-- <img class="example-image"
                               src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
+                                    <span class="above-img-span">First Contact</span>
+
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
                                         <span class="above-img-span">Group 2</span>
                                     </div>
                                 </div>
-                                <span class="above-img-span">First Contact</span>
+                                <span class="ab-img-span">Nina Brethart</span>
+
                                 <div class="row">
                                     <div class="col-lg-4 col-4">
                                         <span class="above-img-span">Image</span>
@@ -110,21 +113,22 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
+                    <div class="col-lg-2 col-6 px-1 col-4 col-md-4">
                         <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
-                            <p class="text-white dummy-data">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsums</p>
                             <!-- <img class="example-image"
-                                src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
+                              src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
+                                    <span class="above-img-span">First Contact</span>
+
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
                                         <span class="above-img-span">Group 2</span>
                                     </div>
                                 </div>
-                                <span class="above-img-span">First Contact</span>
+                                <span class="ab-img-span">Nina Brethart</span>
+
                                 <div class="row">
                                     <div class="col-lg-4 col-4">
                                         <span class="above-img-span">Image</span>
@@ -136,21 +140,22 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
+                    <div class="col-lg-2 col-6 px-1 col-4 col-md-4">
                         <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
-                            <p class="text-white dummy-data">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsums</p>
                             <!-- <img class="example-image"
-                                  src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
+                              src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
+                                    <span class="above-img-span">First Contact</span>
+
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
                                         <span class="above-img-span">Group 2</span>
                                     </div>
                                 </div>
-                                <span class="above-img-span">First Contact</span>
+                                <span class="ab-img-span">Nina Brethart</span>
+
                                 <div class="row">
                                     <div class="col-lg-4 col-4">
                                         <span class="above-img-span">Image</span>
@@ -162,21 +167,22 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
+                    <div class="col-lg-2 col-6 px-1 col-4 col-md-4">
                         <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
-                            <p class="text-white dummy-data">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsums</p>
                             <!-- <img class="example-image"
-                                    src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
+                              src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
+                                    <span class="above-img-span">First Contact</span>
+
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
                                         <span class="above-img-span">Group 2</span>
                                     </div>
                                 </div>
-                                <span class="above-img-span">First Contact</span>
+                                <span class="ab-img-span">Nina Brethart</span>
+
                                 <div class="row">
                                     <div class="col-lg-4 col-4">
                                         <span class="above-img-span">Image</span>
@@ -188,21 +194,22 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
+                    <div class="col-lg-2 col-6 px-1 col-4 col-md-4">
                         <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
-                            <p class="text-white dummy-data">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsums</p>
                             <!-- <img class="example-image"
-                                      src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
+                              src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
+                                    <span class="above-img-span">First Contact</span>
+
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
                                         <span class="above-img-span">Group 2</span>
                                     </div>
                                 </div>
-                                <span class="above-img-span">First Contact</span>
+                                <span class="ab-img-span">Nina Brethart</span>
+
                                 <div class="row">
                                     <div class="col-lg-4 col-4">
                                         <span class="above-img-span">Image</span>
@@ -214,21 +221,22 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
+                    <div class="col-lg-2 col-6 px-1 col-4 col-md-4">
                         <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
-                            <p class="text-white dummy-data">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsums</p>
                             <!-- <img class="example-image"
-                                        src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
+                              src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
+                                    <span class="above-img-span">First Contact</span>
+
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
                                         <span class="above-img-span">Group 2</span>
                                     </div>
                                 </div>
-                                <span class="above-img-span">First Contact</span>
+                                <span class="ab-img-span">Nina Brethart</span>
+
                                 <div class="row">
                                     <div class="col-lg-4 col-4">
                                         <span class="above-img-span">Image</span>
@@ -240,21 +248,22 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
+                    <div class="col-lg-2 col-6 px-1 col-4 col-md-4">
                         <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
-                            <p class="text-white dummy-data">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsums</p>
                             <!-- <img class="example-image"
-                                          src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
+                              src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
+                                    <span class="above-img-span">First Contact</span>
+
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
                                         <span class="above-img-span">Group 2</span>
                                     </div>
                                 </div>
-                                <span class="above-img-span">First Contact</span>
+                                <span class="ab-img-span">Nina Brethart</span>
+
                                 <div class="row">
                                     <div class="col-lg-4 col-4">
                                         <span class="above-img-span">Image</span>
@@ -266,21 +275,22 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
+                    <div class="col-lg-2 col-6 px-1 col-4 col-md-4">
                         <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
-                            <p class="text-white dummy-data">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsums</p>
                             <!-- <img class="example-image"
-                                            src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
+                              src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
+                                    <span class="above-img-span">First Contact</span>
+
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
                                         <span class="above-img-span">Group 2</span>
                                     </div>
                                 </div>
-                                <span class="above-img-span">First Contact</span>
+                                <span class="ab-img-span">Nina Brethart</span>
+
                                 <div class="row">
                                     <div class="col-lg-4 col-4">
                                         <span class="above-img-span">Image</span>
@@ -292,21 +302,22 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
+                    <div class="col-lg-2 col-6 px-1 col-4 col-md-4">
                         <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
-                            <p class="text-white dummy-data">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsums</p>
                             <!-- <img class="example-image"
-                                              src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
+                              src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
+                                    <span class="above-img-span">First Contact</span>
+
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
                                         <span class="above-img-span">Group 2</span>
                                     </div>
                                 </div>
-                                <span class="above-img-span">First Contact</span>
+                                <span class="ab-img-span">Nina Brethart</span>
+
                                 <div class="row">
                                     <div class="col-lg-4 col-4">
                                         <span class="above-img-span">Image</span>
@@ -318,21 +329,22 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
+                    <div class="col-lg-2 col-6 px-1 col-4 col-md-4">
                         <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
-                            <p class="text-white dummy-data">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsums</p>
                             <!-- <img class="example-image"
-                                                src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
+                              src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
+                                    <span class="above-img-span">First Contact</span>
+
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
                                         <span class="above-img-span">Group 2</span>
                                     </div>
                                 </div>
-                                <span class="above-img-span">First Contact</span>
+                                <span class="ab-img-span">Nina Brethart</span>
+
                                 <div class="row">
                                     <div class="col-lg-4 col-4">
                                         <span class="above-img-span">Image</span>
@@ -344,21 +356,22 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
+                    <div class="col-lg-2 col-6 px-1 col-4 col-md-4">
                         <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
-                            <p class="text-white dummy-data">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsums</p>
                             <!-- <img class="example-image"
-                                                  src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
+                              src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
+                                    <span class="above-img-span">First Contact</span>
+
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
                                         <span class="above-img-span">Group 2</span>
                                     </div>
                                 </div>
-                                <span class="above-img-span">First Contact</span>
+                                <span class="ab-img-span">Nina Brethart</span>
+
                                 <div class="row">
                                     <div class="col-lg-4 col-4">
                                         <span class="above-img-span">Image</span>
@@ -370,21 +383,22 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-lg-2 col-12 px-1 col-4">
+                    <div class="col-lg-2 col-6 px-1 col-4 col-md-4">
                         <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
-                            <p class="text-white dummy-data">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsums</p>
                             <!-- <img class="example-image"
-                                                    src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
+                              src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/> -->
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                        <span class="ab-img-span">Nina Brethart</span>
+                                    <span class="above-img-span">First Contact</span>
+
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
                                         <span class="above-img-span">Group 2</span>
                                     </div>
                                 </div>
-                                <span class="above-img-span">First Contact</span>
+                                <span class="ab-img-span">Nina Brethart</span>
+
                                 <div class="row">
                                     <div class="col-lg-4 col-4">
                                         <span class="above-img-span">Image</span>
@@ -396,6 +410,7 @@
                             </div>
                         </a>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -403,3 +418,4 @@
 
 </div>
 @endsection
+<script src="{{ asset('/public/assets/js/lightbox-plus-jquery.min.js') }}"></script>

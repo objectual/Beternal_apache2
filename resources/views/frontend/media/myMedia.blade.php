@@ -101,116 +101,140 @@
                             Your browser does not support the video tag.
                         </video>
                     </div>
+                    <div class="row mt-3 px-2" id="all_videos">
+                        @if(isset($all_media))
+                        @foreach($all_media as $key => $video)
+                        @if($video->type == 'video')
+                        @php $date_time = explode(" ", $video->created_at); @endphp
+                        <div class="col-lg-3 px-1 col-6 col-md-4">
+                            <a class="example-image-link" id="{{ $video->file_name }}" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="selectVideo(this)">
+                                <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
+                                <div class="play-bt-exm-one"></div>
+                                <div class="d-flex pt-1">
+                                <span class="above-img-span">
+                                    {{ $video->title }}
+                                  
+                                </span>
+                                   
+                                    <span class="group-color">
+                                        Group : {{ $video->group_title }}
+                                    </span>
+                                </div>
+                                <span class="ab-img-span">
+                                        {{ $video->recipient_first_name }} {{ $video->recipient_last_name }} 
+                                    </span>
+                                
+                                <span class="date-time pb-2">
+                                    {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
+                                </span>
+                            </a>
+                        </div>
+                        @endif
+                        @endforeach
+                        @endif
+                    </div>
                 </div>
                 <div class="col-lg-2 mt-3"></div>
             </div>
-            <div class="row mt-3 px-2" id="all_videos">
-                @if(isset($all_media))
-                @foreach($all_media as $key => $video)
-                @if($video->type == 'video')
-                @php $date_time = explode(" ", $video->created_at); @endphp
-                <div class="col-lg-2 px-1 col-12">
-                    <a class="example-image-link" id="{{ $video->file_name }}" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="selectVideo(this)">
-                        <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
-                        <div class="play-bt-exm-one"></div>
-                        <span class="ab-img-span">
-                            {{ $video->recipient_first_name }} {{ $video->recipient_last_name }} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                            <span class="group-color">
-                                Group : {{ $video->group_title }}
-                            </span>
-                        </span>
-                        <span class="above-img-span">
-                            {{ $video->title }}
-                            <span class="date-time">
-                                {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
-                            </span>
-                        </span>
-                    </a>
-                </div>
-                @endif
-                @endforeach
-                @endif
-            </div>
-
-            <h4 class="mt-4 text-white text-center" id="photo_heading">My Photo</h4>
+           
+            <h4 class="mt-5 text-white text-center" id="photo_heading">My Photo</h4>
             <div class="row" id="photo_display">
                 <div class="col-lg-2 mt-3"></div>
                 <div class="col-lg-8 mt-3">
                     <div class="image" id="current_photo">
                         <picture id="ban_image" class="tv_image">
-                            <img class="h-100 w-100" src="{{ asset('/public/assets/images/my-media-default-image.jpg') }}" type="image" height="500" width="720" />
+                            <img src="{{ asset('/public/assets/images/my-media-default-image.jpg') }}" type="image" height="500" width="720" />
                         </picture>
                     </div>
-                </div>
-                <div class="col-lg-2 mt-3"></div>
-            </div>
-            <div class="row mt-3 px-2" id="all_photos">
+                    <div class="row mt-3 px-2" id="all_photos">
                 @if(isset($all_media))
                 @foreach($all_media as $key => $photo)
                 @if($photo->type == 'photo')
                 @php $date_time = explode(" ", $photo->created_at); @endphp
-                <div class="col-lg-2 px-1 col-12">
+                <div class="col-lg-3 px-1 col-6 col-md-4">
                     <a class="example-image-link" id="{{ $photo->file_name }}" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="selectPhoto(this)">
                         <img class="example-image" src="{{ asset( 'public/'.$photo->file_name )}}" alt="" />
-                        <span class="ab-img-span">
-                            {{ $photo->recipient_first_name }} {{ $photo->recipient_last_name }} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                            <span class="group-color">
-                                Group : {{ $photo->group_title }}
-                            </span>
-                        </span>
+
+                        <div class="bg-black p-1">
+                        <div class="d-flex pt-1">
                         <span class="above-img-span">
-                            {{ $photo->title }}
-                            <span class="date-time">
-                                {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
-                            </span>
+                        {{ $photo->title }}
+                            
                         </span>
+                            
+                            <span class="group-color">
+                            Group : {{ $photo->group_title }}
+                            </span>
+                        </div>
+                        <span class="ab-img-span">
+                        {{ $photo->recipient_first_name }} {{ $photo->recipient_last_name }}
+                            </span>
+                        
+                        <span class="date-time pb-2">
+                        {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
+                        </span> 
+                        </div>
                     </a>
                 </div>
                 @endif
                 @endforeach
                 @endif
             </div>
+                </div>
+                <div class="col-lg-2 mt-3"></div>
+            </div>
+          
 
-            <h4 class="mt-4 text-white text-center" id="audio_heading">My Audio</h4>
+            <h4 class="mt-5 text-white text-center" id="audio_heading">My Audio</h4>
             <div class="row" id="audio_display">
                 <div class="col-lg-2 mt-3"></div>
-                <div class="col-lg-8 mt-3">
+                <div class="col-lg-8 text-center mt-3">
                     <div class="audio" id="current_audio">
                         <audio id="ban_audio" class="tv_audio" controls>
                             <source src="{{ asset('/public/assets/images/game_play_music.mp3') }}" type="audio/mp3" />
                             Your browser does not support the video tag.
                         </audio>
                     </div>
-                </div>
-                <div class="col-lg-2 mt-3"></div>
-            </div>
-            <div class="row mt-3 px-2" id="all_audios">
+                    <div class="row mt-3 px-2" id="all_audios">
                 @if(isset($all_media))
                 @foreach($all_media as $key => $audio)
                 @if($audio->type == 'audio')
                 @php $date_time = explode(" ", $audio->created_at); @endphp
-                <div class="col-lg-2 px-1 col-12">
+                <div class="col-lg-3 px-1 col-md-4 col-6">
                     <a class="example-image-link" id="{{ $audio->file_name }}" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="selectAudio(this)">
                         <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
                         <div class="audio-bt-exm-one"></div>
-                        <span class="ab-img-span">
-                            {{ $audio->recipient_first_name }} {{ $audio->recipient_last_name }} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+                        <div class="bg-black p-1">
+                        <div class="d-flex pt-1">
+                        <span class="above-img-span text-start">
+                        {{ $audio->title }}
+                            
+                        </span>
+                            
                             <span class="group-color">
-                                Group : {{ $audio->group_title }}
+                            Group : {{ $audio->group_title }}
                             </span>
-                        </span>
-                        <span class="above-img-span">
-                            {{ $audio->title }}
-                            <span class="date-time">
-                                {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
+                        </div>
+                        <span class="ab-img-span text-start">
+                        {{ $audio->recipient_first_name }} {{ $audio->recipient_last_name }}
                             </span>
-                        </span>
+                        
+                        <span class="date-time pb-2">
+                        {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
+                        </span> 
+                        </div>
+ 
                     </a>
                 </div>
                 @endif
                 @endforeach
                 @endif
             </div>
+                </div>
+                <div class="col-lg-2 mt-3"></div>
+            </div>
+           
 
         </div>
     </div>

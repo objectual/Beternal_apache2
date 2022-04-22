@@ -3,7 +3,7 @@
 <div class="row toggle-btn-mobile">
   <div class="col-12">
     <nav class="navbar nav-header navbar-expand-lg navbar-light bg-black">
-      <div>
+      <div class="container">
         <button
           class="navbar-toggler"
           type="button"
