@@ -1,8 +1,6 @@
 @media screen and (min-width: 320px) and (max-width: 991px) {
   
-  .tv_video{
-    height: 250px !important;
-  }
+ 
 }
 
 
@@ -78,7 +76,7 @@
 }
 .tv_video {
   border-radius: 5px;
-    height: 400px;
+    height: auto;
     width: 100%;
     object-fit: cover;
     margin-bottom: -7px;

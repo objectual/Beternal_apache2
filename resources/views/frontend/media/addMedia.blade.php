@@ -1,7 +1,7 @@
 @extends("frontend.layouts.layout")
 @section("title","Add Media")
 @section("content")
-<div class="container-fluid bg-create mobile-padding">
+<div class="container-fluid bg-create mobile-padding vh-100">
     <div class="scroll-div">
         <div class="row">
             <div class="col-lg-3"></div>

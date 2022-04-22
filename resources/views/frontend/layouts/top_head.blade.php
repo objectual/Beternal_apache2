@@ -1,13 +1,13 @@
 @if (Auth::check())
     <nav class="top-nav navbar navbar-expand-sm bg-light">
-        <div class="container-fluid">
+        <div class="container">
             <ul class="navbar-nav">
-            <li class="nav-item margin-auto d-flex">
-                        <a href="{{ route('splash') }}"><img src="{{ asset('/public/assets/images/logo-white.png') }}" class="img-logo" /></a>
-                @yield("page_title")
+                <li class="nav-item margin-auto d-flex">
+                            <a href="{{ route('splash') }}"><img src="{{ asset('/public/assets/images/logo-white.png') }}" class="img-logo" /></a>
+                    @yield("page_title")
 
-                @show 
-            </li>
+                    @show 
+                </li>
             </ul>
             <div class="dropdown">
                 <a href="#" class=" d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -46,7 +46,7 @@
     </nav>
 @else
     <nav class="top-nav navbar navbar-expand-sm bg-light">
-        <div class="container-fluid index-btn-adjust">
+        <div class="container index-btn-adjust">
             <ul class="navbar-nav index-home">  
                 <li class="nav-item margin-auto d-flex">
                     <a href="{{ route('splash') }}"><img src="{{ asset('/public/assets/images/logo-white.png')}}" class="img-logo" /></a>
