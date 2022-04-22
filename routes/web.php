@@ -29,10 +29,6 @@ Route::get('/', function () {
     return view('frontend.home');
 });
 
-Route::get('/', function () {
-    dd('working');
-});
-
 // start routes for ajax request
 Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
 Route::get('/cities/{id}', [CityController::class, 'getCities']);
