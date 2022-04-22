@@ -43,6 +43,7 @@ Route::get('/our-team', [HomeController::class, 'ourTeam'])->name('our-team');
 Route::get('/our-solution', [HomeController::class, 'ourSolution'])->name('our-solution');
 Route::get('/term-and-conditions', [HomeController::class, 'termAndConditions'])->name('term-and-conditions');
 Route::get('/help-and-support', [HomeController::class, 'helpAndSupport'])->name('help-and-support');
+Route::get('/forget-code', [HomeController::class, 'forgetCode'])->name('forget-code');
 // end footer routes
 
 Route::get('/survey', [HomeController::class, 'survey'])->name('servey');

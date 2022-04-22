@@ -7,7 +7,7 @@
             <div class="col-lg-4 offset-lg-4">
                 <div class="login forget-login">
                     <a href="#" class="">
-                        <img class="forget-cross" src="./images/incorrect.png" />
+                        <img class="forget-cross" src="{{ asset('/public/assets/images/incorrect.png') }}" />
                     </a>
                     <h4 class="mt-3 mb-5 forget-head">FORGET PASSWORD?</h4>
                     <p class="forget-para">Enter 6 Digit Code Received on your Email</p>

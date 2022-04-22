@@ -2,6 +2,9 @@
 /public/hot
 /public/storage
 /public/media
+/public/audios
+/public/photo
+/public/videos
 /storage/*.key
 /vendor
 .env
