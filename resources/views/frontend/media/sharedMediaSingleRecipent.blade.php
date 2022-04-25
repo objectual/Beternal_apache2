@@ -40,11 +40,11 @@
 
 
                 <div class="row">
-                    <div class="col-lg-6 offset-lg-3 mb-3 shared-media-bg edit text-center">
+                    <div class="col-lg-6 offset-lg-3 mb-3 text-center">
 
                         <img class="mt-5 acc-img" src="{{ asset('/public/assets/images/recipent.png') }}">
                         <p class="head1">NINA BRETHERT</p>
-                        <p class="head2 view-more mb-5">(View more details)</p>
+                        <p class="head2 view-more mb-2">(View more details)</p>
                         </a>
                     </div>
 

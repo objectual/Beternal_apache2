@@ -705,17 +705,19 @@ body {
 }
 .edit {
     border-radius: 5px;
-    background-color: rgb(255, 255, 255, 0.5);
+    background-color: rgb(255, 255, 255, 0.2);
 }
 .head1 {
     font-size: 25px;
     font-family: "FranklinGotItcTEEMedCon";
     margin-top: 25px;
     margin-bottom: 0px;
+    color: #fff !important;
 }
 .head2 {
     font-size: 18px;
     font-family: "FranklinGotItcTEEMedCon";
+    color: #fff !important;
     margin-bottom: 0px;
 }
 .head3 {
@@ -767,6 +769,13 @@ body {
     border-radius: 5px;
     border-style: none;
     padding: 10px 55px;
+    width: 195px;
+}
+
+.splash-btn:hover { 
+    color: #F7DB02; 
+    border:1px solid #F7DB02;
+    background: transparent;
 }
 
 .color-secondary {
@@ -2318,8 +2327,7 @@ textarea {
         margin-top: 15%;
     }
     .home {
-        padding-top: 40%;
-        padding-bottom: 40%;
+        padding-top: 20%; 
     }
     .dropdown-menu[data-bs-popper] {
         right: 0 !important;
@@ -2644,6 +2652,9 @@ ul {
 }
 
 @media screen and (min-width: 320px) and (max-width: 991px) { 
+    .video-circle, .audio-circle, .gallery-circle {
+        width: 150px !important;
+    }
     .center-cent {
         text-align: center;
         display: table-cell;
@@ -3250,7 +3261,7 @@ body {
 } 
 
 .video-circle, .audio-circle, .gallery-circle {
-    width: 150px;
+    width: 220px;
 }
 
 .footer-user-img {
@@ -3367,4 +3378,8 @@ body {
 
 .top-nav .navbar-nav {
     z-index: 9999;
+}
+
+.bg-yell {
+    background-color: #F7DB02;
 }

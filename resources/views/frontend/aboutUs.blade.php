@@ -16,7 +16,10 @@
             <div class="row">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-6 p-0-m">
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/1Aq9OJuS3ok" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <video class="landing_video" controls>
+                            <source src="{{ asset('/public/assets/images/solution.mp4') }}" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
                 </div>
                 <div class="col-lg-3"></div>
             </div>
@@ -67,7 +70,7 @@
                 These memories are only for your designated recipients. Period.
             </p>
             <p class="sp-head-1 pb-3">Safe. Secure. Timeless.</p>
-            <button class="splash-btn mb-5 m-auto d-block">OUR SOLUTION</button>
+            <a href="{{ route('our-solution') }}" class="splash-btn mb-5 m-auto d-block">OUR SOLUTION</a>
         </div>
     </div>
 </div>
