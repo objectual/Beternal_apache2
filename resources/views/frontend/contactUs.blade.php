@@ -29,7 +29,7 @@
           </div>
           <div class="col-lg-6 offset-lg-3 ">
             <img class="w-100 mb-4" src="{{ asset('/public/assets/images/captcha.PNG') }}">
-            <a href="./thank-you.html" class="btn w-100 bg-black mb-3 m-auto text-center py-2 mt-1">
+            <a href="./thank-you.html" class="btn w-100 bg-yell mb-3 m-auto text-center py-2 mt-1">
               <span class="schedule">Send</span>
             </a>
           </div>
