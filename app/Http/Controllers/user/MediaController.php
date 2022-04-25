@@ -81,18 +81,21 @@ class MediaController extends Controller
                 'file_name' => 'required|file|mimetypes:video/mp4',
             ]);
             $folder = 'videos';
+            $route = 'user.medias.capture-video';
         }
         if ($request->media_type == 'audio') {
             $this->validate($request, [
-                'file_name' => 'required|file|mimetypes:audio/mpeg,mpga,mp3,wav',
+                'file_name' => 'required|file|mimetypes:audio/mpeg,mpga,mp3,mp4,wav',
             ]);
             $folder = 'audios';
+            $route = 'user.medias.capture-audio';
         }
         if ($request->media_type == 'photo') {
             $this->validate($request, [
                 'file_name' => 'required|image|mimes:jpeg,png,jpg,svg,bmp',
             ]);
             $folder = 'photo';
+            $route = 'user.medias.capture-image';
         }
 
         $media = new Media();
@@ -128,7 +131,7 @@ class MediaController extends Controller
                     }
                 }
             }
-            return redirect()->route('user.medias.my-media');
+            return redirect()->route($route)->with('status', 'Uploaded successfully');
         } else {
             if ($request->media_type == 'video') {
                 return redirect()->route('user.medias.capture-video');
@@ -186,7 +189,7 @@ class MediaController extends Controller
                     }
                 }
             }
-            return redirect()->route('user.medias.my-media');
+            return redirect()->route('user.medias.capture-image')->with('status', 'Uploaded successfully');
         } else {
             if ($request->hasFile('file_name')) {
 
@@ -230,7 +233,7 @@ class MediaController extends Controller
                     }
                 }
 
-                return  response()->json(['success' => ($media) ? 1 : 0, 'message' => ($media) ? 'Video uploaded successfully.' : "Some thing went wrong. Try again !."]);
+                return  response()->json(['success' => ($media) ? 1 : 0, 'message' => ($media) ? 'Uploaded successfully.' : "Some thing went wrong. Try again !."]);
             }
         }
     }

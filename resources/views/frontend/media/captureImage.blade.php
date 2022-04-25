@@ -4,6 +4,11 @@
 @php $base_url = url(''); @endphp
 <div class="container-fluid bg-create pb-4 h-auto upgrade-back">
     <div class="scroll-div">
+        @if (Session::has('status'))
+        <div class="alert alert-success text-center" role="alert">
+            {{ Session::get('status') }}
+        </div>
+        @endif
         <form method="POST" action="{{ route('user.medias.upload-media') }}" id="main_form" enctype="multipart/form-data" onsubmit="return validateForm(this)">
             @csrf
             <input type="hidden" id="media_type" name="media_type" value="photo">

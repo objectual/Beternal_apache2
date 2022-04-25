@@ -4,6 +4,11 @@
 @php $base_url = url(''); @endphp
 <div class="container-fluid bg-create pb-4 h-auto upgrade-back">
     <div class="scroll-div">
+        @if (Session::has('status'))
+        <div class="alert alert-success text-center" role="alert">
+            {{ Session::get('status') }}
+        </div>
+        @endif
         <form method="POST" action="{{ route('user.medias.upload-media') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
             @csrf
             <input type="hidden" id="media_type" name="media_type" value="audio">
@@ -155,12 +160,12 @@
                                 <div class="mt-2">
                                     <div class="mb-3 w-100">
                                         <label for="audio_title" class="form-label text-white">Audio Title</label>
-                                        <input type="text" id="title_2" name="title_2" value="{{ old('title') }}" class="form-control capture-form" placeholder="Audio Title Here" required>
+                                        <input type="text" id="title_2" name="title_2" value="{{ old('title') }}" class="form-control capture-form" placeholder="Audio Title Here">
                                         <div class="col-12" id="show_title_msg_2"></div>
                                     </div>
                                     <div class="mb-3 w-100">
                                         <label for="description" class="form-label  text-white">Description</label>
-                                        <textarea class="form-control capture-form" id="description_2" name="description_2" placeholder="Description Here" required>{{ old('description') }}</textarea>
+                                        <textarea class="form-control capture-form" id="description_2" name="description_2" placeholder="Description Here">{{ old('description') }}</textarea>
                                         <div class="col-12" id="show_description_msg_2"></div>
                                     </div>
                                 </div>
@@ -195,6 +200,7 @@
                                         </div>
                                         @endforeach
                                         @endif
+                                        <div class="col-12" id="recipient_msg"></div>
                                     </div>
                                 </div>
                                 <div class="mb-3 w-100">
@@ -221,6 +227,7 @@
                                     </div>
                                     @endforeach
                                     @endif
+                                    <div class="col-12" id="group_msg"></div>
                                 </div>
                                 <div class="row pt-4">
                                     <div class="col-12 ">
@@ -335,6 +342,20 @@
                             let my_media = JSON.parse('<?php echo json_encode($my_media) ?>');
                             let format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
                             let msg = '<span class="cl-white">Sorry format not matched! only alphanumeric characters allowed</span>';
+                            let msg_2 = '<span class="cl-white">Required Field</span>';
+                            let msg_recipient = '<span class="cl-white">Please select atleast one recipient!</span>';
+                            let msg_group = '<span class="cl-white">Please select atleast one group!</span>';
+                            let selected_recipient = 0;
+                            let selected_group = 0;
+                            if (title == '') {
+                                $('#show_title_msg_2').empty();
+                                $("#show_title_msg_2").append(msg_2);
+                            }
+                            if (description == '') {
+                                $('#show_description_msg_2').empty();
+                                $("#show_description_msg_2").append(msg_2);
+                                return false;
+                            }
                             if (format.test(title)) {
                                 $('#show_title_msg_2').empty();
                                 $("#show_title_msg_2").append(msg);
@@ -359,28 +380,40 @@
                             for (var i = 0; i < recipient.length; i++) {
                                 if (recipient[i].checked == true) {
                                     formData.append('recipient_id[]', recipient[i].value);
+                                    selected_recipient = 1;
                                 }
                             }
                             for (var i = 0; i < group.length; i++) {
                                 if (group[i].checked == true) {
                                     formData.append('group_id[]', group[i].value);
+                                    selected_group = 1;
                                 }
                             }
-                            if (title != '' && description != '') {
-                                $.ajax({
-                                    url: this.getAttribute('data-url'),
-                                    method: 'POST',
-                                    data: formData,
-                                    cache: false,
-                                    processData: false,
-                                    contentType: false,
-                                    success: function(res) {
-                                        if (res.success) {
-                                            location.reload();
-                                        }
-                                    }
-                                });
+                            if (selected_recipient == 0) {
+                                $('#recipient_msg').empty();
+                                $("#recipient_msg").append(msg_recipient);
+                                return false;
                             }
+                            if (selected_group == 0) {
+                                $('#recipient_msg').empty();
+                                $('#group_msg').empty();
+                                $("#group_msg").append(msg_group);
+                                return false;
+                            }
+                            $.ajax({
+                                url: this.getAttribute('data-url'),
+                                method: 'POST',
+                                data: formData,
+                                cache: false,
+                                processData: false,
+                                contentType: false,
+                                success: function(res) {
+                                    if (res.success) {
+                                        $("#redirectModal").modal("show");
+                                        // location.reload();
+                                    }
+                                }
+                            });
                         }, false);
                     }
                     if (stopButton) {
@@ -408,23 +441,11 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-8 text-center offset-lg-2">
-                        <img class="mt-4 mb-3 audio-pop" src="./images/video-pop.png" />
-                        <p>
-                            We have received your memory, which has been added to Your Legacy.
-
-                        </p>
-                        </p>
-                        <!-- <div class="row text-center mb-4 mt-5">
-                           <div class="col-lg-6">
-                               <a href="./schedule-media.html" class="btn upg-select-del-btn w-100">Scheduled Media</a>
-                           </div>
-                           <div class="col-lg-6">
-                              <a href="./legacy.html" class="btn upg-select-del-btn w-100">Legacy</a>
-                           </div>                           
-                        </div> -->
+                        <img class="mt-4 mb-3 audio-pop" src="{{ asset('/public/assets/images/audio-pop.png') }}" />
+                        <p>Uploaded successfully.</p>
                         <div class="row text-center mb-4 mt-5">
                             <div class="col-lg-6 offset-lg-3">
-                                <a href="./legacy.html" class="btn upg-select-del-btn w-100">OK</a>
+                                <a href="{{ route('user.medias.capture-audio') }}" class="btn upg-select-del-btn w-100">OK</a>
                             </div>
                         </div>
                     </div>
