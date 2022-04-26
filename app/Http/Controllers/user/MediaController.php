@@ -18,11 +18,13 @@ class MediaController extends Controller
 {
     public function media()
     {
-        return view('frontend.media.addMedia');
+        $title = "CREATE/UPLOAD MEDIA";
+        return view('frontend.media.addMedia', compact('title'));
     }
 
     public function captureVideo()
     {
+        $title = "CREATE VIDEO";
         $id = Auth::user()->id;
         $user_recipents =  UserRecipient::where('user_id', $id)
             ->join('users', 'user_recipients.recipient_id', '=', 'users.id')
@@ -34,6 +36,7 @@ class MediaController extends Controller
         $my_media = userAudioVideoCount($id);
 
         return view('frontend.media.captureVideo', compact(
+            'title',
             'user_recipents',
             'groups',
             'plan_details',
@@ -43,6 +46,7 @@ class MediaController extends Controller
 
     public function captureAudio()
     {
+        $title = "CREATE AUDIO";
         $id = Auth::user()->id;
         $user_recipents = userRecipients($id);
         $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
@@ -51,6 +55,7 @@ class MediaController extends Controller
         $my_media = userAudioVideoCount($id);
 
         return view('frontend.media.captureAudio', compact(
+            'title',
             'user_recipents',
             'groups',
             'plan_details',
@@ -60,6 +65,7 @@ class MediaController extends Controller
 
     public function captureImage()
     {
+        $title = "CAPTURE IMAGE";
         $id = Auth::user()->id;
         $user_recipents = userRecipients($id);
         $groups = Group::where('user_id', $id)->get(['id', 'group_title']);
@@ -67,6 +73,7 @@ class MediaController extends Controller
         $my_media = Media::where(['type' => 'photo', 'user_id' => $id])->count();
 
         return view('frontend.media.captureImage', compact(
+            'title',
             'user_recipents',
             'groups',
             'plan_details',
@@ -240,6 +247,7 @@ class MediaController extends Controller
 
     public function myMedia()
     {
+        $title = "MY MEDIA";
         $id = Auth::user()->id;
         $all_media = Media::where('user_id', $id)->get(['*']);
 
@@ -280,6 +288,7 @@ class MediaController extends Controller
         }
 
         return view('frontend.media.myMedia', compact(
+            'title',
             'all_media',
             'user_recipents',
             'user_groups'
@@ -288,41 +297,49 @@ class MediaController extends Controller
 
     public function sharedMediaRecipents()
     {
-        return view('frontend.media.sharedMediaRecipents');
+        $title = "SHARED MEDIA BY RECIPIENTS";
+        return view('frontend.media.sharedMediaRecipents', compact('title'));
     }
 
     public function sharedMedia()
     {
-        return view('frontend.media.sharedMediaSingleRecipent');
+        $title = "SHARED MEDIA";
+        return view('frontend.media.sharedMediaSingleRecipent', compact('title'));
     }
 
     public function myMediaDetails()
     {
-        return view('frontend.media.myMediaDetails');
+        $title = "MY MEDIA DETAILS";
+        return view('frontend.media.myMediaDetails', compact('title'));
     }
 
     public function legacy()
     {
-        return view('frontend.legacy.legacy');
+        $title = "LEGACY";
+        return view('frontend.legacy.legacy', compact('title'));
     }
 
     public function successLegacy()
     {
-        return view('frontend.legacy.successLegacy');
+        $title = "SUCCESS LEGACY";
+        return view('frontend.legacy.successLegacy', compact('title'));
     }
 
     public function scheduleMedia()
     {
-        return view('frontend.schedule.scheduleMedia');
+        $title = "SCHEDULED MEDIA";
+        return view('frontend.schedule.scheduleMedia', compact('title'));
     }
 
     public function deliveryMedia()
     {
-        return view('frontend.schedule.delivery');
+        $title = "DELIVERY";
+        return view('frontend.schedule.delivery', compact('title'));
     }
 
     public function successSchedule()
     {
-        return view('frontend.schedule.successSchedule');
+        $title = "SUCCESS SCHEDULED";
+        return view('frontend.schedule.successSchedule', compact('title'));
     }
 }

@@ -6,53 +6,69 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    public function index()
+    {
+        $title = "HOME";
+        return view('frontend.home', compact('title'));
+    }
+
     public function contactUs()
     {
-        return view('frontend.contactUs');
+        $title = "CONTACT US";
+        return view('frontend.contactUs', compact('title'));
     }
 
     public function splash()
     {
-        return view('frontend.splash.index');
+        $title = "SPLASH";
+        return view('frontend.splash.index', compact('title'));
     }
 
     public function privacyPolicy()
     {
-        return view('frontend.privacyPolicy');
+        $title = "PRIVACY POLICY";
+        return view('frontend.privacyPolicy', compact('title'));
     }
 
     public function ourTeam()
     {
+
         return redirect('/');
     }
 
     public function ourSolution()
     {
-        return view('frontend.ourSolution');
+        $title = "OUR SOLUTION";
+        return view('frontend.ourSolution', compact('title'));
     }
 
     public function termAndConditions()
     {
-        return view('frontend.termAndConditions');
+        $title = "TERMS AND CONDITIONS";
+        return view('frontend.termAndConditions', compact('title'));
     }
 
     public function helpAndSupport()
     {
-        return view('frontend.helpAndSupport');
+        $title = "HELP AND SUPPORT";
+        return view('frontend.helpAndSupport', compact('title'));
     }
 
     public function forgetCode()
     {
-        return view('frontend.forgetCode');
+        $title = "FORGET CODE";
+        return view('frontend.forgetCode', compact('title'));
     }
 
     public function successSignup()
     {
-        return view('frontend.successSignup');
+        $title = "SUCCESS SIGNUP";
+        return view('frontend.successSignup', compact('title'));
     }
 
     public function survey()
     {
-        return view('frontend.survey');
+        $title = "HOW ARE WE DOING?";
+        return view('frontend.survey', compact('title'));
     }
 }

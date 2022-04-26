@@ -9,6 +9,7 @@ class NotificationController extends Controller
 {
     public function index()
     {
-        return view('frontend.notifications.notifications');
+        $title = "NOTIFICATION";
+        return view('frontend.notifications.notifications', compact('title'));
     }
 }

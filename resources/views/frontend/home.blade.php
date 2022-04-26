@@ -6,16 +6,16 @@
     <div class="d-flex pt-5">
         <div class="col text-center">
             <a href="{{ route('user.medias') }}">
-            <div class="row">
-                        <div class="col-lg-3"></div>
-                        <div class="col-lg-6 p-0-m">
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6 p-0-m">
                         <video class="landing_video" controls>
                             <source src="{{ asset('/public/assets/images/home-video.mp4') }}" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
-                        </div>
-                        <div class="col-lg-3"></div>
                     </div>
+                    <div class="col-lg-3"></div>
+                </div>
                 <!-- <img class="play-img" src="{{ asset('/public/assets/images/play.svg')}}" /></a> -->
         </div>
     </div>

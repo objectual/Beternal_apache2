@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item px-2">
-              <a class="nav-link menu-active" aria-current="page" href=""
+              <a class="nav-link menu-active" aria-current="page" href="{{ route('index') }}"
                 >
                 <!-- <span class="icon-home header-icons"></span> -->
                 <span class="header-span">Home</span></a

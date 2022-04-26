@@ -8,11 +8,13 @@ class SubscriptionController extends Controller
 {
     public function plans()
     {
-        return view('frontend.subscription.plans');
+        $title = "TIERS";
+        return view('frontend.subscription.plans', compact('title'));
     }
 
     public function subscriptionSuccessfull()
     {
-        return view('frontend.subscription.subscriptionSuccessfull');
+        $title = "SUBSCRIPTION SUCCESSFULL";
+        return view('frontend.subscription.subscriptionSuccessfull', compact('title'));
     }
 }

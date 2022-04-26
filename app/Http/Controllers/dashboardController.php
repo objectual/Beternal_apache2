@@ -11,8 +11,9 @@ use App\Models\User;
 
 class dashboardController extends Controller
 {
-    public function splash(){
-        return view('frontend.splash.index');
+    public function dashboard(){
+        $title = "DASHBOARD";
+        return view('frontend.dashboard', compact('title'));
     }
 
 }

@@ -25,9 +25,11 @@ use App\Http\Controllers\SubscriptionController;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.home');
-});
+// Route::get('/', function () {
+//     return view('frontend.home');
+// });
+
+Route::get('/', [HomeController::class, 'index'])->name('index');
 
 // start routes for ajax request
 Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
@@ -43,18 +45,18 @@ Route::get('/our-team', [HomeController::class, 'ourTeam'])->name('our-team');
 Route::get('/our-solution', [HomeController::class, 'ourSolution'])->name('our-solution');
 Route::get('/term-and-conditions', [HomeController::class, 'termAndConditions'])->name('term-and-conditions');
 Route::get('/help-and-support', [HomeController::class, 'helpAndSupport'])->name('help-and-support');
-Route::get('/forget-code', [HomeController::class, 'forgetCode'])->name('forget-code');
 // end footer routes
 
+Route::get('/forget-code', [HomeController::class, 'forgetCode'])->name('forget-code');
 Route::get('/survey', [HomeController::class, 'survey'])->name('servey');
 
-Route::get('/dashboard', function () {
-    return view('frontend.dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('frontend.dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 Route::middleware('auth', 'user')->group(function () {
-    // Route::get('/splash',[dashboardController::class, 'splash'])->name('splash');
+    Route::get('/dashboard',[dashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/success-signup', [HomeController::class, 'successSignup'])->name('success-signup');
     Route::get('/my-account',[UserController::class, 'myAccountPage'])->name('user.profile');
     Route::get('/edit-account',[UserController::class, 'myAccountEdit'])->name('user.profile.edit');

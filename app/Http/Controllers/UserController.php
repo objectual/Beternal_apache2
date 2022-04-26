@@ -66,11 +66,13 @@ class UserController extends Controller
 
     public function myAccountPage()
     {
-        return view('frontend.user.index');
+        $title = "MY ACCOUNT";
+        return view('frontend.user.index', compact('title'));
     }
 
     public function myAccountEdit()
     {
+        $title = "MY ACCOUNT EDIT";
         $id = Auth::user()->id;
         $user = userDetails($id);
         $countries =  Country::all();
@@ -81,7 +83,13 @@ class UserController extends Controller
         $cities = City::where('state_province_id', Auth::user()->state_province_id)
             ->get(['cities.id', 'cities.city_name']);
 
-        return view('frontend.user.edit', compact('user', 'countries', 'provinces', 'cities'));
+        return view('frontend.user.edit', compact(
+            'title',
+            'user',
+            'countries',
+            'provinces',
+            'cities'
+        ));
     }
 
     public function myAccountUpdate(Request $request)
@@ -160,6 +168,7 @@ class UserController extends Controller
 
     public function allRecipents()
     {
+        $title = "RECIPIENTS";
         $id = Auth::user()->id;
         $contact_status =  ContactStatus::all();
         $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
@@ -170,11 +179,17 @@ class UserController extends Controller
         ->leftjoin('user_groups', 'user_recipients.recipient_id', '=', 'user_groups.recipient_id')
         ->get(['user_recipients.recipient_id', 'users.name', 'users.last_name', 'users.profile_image', 'user_groups.recipient_id as group_recipient_id', 'user_groups.group_id']);
         
-        return view('frontend.recipents.allRecipents', compact('contact_status', 'groups', 'user_recipents'));
+        return view('frontend.recipents.allRecipents', compact(
+            'title',
+            'contact_status',
+            'groups',
+            'user_recipents'
+        ));
     }
 
     public function addForm()
     {
+        $title = "ADD RECIPIENT";
         $id = Auth::user()->id;
         $countries =  Country::all();
         $contact_status =  ContactStatus::all();
@@ -190,6 +205,7 @@ class UserController extends Controller
         }
         
         return view('frontend.recipents.addRecipentForm', compact(
+            'title',
             'countries',
             'contact_status',
             'groups',
@@ -307,6 +323,7 @@ class UserController extends Controller
 
     public function viewRecipent()
     {
-        return view('frontend.recipents.viewRecipent');
+        $title = "VIEW RECIPIENT";
+        return view('frontend.recipents.viewRecipent', compact('title'));
     }
 }
