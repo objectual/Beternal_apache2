@@ -36,7 +36,7 @@
                         </div>
 
                         <div  class="btn w-100 bg-black mb-5 m-auto text-center p-1 mt-1" >
-                            <button type="submit" class="btn btn-primary" style="font-size:12px; background:black; border:10px; width:100%" disabled>
+                            <button type="submit" class="btn btn-primary" style="font-size:12px; background:black; border:10px; width:100%">
                                 {{ __('CONTINUE') }}
                             </button>
                         </div>

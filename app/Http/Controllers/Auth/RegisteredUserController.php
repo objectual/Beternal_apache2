@@ -23,6 +23,7 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
+        $title = "CREATE ACCOUNTT";
         $countries = Country::all();
         $state_provinces = [];
         $cities = [];
@@ -36,6 +37,7 @@ class RegisteredUserController extends Controller
         }
         $countries = Country::all();
         return view('auth.register', compact(
+            'title',
             'countries',
             'state_provinces',
             'cities'
