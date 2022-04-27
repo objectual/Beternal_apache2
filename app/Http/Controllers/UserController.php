@@ -356,6 +356,101 @@ class UserController extends Controller
 
     public function editRecipent(Request $request)
     {
-        dd('working');
+        $title = "EDIT RECIPIENT";
+        $id = Auth::user()->id;
+        $recipient_id = $request->id;
+        $contact_status =  ContactStatus::all();
+        $contacts = UserContact::where('user_id', $id)->get(['contact_status_id']);
+        $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
+
+        $recipient =  User::where('users.id', $recipient_id)
+        ->join('countries', 'users.country_id', '=', 'countries.id')
+        ->join('state_province', 'users.state_province_id', '=', 'state_province.id')
+        ->join('cities', 'users.city_id', '=', 'cities.id')
+        ->first(['users.id as recipient_id', 'users.name as first_name', 'users.last_name', 'users.profile_image', 'users.email', 'users.phone_number', 'users.address', 'users.address_2','users.zip_postal_code', 'countries.country_name', 'state_province.name', 'cities.city_name']);
+
+        $user_contacts =  UserContact::where(['contact_id' => $recipient_id, 'user_id' => $id])
+        ->join('contact_status', 'user_contacts.contact_status_id', '=', 'contact_status.id')
+        ->first(['contact_status.id', 'contact_status.contact_title']);
+
+        $user_group =  UserGroup::where(['recipient_id' => $recipient_id, 'user_groups.user_id' => $id])
+        ->join('groups', 'user_groups.group_id', '=', 'groups.id')
+        ->first(['groups.id', 'groups.group_title']);
+
+        if ($user_contacts != null) {
+            $recipient->contact_status_id = $user_contacts->id;
+            $recipient->contact_title = $user_contacts->contact_title;
+        }
+        if ($user_contacts == null) {
+            $recipient->contact_status_id = '';
+            $recipient->contact_title = '';
+        }
+        if ($user_group != null) {
+            $recipient->group_id = $user_group->id;
+            $recipient->group_title = $user_group->group_title;
+        }
+        if ($user_group == null) {
+            $recipient->group_id = '';
+            $recipient->group_title = '';
+        }
+
+        $user_contact = array();
+        if(!$contacts->isEmpty())
+        {
+            foreach($contacts as $contact)
+            {
+                array_push($user_contact, $contact->contact_status_id); 
+            }
+        }
+        
+        return view('frontend.recipents.editRecipentForm', compact(
+            'title',
+            'contact_status',
+            'groups',
+            'recipient',
+            'user_contact'
+        ));
+    }
+
+    public function updateRecipent(Request $request)
+    {
+        $id = Auth::user()->id;
+        $recipient_id = $request->recipient_id;
+        $contact_status_id = $request->contact_status_id;
+
+        if ($request->contact_status_id != null) {
+            $user_contact = UserContact::where(['contact_id'=>$recipient_id, 'user_id'=>$id])
+            ->first(['id']);
+            if ($user_contact == null) {
+                $add_contact = new UserContact();
+                $add_contact->contact_status_id = $request->contact_status_id;
+                $add_contact->contact_id = $recipient_id;
+                $add_contact->user_id = $id;
+                $add_contact->save();
+            }
+            else {
+                $update_contact = UserContact::findOrFail($user_contact->id);
+                $update_contact->contact_status_id = $request->contact_status_id;
+                $update_contact->save();
+            }
+        }
+        if ($request->group_id != null) {
+            $user_group = UserGroup::where(['recipient_id' => $recipient_id, 'user_groups.user_id' => $id])
+            ->first(['id']);
+            if ($user_group == null) {
+                $add_in_group = new UserGroup();
+                $add_in_group->recipient_id = $recipient_id;
+                $add_in_group->group_id = $request->group_id;
+                $add_in_group->user_id = $id;
+                $add_in_group->save();
+            }
+            else {
+                $update_in_group = UserGroup::findOrFail($user_group->id);
+                $update_in_group->group_id = $request->group_id;
+                $update_in_group->save();
+            }
+        }
+
+        return redirect()->route('user.recipents');
     }
 }

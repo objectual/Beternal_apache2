@@ -14,7 +14,7 @@
                             <img class="mt-2 img-edit" src="{{ asset('public/assets/images/edit.png') }}" /></a>
                     </div>
                 </div>
-                <img class="acc-img  pb-3" src="{{ asset('public/assets/images/recipent.png') }}" />
+                <img class="acc-img  pb-3" src="{{ asset($recipient->profile_image) }}" />
                 <div class="row g-3">
                     <div class="col-md-12 margin-recipent">
                         <p class="recipent-data recipent-label m-0">Name</p>
