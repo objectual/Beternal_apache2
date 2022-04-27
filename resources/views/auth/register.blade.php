@@ -77,7 +77,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Phone Number</span>
                                 </div>
-                                <input id="phone" name="phone" type="text" value="{{ old('phone') }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
+                                <input id="phone" name="phone" type="tel" value="{{ old('phone') }}" class="form-control text-end" pattern="[0-9]{3}-[0-9]{7}" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Format 111-1111111')" oninput="setCustomValidity('')" placeholder="111-1111111" required />
                             </div>
                             @if($errors->has('phone'))
                             <div class="error text-white">{{ $errors->first('phone') }}</div>

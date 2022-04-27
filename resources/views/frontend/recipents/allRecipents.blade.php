@@ -61,7 +61,7 @@
                 @if(isset($user_recipents))
                 @foreach($user_recipents as $key => $recipent)
                 <div class="col-lg-2 text-center col-4 position-relative">
-                    <a href="{{ route('user.recipents.view-recipent') }}" class="">
+                    <a href="{{ route('user.recipents.view-recipent', ['id' => $recipent->recipient_id]) }}" class="">
                         <img class="recipent-img" src="{{ asset($recipent->profile_image) }}" style="border-radius: 100%" />
                         <p class="cl-white sel-text mt-3">{{ $recipent->name }} {{ $recipent->last_name }}</p>
                     </a>

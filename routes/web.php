@@ -66,6 +66,7 @@ Route::middleware('auth', 'user')->group(function () {
         Route::get('add-form',[UserController::class,'addForm'])->name('user.recipents.add-form');
         Route::post('/add-recipent', [UserController::class, 'addRecipent'])->name('user.recipents.add-recipent');
         Route::get('view-recipent',[UserController::class,'viewRecipent'])->name('user.recipents.view-recipent');
+        Route::get('edit-recipent',[UserController::class,'editRecipent'])->name('user.recipents.edit-recipent');
         Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
         Route::get('/cities/{id}', [CityController::class, 'getCities']);
         Route::get('/add-group/{group_title}', [UserController::class, 'addGroup']);

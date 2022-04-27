@@ -174,7 +174,7 @@ class UserController extends Controller
         $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
         $user_contacts =  UserContact::where('user_id', $id)->get(['id', 'contact_id']);
 
-        $user_recipents =  UserRecipient::where('user_id', $id)
+        $user_recipents =  UserRecipient::where('user_recipients.user_id', $id)
         ->join('users', 'user_recipients.recipient_id', '=', 'users.id')
         ->leftjoin('user_groups', 'user_recipients.recipient_id', '=', 'user_groups.recipient_id')
         ->get(['user_recipients.recipient_id', 'users.name', 'users.last_name', 'users.profile_image', 'user_groups.recipient_id as group_recipient_id', 'user_groups.group_id']);
@@ -321,9 +321,41 @@ class UserController extends Controller
         return $selected_contact;
     }
 
-    public function viewRecipent()
+    public function viewRecipent(Request $request)
     {
         $title = "VIEW RECIPIENT";
-        return view('frontend.recipents.viewRecipent', compact('title'));
+        $id = Auth::user()->id;
+        $recipient_id = $request->id;
+
+        $user_contacts =  UserContact::where(['contact_id' => $recipient_id, 'user_id' => $id])
+        ->join('contact_status', 'user_contacts.contact_status_id', '=', 'contact_status.id')
+        ->first(['contact_status.id', 'contact_status.contact_title']);
+
+        $user_group =  UserGroup::where(['recipient_id' => $recipient_id, 'user_groups.user_id' => $id])
+        ->join('groups', 'user_groups.group_id', '=', 'groups.id')
+        ->first(['groups.id', 'groups.group_title']);
+
+        $recipient =  User::where('id', $recipient_id)
+        ->first(['users.id as recipient_id', 'users.name', 'users.last_name', 'users.profile_image', 'users.email', 'users.phone_number']);
+
+        if ($user_contacts != null) {
+            $recipient->contact_title = $user_contacts->contact_title;
+        }
+        if ($user_contacts == null) {
+            $recipient->contact_title = 'N/A';
+        }
+        if ($user_group != null) {
+            $recipient->group_title = $user_group->group_title;
+        }
+        if ($user_group == null) {
+            $recipient->group_title = 'N/A';
+        }
+
+        return view('frontend.recipents.viewRecipent', compact('title', 'recipient'));
+    }
+
+    public function editRecipent(Request $request)
+    {
+        dd('working');
     }
 }
