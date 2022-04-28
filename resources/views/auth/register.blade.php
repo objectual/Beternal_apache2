@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="{!! asset('/public/build/css/intlTelInput.css') !!}" />
 @extends("frontend.layouts.layout")
 @section("title","Register")
 @section("content")
@@ -77,7 +78,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Phone Number</span>
                                 </div>
-                                <input id="phone" name="phone" type="tel" value="{{ old('phone') }}" class="form-control text-end" pattern="[0-9]{3}-[0-9]{7}" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Format 111-1111111')" oninput="setCustomValidity('')" placeholder="111-1111111" required />
+                                <input id="phone" name="phone" type="tel" value="{{ old('phone') }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                             </div>
                             @if($errors->has('phone'))
                             <div class="error text-white">{{ $errors->first('phone') }}</div>
@@ -197,6 +198,14 @@
         </div>
     </div>
 </div>
+
+<script src="{!! asset('/public/build/js/intlTelInput.js') !!}"></script>
+<script>
+    var input = document.querySelector("#phone");
+    window.intlTelInput(input, {
+      utilsScript: "{!! asset('/public/build/js/utils.js') !!}",
+    });
+</script>
 @endsection
 
 <script type="text/javascript">
