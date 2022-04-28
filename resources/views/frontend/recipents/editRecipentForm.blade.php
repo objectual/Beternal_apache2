@@ -199,7 +199,7 @@
                     user_input.value = '';
                     var id = response.id;
                     var group_title = response.group_title;
-                    var group_title = group_title.toUpperCase();
+                    group_title = group_title.toUpperCase();
                     var group_id = 'new_group_' + id;
                     var new_group =
                         '<div class="col-lg-4 col-4"><label class="container-check label-add cl-white">' +

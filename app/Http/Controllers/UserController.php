@@ -286,6 +286,7 @@ class UserController extends Controller
                 $add_recipent_in_group = new UserGroup();
                 $add_recipent_in_group->recipient_id =  $add_recipent->id;
                 $add_recipent_in_group->group_id     =  $request->group_id;
+                $add_recipent_in_group->user_id     =  Auth::user()->id;
                 $add_recipent_in_group->save();
             }
         } else {
@@ -305,6 +306,7 @@ class UserController extends Controller
                 $add_recipent_in_group = new UserGroup();
                 $add_recipent_in_group->recipient_id =  $check_email[0]->id;
                 $add_recipent_in_group->group_id     =  $request->group_id;
+                $add_recipent_in_group->user_id     =  Auth::user()->id;
                 $add_recipent_in_group->save();
             }
         }

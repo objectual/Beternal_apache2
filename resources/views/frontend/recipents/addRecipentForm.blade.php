@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="{!! asset('/public/build/css/intlTelInput.css') !!}" />
 @extends("frontend.layouts.layout")
 @section("title","My Profile")
 @section("content")
@@ -200,6 +201,14 @@
         </div>
     </div>
 </div>
+
+<script src="{!! asset('/public/build/js/intlTelInput.js') !!}"></script>
+<script>
+    var input = document.querySelector("#phone");
+    window.intlTelInput(input, {
+      utilsScript: "{!! asset('/public/build/js/utils.js') !!}",
+    });
+</script>
 @endsection
 
 <script type="text/javascript">
@@ -300,6 +309,7 @@ function addGroup() {
                 user_input.value = '';
                 var id = response.id;
                 var group_title = response.group_title;
+                group_title = group_title.toUpperCase();
                 var group_id = 'new_group_' + id;
                 var new_group =
                     '<div class="col-lg-4 col-4"><label class="container-check label-add cl-white">' +
