@@ -42,31 +42,31 @@
                                     <div class="input-group-append">
                                         <span class="input-group-text add-label" id="basic-addon2">First Name</span>
                                     </div>
-                                    <input type="text" name="name" value="{{ old('name') }}" class="form-control add-input" placeholder="Required Field" aria-describedby="basic-addon1" required />
+                                    <input type="text" name="name" value="{{ old('name') }}" class="form-control add-input" placeholder="Required Field" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
                                         <span class="input-group-text add-label" id="basic-addon2">Last Name</span>
                                     </div>
-                                    <input type="text" name="last_name" value="{{ old('last_name') }}" class="form-control add-input" placeholder="Required Field" aria-describedby="basic-addon1" required />
+                                    <input type="text" name="last_name" value="{{ old('last_name') }}" class="form-control add-input" placeholder="Required Field" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
                                         <span class="input-group-text add-label" id="basic-addon2">EMAIL</span>
                                     </div>
-                                    <input type="email" name="email" value="{{ old('email') }}" class="form-control add-input" placeholder="Required Field" aria-describedby="basic-addon1" required />
+                                    <input type="email" name="email" value="{{ old('email') }}" class="form-control add-input" placeholder="Required Field" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 </div>
                                 <div class="input-group mb-3 recipent-phone">
                                     <div class="input-group-append">
                                         <span class="input-group-text add-label" id="basic-addon2">PHONE</span>
                                     </div>
-                                    <input type="text" id="phone" name="phone" value="{{ old('phone') }}" class="form-control add-input" aria-describedby="basic-addon1" required />
+                                    <input type="text" id="phone" name="phone" value="{{ old('phone') }}" class="form-control add-input" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
                                         <span class="input-group-text add-label" id="basic-addon2">ADDRESS 1</span>
                                     </div>
-                                    <input type="text" name="address" value="{{ old('address') }}" class="form-control add-input" placeholder="Required Field" aria-describedby="basic-addon1" required />
+                                    <input type="text" name="address" value="{{ old('address') }}" class="form-control add-input" placeholder="Required Field" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
@@ -78,13 +78,15 @@
                                     <div class="input-group-append">
                                         <span class="input-group-text add-label" id="basic-addon2">Country</span>
                                     </div>
-                                    <select id="country_id" name="country_id" class="form-control add-input" aria-describedby="basic-addon1" onChange="selectCountry()" required />
-                                    <option value="">Select Country</option>
-                                    @if(isset($countries))
-                                    @foreach($countries as $key => $country)
-                                    <option value="{{ $country->id }}">{{ $country->country_name }}</option>
-                                    @endforeach
-                                    @endif
+                                    <select id="country_id" name="country_id" class="form-control add-input" aria-describedby="basic-addon1" onChange="selectCountry()" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
+                                        <option value="">Select Country</option>
+                                        @if(isset($countries))
+                                        @foreach($countries as $key => $country)
+                                        <option value="{{ $country->id }}">
+                                            {{ $country->country_name }}
+                                        </option>
+                                        @endforeach
+                                        @endif
                                     </select>
                                 </div>
                                 <div class="input-group mb-3">
@@ -92,15 +94,15 @@
                                         <span class="input-group-text add-label" id="basic-addon2">State /
                                             Province</span>
                                     </div>
-                                    <select id="state_province_id" name="state_province_id" class="form-control add-input" aria-describedby="basic-addon1" onChange="selectProvince()" required />
-                                    <option value="">Select State / Province</option>
+                                    <select id="state_province_id" name="state_province_id" class="form-control add-input" aria-describedby="basic-addon1" onChange="selectProvince()" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
+                                        <option value="">Select State / Province</option>
                                     </select>
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
                                         <span class="input-group-text add-label" id="basic-addon2">City</span>
                                     </div>
-                                    <select id="city_id" name="city_id" class="form-control add-input" aria-describedby="basic-addon1" required />
+                                    <select id="city_id" name="city_id" class="form-control add-input" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                     <option value="">Select City</option>
                                     </select>
                                 </div>
@@ -109,7 +111,7 @@
                                         <span class="input-group-text add-label" id="basic-addon2">Zip / Postal
                                             Code</span>
                                     </div>
-                                    <input type="text" name="zip_postal_code" value="{{ old('zip_postal_code') }}" class="form-control add-input" placeholder="Required Field" aria-describedby="basic-addon1" required />
+                                    <input type="text" name="zip_postal_code" value="{{ old('zip_postal_code') }}" class="form-control add-input" placeholder="Required Field" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 </div>
                                 <h4 class="text-white">STATUS</h4>
                             </div>
@@ -128,7 +130,7 @@
                                 @endforeach
                                 @endif
                             </div>
-                            <h4 class="text-white mt-3 mb-3">EXISTING GROUP</h4>
+                            <h4 class="text-white mt-3 mb-3">GROUPS</h4>
                             <div class="row" id="user_group">
                                 @if(isset($groups))
                                 @foreach($groups as $key => $group)
@@ -146,7 +148,7 @@
 
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
-                                    <span class="input-group-text add-label" id="basic-addon2">GROUP</span>
+                                    <span class="input-group-text add-label" id="basic-addon2">ADD GROUP</span>
                                 </div>
                                 <input type="text" id="group_title" name="group_title" class="form-control add-input" placeholder="Enter Here.." aria-describedby="basic-addon1" />
                                 <span data-bs-toggle="modal" data-bs-target="#confirmModal" class="recipent-add-btn
@@ -171,7 +173,7 @@
                             mt-3
                             schedule-div
                           ">
-                                    <span class="schedule mt-3 text-black">ADD RECIPENT</span>
+                                    <span class="schedule mt-3 text-black">ADD</span>
                                 </button>
 
                             </div>
