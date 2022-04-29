@@ -9,7 +9,7 @@
                 <div class="row">
 
                     <div class="col-lg-12">
-                        <h3 class="payment-title text-white mt-3 mb-3">You are securing your legacy for $2.99 a month</h3>
+                        <h3 class="payment-title text-white mt-3 mb-3 text-center">You are securing your legacy for $2.99 a month</h3>
                         <!-- <h3 class="payment-price">$2.99/mo</h3> -->
                         <p class="card-label">Payment Method</p>
                         <select class="form-select mb-3 payment-method" aria-label="Default select example">

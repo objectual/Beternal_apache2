@@ -339,7 +339,7 @@ class MediaController extends Controller
 
     public function successSchedule()
     {
-        $title = "SUCCESS SCHEDULED";
+        $title = "SCHEDULED DELIVERY";
         return view('frontend.schedule.successSchedule', compact('title'));
     }
 }

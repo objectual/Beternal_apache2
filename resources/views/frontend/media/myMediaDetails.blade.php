@@ -14,7 +14,7 @@
                     </div>
                     <div class="video">
                         <video id="ban_video" class="tv_video">
-                            <source src="{{ asset('/public/assets/images/video.mp4') }}" type="video/mp4" />
+                            <source src="{{ asset('/public/assets/images/solution.mp4') }}" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
 
