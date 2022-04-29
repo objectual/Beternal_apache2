@@ -3393,9 +3393,25 @@ body {
 }
 
 .iti--allow-dropdown input, .iti--allow-dropdown input[type=text], .iti--allow-dropdown input[type=tel], .iti--separate-dial-code input, .iti--separate-dial-code input[type=text], .iti--separate-dial-code input[type=tel] {
-    padding: 19px 7px;
+    padding: 19px 7px !important;
 }
 
 .iti--allow-dropdown {
     width: 71%;
+}
+
+.payment-phone .iti--allow-dropdown {
+    width: 100%;
+}
+
+.payment-phone .iti--allow-dropdown input[type=text] {
+    padding: 10px 7px !important;
+}
+
+.recipent-phone .iti--allow-dropdown {
+    width: 79% !important;
+}
+
+.recipent-phone .iti--allow-dropdown input[type=text] {
+    text-align: right;
 }
