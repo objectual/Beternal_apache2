@@ -6,7 +6,7 @@
     <div class="scroll-div recipent-div">
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
-                <form method="POST" action="{{ route('user.recipents.add-recipent') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('user.recipents.add-recipent') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
                     @csrf
                     <div class="bg-add">
 
@@ -142,6 +142,7 @@
                                 @endforeach
                                 @endif
                             </div>
+                            <div class="col-12" id="show_group_msg"></div>
 
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
@@ -170,7 +171,7 @@
                             mt-3
                             schedule-div
                           ">
-                                    <span class="schedule mt-3">ADD RECIPENT</span>
+                                    <span class="schedule mt-3">ADD</span>
                                 </button>
 
                             </div>
@@ -299,5 +300,23 @@
                 }
             }
         });
+    }
+
+    function validateForm() {
+        var inputs = document.querySelectorAll('.user-group');
+        var selected = 0;
+        var group_msg = '<span class="cl-white">Please select atleast one group!</span>';
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].checked == true) {
+                selected = 1;
+                i = inputs.length;
+            }
+        }
+        if (selected == 0) {
+            $('#show_group_msg').empty();
+            $("#show_group_msg").append(group_msg);
+            return false;
+        }
+        return true;
     }
 </script>
