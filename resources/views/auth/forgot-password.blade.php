@@ -23,11 +23,11 @@
             <div class="row">
                 <div class="col-lg-4 offset-lg-4">
                     <div class="login forget-login">
-                        <h4 class="mt-3 mb-5 forget-head">FORGET PASSWORD?</h4>
+                        <h4 class="mt-3 mb-5 forget-head text-white">FORGET PASSWORD?</h4>
                         @if($errors->has('email'))
                                 <h4 class="error">{{ $errors->first('email') }}</h4>
                         @endif
-                        <p class="forget-para">Enter your Email Address to reset your password</p>
+                        <p class="forget-para text-white">Enter your Email Address to reset your password</p>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend mail-bottom">
                                 <span class="input-group-text mail-icon" id="basic-addon1"><i class="icon-mail"></i></span>

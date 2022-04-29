@@ -7,7 +7,7 @@
                 <div class="col-lg-6 offset-lg-3 mt-5 mb-3 edit text-center">
                     <div class="row">
                         <div class="col-lg-6 col-10 text-start">
-                            <p class="acc-black">
+                            <p class="acc-black text-white">
                                 ACCOUNT PROFILE
                             </p>
                         </div>

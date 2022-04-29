@@ -23,7 +23,7 @@
                                 <div class="error text-white">{{ $errors->first('image') }}</div>
                                 @endif
                                 <a class="mt-5 cl-white upload upload-web px-3">
-                                    <label class="icon-upload" for="file">&nbsp;&nbsp;Upload Image</label>
+                                    <label class="icon-upload" for="file">&nbsp;&nbsp;<span class="upload-font">Upload Image</span></label>
                                     <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
                                 </a>
 
@@ -185,7 +185,7 @@
                         <div class="col-lg-6 text-center mb-5">
 
                             <div class=" btn btn-contin w-100 bg-primary m-auto">
-                                <button type="submit" class="btn btn-primary p-1" style="font-size: 12px; color:black; background:none; border:10px; width:100%">
+                                <button type="submit" class="btn btn-primary p-1" style="font-family: FranklinGotItcTEEMedCon !important; font-size: 16px; color:black; background:none; border:10px; width:100%">
                                     {{ __('CONTINUE') }}
                                 </button>
                             </div>

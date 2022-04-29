@@ -63,7 +63,7 @@
                                 <div class="input-group">
                                     <input type="text" id="name" class="form-control search-input" placeholder="Search by Recipient's Name">
                                     <div class="input-group-append">
-                                        <img class="search-ico" src="{{ asset('public/assets/images/search.png')}}" id="main_serach_by_name" onclick="recipentByName(this)" />
+                                        <img class="search-ico" src="{{ asset('public/assets/images/search-white.png')}}" id="main_serach_by_name" onclick="recipentByName(this)" />
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +95,7 @@
                             <div class="input-group">
                                 <input type="text" id="group_name" class="form-control search-input" placeholder="Search by Group's Name">
                                 <div class="input-group-append">
-                                    <img class="search-ico" src="{{ asset('public/assets/images/search.png')}}" id="main_serach_by_group" onclick="groupByName(this)" />
+                                    <img class="search-ico" src="{{ asset('public/assets/images/search-white.png')}}" id="main_serach_by_group" onclick="groupByName(this)" />
                                 </div>
                             </div>
                         </div>
@@ -173,7 +173,7 @@
                                                 <div class="input-group">
                                                     <input type="text" id="name_2" class="form-control search-input" placeholder="Search by Recipient's Name">
                                                     <div class="input-group-append">
-                                                        <img class="search-ico" src="{{ asset('public/assets/images/search.png')}}" id="modal_search_by_name" onclick="recipentByName(this)" />
+                                                        <img class="search-ico" src="{{ asset('public/assets/images/search-white.png')}}" id="modal_search_by_name" onclick="recipentByName(this)" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -205,7 +205,7 @@
                                             <div class="input-group">
                                                 <input type="text" id="group_name_2" class="form-control search-input" placeholder="Search by Group's Name">
                                                 <div class="input-group-append">
-                                                    <img class="search-ico" src="{{ asset('public/assets/images/search.png')}}" id="modal_search_by_group" onclick="groupByName(this)" />
+                                                    <img class="search-ico" src="{{ asset('public/assets/images/search-white.png')}}" id="modal_search_by_group" onclick="groupByName(this)" />
                                                 </div>
                                             </div>
                                         </div>

@@ -15,7 +15,7 @@
                             <div class="input-group">
                                 <input type="text" id="name" class="form-control search-input" placeholder="Search by Recipient's Name">
                                 <div class="input-group-append">
-                                    <img class="search-ico" src="{{ asset('public/assets/images/search.png')}}" onclick="recipentByName()" />
+                                    <img class="search-ico" src="{{ asset('public/assets/images/search-white.png')}}" onclick="recipentByName()" />
                                 </div>
                             </div>
                         </div>

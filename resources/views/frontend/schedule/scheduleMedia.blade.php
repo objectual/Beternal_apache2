@@ -13,7 +13,7 @@
                         <div class="input-group filter-select sch-media-form">
                             <input type="text" class="form-control search-input" placeholder="Search by Recipient's Name">
                             <div class="input-group-append">
-                                <a href="#"><img class="search-ico" src="{{ asset('/public/assets/images/search.png') }}" /> </a>
+                                <a href="#"><img class="search-ico" src="{{ asset('/public/assets/images/search-white.png') }}" /> </a>
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                         <a class=" " href="#">
                             <div class="video">
                                 <video id="ban_video" class="tv_video">
-                                    <source src="{{ asset('/public/assets/images/video.mp4') }}" type="video/mp4" />
+                                    <source src="{{ asset('/public/assets/images/solution.mp4') }}" type="video/mp4" />
                                     Your browser does not support the video tag.
                                 </video>
 

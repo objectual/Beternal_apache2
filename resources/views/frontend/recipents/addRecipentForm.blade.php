@@ -172,7 +172,7 @@
                           bg-primary  
                           schedule-div recipent-schedule
                         ">
-                                    <span class="schedule" onclick="addGroup()">ADD</span>
+                                    <span class="schedule text-black" onclick="addGroup()">ADD</span>
                                 </span>
                             </div>
 
@@ -189,7 +189,7 @@
                             mt-3
                             schedule-div
                           ">
-                                    <span class="schedule mt-3">ADD RECIPENT</span>
+                                    <span class="schedule mt-3 text-black">ADD RECIPENT</span>
                                 </button>
 
                             </div>

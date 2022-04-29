@@ -706,7 +706,7 @@ body {
 }
 .edit {
     border-radius: 5px;
-    background-color: rgb(255, 255, 255, 0.2);
+    background-color: rgb(255, 255, 255, 0.5);
 }
 .head1 {
     font-size: 25px;
@@ -1359,6 +1359,9 @@ textarea {
     display: none;
 }
 @media screen and (min-width: 320px) and (max-width: 991px) {
+    .nav-header .container {
+        padding: 0px;
+    }
     .vh-100 {
         height: 100vh !important;;
     }
@@ -2246,11 +2249,7 @@ textarea {
     }
     .media-icon-height {
         min-height: 99px;
-    }
-    .forget-back {
-        padding-top: 10%;
-        padding-bottom: 10%;
-    }
+    } 
     .team-mob-heading {
         display: none;
     }
@@ -2494,8 +2493,7 @@ ul {
     cursor: pointer;
 }
 .above-img-span {
-    padding: 2px 5px 0px 5px;
-    width: 50%;
+    padding: 2px 5px 0px 5px; 
     background: #000;
     display: block;
     /* text-align: center; */
@@ -2828,9 +2826,8 @@ a:hover {
 .success-img-bg {
     background-color: rgb(0, 0, 0, 0.3);
     border-radius: 10px;
-    margin-bottom: 10%;
-    margin-top: 10%;
-    
+    margin-bottom: 5%;
+    margin-top: 5%; 
 }
  
  
@@ -2880,7 +2877,7 @@ a:hover {
 
 .search-ico {
     height: 43px;
-    background: #fff;
+    background: #000;
     padding: 12px 7px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -3051,6 +3048,10 @@ body {
 }
 
 @media screen and (min-width: 992px) and (max-width: 5000px) {
+    #navbarNav .navbar-nav {
+        justify-content: space-around;
+        width: 100%;
+    }
     .recipent-schedule {
         padding-top: 20px;
     }
@@ -3320,7 +3321,7 @@ body {
 
 
 .record-modal .modal-content {
-    background-color: rgb(255, 255, 255, 0.3) !important;
+    background-color: #000 !important;
 }
 
 .start-rec-btn {
@@ -3362,8 +3363,7 @@ body {
     color: rgb(255 255 255 / 90%);
 }
 
-.legacy-main-box {
-    margin-top: 7px;
+.legacy-main-box { 
     padding: 10px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -3398,4 +3398,8 @@ body {
 
 .iti--allow-dropdown {
     width: 71%;
+}
+
+.upload-font {
+    font-family: FranklinGotItcTEEMedCon !important;
 }
