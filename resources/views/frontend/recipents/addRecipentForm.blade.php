@@ -318,7 +318,6 @@
                 var check_number = parseInt(phone_number[i]);
                 var check_placeholder = parseInt(phone_placeholder[i]);
                 if (!([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(check_number))) {
-                    alert('first')
                     number_special_char++;
                     if (phone_number[i] != phone_placeholder[i]) {
                         $('#show_phone_msg').empty();
@@ -327,7 +326,6 @@
                     }
                 }
                 if (!([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(check_placeholder))) {
-                    alert('second')
                     placeholder_special_char++
                 }
             }
