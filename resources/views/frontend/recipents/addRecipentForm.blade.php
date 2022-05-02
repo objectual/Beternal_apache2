@@ -56,6 +56,7 @@
                                     </div>
                                     <input type="email" name="email" value="{{ old('email') }}" class="form-control add-input" placeholder="Required Field" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 </div>
+                                <div class="col-12" id="show_phone_msg"></div>
                                 <div class="input-group mb-3 recipent-phone">
                                     <div class="input-group-append">
                                         <span class="input-group-text add-label" id="basic-addon2">PHONE</span>
@@ -305,7 +306,45 @@
     }
 
     function validateForm() {
+        var phone = document.getElementById('phone');
         var inputs = document.querySelectorAll('.user-group');
+        var phone_number = phone.value;
+        var phone_placeholder = phone.placeholder;
+        var phone_msg = '<span class="cl-white">Format not matched! required format is '+ phone_placeholder +'</span>';
+        if (phone_number.length == phone_placeholder.length) {
+            var number_special_char = 0;
+            var placeholder_special_char = 0;
+            for (var i = 0; i < phone_number.length; i++) {
+                var check_number = parseInt(phone_number[i]);
+                var check_placeholder = parseInt(phone_placeholder[i]);
+                if (!([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(check_number))) {
+                    alert('first')
+                    number_special_char++;
+                    if (phone_number[i] != phone_placeholder[i]) {
+                        $('#show_phone_msg').empty();
+                        $("#show_phone_msg").append(phone_msg);
+                        return false;
+                    }
+                }
+                if (!([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(check_placeholder))) {
+                    alert('second')
+                    placeholder_special_char++
+                }
+            }
+            if(number_special_char != placeholder_special_char) {
+                $('#show_phone_msg').empty();
+                $("#show_phone_msg").append(phone_msg);
+                return false;
+            }
+            else {
+                $('#show_phone_msg').empty();
+            }
+        }
+        else {
+            $('#show_phone_msg').empty();
+            $("#show_phone_msg").append(phone_msg);
+            return false;
+        }
         var selected = 0;
         var group_msg = '<span class="cl-white">Please select atleast one group!</span>';
         for (var i = 0; i < inputs.length; i++) {
