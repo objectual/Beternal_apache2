@@ -1,5 +1,5 @@
 @extends("frontend.layouts.layout")
-@section("title","My Profile")
+@section("title","Recipients")
 @section("content")
 
 <div class="container-fluid bg-create scroll-height-mobile mobile-padding recipent-padding-bottom">

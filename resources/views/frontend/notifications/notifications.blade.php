@@ -1,5 +1,5 @@
 @extends("frontend.layouts.layout")
-@section("title","Capture Video")
+@section("title","Notifications")
 @section("content")
 <div class="container-fluid bg-dash noti-ipad-padng h-100">
     <div class="scroll-div">

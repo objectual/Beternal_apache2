@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="{!! asset('/public/build/css/intlTelInput.css') !!}" />
 @extends("frontend.layouts.layout")
-@section("title","My Profile")
+@section("title","Add Recipient Form")
 @section("content")
 <div class="container-fluid bg-dash add-background">
     <div class="scroll-div recipent-div">

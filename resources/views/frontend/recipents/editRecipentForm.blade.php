@@ -1,5 +1,5 @@
 @extends("frontend.layouts.layout")
-@section("title","My Profile")
+@section("title","Edit Recipient")
 @section("content")
 <div class="container-fluid bg-dash add-background">
     <div class="scroll-div recipent-div">

@@ -195,6 +195,19 @@ class UserController extends Controller
         $contact_status =  ContactStatus::all();
         $contacts = UserContact::where('user_id', $id)->get(['contact_status_id']);
         $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
+        if($groups->isEmpty())
+        {
+            $defined_groups = array('Spouse or Significant Other', 'Family', 'Friend', 'None');
+            for($i = 0; $i < count($defined_groups); $i++)
+            {
+                $add_group = new Group();
+                $add_group->group_title = $defined_groups[$i];
+                $add_group->status = 1;
+                $add_group->user_id = $id;
+                $add_group->save();
+            }
+            $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
+        }
         $user_contact = array();
         if(!$contacts->isEmpty())
         {
