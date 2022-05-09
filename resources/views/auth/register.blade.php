@@ -73,17 +73,25 @@
                             <div class="error text-white">{{ $errors->first('email') }}</div>
                             @endif
                         </div>
+
+                        <script src="{!! asset('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js') !!}"></script>
+                        <script src="{!! asset('https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js') !!}"></script>
                         <div class="col-lg-6 mt-2">
-                            <div class="input-group mb-3">
+                            <div class="input-group mb-3" id="phone_div">
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Phone Number</span>
                                 </div>
-                                <input id="phone" name="phone" type="tel" value="{{ old('phone') }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
+                                <input id="phone" name="phone" type="tel" value="{{ old('phone') }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" onfocus="myFunction(this)" required />
+                                <div class="col-12 text-white" id="show_phone_msg"></div>
                             </div>
                             @if($errors->has('phone'))
                             <div class="error text-white">{{ $errors->first('phone') }}</div>
                             @endif
+                            <div style="margin-top: -15;" id="show_phone_msg"></div>
                         </div>
+                        <script>
+                            $(":input").inputmask();
+                        </script>
                         <div class="col-lg-12 mt-2">
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
@@ -198,17 +206,53 @@
         </div>
     </div>
 </div>
-
 <script src="{!! asset('/public/build/js/intlTelInput.js') !!}"></script>
 <script>
     var input = document.querySelector("#phone");
     window.intlTelInput(input, {
-      utilsScript: "{!! asset('/public/build/js/utils.js') !!}",
+        // allowDropdown: false,
+        // autoHideDialCode: false,
+        // autoPlaceholder: "off",
+        // dropdownContainer: document.body,
+        // excludeCountries: ["us"],
+        // formatOnDisplay: false,
+        // geoIpLookup: function(callback) {
+        //     $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+        //     var countryCode = (resp && resp.country) ? resp.country : "";
+        //     callback(countryCode);
+        //     });
+        // },
+        // hiddenInput: "full_number",
+        // initialCountry: "auto",
+        // localizedCountries: { 'de': 'Deutschland' },
+        // nationalMode: false,
+        // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+        // placeholderNumberType: "MOBILE",
+        // preferredCountries: ['cn', 'jp'],
+        // separateDialCode: true,
+        utilsScript: "{!! asset('/public/build/js/utils.js') !!}",
     });
 </script>
 @endsection
 
 <script type="text/javascript">
+    function myFunction() {
+        var phone = document.getElementById('phone');
+        var phone_placeholder = phone.placeholder;
+        var phone_format = '';
+        for (var i = 0; i < phone_placeholder.length; i++) {
+            var check_placeholder = parseInt(phone_placeholder[i]);
+            if ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(check_placeholder)) {
+                phone_format = phone_format + '9';
+            }
+            else {
+                phone_format = phone_format + phone_placeholder[i];
+            }
+        }
+        var set_format = "'mask': '" + phone_format + "'";
+        phone.setAttribute('data-inputmask', set_format);
+    }
+
     function showPassword() {
         var pass = document.getElementById("password");
         if (pass.type === "password") {
@@ -291,6 +335,55 @@
     function validateForm() {
         var pass = document.getElementById("password").value;
         var password_confirmation = document.getElementById("password_confirmation").value;
+        var phone = document.getElementById('phone');
+        var phone_number = phone.value;
+        var phone_placeholder = phone.placeholder;
+        var phone_msg = 'Required format is '+ phone_placeholder;
+        var selected_flag = document.querySelector('.iti__selected-flag');
+        var get_code = selected_flag.getAttribute('aria-activedescendant');
+        var country_code = '';
+        const myArray = get_code.split("-");
+        var word = myArray[1];
+        var word_length = myArray.length;
+        var word_index = word_length - 1;
+        if (myArray[word_index] == 'preferred') {
+            country_code = myArray[--word_index];
+        }
+        else {
+            country_code = myArray[word_index];
+        }
+        if (phone_number.length == phone_placeholder.length) {
+            var number_special_char = 0;
+            var placeholder_special_char = 0;
+            for (var i = 0; i < phone_number.length; i++) {
+                var check_number = parseInt(phone_number[i]);
+                var check_placeholder = parseInt(phone_placeholder[i]);
+                if (!([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(check_number))) {
+                    number_special_char++;
+                    if (phone_number[i] != phone_placeholder[i]) {
+                        $('#show_phone_msg').empty();
+                        $("#show_phone_msg").append(phone_msg);
+                        return false;
+                    }
+                }
+                if (!([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(check_placeholder))) {
+                    placeholder_special_char++
+                }
+            }
+            if(number_special_char != placeholder_special_char) {
+                $('#show_phone_msg').empty();
+                $("#show_phone_msg").append(phone_msg);
+                return false;
+            }
+            else {
+                $('#show_phone_msg').empty();
+            }
+        }
+        else {
+            $('#show_phone_msg').empty();
+            $("#show_phone_msg").append(phone_msg);
+            return false;
+        }
         $('#show_confirm_pass_msg').empty();
         if (pass != password_confirmation) {
             $("#show_confirm_pass_msg").append('Password & confirm password are not matched!');
