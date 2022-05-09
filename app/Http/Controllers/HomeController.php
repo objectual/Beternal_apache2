@@ -8,8 +8,10 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $title = "HOME";
-        return view('frontend.home', compact('title'));
+        // $title = "HOME";
+        // return view('frontend.home', compact('title'));
+        $title = "WELCOME";
+        return view('frontend.splash.index', compact('title'));
     }
 
     public function contactUs()
@@ -20,7 +22,7 @@ class HomeController extends Controller
 
     public function splash()
     {
-        $title = "SPLASH";
+        $title = "WELCOME";
         return view('frontend.splash.index', compact('title'));
     }
 
