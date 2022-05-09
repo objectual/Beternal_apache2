@@ -1086,7 +1086,7 @@ textarea {
 
 @media screen and (min-height: 480px) and (max-width: 490px) {
     .scroll-div {
-        height: 70vh !important;
+        height: 100vh !important;
     }
     .heading {
         top: 60px !important;
@@ -2179,7 +2179,7 @@ textarea {
         margin-bottom: 0;
     }
     .mobile-padding {
-        padding-top: 100px !important;
+        padding-top: 75px !important;
     }
     .FilterbyMediaType-btn {
         margin-top: 0 !important;
@@ -2286,7 +2286,7 @@ textarea {
     }
     .btn-pay span {
         font-weight: bolder;
-        color: #fff;
+        color: #000;
     }
     .time-bg {
         margin-left: 5px;
@@ -3287,7 +3287,21 @@ body {
 }
 
 @media screen and (min-width: 280px) and (max-width: 991px) and (orientation : landscape){
-    
+    .bg-create {
+        height: 103vh !important;
+    }
+    .top-nav {  
+        z-index: 999;
+    }
+    .mb-dash {
+        margin-bottom: 100px;
+    }
+    .header-span {
+    font-size: 15px;
+    }
+    .navbar-light .navbar-nav .nav-link {
+        padding: 0px !important;
+    }
     .success-bg {
         padding-top: 38% !important; 
     }

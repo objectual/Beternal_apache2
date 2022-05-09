@@ -97,7 +97,7 @@
                 <div class="col-lg-8 mt-3">
                     <div class="video" id="current_video">
                         <video id="ban_video" class="tv_video" controls>
-                            <source src="{{ asset('/public/assets/images/video.mp4') }}" type="video/mp4" />
+                            <source src="{{ asset('/public/assets/images/landing-video.mp4') }}" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
                     </div>
