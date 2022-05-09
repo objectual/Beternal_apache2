@@ -110,7 +110,7 @@
                             <a class="example-image-link" id="{{ $video->file_name }}" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="selectVideo(this)">
                                 <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
                                 <div class="play-bt-exm-one"></div>
-                                <div class="d-flex pt-1">
+                                <div class="d-flex pt-1 bg-black">
                                 <span class="above-img-span">
                                     {{ $video->title }}
                                   
@@ -156,7 +156,7 @@
                         <img class="example-image" src="{{ asset( 'public/'.$photo->file_name )}}" alt="" />
 
                         <div class="bg-black p-1">
-                        <div class="d-flex pt-1">
+                        <div class="d-flex pt-1 bg-black">
                         <span class="above-img-span">
                         {{ $photo->title }}
                             
@@ -206,7 +206,7 @@
                         <div class="audio-bt-exm-one"></div>
 
                         <div class="bg-black p-1">
-                        <div class="d-flex pt-1">
+                        <div class="d-flex pt-1 bg-black">
                         <span class="above-img-span text-start">
                         {{ $audio->title }}
                             

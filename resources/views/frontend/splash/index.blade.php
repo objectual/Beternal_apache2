@@ -6,7 +6,9 @@
         <div class="bg-sp-1 px-5">
         <div class="container">
         <div class="row">
-            <div class="col-12">
+        <div class="col-lg-2"></div>
+            
+            <div class="col-lg-8">
                 <p class="sp-head-1">
                     bETERNAL is a secure legacy-creation and preservation platform.
                 </p>
@@ -28,6 +30,7 @@
                     share it with only those you choose.
                 </p>
             </div>
+            <div class="col-lg-2"></div>
         </div>
         </div>
         </div>
@@ -40,7 +43,7 @@
                 </p>
             </div>
         </div>
-        <div class="row bg-black bg-mobile px-5">
+        <div class="row bg-mobile px-5">
             <div class="col-12">
                 <p class="sp-head-1">OUR VISION</p>
                 <p class="sp-head-2 pb-4">
@@ -63,7 +66,7 @@
                 </p>
             </div>
         </div>
-        <div class="row bg-black bg-mobile px-5">
+        <div class="row bg-mobile px-5">
             <div class="col-12">
                 <p class="sp-head-2 pt-4">
                     A safety deposit box for your private memories.

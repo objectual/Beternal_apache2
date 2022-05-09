@@ -17,8 +17,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item px-2">
-              <a class="nav-link menu-active" aria-current="page" href="{{ route('index') }}"
+            <li class="nav-item px-2 pl-0">
+              <a class="nav-link menu-active pl-0" aria-current="page" href="{{ route('index') }}"
                 >
                 <!-- <span class="icon-home header-icons"></span> -->
                 <span class="header-span">Home</span></a
@@ -58,8 +58,8 @@
                 <span class="header-span">Scheduled Media</span></a
               >
             </li>
-            <li class="nav-item px-2">
-              <a class="nav-link active" aria-current="page" href="{{ route('user.recipents') }}"
+            <li class="nav-item px-2 pr-0">
+              <a class="nav-link active pr-0" aria-current="page" href="{{ route('user.recipents') }}"
                 >
                 <!-- <span class="icon-Recipents header-icons"></span> -->
                 <span class="header-span">Recipents</span></a

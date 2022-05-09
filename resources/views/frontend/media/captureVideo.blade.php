@@ -71,7 +71,7 @@
                         <p class="text-white">Assign Recipient</p>
                         <div class="row mb-3" id="show_recipents">
                             @if(isset($user_recipents) && !$user_recipents->isEmpty())
-                            <div class="col-lg-2 col-3 rec-images">
+                            <div class="col-lg-2 col-4 rec-images">
                                 <img src="{{ asset('public/media/image/all-users.png') }}">
                                 <p class="cl-white sel-text mt-3">
                                     <input class="form-check-input" type="checkbox" id="all_recipient" name="all_recipient" value="all recipient" onclick="selectAllRecipient(this)">
@@ -79,7 +79,7 @@
                                 </p>
                             </div>
                             @foreach($user_recipents as $key => $recipent)
-                            <div class="col-lg-2 col-3 rec-images">
+                            <div class="col-lg-2 col-4 rec-images">
                                 <img src="{{ asset($recipent->profile_image) }}">
                                 <p class="cl-white sel-text mt-3">
                                     <input class="form-check-input user-recipient" type="checkbox" name="recipient_id[]" value="{{ $recipent->recipient_id }}">
@@ -183,7 +183,7 @@
                                     <p class="text-white">Assign Recipient</p>
                                     <div class="row mb-3" id="show_recipents_2">
                                         @if(isset($user_recipents) && !$user_recipents->isEmpty())
-                                        <div class="col-lg-2 col-3 text-center rec-images">
+                                        <div class="col-lg-2 col-4 text-center rec-images">
                                             <img src="{{ asset('public/media/image/all-users.png') }}">
                                             <p class="cl-white sel-text mt-3">
                                                 <input class="form-check-input" type="checkbox" id="all_recipient_2" name="all_recipient_2" value="all recipient" onclick="selectAllRecipient(this)">
@@ -191,7 +191,7 @@
                                             </p>
                                         </div>
                                         @foreach($user_recipents as $key => $recipent)
-                                        <div class="col-lg-2 col-3 text-center rec-images">
+                                        <div class="col-lg-2 col-4 text-center rec-images">
                                             <img src="{{ asset($recipent->profile_image) }}">
                                             <p class="cl-white sel-text mt-3">
                                                 <input class="form-check-input user-recipient-2" type="checkbox" name="recipient_id_2[]" value="{{ $recipent->recipient_id }}">

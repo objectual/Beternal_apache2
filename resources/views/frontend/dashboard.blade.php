@@ -7,7 +7,7 @@
       <div class="col-lg-1"></div>
       <div class="col-lg-10">
         <div class="row">
-          <a href="{{ route('user.profile') }}" class="col-lg-6 mt-3 text-center position-relative col-6">
+          <a href="{{ route('user.profile') }}" class="col-lg-4 mt-3 text-center position-relative col-6">
             <div class=" p-3 dashboard-contain">
               <div class="col m-auto text-center">
                 <img class="" src="{{ asset('/public/assets/images/person.png') }}" />
@@ -16,7 +16,7 @@
               </div>
             </div>
           </a>
-          <a href="{{ route('user.recipents') }}" class="col-lg-6 mt-3 text-center position-relative col-6">
+          <a href="{{ route('user.recipents') }}" class="col-lg-4 mt-3 text-center position-relative col-6">
             <div class=" p-3 dashboard-contain">
               <div class="col m-auto text-center">
                 <img class="" src="{{ asset('/public/assets/images/recipients.png') }}" />
@@ -25,7 +25,7 @@
               </div>
             </div>
           </a>
-          <a href="{{ route('user.schedule-media') }}" class="col-lg-6 mt-3 text-center position-relative col-6">
+          <a href="{{ route('user.schedule-media') }}" class="col-lg-4 mt-3 text-center position-relative col-6">
             <div class=" p-3 dashboard-contain">
               <div class="col m-auto text-center">
                 <img class="" src="{{ asset('/public/assets/images/calendar.png') }}" />
@@ -34,7 +34,7 @@
               </div>
             </div>
           </a>
-          <a href="{{ route('user.legacy') }}" class="col-lg-6 mt-3 text-center position-relative col-6">
+          <a href="{{ route('user.legacy') }}" class="col-lg-4 mt-3 text-center position-relative col-6">
             <div class=" p-3 dashboard-contain">
               <div class="col m-auto text-center">
                 <img class="" src="{{ asset('/public/assets/images/leaf.png') }}" />
@@ -43,7 +43,7 @@
               </div>
             </div>
           </a>
-          <a href="{{ route('user.medias.my-media') }}" class="col-lg-6 mt-3 text-center position-relative col-6">
+          <a href="{{ route('user.medias.my-media') }}" class="col-lg-4 mt-3 text-center position-relative col-6">
             <div class=" p-3 dashboard-contain">
               <div class="col m-auto text-center">
                 <img class="" src="{{ asset('/public/assets/images/media.png') }}" />
@@ -52,7 +52,7 @@
               </div>
             </div>
           </a>
-          <a href="{{ route('user.payment') }}" class="col-lg-6 mt-3 text-center position-relative col-6">
+          <a href="{{ route('user.payment') }}" class="col-lg-4 mt-3 text-center position-relative col-6">
             <div class=" p-3 dashboard-contain">
               <div class="col m-auto text-center">
                 <img class="" src="{{ asset('/public/assets/images/plus.png') }}" />
