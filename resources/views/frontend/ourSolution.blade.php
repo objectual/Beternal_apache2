@@ -28,7 +28,7 @@
                     </div>
                     
                 </div>
-                <div class="container-fluid text-center bg-black we-give-back-main">
+                <div class="container-fluid text-center we-give-back-main">
                     <div class="col-md-7 p-4 m-auto text-white we-give-back">
                         <h1 class="pb-4">
                             We give back <br />
