@@ -29,10 +29,6 @@ use App\Http\Controllers\SubscriptionController;
 //     return view('frontend.home');
 // });
 
-Route::get('/test', function () {
-    return view('frontend.test');
-});
-
 Route::get('/', [HomeController::class, 'index'])->name('index');
 
 // start routes for ajax request

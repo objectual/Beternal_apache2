@@ -990,7 +990,7 @@ button {
     font-size: 13px;
 }
 .recipent-back-clr {
-    background-color: #fff !important;
+    background-color: rgb(0, 0, 0, 0.3) !important;
 }
 .login-btn {
     color: #000;

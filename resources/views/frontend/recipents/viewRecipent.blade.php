@@ -14,39 +14,39 @@
                             <img class="mt-2 img-edit" src="{{ asset('public/assets/images/edit.png') }}" /></a>
                     </div>
                 </div>
-                <img class="acc-img  pb-3" src="{{ asset($recipient->profile_image) }}" />
+                <img class="acc-img" src="{{ asset($recipient->profile_image) }}" style="border-radius: 100%" />
                 <div class="row g-3">
                     <div class="col-md-12 margin-recipent">
                         <p class="recipent-data recipent-label m-0">Name</p>
-                        <p class="recipent-data m-0">{{ $recipient->name }} {{ $recipient->last_name }}</p>
+                        <p class="recipent-data m-0 text-white">{{ $recipient->name }} {{ $recipient->last_name }}</p>
                         <hr />
                     </div>
                 </div>
                 <div class="row g-3">
                     <div class="col-md-12 margin-recipent">
                         <p class="recipent-data recipent-label m-0">Email</p>
-                        <p class="recipent-data m-0">{{ $recipient->email }}</p>
+                        <p class="recipent-data m-0 text-white">{{ $recipient->email }}</p>
                         <hr />
                     </div>
                 </div>
                 <div class="row g-3">
                     <div class="col-md-12 margin-recipent">
                         <p class="recipent-data recipent-label m-0">Phone</p>
-                        <p class="recipent-data m-0">{{ $recipient->phone_number }}</p>
+                        <p class="recipent-data m-0 text-white">{{ $recipient->phone_number }}</p>
                         <hr />
                     </div>
                 </div>
                 <div class="row g-3">
                     <div class="col-md-12 margin-recipent">
                         <p class="recipent-data recipent-label m-0">Status</p>
-                        <p class="recipent-data m-0">{{ $recipient->contact_title }}</p>
+                        <p class="recipent-data m-0 text-white">{{ $recipient->contact_title }}</p>
                         <hr />
                     </div>
                 </div>
                 <div class="row g-3">
                     <div class="col-md-12 margin-recipent">
                         <p class="recipent-data recipent-label m-0">Group</p>
-                        <p class="recipent-data m-0 mb-4">{{ $recipient->group_title }}</p>
+                        <p class="recipent-data m-0 mb-4 text-white">{{ $recipient->group_title }}</p>
                     </div>
                 </div>
                 <a href="{{ route('user.recipents.add-form') }}" class="btn mb-3 text-center mt-1 col-md-7 col-sm-12 recipent-btn">

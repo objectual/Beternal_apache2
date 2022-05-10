@@ -30,7 +30,9 @@
                                     <img src="{{ asset('/public/assets/images/device-gallery.png') }}" class="gallery-img">
                                 </div>
                                 @if($errors->has('file_name'))
-                                <div class="error">{{ $errors->first('file_name') }}</div>
+                                <div class="error text-white">
+                                    {{ $errors->first('file_name') }}
+                                </div>
                                 @endif
                                 <label class="record-images" style="color: #ffaa00;" for="file">&nbsp;&nbsp;Device Gallery</label>
                                 <input type="file" accept="image/*" name="file_name" id="file" style="display: none;">
@@ -157,8 +159,8 @@
                                 <div class="col-lg-12">
                                     <div class="mt-2">
                                         <div class="mb-3 w-100">
-                                            <label for="video_title" class="form-label text-white">Video Title</label>
-                                            <input type="text" id="title_2" name="title_2" value="{{ old('title') }}" class="form-control capture-form" placeholder="Video Title Here" required>
+                                            <label for="photo_title" class="form-label text-white">Photo Title</label>
+                                            <input type="text" id="title_2" name="title_2" value="{{ old('title') }}" class="form-control capture-form" placeholder="Photo Title Here" required>
                                             <div class="col-12" id="show_title_msg_2"></div>
                                         </div>
                                         <div class="mb-3 w-100">
