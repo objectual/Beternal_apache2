@@ -8,6 +8,7 @@
             <div class="col-lg-6 offset-lg-3">
                 <form method="POST" action="{{ route('user.recipents.add-recipent') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
                     @csrf
+                    <input type="hidden" id="country_code" name="country_code" value="">
                     <div class="bg-add">
 
                         <div class="row mt-4">
@@ -38,24 +39,37 @@
 
                         <div class="row mt-4">
                             <div class="col-lg-12 mb-4">
+
+                                @if($errors->has('name'))
+                                <div class="error text-white">{{ $errors->first('name') }}</div>
+                                @endif
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
                                         <span class="input-group-text add-label" id="basic-addon2">First Name</span>
                                     </div>
                                     <input type="text" name="name" value="{{ old('name') }}" class="form-control add-input" placeholder="Required Field" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 </div>
+
+                                @if($errors->has('last_name'))
+                                <div class="error text-white">{{ $errors->first('last_name') }}</div>
+                                @endif
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
                                         <span class="input-group-text add-label" id="basic-addon2">Last Name</span>
                                     </div>
                                     <input type="text" name="last_name" value="{{ old('last_name') }}" class="form-control add-input" placeholder="Required Field" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 </div>
+
+                                @if($errors->has('email'))
+                                <div class="error text-white">{{ $errors->first('email') }}</div>
+                                @endif
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
                                         <span class="input-group-text add-label" id="basic-addon2">EMAIL</span>
                                     </div>
                                     <input type="email" name="email" value="{{ old('email') }}" class="form-control add-input" placeholder="Required Field" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 </div>
+
                                 <div class="col-12" id="show_phone_msg"></div>
                                 <div class="input-group mb-3 recipent-phone">
                                     <div class="input-group-append">
@@ -63,6 +77,10 @@
                                     </div>
                                     <input type="text" id="phone" name="phone" value="{{ old('phone') }}" class="form-control add-input" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 </div>
+
+                                @if($errors->has('address'))
+                                <div class="error text-white">{{ $errors->first('address') }}</div>
+                                @endif
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
                                         <span class="input-group-text add-label" id="basic-addon2">ADDRESS 1</span>
@@ -180,6 +198,7 @@
                             </div>
 
                         </div>
+
                     </div>
                 </form>
             </div>
@@ -306,11 +325,26 @@
     }
 
     function validateForm() {
+        var phone_code = document.getElementById('country_code');
         var phone = document.getElementById('phone');
         var inputs = document.querySelectorAll('.user-group');
         var phone_number = phone.value;
         var phone_placeholder = phone.placeholder;
         var phone_msg = '<span class="cl-white">Format not matched! required format is '+ phone_placeholder +'</span>';
+        var selected_flag = document.querySelector('.iti__selected-flag');
+        var get_code = selected_flag.getAttribute('aria-activedescendant');
+        var country_code = '';
+        const myArray = get_code.split("-");
+        var word = myArray[1];
+        var word_length = myArray.length;
+        var word_index = word_length - 1;
+        if (myArray[word_index] == 'preferred') {
+            country_code = myArray[--word_index];
+        }
+        else {
+            country_code = myArray[word_index];
+        }
+        phone_code.value = country_code;
         if (phone_number.length == phone_placeholder.length) {
             var number_special_char = 0;
             var placeholder_special_char = 0;

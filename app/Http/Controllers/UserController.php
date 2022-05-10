@@ -137,6 +137,7 @@ class UserController extends Controller
                 'name'              =>  $request->name,
                 'last_name'         =>  $request->last_name,
                 'email'             =>  $request->email,
+                'country_code'      =>  $request->country_code,
                 'phone_number'      =>  $request->phone,
                 'address'           =>  $request->address,
                 'profile_image'     =>  $image_new,
@@ -150,6 +151,7 @@ class UserController extends Controller
                 'name'              =>  $request->name,
                 'last_name'         =>  $request->last_name,
                 'email'             =>  $request->email,
+                'country_code'      =>  $request->country_code,
                 'phone_number'      =>  $request->phone,
                 'address'           =>  $request->address,
                 'profile_image'     =>  $image_new,
@@ -269,6 +271,7 @@ class UserController extends Controller
             $add_recipent->name              =  $request->name;
             $add_recipent->last_name         =  $request->last_name;
             $add_recipent->email             =  $request->email;
+            $add_recipent->country_code      =  $request->country_code;
             $add_recipent->phone_number      =  $request->phone;
             $add_recipent->address           =  $request->address;
             $add_recipent->address_2         =  $request->address_2;

@@ -8,10 +8,10 @@
         <div class="row">
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
-                <form method="POST" action="{{route('user.profile.update')}}" enctype="multipart/form-data">
+                <form method="POST" action="{{route('user.profile.update')}}" enctype="multipart/form-data" onsubmit="return validateForm()">
                     @method('POST')
                     @csrf
-
+                    <input type="hidden" id="country_code" name="country_code" value="">
                     @if(Session()->has('update'))
                     <br>
                     <div class="alert alert-info" role="alert" style="font-size: 18px; height: 45px; padding-left:250px;">
@@ -86,7 +86,8 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Phone Number</span>
                                 </div>
-                                <input id="phone" name="phone" type="text" value="{{ old('phone_number') ?? $user[0]->phone_number }}" class="form-control text-end" aria-describedby="basic-addon1" required />
+                                <input id="phone" name="phone" type="tel" value="{{ old('phone_number') ?? $user[0]->phone_number }}" class="form-control text-end" aria-describedby="basic-addon1" required />
+                                <div class="col-12 text-white" id="show_phone_msg"></div>
                                 @if($errors->has('phone_number'))
                                 <div class="error">{{ $errors->first('phone_number') }}</div>
                                 @endif
@@ -215,7 +216,12 @@
 <script src="{!! asset('/public/build/js/intlTelInput.js') !!}"></script>
 <script>
     var input = document.querySelector("#phone");
+    var country_code = '<?= $user[0]->country_code ?>';
+    if (country_code.length == 0) {
+        country_code = "pk";
+    }
     window.intlTelInput(input, {
+        initialCountry: country_code,
         utilsScript: "{!! asset('/public/build/js/utils.js') !!}",
     });
 </script>
@@ -281,5 +287,66 @@
                 }
             }
         });
+    }
+
+    function validateForm() {
+        var phone_code = document.getElementById('country_code');
+        var pass = document.getElementById("password").value;
+        var password_confirmation = document.getElementById("password_confirmation").value;
+        var phone = document.getElementById('phone');
+        var phone_number = phone.value;
+        var phone_placeholder = phone.placeholder;
+        var phone_msg = 'Required format is '+ phone_placeholder;
+        var selected_flag = document.querySelector('.iti__selected-flag');
+        var get_code = selected_flag.getAttribute('aria-activedescendant');
+        var country_code = '';
+        const myArray = get_code.split("-");
+        var word = myArray[1];
+        var word_length = myArray.length;
+        var word_index = word_length - 1;
+        if (myArray[word_index] == 'preferred') {
+            country_code = myArray[--word_index];
+        }
+        else {
+            country_code = myArray[word_index];
+        }
+        phone_code.value = country_code;
+        if (phone_number.length == phone_placeholder.length) {
+            var number_special_char = 0;
+            var placeholder_special_char = 0;
+            for (var i = 0; i < phone_number.length; i++) {
+                var check_number = parseInt(phone_number[i]);
+                var check_placeholder = parseInt(phone_placeholder[i]);
+                if (!([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(check_number))) {
+                    number_special_char++;
+                    if (phone_number[i] != phone_placeholder[i]) {
+                        $('#show_phone_msg').empty();
+                        $("#show_phone_msg").append(phone_msg);
+                        return false;
+                    }
+                }
+                if (!([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(check_placeholder))) {
+                    placeholder_special_char++
+                }
+            }
+            if(number_special_char != placeholder_special_char) {
+                $('#show_phone_msg').empty();
+                $("#show_phone_msg").append(phone_msg);
+                return false;
+            }
+            else {
+                $('#show_phone_msg').empty();
+            }
+        }
+        else {
+            $('#show_phone_msg').empty();
+            $("#show_phone_msg").append(phone_msg);
+            return false;
+        }
+        $('#show_confirm_pass_msg').empty();
+        if (pass != password_confirmation) {
+            $("#show_confirm_pass_msg").append('Password & confirm password are not matched!');
+            return false;
+        }
     }
 </script>

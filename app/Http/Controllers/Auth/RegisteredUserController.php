@@ -82,6 +82,7 @@ class RegisteredUserController extends Controller
             'name'              =>  $request->name,
             'last_name'         =>  $request->last_name,
             'email'             =>  $request->email,
+            'country_code'      =>  $request->country_code,
             'phone_number'      =>  $request->phone,
             'address'           =>  $request->address,
             'role_id'           =>  2,

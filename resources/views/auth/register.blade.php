@@ -9,6 +9,7 @@
             <div class="col-lg-6">
                 <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
                     @csrf
+                    <input type="hidden" id="country_code" name="country_code" value="">
                     <div class="row">
                         <div class="col-lg-12">
                             <h4 class="mt-4 account-head text-center text-white">CREATE AN ACCOUNT</h4>
@@ -87,7 +88,6 @@
                             @if($errors->has('phone'))
                             <div class="error text-white">{{ $errors->first('phone') }}</div>
                             @endif
-                            <div style="margin-top: -15;" id="show_phone_msg"></div>
                         </div>
                         <script>
                             $(":input").inputmask();
@@ -333,6 +333,7 @@
     }
 
     function validateForm() {
+        var phone_code = document.getElementById('country_code');
         var pass = document.getElementById("password").value;
         var password_confirmation = document.getElementById("password_confirmation").value;
         var phone = document.getElementById('phone');
@@ -352,6 +353,7 @@
         else {
             country_code = myArray[word_index];
         }
+        phone_code.value = country_code;
         if (phone_number.length == phone_placeholder.length) {
             var number_special_char = 0;
             var placeholder_special_char = 0;
