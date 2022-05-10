@@ -284,11 +284,11 @@ body {
     border-radius: 5px;
 }
 .bg-create {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)),
+    /* background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)),
         url(../images/bg.png);
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
 }
 .filter-heading {
     margin-top: 13px;
@@ -296,12 +296,12 @@ body {
     letter-spacing: 3px;
 }
 .bg {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)),
+    /* background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)),
         url(../images/bg.png);
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
 }
 
 .delete-recipent {
@@ -819,13 +819,13 @@ body {
 .upload-web {
 }
 .add-background {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)),
-        url(../images/add-recip.png);
+    /* background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)),
+        url(../images/bg.png); */
     /* background-image: url(../images/bg.png); */
     /* height: 100%; */
-    background-position: center;
+    /* background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
 }
 .add-check {
     color: black;
@@ -887,7 +887,7 @@ body {
     display: none;
 }
 .forget-back {
-    background-image: url(../images/bg.png);
+    /* background-image: url(../images/bg.png); */
 }
 .forget-head {
 }
@@ -1057,15 +1057,15 @@ textarea {
 }
 
 .survey-back {
-    background-image: url(../images/create-bg.png);
+    /* background-image: url(../images/create-bg.png);
     background-size: cover;
     background-position: center center;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
 }
 /* Form Css */
 .privacy-back {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-        url(../images/bg.png) !important;
+    /* background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url(../images/bg.png) !important; */
 }
 @media screen and (min-width: 768px) and (max-width: 1024px) {
     .home {
@@ -1358,7 +1358,14 @@ textarea {
 .solution-header {
     display: none;
 }
-@media screen and (min-width: 320px) and (max-width: 991px) {
+@media screen and (min-width: 280px) and (max-width: 991px) {
+    .iti-mobile .iti__country-list {
+        max-height: 85%; 
+        margin-top: 20%;
+    }
+    .iti--allow-dropdown {
+        width: 63% !important;
+    }
     .nav-header .container {
         padding: 0px;
     }
@@ -1575,11 +1582,11 @@ textarea {
         padding: 0px 20px !important;
     }
     .noti-ipad-padng {
-        background-image: linear-gradient(
+        /* background-image: linear-gradient(
                 rgba(0, 0, 0, 0.5),
                 rgba(0, 0, 0, 0.5)
             ),
-            url(../images/bg.png) !important;
+            url(../images/bg.png) !important; */
         padding-top: 28% !important;
     } 
     .shared-back-light {
@@ -1602,11 +1609,11 @@ textarea {
         display: none;
     }
     .delivery-schedule {
-        background-image: url(../images/bg.png) !important;
+        /* background-image: url(../images/bg.png) !important;
         height: 100%;
         background-position: center;
         background-repeat: no-repeat;
-        background-size: cover;
+        background-size: cover; */
     }
     .delivery-form button {
         display: block !important;
@@ -1681,11 +1688,11 @@ textarea {
         display: none;
     }
     .index-back {
-        background-image: linear-gradient(
+        /* background-image: linear-gradient(
                 rgba(0, 0, 0, 0.9),
                 rgba(0, 0, 0, 0.6)
             ),
-            url(../images/bg.png);
+            url(../images/bg.png); */
     }
     .recipent-back {
         padding-top: 25% !important;
@@ -1845,11 +1852,11 @@ textarea {
         width: 110px !important;
     }
     .bg-calendar {
-        background-image: url(../images/create-bg.png) !important;
+        /* background-image: url(../images/create-) !important;
         height: 100%;
         background-position: center;
         background-repeat: no-repeat;
-        background-size: cover;
+        background-size: cover; */
     }
     .main-footer {
         display: none;
@@ -1870,11 +1877,11 @@ textarea {
         padding-top: 20px;
     }
     .loader {
-        background-image: linear-gradient(
+        /* background-image: linear-gradient(
                 rgba(0, 0, 0, 0.9),
                 rgba(0, 0, 0, 0.5)
             ),
-            url(../images/bg.png);
+            url(../images/bg.png); */
     }
     .mob-veiw-copy {
         text-align: center;
@@ -2075,7 +2082,7 @@ textarea {
     .input-group-text {
         padding: 10px 20px;
         background: transparent;
-        height: 45px;
+        height: 59px;
     }
 
     .login-padd {
@@ -2092,7 +2099,7 @@ textarea {
         font-size: 14px;
     }
     .login-bg {
-        background-image: url(../images/bg.png);
+        /* background-image: url(../images/bg.png); */
         padding-top: 10%;
     }
     .survey-padding {
@@ -2360,8 +2367,8 @@ textarea {
     font-size: 16px;
 }
 .noti-ipad-padng {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)),
-        url(../images/bg.png) !important;
+    /* background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)),
+        url(../images/bg.png) !important; */
     padding-top: 3%;
 }
 .form-div {
@@ -2630,17 +2637,17 @@ ul {
     display: none;
 }
 .login-back-light {
-    background-image: url(../images/bg.png);
+    /* background-image: url(../images/bg.png);
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
 }
 .payment-back-mob {
-    background-image: url(../images/bg.png);
+    /* background-image: url(../images/bg.png);
     background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)),
         url(../images/bg.png);
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
 }
 .check-color {
     font-size: 0.7rem;
@@ -2951,16 +2958,16 @@ hr {
 }
 
 .success-bg {
-    background-image: url(../images/bg.png);
+    /* background-image: url(../images/bg.png);
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
 }
 
 .login-bg {
-    background-image: url(../images/bg.png);
+    /* background-image: url(../images/bg.png);
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center; */
 }
 
 .text-black {
@@ -3010,9 +3017,9 @@ body {
 }
 
 .shared-back-light {
-    background-image: url(../images/bg-legacy.png);
+    /* background-image: url(../images/bg-legacy.png);
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
 }
 
 .footer-icons:before {
@@ -3440,4 +3447,17 @@ body {
 }
 .upload-font {
     font-family: FranklinGotItcTEEMedCon !important;
+}
+
+.example-image-link .play-bt-exm-one { 
+    top: 20% !important;
+}
+ 
+.example-image-link .audio-bt-exm-one { 
+    top: 20% !important;
+}
+
+body {
+    background-image: url(../images/bg.png); 
+    background-size: cover;
 }

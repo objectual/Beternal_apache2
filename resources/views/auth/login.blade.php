@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-lg-4 offset-lg-4">
                     <div class="login login-padd">
-                        <h4 class="mt-3 mb-4">LOG IN TO YOUR ACCOUNT</h4>
+                        <h4 class="mt-3 mb-4 text-white">LOG IN TO YOUR ACCOUNT</h4>
                         @if($errors->has('email'))
                                 <h4 class="error">{{ $errors->first('email') }}</h4>
                         @endif
@@ -40,7 +40,7 @@
                             <div class="d-flex REMEMBER-me">
                                 <div class="col-md-12">
                                     <div class="col-md-6">
-                                        <label class="container-check login-chk" style="float: left;">Remember Me
+                                        <label class="container-check login-chk text-white" style="float: left;">Remember Me
                                         <input type="checkbox" />
                                         <span class="checkmark login-checkmark"></span>
                                         </label>
@@ -48,7 +48,7 @@
                     
                                     <div class="">
                                         @if (Route::has('password.request'))
-                                            <a class="float-right text-black forget" href="{{ route('password.request') }}">
+                                            <a class="float-right text-black forget  text-white" href="{{ route('password.request') }}">
                                                 {{ __('Forget password?') }}
                                             </a>
                                         @endif
