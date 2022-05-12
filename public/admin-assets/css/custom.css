@@ -57,3 +57,10 @@
   height: inherit; 
       margin-bottom: 50px;
   }
+
+  .main-footer { 
+    width: 100% !important;
+    margin: 0px !important;
+    position: fixed;
+    bottom: 0px;
+  } 
