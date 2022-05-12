@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="{{ asset('/public/assets/css/lightbox.min.css') }}" />
 @extends("frontend.layouts.layout")
 @section("title","My Media")
 @section("content")
@@ -152,7 +153,7 @@
                 @if($photo->type == 'photo')
                 @php $date_time = explode(" ", $photo->created_at); @endphp
                 <div class="col-lg-3 px-1 col-6 col-md-4">
-                    <a class="example-image-link" id="{{ $photo->file_name }}" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="selectPhoto(this)">
+                    <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" id="{{ $photo->file_name }}" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="selectPhoto(this)">
                         <img class="example-image" src="{{ asset( $file_path.$photo->file_name )}}" alt="" />
 
                         <div class="bg-black p-1">
@@ -568,3 +569,5 @@
         }
     }
 </script>
+
+<script src="{{ asset('/public/assets/js/lightbox-plus-jquery.min.js') }}"></script>

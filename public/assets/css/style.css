@@ -931,12 +931,12 @@ body {
     border-radius: 50%;
 }
 .upg-add-img-btn {
-    border: 2px solid #F7DB02;
+    border: 2px solid DB02;
     margin-right: 10px;
     text-align: center;
     border-radius: 5px;
     padding: 10px;
-    background-color: transparent;
+    background-color: #F7DB02;
 }
 .upg-add-img-btn:hover {
     background-color: #F7DB02;
@@ -944,7 +944,7 @@ body {
 }
 .upg-add-img-btn,
 button {
-    color: #F7DB02;
+    color: #000;
 }
 .upg-select-del-btn {
     text-align: center;
@@ -3359,9 +3359,19 @@ body {
     margin-right: 10px;
     text-align: center;
     border-radius: 5px;
-    padding: 5px 20px;
-    background-color: transparent;
-    color:#F7DB02;
+    padding: 5px 10px;
+    background-color: #F7DB02;
+    color:#000;
+}
+
+.start-rec-btn:hover {
+    border: 2px solid #F7DB02;
+    margin-right: 10px;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 10px;
+    background-color: #F7DB02;
+    color:#000;
 }
 
 .rec-images img {
@@ -3461,4 +3471,16 @@ body {
 body {
     background-image: url(../images/bg.png); 
     background-size: cover;
+}
+
+.record-video-area {
+    height: 220px;
+    width: 100%;
+}
+
+.stop-btn {
+    margin-left: 5px;
+    width: 72px;
+    border-radius: 5px !important;
+    font-size: 20px;
 }

@@ -140,16 +140,16 @@
                 <div class="row">
                     <div class="col-md-6">
                         <h2 class="text-white">Recording</h2>
-                        <video id="preview" width="160" height="120" autoplay muted></video><br /> 
-                        <div class="btn-group">
+                        <video id="preview" class="record-video-area" autoplay muted></video><br /> 
+                        <div class="btn-group mt-4">
                             <div id="startButton" class="start-rec-btn"> Start </div>
-                            <div id="stopButton" class="btn btn-danger" style="display:none; margin-left:5px;"> Stop </div>
+                            <div id="stopButton" class="stop-btn btn btn-danger" style="display:none; margin-left:5px;"> Stop </div>
                         </div>
                     </div>
                     <div class="col-md-6" id="recorded" style="display:none">
                         <h2>Preview</h2>
-                        <video id="recording" width="160" height="120" controls></video><br /> 
-                        <a id="downloadLocalButton" class="btn btn-primary">Download</a>
+                        <video id="recording" class="record-video-area" controls></video><br /> 
+                        <a id="downloadLocalButton" class="start-rec-btn mt-4 d-inline-flex">Download</a>
                     </div>
                 </div>
 
