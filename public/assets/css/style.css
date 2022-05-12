@@ -3400,7 +3400,8 @@ body {
 }
 
 #ban_image img {
-    height: auto;
+    height: 500px;
+    object-fit: contain;
     width: 100%;
 }
 
