@@ -12,7 +12,7 @@ use App\Models\Group;
 use App\Models\ShareMedia;
 use App\Models\ShareMediaGroup;
 use App\Models\Plan;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class MediaController extends Controller
 {
@@ -110,7 +110,8 @@ class MediaController extends Controller
         $media->description = $request->description;
         $media->path = '/';
         if ($request->hasFile('file_name')) {
-            $path = $request->file('file_name')->store($folder, ['disk' => 'my_files']);
+            // $path = $request->file('file_name')->store($folder, ['disk' => 'my_files']);
+            $path = $request->file('file_name')->store($folder, 's3');
             $media->file_name = $path;
         }
         $media->type = $request->media_type;
@@ -161,7 +162,8 @@ class MediaController extends Controller
             $image = str_replace(' ', '+', $image);
             $imageName = uniqid() . '.' . 'png';
             $file_name = $folder . $imageName;
-            File::put(public_path('photo') . '/' . $imageName, base64_decode($image));
+            // File::put(public_path('photo') . '/' . $imageName, base64_decode($image));
+            Storage::disk('s3')->put(('photo') . '/' . $imageName, base64_decode($image));
 
             $media = new Media();
             $media->title = $request->input('title_2');
@@ -208,7 +210,8 @@ class MediaController extends Controller
                     $folder = 'audios';
                 }
 
-                $file_name = $request->file('file_name')->store($folder, ['disk' => 'my_files']);
+                // $file_name = $request->file('file_name')->store($folder, ['disk' => 'my_files']);
+                $file_name = $request->file('file_name')->store($folder, 's3');
 
                 $media = new Media();
                 $media->title = $request->input('title');
@@ -287,11 +290,16 @@ class MediaController extends Controller
             }
         }
 
+        $full_path = Storage::disk('s3')->url('photo');
+        $get_path = explode('photo', $full_path);
+        $file_path = $get_path[0];
+
         return view('frontend.media.myMedia', compact(
             'title',
             'all_media',
             'user_recipents',
-            'user_groups'
+            'user_groups',
+            'file_path'
         ));
     }
 

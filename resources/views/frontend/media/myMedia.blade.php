@@ -153,7 +153,7 @@
                 @php $date_time = explode(" ", $photo->created_at); @endphp
                 <div class="col-lg-3 px-1 col-6 col-md-4">
                     <a class="example-image-link" id="{{ $photo->file_name }}" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="selectPhoto(this)">
-                        <img class="example-image" src="{{ asset( 'public/'.$photo->file_name )}}" alt="" />
+                        <img class="example-image" src="{{ asset( $file_path.$photo->file_name )}}" alt="" />
 
                         <div class="bg-black p-1">
                         <div class="d-flex pt-1 bg-black">
@@ -243,24 +243,24 @@
 
 <script type="text/javascript">
     function selectVideo(current) {
-        var base_url = '<?= $base_url ?>';
-        var base_path = base_url + '/public/';
+        var base_path = '<?= $file_path ?>';
+        // var base_path = base_url + '/public/';
         var select_for_play = '<video id="ban_video" class="tv_video" controls><source src="' + base_path + current.id + '" />Your browser does not support the video tag.</video>';
         $('#current_video').empty();
         $("#current_video").append(select_for_play);
     }
 
     function selectAudio(current) {
-        var base_url = '<?= $base_url ?>';
-        var base_path = base_url + '/public/';
+        var base_path = '<?= $file_path ?>';
+        // var base_path = base_url + '/public/';
         var select_for_play = '<audio id="ban_audio" class="tv_audio" controls><source src="' + base_path + current.id + '" />Your browser does not support the video tag.</audio>';
         $('#current_audio').empty();
         $("#current_audio").append(select_for_play);
     }
 
     function selectPhoto(current) {
-        var base_url = '<?= $base_url ?>';
-        var base_path = base_url + '/public/';
+        var base_path = '<?= $file_path ?>';
+        // var base_path = base_url + '/public/';
         var select_for_show = '<picture id="ban_image" class="tv_image"><img src="' + base_path + current.id + '" type="image" height="500" width="720" /></picture>';
         $('#current_photo').empty();
         $("#current_photo").append(select_for_show);
