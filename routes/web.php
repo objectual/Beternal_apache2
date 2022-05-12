@@ -31,6 +31,8 @@ use App\Http\Controllers\SubscriptionController;
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 
+// Route::get('/test', [HomeController::class, 'test'])->name('test');
+
 // start routes for ajax request
 Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
 Route::get('/cities/{id}', [CityController::class, 'getCities']);
