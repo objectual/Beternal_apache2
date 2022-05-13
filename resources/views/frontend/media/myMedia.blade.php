@@ -108,10 +108,10 @@
                         @if($video->type == 'video')
                         @php $date_time = explode(" ", $video->created_at); @endphp
                         <div class="col-lg-3 px-1 col-6 col-md-4">
-                            <a class="example-image-link" id="{{ $video->file_name }}" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="selectVideo(this)">
+                            <a class="example-image-link" id="{{ $video->file_name }}"  onclick="selectVideo(this)">
                                 <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
                                 <div class="play-bt-exm-one"></div>
-                                <div class="d-flex pt-1 bg-black">
+                                <div class="pt-1 bg-black">
                                     <span class="above-img-span">
                                         {{ $video->title }}
 
@@ -202,12 +202,12 @@
                         @if($audio->type == 'audio')
                         @php $date_time = explode(" ", $audio->created_at); @endphp
                         <div class="col-lg-3 px-1 col-md-4 col-6">
-                            <a class="example-image-link" id="{{ $audio->file_name }}" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="selectAudio(this)">
+                            <a class="example-image-link" id="{{ $audio->file_name }}" onclick="selectAudio(this)">
                                 <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
                                 <div class="audio-bt-exm-one"></div>
 
                                 <div class="bg-black p-1">
-                                    <div class="d-flex pt-1 bg-black">
+                                    <div class="pt-1 bg-black">
                                         <span class="above-img-span text-start">
                                             {{ $audio->title }}
 
