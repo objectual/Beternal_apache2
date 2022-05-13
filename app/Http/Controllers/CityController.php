@@ -51,8 +51,11 @@ class CityController extends Controller
 
         if($city) {
             $countries =  Country::all();
+            $all_provinces = activeStateProvince();
             $provinces =  StateProvince::where('country_id', $city[0]->country_id)->get();
-            return view('admin.cities.editCityForm', compact('city', 'provinces', 'countries'));
+            return view('admin.cities.editCityForm', compact(
+                'city', 'provinces', 'countries', 'all_provinces'
+            ));
         } else {
             return view('admin.cities.editCityForm')->with('status', 'Something went wrong!');
         }

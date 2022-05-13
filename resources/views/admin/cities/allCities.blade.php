@@ -63,9 +63,9 @@
                       <a href="{{ url('admin/cities/show/'.$city->id) }}">
                         <i class="fas fa-edit"></i>
                       </a>
-                      <a href="#">
+                      <!-- <a href="#">
                         X
-                      </a>
+                      </a> -->
                     </td>
                   </tr>
                   @endforeach
