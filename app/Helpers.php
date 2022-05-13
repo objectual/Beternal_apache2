@@ -3,6 +3,8 @@
 use App\Models\User;
 use App\Models\UserRecipient;
 use App\Models\Media;
+use App\Models\City;
+use App\Models\StateProvince;
   
     function userDetails($id) {
         $user = User::where('users.id', $id)
@@ -26,4 +28,24 @@ use App\Models\Media;
         $audio_video_count =  Media::where('user_id', $id)->whereIn('type', ['video', 'audio'])
         ->count();
         return $audio_video_count;
+    }
+
+    function activeStateProvince() {
+        $state_provinces = StateProvince::where('status', 1)->get(['id','name','country_id']);
+        return $state_provinces;
+    }
+
+    function activeCities() {
+        $cities = City::where('status', 1)->get(['id','city_name','state_province_id']);
+        return $cities;
+    }
+
+    function selectedStateProvince($id) {
+        $state_provinces = StateProvince::where('country_id', $id)->get(['id', 'name']);
+        return $state_provinces;
+    }
+
+    function selectedCities($id) {
+        $cities = City::where('state_province_id', $id)->get(['id', 'city_name']);
+        return $cities;
     }

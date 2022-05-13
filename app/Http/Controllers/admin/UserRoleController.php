@@ -26,6 +26,7 @@ class UserRoleController extends Controller
         $role_slug = strtolower($request->role_title);
         $add_update_role->role_name = $request->role_title;
         $add_update_role->role_slug = $role_slug;
+        $add_update_role->description = $request->description;
         $add_update_role->status = $request->status;
         $add_update_role->save();
         if($add_update_role) {
