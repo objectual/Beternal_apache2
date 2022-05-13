@@ -11,7 +11,6 @@
 .env.backup
 .phpunit.result.cache
 .composer.lock
-.composer.json
 docker-compose.override.yml
 Homestead.json
 Homestead.yaml
