@@ -112,19 +112,19 @@
                                 <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
                                 <div class="play-bt-exm-one"></div>
                                 <div class="d-flex pt-1 bg-black">
-                                <span class="above-img-span">
-                                    {{ $video->title }}
-                                  
-                                </span>
-                                   
+                                    <span class="above-img-span">
+                                        {{ $video->title }}
+
+                                    </span>
+
                                     <span class="group-color">
                                         Group : {{ $video->group_title }}
                                     </span>
                                 </div>
                                 <span class="ab-img-span">
-                                        {{ $video->recipient_first_name }} {{ $video->recipient_last_name }} 
-                                    </span>
-                                
+                                    {{ $video->recipient_first_name }} {{ $video->recipient_last_name }}
+                                </span>
+
                                 <span class="date-time pb-2">
                                     {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
                                 </span>
@@ -137,54 +137,54 @@
                 </div>
                 <div class="col-lg-2 mt-3"></div>
             </div>
-           
+
             <h4 class="mt-5 text-white text-center" id="photo_heading">My Photo</h4>
             <div class="row" id="photo_display">
                 <div class="col-lg-2 mt-3"></div>
                 <div class="col-lg-8 mt-3">
-                    <div class="image" id="current_photo">
+                    <!-- <div class="image" id="current_photo">
                         <picture id="ban_image" class="tv_image">
                             <img src="{{ asset('/public/assets/images/my-media-default-image.jpg') }}" type="image" height="500" width="720" />
                         </picture>
-                    </div>
+                    </div> -->
                     <div class="row mt-3 px-2" id="all_photos">
-                @if(isset($all_media))
-                @foreach($all_media as $key => $photo)
-                @if($photo->type == 'photo')
-                @php $date_time = explode(" ", $photo->created_at); @endphp
-                <div class="col-lg-3 px-1 col-6 col-md-4">
-                    <a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" id="{{ $photo->file_name }}" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="selectPhoto(this)">
-                        <img class="example-image" src="{{ asset( $file_path.$photo->file_name )}}" alt="" />
+                        @if(isset($all_media))
+                        @foreach($all_media as $key => $photo)
+                        @if($photo->type == 'photo')
+                        @php $date_time = explode(" ", $photo->created_at); @endphp
+                        <div class="col-lg-3 px-1 col-6 col-md-4">
+                            <a class="example-image-link" href="{{ asset( $file_path.$photo->file_name )}}" id="{{ $photo->file_name }}" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="">
+                                <img class="example-image" src="{{ asset( $file_path.$photo->file_name )}}" alt="" />
 
-                        <div class="bg-black p-1">
-                        <div class="d-flex pt-1 bg-black">
-                        <span class="above-img-span">
-                        {{ $photo->title }}
-                            
-                        </span>
-                            
-                            <span class="group-color">
-                            Group : {{ $photo->group_title }}
-                            </span>
+                                <div class="bg-black p-1">
+                                    <div class="d-flex pt-1 bg-black">
+                                        <span class="above-img-span">
+                                            {{ $photo->title }}
+
+                                        </span>
+
+                                        <span class="group-color">
+                                            Group : {{ $photo->group_title }}
+                                        </span>
+                                    </div>
+                                    <span class="ab-img-span">
+                                        {{ $photo->recipient_first_name }} {{ $photo->recipient_last_name }}
+                                    </span>
+
+                                    <span class="date-time pb-2">
+                                        {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
+                                    </span>
+                                </div>
+                            </a>
                         </div>
-                        <span class="ab-img-span">
-                        {{ $photo->recipient_first_name }} {{ $photo->recipient_last_name }}
-                            </span>
-                        
-                        <span class="date-time pb-2">
-                        {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
-                        </span> 
-                        </div>
-                    </a>
-                </div>
-                @endif
-                @endforeach
-                @endif
-            </div>
+                        @endif
+                        @endforeach
+                        @endif
+                    </div>
                 </div>
                 <div class="col-lg-2 mt-3"></div>
             </div>
-          
+
 
             <h4 class="mt-5 text-white text-center" id="audio_heading">My Audio</h4>
             <div class="row" id="audio_display">
@@ -197,45 +197,45 @@
                         </audio>
                     </div>
                     <div class="row mt-3 px-2" id="all_audios">
-                @if(isset($all_media))
-                @foreach($all_media as $key => $audio)
-                @if($audio->type == 'audio')
-                @php $date_time = explode(" ", $audio->created_at); @endphp
-                <div class="col-lg-3 px-1 col-md-4 col-6">
-                    <a class="example-image-link" id="{{ $audio->file_name }}" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="selectAudio(this)">
-                        <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
-                        <div class="audio-bt-exm-one"></div>
+                        @if(isset($all_media))
+                        @foreach($all_media as $key => $audio)
+                        @if($audio->type == 'audio')
+                        @php $date_time = explode(" ", $audio->created_at); @endphp
+                        <div class="col-lg-3 px-1 col-md-4 col-6">
+                            <a class="example-image-link" id="{{ $audio->file_name }}" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="selectAudio(this)">
+                                <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
+                                <div class="audio-bt-exm-one"></div>
 
-                        <div class="bg-black p-1">
-                        <div class="d-flex pt-1 bg-black">
-                        <span class="above-img-span text-start">
-                        {{ $audio->title }}
-                            
-                        </span>
-                            
-                            <span class="group-color">
-                            Group : {{ $audio->group_title }}
-                            </span>
+                                <div class="bg-black p-1">
+                                    <div class="d-flex pt-1 bg-black">
+                                        <span class="above-img-span text-start">
+                                            {{ $audio->title }}
+
+                                        </span>
+
+                                        <span class="group-color">
+                                            Group : {{ $audio->group_title }}
+                                        </span>
+                                    </div>
+                                    <span class="ab-img-span text-start">
+                                        {{ $audio->recipient_first_name }} {{ $audio->recipient_last_name }}
+                                    </span>
+
+                                    <span class="date-time pb-2">
+                                        {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
+                                    </span>
+                                </div>
+
+                            </a>
                         </div>
-                        <span class="ab-img-span text-start">
-                        {{ $audio->recipient_first_name }} {{ $audio->recipient_last_name }}
-                            </span>
-                        
-                        <span class="date-time pb-2">
-                        {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
-                        </span> 
-                        </div>
- 
-                    </a>
-                </div>
-                @endif
-                @endforeach
-                @endif
-            </div>
+                        @endif
+                        @endforeach
+                        @endif
+                    </div>
                 </div>
                 <div class="col-lg-2 mt-3"></div>
             </div>
-           
+
 
         </div>
     </div>
@@ -259,13 +259,13 @@
         $("#current_audio").append(select_for_play);
     }
 
-    function selectPhoto(current) {
-        var base_path = '<?= $file_path ?>';
-        // var base_path = base_url + '/public/';
-        var select_for_show = '<picture id="ban_image" class="tv_image"><img src="' + base_path + current.id + '" type="image" height="500" width="720" /></picture>';
-        $('#current_photo').empty();
-        $("#current_photo").append(select_for_show);
-    }
+    // function selectPhoto(current) {
+    //     var base_path = '<?= $file_path ?>';
+    //     var base_path = base_url + '/public/';
+    //     var select_for_show = '<picture id="ban_image" class="tv_image"><img src="' + base_path + current.id + '" type="image" height="500" width="720" /></picture>';
+    //     $('#current_photo').empty();
+    //     $("#current_photo").append(select_for_show);
+    // }
 
     function filterByMediaType() {
         var video_heading = document.getElementById('video_heading');
@@ -323,8 +323,8 @@
         var for_recipient = document.getElementById('recipient_id').value;
         var for_group = document.getElementById('group_title').value;
         var all_media = JSON.parse('<?php echo json_encode($all_media) ?>');
-        var base_url = '<?= $base_url ?>';
-        var base_path = base_url + '/public/';
+        var base_path = '<?= $file_path ?>';
+        // var base_path = base_url + '/public/';
         var all_videos = $('#all_videos');
         var all_audios = $('#all_audios');
         var all_photos = $('#all_photos');
@@ -339,9 +339,6 @@
             all_videos.empty();
             all_audios.empty();
             all_photos.empty();
-            var select_for_show = '<picture id="ban_image" class="tv_image"><img src="' + base_path + 'assets/images/my-media-default-image.jpg" type="image" height="500" width="720" /></picture>';
-            $('#current_photo').empty();
-            $("#current_photo").append(select_for_show);
             if (all_media_len > 0) {
                 for (var i = 0; i < all_media_len; i++) {
                     if (all_media[i].all_recipient != null) {
@@ -373,11 +370,11 @@
                                     var media_button = 'audio-bt-exm-one';
                                 }
                                 if (all_media[i].type == 'photo') {
-                                    var media_function = 'selectPhoto(this)';
+                                    var media_function = '';
                                     var file = base_path + file_name;
                                     var media_button = '';
                                 }
-                                var media = '<div class="col-lg-2 px-1 col-12"><a class="example-image-link" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><span class="ab-img-span">' + name + ' ' + last_name + ' &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group : ' + for_group + '</span></span><span class="above-img-span">' + media_title + '<span class="date-time">' + display_date + ' &nbsp; ' + display_time + '</span></span></a></div>';
+                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + for_group + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a></div>';
                                 if (all_media[i].type == 'video') {
                                     all_videos.append(media);
                                 }
@@ -397,9 +394,6 @@
             all_videos.empty();
             all_audios.empty();
             all_photos.empty();
-            var select_for_show = '<picture id="ban_image" class="tv_image"><img src="' + base_path + 'assets/images/my-media-default-image.jpg" type="image" height="500" width="720" /></picture>';
-            $('#current_photo').empty();
-            $("#current_photo").append(select_for_show);
             if (all_media_len > 0) {
                 for (var i = 0; i < all_media_len; i++) {
                     if (all_media[i].all_recipient != null) {
@@ -431,11 +425,11 @@
                                     var media_button = 'audio-bt-exm-one';
                                 }
                                 if (all_media[i].type == 'photo') {
-                                    var media_function = 'selectPhoto(this)';
+                                    var media_function = '';
                                     var file = base_path + file_name;
                                     var media_button = '';
                                 }
-                                var media = '<div class="col-lg-2 px-1 col-12"><a class="example-image-link" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><span class="ab-img-span">' + name + ' ' + last_name + ' &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group : ' + all_media[i].group_title + '</span></span><span class="above-img-span">' + media_title + '<span class="date-time">' + display_date + ' &nbsp; ' + display_time + '</span></span></a></div>';
+                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + all_media[i].group_title + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a></div>';
                                 if (all_media[i].type == 'video') {
                                     all_videos.append(media);
                                 }
@@ -455,9 +449,6 @@
             all_videos.empty();
             all_audios.empty();
             all_photos.empty();
-            var select_for_show = '<picture id="ban_image" class="tv_image"><img src="' + base_path + 'assets/images/my-media-default-image.jpg" type="image" height="500" width="720" /></picture>';
-            $('#current_photo').empty();
-            $("#current_photo").append(select_for_show);
             if (all_media_len > 0) {
                 for (var i = 0; i < all_media_len; i++) {
                     if (all_media[i].all_recipient != null) {
@@ -489,11 +480,11 @@
                                     var media_button = 'audio-bt-exm-one';
                                 }
                                 if (all_media[i].type == 'photo') {
-                                    var media_function = 'selectPhoto(this)';
+                                    var media_function = '';
                                     var file = base_path + file_name;
                                     var media_button = '';
                                 }
-                                var media = '<div class="col-lg-2 px-1 col-12"><a class="example-image-link" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><span class="ab-img-span">' + name + ' ' + last_name + ' &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group : ' + for_group + '</span></span><span class="above-img-span">' + media_title + '<span class="date-time">' + display_date + ' &nbsp; ' + display_time + '</span></span></a></div>';
+                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + for_group + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a></div>';
                                 if (all_media[i].type == 'video') {
                                     all_videos.append(media);
                                 }
@@ -513,57 +504,46 @@
             all_videos.empty();
             all_audios.empty();
             all_photos.empty();
-            var select_for_show = '<picture id="ban_image" class="tv_image"><img src="' + base_path + 'assets/images/my-media-default-image.jpg" type="image" height="500" width="720" /></picture>';
-            $('#current_photo').empty();
-            $("#current_photo").append(select_for_show);
             if (all_media_len > 0) {
                 for (var i = 0; i < all_media_len; i++) {
-                    // if (all_media[i].all_recipient != null) {
-                    //     var all_recipient_len = all_media[i].all_recipient.length;
-                    //     for (var j = 0; j < all_recipient_len; j++) {
-                    //         var recipient = all_media[i].all_recipient[j];
-                    //         if (for_recipient == recipient.recipient_id && for_group == all_media[i].group_title) {
-                                var file_name = all_media[i].file_name;
-                                var name = all_media[i].recipient_first_name;
-                                var last_name = all_media[i].recipient_last_name;
-                                var media_title = all_media[i].title;
-                                var date_time = new Date(all_media[i].created_at);
-                                var year = date_time.getFullYear();
-                                var month = date_time.getMonth();
-                                var date = date_time.getDate();
-                                var hour = date_time.getHours();
-                                var minute = date_time.getMinutes();
-                                var second = date_time.getSeconds();
-                                var display_time = hour + ':' + minute + ':' + second;
-                                var display_date = year + '-' + month + '-' + date;
-                                if (all_media[i].type == 'video') {
-                                    var media_function = 'selectVideo(this)';
-                                    var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
-                                    var media_button = 'play-bt-exm-one';
-                                }
-                                if (all_media[i].type == 'audio') {
-                                    var media_function = 'selectAudio(this)';
-                                    var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
-                                    var media_button = 'audio-bt-exm-one';
-                                }
-                                if (all_media[i].type == 'photo') {
-                                    var media_function = 'selectPhoto(this)';
-                                    var file = base_path + file_name;
-                                    var media_button = '';
-                                }
-                                var media = '<div class="col-lg-2 px-1 col-12"><a class="example-image-link" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><span class="ab-img-span">' + name + ' ' + last_name + ' &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="group-color">Group : ' + all_media[i].group_title + '</span></span><span class="above-img-span">' + media_title + '<span class="date-time">' + display_date + ' &nbsp; ' + display_time + '</span></span></a></div>';
-                                if (all_media[i].type == 'video') {
-                                    all_videos.append(media);
-                                }
-                                if (all_media[i].type == 'audio') {
-                                    all_audios.append(media);
-                                }
-                                if (all_media[i].type == 'photo') {
-                                    all_photos.append(media);
-                                }
-                    //         }
-                    //     }
-                    // }
+                    var file_name = all_media[i].file_name;
+                    var name = all_media[i].recipient_first_name;
+                    var last_name = all_media[i].recipient_last_name;
+                    var media_title = all_media[i].title;
+                    var date_time = new Date(all_media[i].created_at);
+                    var year = date_time.getFullYear();
+                    var month = date_time.getMonth();
+                    var date = date_time.getDate();
+                    var hour = date_time.getHours();
+                    var minute = date_time.getMinutes();
+                    var second = date_time.getSeconds();
+                    var display_time = hour + ':' + minute + ':' + second;
+                    var display_date = year + '-' + month + '-' + date;
+                    if (all_media[i].type == 'video') {
+                        var media_function = 'selectVideo(this)';
+                        var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                        var media_button = 'play-bt-exm-one';
+                    }
+                    if (all_media[i].type == 'audio') {
+                        var media_function = 'selectAudio(this)';
+                        var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                        var media_button = 'audio-bt-exm-one';
+                    }
+                    if (all_media[i].type == 'photo') {
+                        var media_function = '';
+                        var file = base_path + file_name;
+                        var media_button = '';
+                    }
+                    var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + all_media[i].group_title + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a></div>';
+                    if (all_media[i].type == 'video') {
+                        all_videos.append(media);
+                    }
+                    if (all_media[i].type == 'audio') {
+                        all_audios.append(media);
+                    }
+                    if (all_media[i].type == 'photo') {
+                        all_photos.append(media);
+                    }
                 }
             }
         }

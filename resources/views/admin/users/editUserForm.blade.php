@@ -70,21 +70,77 @@
                 <div class="row">
                   <div class="form-group col-lg-6">
                     <label for="country">Country</label>
-                    <input type="text" class="form-control" id="country_id" name="country_id" value="{{ $user[0]->country_name }}" readonly>
+                    <select id="country_id" name="country_id" class="form-control select2" style="width: 100%;" onChange="selectCountry()" required>
+                      @if(isset($countries))
+                      @foreach($countries as $key => $country)
+                      @if($country->id == $user[0]->country_id)
+                      <option value="{{ $country->id }}" selected>
+                        {{ $country->country_name }}
+                      </option>
+                      @else
+                      <option value="{{ $country->id }}">
+                        {{ $country->country_name }}
+                      </option>
+                      @endif
+                      @endforeach
+                      @endif
+                    </select>
                   </div>
                   <div class="form-group col-lg-6">
                     <label for="state_province">State / Province</label>
-                    <input type="text" class="form-control" id="state_province_id" name="state_province_id" value="{{ $user[0]->province_name }}" readonly>
+                    <select name="state_province_id" id="state_province_id" class="form-control select2" style="width: 100%;" onChange="selectProvince()" required>
+                      @if(isset($provinces))
+                      @foreach($provinces as $key => $province)
+                      @if($province->id == $user[0]->state_province_id)
+                      <option value="{{ $province->id }}" selected>
+                        {{ $province->name }}
+                      </option>
+                      @else
+                      <option value="{{ $province->id }}">
+                        {{ $province->name }}
+                      </option>
+                      @endif
+                      @endforeach
+                      @endif
+                    </select>
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group col-lg-6">
-                    <label for="city">City</label>
-                    <input type="text" class="form-control" id="city_id" name="city_id" value="{{ $user[0]->city_name }}" readonly>
+                    <label for="city_id">City</label>
+                    <select name="city_id" id="city_id" class="form-control select2" style="width: 100%;" required>
+                      @if(isset($cities))
+                      @foreach($cities as $key => $city)
+                      @if($city->id == $user[0]->city_id)
+                      <option value="{{ $city->id }}" selected>
+                        {{ $city->city_name }}
+                      </option>
+                      @else
+                      <option value="{{ $city->id }}">
+                        {{ $city->city_name }}
+                      </option>
+                      @endif
+                      @endforeach
+                      @endif
+                    </select>
                   </div>
                   <div class="form-group col-lg-6">
-                    <label for="plan">Plan / Membership Title</label>
-                    <input type="text" class="form-control" id="plan" name="plan" value="{{ $user[0]->title }}" readonly required>
+                    <label for="plan_id">Plan / Membership Title</label>
+                    <select name="plan_id" id="plan_id" class="form-control select2" style="width: 100%;" required>
+                      @if(isset($plans))
+                      @foreach($plans as $key => $plan)
+                      @if($plan->id == $user[0]->plan_id)
+                      <option value="{{ $plan->id }}" selected>
+                        {{ $plan->title }}
+                      </option>
+                      @else
+                      <option value="{{ $plan->id }}">
+                        {{ $plan->title }}
+                      </option>
+                      @endif
+                      @endforeach
+                      @endif
+                    </select>
                   </div>
                 </div>
                 <div class="row">
@@ -152,6 +208,52 @@
       "buttons": ["copy", "csv", "excel", "pdf", "print"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
   });
+</script>
+
+<script type="text/javascript">
+  function selectCountry() {
+    var select = document.getElementById('country_id');
+    var option = select.options[select.selectedIndex];
+    var country_id = option.value;
+    var all_provinces = JSON.parse('<?php echo json_encode($all_provinces) ?>');
+    var default_province = new Option("Select State / Province", "");
+    var default_city = new Option("Select City", "");
+    $('#state_province_id').empty();
+    $('#city_id').empty();
+    $("#state_province_id").append(default_province);
+    $("#city_id").append(default_city);
+    if (all_provinces.length > 0) {
+      for (var i = 0; i < all_provinces.length; i++) {
+        if (country_id == all_provinces[i].country_id) {
+          var id = all_provinces[i].id;
+          var name = all_provinces[i].name;
+          var o = new Option(name, id);
+          $("#state_province_id").append(o);
+        }
+      }
+    }
+  }
+
+  function selectProvince() {
+    var select = document.getElementById('state_province_id');
+    var option = select.options[select.selectedIndex];
+    var state_province_id = option.value;
+    var all_cities = JSON.parse('<?php echo json_encode($all_cities) ?>');
+    $('#city_id').empty();
+
+    if (all_cities.length > 0) {
+      var o = new Option("Select City", "");
+      $("#city_id").append(o);
+      for (var i = 0; i < all_cities.length; i++) {
+        if (state_province_id == all_cities[i].state_province_id) {
+          var id = all_cities[i].id;
+          var city_name = all_cities[i].city_name;
+          var o = new Option(city_name, id);
+          $("#city_id").append(o);
+        }
+      }
+    }
+  }
 </script>
 
 @endsection

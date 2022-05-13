@@ -14,7 +14,9 @@
                 <img src="{{ asset(Auth::user()->profile_image) }}" alt="hugenerd" width="30" height="30" class="profile-img rounded-circle" />
                 <div class="d-grid drop-pr">
                     <span class="d-sm-inline mx-1 profile-name arial-bold">{{ Auth::user()->name }}</span>
-                    <span class="d-sm-inline mx-1 profile-desig dash-admin">User</span>
+                    <span class="d-sm-inline mx-1 profile-desig dash-admin">
+                        @if(Auth::user()->role_id == 1)Admin @else User @endif
+                    </span>
                 </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">

@@ -17,6 +17,7 @@ use App\Models\Group;
 use App\Models\UserRecipient;
 use App\Models\UserGroup;
 use App\Models\UserRole;
+use App\Models\Plan;
 use App\helpers;
 
 class UserController extends Controller
@@ -33,9 +34,26 @@ class UserController extends Controller
     public function show($id)
     {
         $user = userDetails($id);
-        $user_roles = UserRole::all();
+        $countries =  Country::all();
+        $plans = Plan::where('status', 1)->get();
+        $user_roles = UserRole::where('status', 1)->get();
         if ($user) {
-            return view('admin.users.editUserForm', compact('user', 'user_roles'));
+            $country_id = $user[0]->country_id;
+            $state_province_id = $user[0]->state_province_id;
+            $all_provinces = activeStateProvince();
+            $all_cities = activeCities();
+            $provinces = selectedStateProvince($country_id);
+            $cities = selectedCities($state_province_id);
+            return view('admin.users.editUserForm', compact(
+                'user',
+                'plans',
+                'user_roles',
+                'countries',
+                'all_provinces',
+                'all_cities',
+                'provinces',
+                'cities'
+            ));
         } else {
             return view('admin.users.editUserForm')->with('status', 'Something went wrong!');
         }
@@ -53,14 +71,15 @@ class UserController extends Controller
         $update_user->address = $request->address;
         $update_user->status = $request->status;
         $update_user->role_id = $request->role_id;
+        $update_user->plan_id = $request->plan_id;
+        $update_user->country_id = $request->country_id;
+        $update_user->state_province_id = $request->state_province_id;
+        $update_user->city_id = $request->city_id;
         $update_user->save();
-        $user = userDetails($id);
         if ($update_user) {
-            return view('admin.users.editUserForm', compact('user'))
-                ->with('success', 'User has been successfully updated');
+            return redirect('admin/users/show/'.$id)->with('success', 'User has been successfully updated');
         } else {
-            return view('admin.users.editUserForm', compact('user'))
-                ->with('error', 'Something went wrong!');
+            return redirect('admin/users/show/'.$id)->with('error', 'Something went wrong!');
         }
     }
 
@@ -177,10 +196,10 @@ class UserController extends Controller
         $user_contacts =  UserContact::where('user_id', $id)->get(['id', 'contact_id']);
 
         $user_recipents =  UserRecipient::where('user_recipients.user_id', $id)
-        ->join('users', 'user_recipients.recipient_id', '=', 'users.id')
-        ->leftjoin('user_groups', 'user_recipients.recipient_id', '=', 'user_groups.recipient_id')
-        ->get(['user_recipients.recipient_id', 'users.name', 'users.last_name', 'users.profile_image', 'user_groups.recipient_id as group_recipient_id', 'user_groups.group_id']);
-        
+            ->join('users', 'user_recipients.recipient_id', '=', 'users.id')
+            ->leftjoin('user_groups', 'user_recipients.recipient_id', '=', 'user_groups.recipient_id')
+            ->get(['user_recipients.recipient_id', 'users.name', 'users.last_name', 'users.profile_image', 'user_groups.recipient_id as group_recipient_id', 'user_groups.group_id']);
+
         return view('frontend.recipents.allRecipents', compact(
             'title',
             'contact_status',
@@ -197,11 +216,9 @@ class UserController extends Controller
         $contact_status =  ContactStatus::all();
         $contacts = UserContact::where('user_id', $id)->get(['contact_status_id']);
         $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
-        if($groups->isEmpty())
-        {
+        if ($groups->isEmpty()) {
             $defined_groups = array('Spouse or Significant Other', 'Family', 'Friend', 'None');
-            for($i = 0; $i < count($defined_groups); $i++)
-            {
+            for ($i = 0; $i < count($defined_groups); $i++) {
                 $add_group = new Group();
                 $add_group->group_title = $defined_groups[$i];
                 $add_group->status = 1;
@@ -211,14 +228,12 @@ class UserController extends Controller
             $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
         }
         $user_contact = array();
-        if(!$contacts->isEmpty())
-        {
-            foreach($contacts as $contact)
-            {
-                array_push($user_contact, $contact->contact_status_id); 
+        if (!$contacts->isEmpty()) {
+            foreach ($contacts as $contact) {
+                array_push($user_contact, $contact->contact_status_id);
             }
         }
-        
+
         return view('frontend.recipents.addRecipentForm', compact(
             'title',
             'countries',
@@ -248,15 +263,15 @@ class UserController extends Controller
                 'name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
                 'last_name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'phone' => ['required','string'],
-                'address' => ['required', 'string','min:5', 'max:255'],
+                'phone' => ['required', 'string'],
+                'address' => ['required', 'string', 'min:5', 'max:255'],
                 'image' => 'image|mimes:jpeg,png,jpg,svg,bmp',
                 'country_id' => ['required'],
                 'state_province_id' => ['required'],
                 'city_id' => ['required'],
                 'zip_postal_code' => ['required'],
             ]);
-            
+
             if (request()->file('image')) {
                 $image = request()->file('image');
                 $image_new = time() . $image->getClientOriginalName();
@@ -284,8 +299,8 @@ class UserController extends Controller
             $add_recipent->city_id           =  $request->city_id;
             $add_recipent->zip_postal_code   =  $request->zip_postal_code;
             $add_recipent->save();
-            
-            if($add_recipent) {
+
+            if ($add_recipent) {
                 $add_user_recipent = new UserRecipient();
                 $add_user_recipent->recipient_id =  $add_recipent->id;
                 $add_user_recipent->user_id      =  Auth::user()->id;
@@ -333,9 +348,9 @@ class UserController extends Controller
     public function filterRecipent($contact_id)
     {
         $selected_contact = UserContact::where(['contact_status_id' => $contact_id, 'user_id' => Auth::user()->id])
-        ->join('users', 'user_contacts.contact_id', '=', 'users.id')
-        ->leftjoin('user_groups', 'users.id', '=', 'user_groups.recipient_id')
-        ->get(['user_contacts.contact_id', 'users.name', 'users.last_name', 'users.profile_image', 'user_groups.recipient_id', 'user_groups.group_id']);
+            ->join('users', 'user_contacts.contact_id', '=', 'users.id')
+            ->leftjoin('user_groups', 'users.id', '=', 'user_groups.recipient_id')
+            ->get(['user_contacts.contact_id', 'users.name', 'users.last_name', 'users.profile_image', 'user_groups.recipient_id', 'user_groups.group_id']);
         return $selected_contact;
     }
 
@@ -346,15 +361,15 @@ class UserController extends Controller
         $recipient_id = $request->id;
 
         $user_contacts =  UserContact::where(['contact_id' => $recipient_id, 'user_id' => $id])
-        ->join('contact_status', 'user_contacts.contact_status_id', '=', 'contact_status.id')
-        ->first(['contact_status.id', 'contact_status.contact_title']);
+            ->join('contact_status', 'user_contacts.contact_status_id', '=', 'contact_status.id')
+            ->first(['contact_status.id', 'contact_status.contact_title']);
 
         $user_group =  UserGroup::where(['recipient_id' => $recipient_id, 'user_groups.user_id' => $id])
-        ->join('groups', 'user_groups.group_id', '=', 'groups.id')
-        ->first(['groups.id', 'groups.group_title']);
+            ->join('groups', 'user_groups.group_id', '=', 'groups.id')
+            ->first(['groups.id', 'groups.group_title']);
 
         $recipient =  User::where('id', $recipient_id)
-        ->first(['users.id as recipient_id', 'users.name', 'users.last_name', 'users.profile_image', 'users.email', 'users.phone_number']);
+            ->first(['users.id as recipient_id', 'users.name', 'users.last_name', 'users.profile_image', 'users.email', 'users.phone_number']);
 
         if ($user_contacts != null) {
             $recipient->contact_title = $user_contacts->contact_title;
@@ -382,18 +397,18 @@ class UserController extends Controller
         $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
 
         $recipient =  User::where('users.id', $recipient_id)
-        ->join('countries', 'users.country_id', '=', 'countries.id')
-        ->join('state_province', 'users.state_province_id', '=', 'state_province.id')
-        ->join('cities', 'users.city_id', '=', 'cities.id')
-        ->first(['users.id as recipient_id', 'users.name as first_name', 'users.last_name', 'users.profile_image', 'users.email', 'users.phone_number', 'users.address', 'users.address_2','users.zip_postal_code', 'countries.country_name', 'state_province.name', 'cities.city_name']);
+            ->join('countries', 'users.country_id', '=', 'countries.id')
+            ->join('state_province', 'users.state_province_id', '=', 'state_province.id')
+            ->join('cities', 'users.city_id', '=', 'cities.id')
+            ->first(['users.id as recipient_id', 'users.name as first_name', 'users.last_name', 'users.profile_image', 'users.email', 'users.phone_number', 'users.address', 'users.address_2', 'users.zip_postal_code', 'countries.country_name', 'state_province.name', 'cities.city_name']);
 
         $user_contacts =  UserContact::where(['contact_id' => $recipient_id, 'user_id' => $id])
-        ->join('contact_status', 'user_contacts.contact_status_id', '=', 'contact_status.id')
-        ->first(['contact_status.id', 'contact_status.contact_title']);
+            ->join('contact_status', 'user_contacts.contact_status_id', '=', 'contact_status.id')
+            ->first(['contact_status.id', 'contact_status.contact_title']);
 
         $user_group =  UserGroup::where(['recipient_id' => $recipient_id, 'user_groups.user_id' => $id])
-        ->join('groups', 'user_groups.group_id', '=', 'groups.id')
-        ->first(['groups.id', 'groups.group_title']);
+            ->join('groups', 'user_groups.group_id', '=', 'groups.id')
+            ->first(['groups.id', 'groups.group_title']);
 
         if ($user_contacts != null) {
             $recipient->contact_status_id = $user_contacts->id;
@@ -413,14 +428,12 @@ class UserController extends Controller
         }
 
         $user_contact = array();
-        if(!$contacts->isEmpty())
-        {
-            foreach($contacts as $contact)
-            {
-                array_push($user_contact, $contact->contact_status_id); 
+        if (!$contacts->isEmpty()) {
+            foreach ($contacts as $contact) {
+                array_push($user_contact, $contact->contact_status_id);
             }
         }
-        
+
         return view('frontend.recipents.editRecipentForm', compact(
             'title',
             'contact_status',
@@ -437,16 +450,15 @@ class UserController extends Controller
         $contact_status_id = $request->contact_status_id;
 
         if ($request->contact_status_id != null) {
-            $user_contact = UserContact::where(['contact_id'=>$recipient_id, 'user_id'=>$id])
-            ->first(['id']);
+            $user_contact = UserContact::where(['contact_id' => $recipient_id, 'user_id' => $id])
+                ->first(['id']);
             if ($user_contact == null) {
                 $add_contact = new UserContact();
                 $add_contact->contact_status_id = $request->contact_status_id;
                 $add_contact->contact_id = $recipient_id;
                 $add_contact->user_id = $id;
                 $add_contact->save();
-            }
-            else {
+            } else {
                 $update_contact = UserContact::findOrFail($user_contact->id);
                 $update_contact->contact_status_id = $request->contact_status_id;
                 $update_contact->save();
@@ -454,15 +466,14 @@ class UserController extends Controller
         }
         if ($request->group_id != null) {
             $user_group = UserGroup::where(['recipient_id' => $recipient_id, 'user_groups.user_id' => $id])
-            ->first(['id']);
+                ->first(['id']);
             if ($user_group == null) {
                 $add_in_group = new UserGroup();
                 $add_in_group->recipient_id = $recipient_id;
                 $add_in_group->group_id = $request->group_id;
                 $add_in_group->user_id = $id;
                 $add_in_group->save();
-            }
-            else {
+            } else {
                 $update_in_group = UserGroup::findOrFail($user_group->id);
                 $update_in_group->group_id = $request->group_id;
                 $update_in_group->save();
