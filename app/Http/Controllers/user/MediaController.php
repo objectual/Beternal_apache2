@@ -85,7 +85,7 @@ class MediaController extends Controller
     {
         if ($request->media_type == 'video') {
             $this->validate($request, [
-                'file_name' => 'required|file|mimetypes:video/mp4',
+                'file_name' => 'required|file|mimetypes:video/mp4,video/x-flv,video/3gpp,video/quicktime,video/x-msvideo,ideo/x-ms-wmv',
             ]);
             $folder = 'videos';
             $route = 'user.medias.capture-video';
