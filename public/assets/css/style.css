@@ -3491,3 +3491,7 @@ body {
 .example-image-link .d-flex.pt-1.bg-black {
     display: block !important;
 }
+
+.record-modal {
+    z-index: 99999 !important;
+}
