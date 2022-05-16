@@ -225,20 +225,24 @@ class MediaController extends Controller
                 if ($media) {
                     $recipient = $request->input('recipient_id');
                     $group = $request->input('group_id');
-                    if (count($recipient) > 0) {
-                        for ($i = 0; $i < count($recipient); $i++) {
-                            $share_video = new ShareMedia();
-                            $share_video->media_id = $media->id;
-                            $share_video->recipient_id = $recipient[$i];
-                            $share_video->save();
+                    if ($recipient != null) {
+                        if (count($recipient) > 0) {
+                            for ($i = 0; $i < count($recipient); $i++) {
+                                $share_video = new ShareMedia();
+                                $share_video->media_id = $media->id;
+                                $share_video->recipient_id = $recipient[$i];
+                                $share_video->save();
+                            }
                         }
                     }
-                    if (count($group) > 0) {
-                        for ($i = 0; $i < count($group); $i++) {
-                            $share_video_in_group = new ShareMediaGroup();
-                            $share_video_in_group->media_id = $media->id;
-                            $share_video_in_group->group_id = $group[$i];
-                            $share_video_in_group->save();
+                    if ($group != null) {
+                        if (count($group) > 0) {
+                            for ($i = 0; $i < count($group); $i++) {
+                                $share_video_in_group = new ShareMediaGroup();
+                                $share_video_in_group->media_id = $media->id;
+                                $share_video_in_group->group_id = $group[$i];
+                                $share_video_in_group->save();
+                            }
                         }
                     }
                 }

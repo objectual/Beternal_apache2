@@ -389,17 +389,17 @@
                                     selected_group = 1;
                                 }
                             }
-                            if (selected_recipient == 0) {
-                                $('#recipient_msg').empty();
-                                $("#recipient_msg").append(msg_recipient);
-                                return false;
-                            }
-                            if (selected_group == 0) {
-                                $('#recipient_msg').empty();
-                                $('#group_msg').empty();
-                                $("#group_msg").append(msg_group);
-                                return false;
-                            }
+                            // if (selected_recipient == 0) {
+                            //     $('#recipient_msg').empty();
+                            //     $("#recipient_msg").append(msg_recipient);
+                            //     return false;
+                            // }
+                            // if (selected_group == 0) {
+                            //     $('#recipient_msg').empty();
+                            //     $('#group_msg').empty();
+                            //     $("#group_msg").append(msg_group);
+                            //     return false;
+                            // }
                             $.ajax({
                                 url: this.getAttribute('data-url'),
                                 method: 'POST',
@@ -578,6 +578,25 @@
                 var group = '<div class="form-check form-check-inline"><input class="form-check-input user-group" type="checkbox" name="' + for_group_id + '" value="' + id + '"><label class="form-check-label text-white" for="group_id">' + group_title + '</label></div>';
 
                 div_group.append(group);
+            }
+        }
+    }
+
+    function selectAllGroup(current) {
+        if (current.id == 'all_group') {
+            var inputs = document.querySelectorAll('.user-group');
+        }
+        if (current.id == 'all_group_2') {
+            var inputs = document.querySelectorAll('.user-group-2');
+        }
+        if (current.checked == true) {
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].checked = true;
+            }
+        }
+        if (current.checked == false) {
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].checked = false;
             }
         }
     }
