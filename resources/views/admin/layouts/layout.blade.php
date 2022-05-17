@@ -38,15 +38,16 @@
 <div class="content-wrapper">
     @yield('content_header')
     @yield('content')
-</div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
+    <footer class="main-footer">
     <strong>Copyright &copy; 2021-2022 <a href="javascript:;">bETERNAL</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.1.0
     </div>
   </footer>
+</div>
+  <!-- /.content-wrapper -->
+
   <!-- jQuery -->
   <script src="{{ asset('/public/admin-assets/plugins/jquery/jquery.min.js')}}"></script>
   <!-- jQuery UI 1.11.4 -->
