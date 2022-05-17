@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>ObjectualSystemLimited.com</title>
+    <title>Beternal</title>
 </head>
 
 <body>

@@ -29,6 +29,6 @@ class MyMail extends Mailable
     public function build()
     {
         // return $this->view('view.name');
-        return $this->subject('Mail from ObjectualSystemLimited.com')->view('emails.myMail');
+        return $this->subject('Mail from team@beternal.life')->view('emails.myMail');
     }
 }
