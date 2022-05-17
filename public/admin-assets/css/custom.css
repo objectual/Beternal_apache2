@@ -64,3 +64,7 @@
     position: fixed;
     bottom: 0px;
   } 
+
+  .content-wrapper {
+    margin-bottom: 56px;
+  }
