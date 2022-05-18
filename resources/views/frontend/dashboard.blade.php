@@ -2,7 +2,7 @@
 @section("title","Dashboard")
 @section("content")
 <div class="container-fluid login-back-light dashboard-back mobile-padding">
-  <div class="scroll-div center-cent">
+  <div class="scroll-div splash-height center-cent">
     <div class="row">
       <div class="col-lg-1"></div>
       <div class="col-lg-10">

@@ -21,7 +21,7 @@
                                 <div class="pb-3 media-icon-height">
                                     <img src="{{ asset('/public/assets/images/capture-image.png') }}" class="camera-img">
                                 </div>
-                                <span class="record-images" style="color: #ffaa00;">&nbsp;&nbsp;Capture Image</span>
+                                <span class="record-images" style="color: #F7DB02;">&nbsp;&nbsp;Capture Image</span>
                             </a>
                         </div>
                         <div class="col-md-4 text-center">
@@ -34,7 +34,7 @@
                                     {{ $errors->first('file_name') }}
                                 </div>
                                 @endif
-                                <label class="record-images" style="color: #ffaa00;" for="file">&nbsp;&nbsp;Device Gallery</label>
+                                <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Device Gallery</label>
                                 <input type="file" accept="image/*" name="file_name" id="file" style="display: none;">
                             </a>
                         </div>
@@ -43,7 +43,7 @@
                                 <div class="pb-3 media-icon-height">
                                     <img src="{{ asset('/public/assets/images/view-gallery.png') }}" class="view-gallery-img">
                                 </div>
-                                <span class="record-images" style="color: #ffaa00;">&nbsp;&nbsp;View Gallery</span>
+                                <span class="record-images" style="color: #F7DB02;">&nbsp;&nbsp;View Gallery</span>
                             </a>
                         </div>
                     </div>
