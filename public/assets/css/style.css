@@ -3503,3 +3503,9 @@ body {
 .record-modal {
     z-index: 99999 !important;
 }
+
+.lb-data .lb-caption {
+        color: #fff !important;
+        font-size: 15px !important;
+        line-height: 1.5em !important;
+}

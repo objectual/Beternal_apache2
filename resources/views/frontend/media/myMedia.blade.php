@@ -153,7 +153,7 @@
                         @if($photo->type == 'photo')
                         @php $date_time = explode(" ", $photo->created_at); @endphp
                         <div class="col-lg-3 px-1 col-6 col-md-4">
-                            <a class="example-image-link" href="{{ asset( $file_path.$photo->file_name )}}" id="{{ $photo->file_name }}" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="">
+                            <a class="example-image-link" href="{{ asset( $file_path.$photo->file_name )}}" id="{{ $photo->file_name }}" data-lightbox="example-set" data-title="<span>{{ $photo->description }}</span><br /><span>{{ $photo->created_at }}</span>" onclick="">
                                 <img class="example-image" src="{{ asset( $file_path.$photo->file_name )}}" alt="" />
 
                                 <div class="bg-black p-1">

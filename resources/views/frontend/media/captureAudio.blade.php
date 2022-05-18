@@ -27,7 +27,7 @@
                         <div class="col-md-4 text-center">
                             <a>
                                 <div class="pb-3 media-icon-height">
-                                    <img src="{{ asset('/public/assets/images/device-gallery.png') }}" class="gallery-img">
+                                    <label class="record-images" style="color: #F7DB02;" for="file"><img src="{{ asset('/public/assets/images/device-gallery.png') }}" class="gallery-img"></label>
                                 </div>
                                 @if($errors->has('file_name'))
                                 <div class="error">{{ $errors->first('file_name') }}</div>
