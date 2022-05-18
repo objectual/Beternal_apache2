@@ -3,8 +3,8 @@
 @section("content")
 <div class="container-fluid bg-dash noti-ipad-padng h-100">
     <div class="scroll-div">
-        <div class="row">
-            <div class="col-lg-6 m-auto">
+        <div class="row pb-5">
+            <div class="col-lg-6 pb-5 m-auto">
                 <h5 class="text-white notif-head">NOTIFICATION</h5>
                 <div class="d-flex bg-white notification mt-3">
                     <img class="noti-img" src="{{ asset('/public/assets/images/mini-icon.png') }}" />

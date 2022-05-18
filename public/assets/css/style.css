@@ -360,7 +360,7 @@ body {
 
 /**** Delivery Css *****/
 .date {
-    color: #9e710e;
+    color: #f7db02;
     font-size: 5rem;
 }
 
@@ -668,9 +668,7 @@ body {
     height: 140px;
     object-fit: cover;
     width: 100%;
-    border-top-left-radius: 5px;
     margin-top: 5px;
-    border-top-right-radius: 5px;
 }
 .example-image-link {
     position: relative;
@@ -1082,11 +1080,15 @@ textarea {
         overflow-x: hidden;
         padding: 0px 10px;
     }
+  
 }
 
 @media screen and (min-height: 480px) and (max-width: 490px) {
     .scroll-div {
         height: 100vh !important;
+    }
+    .splash-height {
+        height: 80vh !important; 
     }
     .heading {
         top: 60px !important;
@@ -1238,10 +1240,10 @@ textarea {
         color: #000;
     }
     .delivery-calendar tbody p {
-        background-color: #fff;
+        background-color: rgb(0, 0, 0, 0.3);
         padding: 5px 5px 5px 5px;
         border: none;
-        color: #000;
+        color: #fff;
         margin: 2px 2px;
         text-align: center;
     }
@@ -1359,6 +1361,10 @@ textarea {
     display: none;
 }
 @media screen and (min-width: 280px) and (max-width: 991px) {
+    .select-recipent-bottom-padding {
+        padding-bottom: 15%;
+        padding-top: 3%;
+    }
     .iti-mobile .iti__country-list {
         max-height: 85%; 
         margin-top: 20%;
@@ -1944,6 +1950,7 @@ textarea {
         padding: 10px 10px 10px 20px;
     }
     .newbuttoons {
+        padding-bottom: 65px;
         padding-right: 0px !important;
         padding-left: 0px !important;
         display: block;
@@ -2512,6 +2519,7 @@ ul {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     width: 100%;
+    text-transform: uppercase;
 }
 .ab-img-span {
     padding: 0px 5px 0px 5px;
@@ -2549,7 +2557,7 @@ ul {
 .legacy-btn {
     background-color: #F7DB02;
     font-size: 14px;
-    color: #fff;
+    color: #000;
 }
 .year-slide .carousel-item {
     margin-top: 15px !important;
@@ -2916,10 +2924,10 @@ a:hover {
 }
 
 .navbar-light .navbar-toggler-icon {
-    background-image: url(../images/plus-white.png) !important;
-    margin-top: -6px;
-    height: 26px;
-    width: 26px;
+    background-image: url(../images/plus.png) !important;
+    margin-top: -18px;
+    height: 50px;
+    width: 50px;
 }
 
 .nav-header .navbar-toggler {

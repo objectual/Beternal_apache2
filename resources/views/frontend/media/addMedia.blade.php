@@ -3,7 +3,7 @@
 @section("content")
 <div class="container-fluid bg-create mobile-padding vh-100">
     <div class="scroll-div">
-        <div class="row">
+        <div class="row pb-5">
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
                 <div class="d-flex home">

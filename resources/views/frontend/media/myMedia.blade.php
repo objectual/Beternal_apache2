@@ -187,7 +187,7 @@
 
 
             <h4 class="mt-5 text-white text-center" id="audio_heading">My Audio</h4>
-            <div class="row" id="audio_display">
+            <div class="row pb-5" id="audio_display">
                 <div class="col-lg-2 mt-3"></div>
                 <div class="col-lg-8 text-center mt-3">
                     <div class="audio" id="current_audio">

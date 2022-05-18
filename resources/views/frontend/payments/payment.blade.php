@@ -4,7 +4,7 @@
 @section("content")
 <div class="container-fluid bg-dash payment-back-mob">
     <div class="scroll-div">
-        <div class="row">
+        <div class="row pb-5">
             <div class="col-lg-4 m-auto mt-3">
                 <div class="row">
 

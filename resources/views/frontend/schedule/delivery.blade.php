@@ -12,7 +12,7 @@
                     </div>
                     <div class="col-lg-7 col-9 remove">
                         <span class="month cl-white mt-3">JANUARY</span><br />
-                        <span class="year cl-white mt-3">2019</span>
+                        <span class="year cl-white mt-3">2022</span>
                     </div>
                     <div class="col-lg-2 col-6">
                         <div id="carouselExampleControls mob-col" class="carousel slide year-slide" data-interval="false">
@@ -41,7 +41,7 @@
                         <div id="carouselExampleControls mob-col" class="carousel slide year-slide" data-interval="false">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <p class="cl-white">2019</p>
+                                    <p class="cl-white">2022</p>
                                 </div>
                                 <div class="carousel-item">
                                     <p>2020</p>

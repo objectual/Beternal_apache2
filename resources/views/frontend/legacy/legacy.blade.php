@@ -85,7 +85,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="row mt-3 px-2">
+                <div class="row mt-3 px-2 pb-5">
                     <div class="col-lg-2 col-6 px-1 col-4 col-md-4">
                         <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
                             <!-- <img class="example-image"
