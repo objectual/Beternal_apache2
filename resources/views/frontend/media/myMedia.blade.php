@@ -108,7 +108,7 @@
                         @if($video->type == 'video')
                         @php $date_time = explode(" ", $video->created_at); @endphp
                         <div class="col-lg-3 px-1 col-6 col-md-4">
-                            <a class="example-image-link" id="{{ $video->file_name }}"  onclick="selectVideo(this)">
+                            <a class="example-image-link d-block" id="{{ $video->file_name }}"  onclick="selectVideo(this)">
                                 <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
                                 <div class="play-bt-exm-one"></div>
                                 <div class="pt-1 bg-black">
@@ -128,6 +128,9 @@
                                 <span class="date-time pb-2">
                                     {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
                                 </span>
+                            </a>
+                            <a href="{{ route('user.medias.my-media-details', ['id' => $video->id]) }}" class="btn-view-details">
+                               View Details 
                             </a>
                         </div>
                         @endif
@@ -176,6 +179,9 @@
                                     </span>
                                 </div>
                             </a>
+                            <a href="{{ route('user.medias.my-media-details', ['id' => $photo->id]) }}" class="btn-view-details">
+                               View Details 
+                            </a>
                         </div>
                         @endif
                         @endforeach
@@ -202,7 +208,7 @@
                         @if($audio->type == 'audio')
                         @php $date_time = explode(" ", $audio->created_at); @endphp
                         <div class="col-lg-3 px-1 col-md-4 col-6">
-                            <a class="example-image-link" id="{{ $audio->file_name }}" onclick="selectAudio(this)">
+                            <a class="example-image-link d-block" id="{{ $audio->file_name }}" onclick="selectAudio(this)">
                                 <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
                                 <div class="audio-bt-exm-one"></div>
 
@@ -227,6 +233,9 @@
                                 </div>
 
                             </a>
+                            <a href="{{ route('user.medias.my-media-details', ['id' => $audio->id]) }}" class="btn-view-details">
+                               View Details 
+                            </a> 
                         </div>
                         @endif
                         @endforeach
@@ -374,7 +383,8 @@
                                     var file = base_path + file_name;
                                     var media_button = '';
                                 }
-                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + for_group + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a></div>';
+                                var route_url = 'my-media-details/'+ all_media[i].id;
+                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + for_group + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="'+ route_url +'" class="btn-view-details">View Details </a></div>';
                                 if (all_media[i].type == 'video') {
                                     all_videos.append(media);
                                 }
@@ -429,7 +439,8 @@
                                     var file = base_path + file_name;
                                     var media_button = '';
                                 }
-                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + all_media[i].group_title + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a></div>';
+                                var route_url = 'my-media-details/'+ all_media[i].id;
+                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + all_media[i].group_title + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="'+ route_url +'" class="btn-view-details">View Details </a></div>';
                                 if (all_media[i].type == 'video') {
                                     all_videos.append(media);
                                 }
@@ -484,7 +495,8 @@
                                     var file = base_path + file_name;
                                     var media_button = '';
                                 }
-                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + for_group + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a></div>';
+                                var route_url = 'my-media-details/'+ all_media[i].id;
+                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + for_group + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="'+ route_url +'" class="btn-view-details">View Details </a></div>';
                                 if (all_media[i].type == 'video') {
                                     all_videos.append(media);
                                 }
@@ -534,7 +546,8 @@
                         var file = base_path + file_name;
                         var media_button = '';
                     }
-                    var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + all_media[i].group_title + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a></div>';
+                    var route_url = 'my-media-details/'+ all_media[i].id;
+                    var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + all_media[i].group_title + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="'+ route_url +'" class="btn-view-details">View Details </a></div>';
                     if (all_media[i].type == 'video') {
                         all_videos.append(media);
                     }

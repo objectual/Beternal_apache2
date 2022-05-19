@@ -11,7 +11,11 @@
                     </div>
                     <div class="col-lg-6 col-2 text-end">
                         <a href="{{ route('user.recipents.edit-recipent', ['id' => $recipient->recipient_id]) }}" class="icon-edit">
-                            <img class="mt-2 img-edit" src="{{ asset('public/assets/images/edit.png') }}" /></a>
+                            <img class="mt-2 img-edit" src="{{ asset('public/assets/images/edit.png') }}" />
+                        </a>
+                        <a href="{{ route('user.recipents.delete-recipent', ['id' => $recipient->recipient_id]) }}" class="icon-edit">
+                            <img class="mt-2 img-edit" src="{{ asset('/public/assets/images/delete-new.png') }}" />
+                        </a>
                     </div>
                 </div>
                 <img class="acc-img" src="{{ asset($recipient->profile_image) }}" style="border-radius: 100%" />

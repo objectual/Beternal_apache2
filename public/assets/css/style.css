@@ -3472,11 +3472,11 @@ body {
 }
 
 .example-image-link .play-bt-exm-one { 
-    top: 20% !important;
+    top: 30% !important;
 }
  
 .example-image-link .audio-bt-exm-one { 
-    top: 20% !important;
+    top: 30% !important;
 }
 
 body {
@@ -3508,4 +3508,19 @@ body {
         color: #fff !important;
         font-size: 15px !important;
         line-height: 1.5em !important;
+}
+
+.btn-view-details {
+    color: #000000;
+    background-color: #F7DB02;
+    width: 100%;
+    display: block;
+    text-align: center;
+    font-size: 15px;
+    padding: 5px;
+}
+
+.btn-view-details:hover {
+    color: #000000;
+    background-color: #F7DB02; 
 }

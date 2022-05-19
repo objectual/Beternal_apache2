@@ -1,6 +1,13 @@
 @extends("frontend.layouts.layout")
 @section("title","Delivery")
 @section("content")
+@php
+    $mydate = getdate(date("U"));
+    $day = "$mydate[weekday]";
+    $month = "$mydate[month]";
+    $date = "$mydate[mday]";
+    $year = "$mydate[year]";
+@endphp
 <div class="container-fluid bg-create delivery-padding bg-calendar">
     <div class="scroll-div">
         <div class="row">
@@ -8,11 +15,11 @@
                 <div class="row px-5 p-0-m mt-5">
 
                     <div class="col-lg-1 col-3 mb-4 text-start date-col">
-                        <span class="date mt-3">01</span>
+                        <span class="date mt-3" id="current_date">{{ $date }}</span>
                     </div>
-                    <div class="col-lg-7 col-9 remove">
-                        <span class="month cl-white mt-3">JANUARY</span><br />
-                        <span class="year cl-white mt-3">2022</span>
+                    <div class="col-lg-7 col-9 remove" id="month_year">
+                        <span class="month cl-white mt-3" id="current_month">{{ $month }}</span><br />
+                        <span class="year cl-white mt-3" id="current_year">{{ $year }}</span>
                     </div>
                     <div class="col-lg-2 col-6">
                         <div id="carouselExampleControls mob-col" class="carousel slide year-slide" data-interval="false">
@@ -279,3 +286,21 @@
 
 </div>
 @endsection
+
+<script>
+    var today = new Date();
+    // var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var current_year = today.getFullYear();
+    var current_month = today.toLocaleString('default', { month: 'long' });
+    var current_date = today.getDate();
+    alert(current_year);
+    alert(current_month);
+    alert(current_date);
+    $('#month_year').append('<span class="month cl-white mt-3" id="current_month">test</span><br />');
+    $('#month_year').append('<span class="year cl-white mt-3" id="current_year">2025</span>');
+
+    // let d = new Date(2020, 08, 21); // 2020-06-21
+    // var  months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    // var monthName = months[d.getMonth()-1]; // "July" (or current month)
+    // alert(monthName)
+</script>

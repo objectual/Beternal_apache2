@@ -18,6 +18,9 @@ use App\Models\UserRecipient;
 use App\Models\UserGroup;
 use App\Models\UserRole;
 use App\Models\Plan;
+use App\Models\Legacy;
+use App\Models\ScheduleMedia;
+use App\Models\ShareMedia;
 use App\helpers;
 
 class UserController extends Controller
@@ -481,5 +484,24 @@ class UserController extends Controller
         }
 
         return redirect()->route('user.recipents');
+    }
+
+    public function deleteRecipent(Request $request)
+    {
+        $id = Auth::user()->id;
+        $delete_from_recipient = UserRecipient::where(['recipient_id'=>$request->id, 'user_id'=>$id])->delete();
+
+        $delete_from_contact = UserContact::where(['contact_id'=>$request->id, 'user_id'=>$id])->delete();
+
+        $delete_from_group = UserGroup::where(['recipient_id'=>$request->id, 'user_id'=>$id])->delete();
+
+        $delete_from_legacy = Legacy::where(['recipient_id'=>$request->id, 'user_id'=>$id])->delete();
+
+        $delete_from_schedule_media = ScheduleMedia::where(['recipient_id'=>$request->id, 'user_id'=>$id])->delete();
+
+        $delete_from_share_media = ShareMedia::where('recipient_id', $request->id)->delete();
+        
+        return redirect()->route('user.recipents')->withSuccess('Recipient was deleted successfully');
+        // return redirect()->route('user.medias.my-media');
     }
 }

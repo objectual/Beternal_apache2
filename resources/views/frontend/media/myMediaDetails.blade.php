@@ -7,46 +7,77 @@
             <div class="row">
                 <div class="col-lg-12 mt-3">
                     <div class=" col-md-12 col-12 justify-content-end d-flex ">
-                        <img src="{{ asset('/public/assets/images/edit-icon-media-details.png') }}" class="edit-icon-style mt-1">
-                        <p class="px-2 text-white mx-1">Edit</p>
-                        <img src="{{ asset('/public/assets/images/delete-new.png') }}" class="delete-icon-style mt-1">
-                        <p class="px-2 text-white mx-1">Delete</p>
+                        <!-- <a href="">
+                            <img src="{{ asset('/public/assets/images/edit-icon-media-details.png') }}" class="edit-icon-style mt-1">
+                            <p class="px-2 text-white mx-1">Edit</p>
+                        </a> -->
+                        <a href="{{ route('user.medias.my-media-delete', ['id' => $get_media[0]->id]) }}" class="d-flex">
+                            <img src="{{ asset('/public/assets/images/delete-new.png') }}" class="delete-icon-style mt-1">
+                            <p class="px-2 text-white mx-1">Delete</p>
+                        </a>
                     </div>
+                    @if($get_media[0]->type == 'video')
                     <div class="video">
-                        <video id="ban_video" class="tv_video">
-                            <source src="{{ asset('/public/assets/images/solution.mp4') }}" type="video/mp4" />
+                        <video id="ban_video" class="tv_video" controls>
+                            <source src="{{ asset( $file_path.$get_media[0]->file_name )}}" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
-
-                        <div class="play-bt"></div>
-                        <div class="pause-bt" style="display: none"></div>
                     </div>
+                    @elseif($get_media[0]->type == 'photo')
+                    <div class="image" id="current_photo">
+                        <picture id="ban_image" class="tv_image">
+                            <img src="{{ asset( $file_path.$get_media[0]->file_name )}}" type="image" height="500" width="720" />
+                        </picture>
+                    </div>
+                    @elseif($get_media[0]->type == 'audio')
+                    <div class="audio">
+                        <audio id="ban_audio" class="tv_audio" controls>
+                            <source src="{{ asset( $file_path.$get_media[0]->file_name )}}" type="audio/mp3" />
+                            Your browser does not support the video tag.
+                        </audio>
+                    </div>
+                    @endif
                 </div>
             </div>
             <div class="row mt-1">
                 <div class="col-lg-4 text-start">
-                    <p class="media-head text-white">LOREM IPSUM DOLOR AMIT SED TU ES</p>
+                    <p class="media-head text-white">{{ $get_media[0]->title }}</p>
                 </div>
                 <div class="col-lg-2 col-4 text-white media-head">
-                    <p>Group</p>
+                    <!-- <p>Group</p> -->
                 </div>
                 <div class="col-lg-6 col-8 text-end">
-                    <p class="media-clock-p text-white"><img class="media-clock-img" src="{{ asset('/public/assets/images/clock.png') }}" />&nbsp;12:33 AM 11-12-2021</p>
+                    <p class="media-clock-p text-white"><img class="media-clock-img" src="{{ asset('/public/assets/images/clock.png') }}" />&nbsp;{{ $get_media[0]->created_at }}</p>
                 </div>
             </div>
 
             <div class="row mt-1">
                 <div class="row d-flex">
-                    <div class="col-md-1 col-3"><img class="media-recipent" src="{{ asset('/public/assets/images/recipent.png') }}"></div>
-                    <div class="text-white col-md-2 p-0 col-5 details-text">NINA BRETHERT<br>@username</div>
-                    <div class="text-white col-md-1 px-0 pt-3 col-4 details-text-two">Mid level</div>
-                    <!-- <span class="media-clock-p text-white"><img class="media-recipent" src="./images/recipent.png" /><span><span>NINA BRETHERT</span><br><span>@username</span></span></span> -->
+                    @if($get_media[0]->all_recipient != null)
+                    @foreach($get_media[0]->all_recipient as $recipient)
+                    <div class="col-md-1 col-3"><img class="media-recipent" src="{{ asset($recipient->profile_image) }}"></div>
+                    <div class="text-white col-md-2 p-0 col-5 details-text">{{ $recipient->name }} {{ $recipient->last_name }},</div>
+                    @endforeach
+                    @endif
+                </div>
+            </div>
+
+            <div class="row mt-1">
+                <div class="row d-flex">
+                    <div class="col-md-1 col-6 text-white details-text">Groups :</div>
+                    <div class="text-white col-md-11 p-0 col-5 details-text">
+                    @if($get_media[0]->all_recipient != null)
+                    @foreach($get_media[0]->all_group as $group)
+                        {{ $group->group_title }},
+                    @endforeach
+                    @endif
+                    </div>
                 </div>
             </div>
 
             <div class="row mt-1">
                 <div class="col-lg-12">
-                    <p class="media-head text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p class="media-head text-white">{{ $get_media[0]->description }}</p>
                 </div>
             </div>
         </div>

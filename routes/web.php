@@ -68,6 +68,7 @@ Route::middleware('auth', 'user')->group(function () {
         Route::get('view-recipent',[UserController::class,'viewRecipent'])->name('user.recipents.view-recipent');
         Route::get('edit-recipent',[UserController::class,'editRecipent'])->name('user.recipents.edit-recipent');
         Route::post('/update-recipent', [UserController::class, 'updateRecipent'])->name('user.recipents.update-recipent');
+        Route::get('delete-recipent',[UserController::class,'deleteRecipent'])->name('user.recipents.delete-recipent');
         Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
         Route::get('/cities/{id}', [CityController::class, 'getCities']);
         Route::get('/add-group/{group_title}', [UserController::class, 'addGroup']);
@@ -82,7 +83,8 @@ Route::middleware('auth', 'user')->group(function () {
         Route::get('my-media',[MediaController::class,'myMedia'])->name('user.medias.my-media');
         Route::get('shared-media-recipents',[MediaController::class,'sharedMediaRecipents'])->name('user.medias.shared-media-recipents');
         Route::get('shared-media',[MediaController::class,'sharedMedia'])->name('user.medias.shared-media');
-        Route::get('my-media-details',[MediaController::class,'myMediaDetails'])->name('user.medias.my-media-details');
+        Route::get('my-media-details/{id}',[MediaController::class,'myMediaDetails'])->name('user.medias.my-media-details');
+        Route::get('my-media-delete',[MediaController::class,'myMediaDelete'])->name('user.medias.my-media-delete');
     });
     Route::group(['prefix' => 'legacy'], function () {
         Route::get('/',[MediaController::class,'legacy'])->name('user.legacy');

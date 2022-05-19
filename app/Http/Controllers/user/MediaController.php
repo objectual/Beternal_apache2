@@ -12,6 +12,8 @@ use App\Models\Group;
 use App\Models\ShareMedia;
 use App\Models\ShareMediaGroup;
 use App\Models\Plan;
+use App\Models\Legacy;
+use App\Models\ScheduleMedia;
 use Illuminate\Support\Facades\Storage;
 
 class MediaController extends Controller
@@ -319,10 +321,57 @@ class MediaController extends Controller
         return view('frontend.media.sharedMediaSingleRecipent', compact('title'));
     }
 
-    public function myMediaDetails()
+    public function myMediaDetails(Request $request)
     {
         $title = "MY MEDIA DETAILS";
-        return view('frontend.media.myMediaDetails', compact('title'));
+        $get_media = Media::where('id', $request->id)->get(['*']);
+        if (!$get_media->isEmpty()) {
+            $recipients = ShareMedia::where('media_id', $request->id)
+            ->join('users', 'share_media.recipient_id', '=', 'users.id')
+            ->get(['share_media.recipient_id', 'users.name', 'users.last_name', 'users.profile_image']);
+
+            $groups = ShareMediaGroup::where('media_id', $request->id)
+            ->join('groups', 'share_media_groups.group_id', '=', 'groups.id')
+            ->get(['share_media_groups.group_id', 'groups.group_title']);
+
+            if (!$recipients->isEmpty()) {
+                $get_media[0]->all_recipient = $recipients;
+            }
+            if ($recipients->isEmpty()) {
+                $get_media[0]->all_recipient = null;
+            }
+            if (!$groups->isEmpty()) {
+                $get_media[0]->all_group = $groups;
+            }
+            if ($groups->isEmpty()) {
+                $get_media[0]->all_group = null;
+            }
+        }
+
+        $full_path = Storage::disk('s3')->url('photo');
+        $get_path = explode('photo', $full_path);
+        $file_path = $get_path[0];
+
+        return view('frontend.media.myMediaDetails', compact(
+            'title',
+            'get_media',
+            'file_path'
+        ));
+    }
+
+    public function myMediaDelete(Request $request)
+    {
+        $get_media = Media::where('id', $request->id)->get(['file_name']);
+        if (!$get_media->isEmpty()) {
+            $delete_legacy = Legacy::where('media_id', $request->id)->delete();
+            $delete_schedule_media = ScheduleMedia::where('media_id', $request->id)->delete();
+            $delete_share_media = ShareMedia::where('media_id', $request->id)->delete();
+            $delete_share_media_groups = ShareMediaGroup::where('media_id', $request->id)->delete();
+            $delete_media = Media::where('id', $request->id)->delete();
+            Storage::disk('s3')->delete($get_media[0]->file_name);
+            return redirect()->route('user.medias.my-media')->withSuccess('File was deleted successfully');
+        }
+        return redirect()->route('user.medias.my-media');
     }
 
     public function legacy()
