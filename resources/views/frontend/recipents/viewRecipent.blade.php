@@ -4,7 +4,7 @@
 <div class="container-fluid bg-create recipent-back pb-5 pt-5">
     <div class="scroll-div">
         <div class="col-lg-6 offset-lg-3">
-            <div class="login recipent-back-clr">
+            <div class="login mt-0 mb-0 recipent-back-clr">
                 <div class="row">
                     <div class="col-lg-6 col-10 text-start">
 

@@ -5,7 +5,7 @@
 <div class="container-fluid bg-dash payment-back-mob">
     <div class="scroll-div">
         <div class="row pb-5">
-            <div class="col-lg-4 m-auto mt-3">
+            <div class="col-lg-6 m-auto mt-3">
                 <div class="row">
 
                     <div class="col-lg-12">
@@ -22,7 +22,7 @@
 
                     <!-- payment method -->
                     <div class="col-lg-7 col-12">
-                        <p class="card-label">CARD NAME</p>
+                        <p class="card-label"> CREDIT CARD NUMBER</p>
                         <div class="input-group mb-3">
                             <input type="email" class="form-control py-2 input-radius" aria-describedby="basic-addon1" />
                         </div>
@@ -42,7 +42,7 @@
 
                 <div class="row">
                     <div class="col-lg-8 col-8">
-                        <p class="card-label">EXPIRE DATE</p>
+                        <p class="card-label">EXPIRATION DATE</p>
                         <div class="input-group mb-3">
                             <input type="email input-radius" class="form-control py-2" aria-describedby="basic-addon1" />
                         </div>
@@ -117,13 +117,7 @@
                     <div class="input-group col-md-4 mb-3">
                         <input type="text" class="form-control py-2 input-radius" aria-describedby="basic-addon1" />
                     </div>
-                </div>
-                <div class="col-md-12">
-                    <p class="card-label">Street</p>
-                    <div class="input-group col-md-4 mb-3">
-                        <input type="text" class="form-control py-2 input-radius" aria-describedby="basic-addon1" />
-                    </div>
-                </div>
+                </div> 
 
                 <div class="col-md-12 m-auto pt-3 pb-3">
                     <label class="container-check check-color">KEEP MY PAYMENT METHOD ON FILE
