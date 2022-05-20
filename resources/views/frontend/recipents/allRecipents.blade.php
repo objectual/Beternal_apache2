@@ -63,7 +63,8 @@
                 <div class="col-lg-2 text-center col-4 position-relative">
                     <a href="{{ route('user.recipents.view-recipent', ['id' => $recipent->recipient_id]) }}" class="">
                         <img class="recipent-img" src="{{ asset($recipent->profile_image) }}" style="border-radius: 100%" />
-                        <p class="cl-white sel-text mt-3">{{ $recipent->name }} {{ $recipent->last_name }}</p>
+                        <p class="cl-white sel-text mt-3 mb-0">{{ $recipent->name }} {{ $recipent->last_name }}</p>
+                        <p class="mb-0 contact-label">{{ $recipent->contact_title }}</p>
                     </a>
                 </div>
                 @endforeach

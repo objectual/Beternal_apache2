@@ -80,9 +80,9 @@ class UserController extends Controller
         $update_user->city_id = $request->city_id;
         $update_user->save();
         if ($update_user) {
-            return redirect('admin/users/show/'.$id)->with('success', 'User has been successfully updated');
+            return redirect('admin/users/show/' . $id)->with('success', 'User has been successfully updated');
         } else {
-            return redirect('admin/users/show/'.$id)->with('error', 'Something went wrong!');
+            return redirect('admin/users/show/' . $id)->with('error', 'Something went wrong!');
         }
     }
 
@@ -198,10 +198,24 @@ class UserController extends Controller
         $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
         $user_contacts =  UserContact::where('user_id', $id)->get(['id', 'contact_id']);
 
-        $user_recipents =  UserRecipient::where('user_recipients.user_id', $id)
+        $user_recipents =  UserRecipient::where(['user_recipients.user_id' => $id, 'user_groups.user_id' => $id])
             ->join('users', 'user_recipients.recipient_id', '=', 'users.id')
             ->leftjoin('user_groups', 'user_recipients.recipient_id', '=', 'user_groups.recipient_id')
             ->get(['user_recipients.recipient_id', 'users.name', 'users.last_name', 'users.profile_image', 'user_groups.recipient_id as group_recipient_id', 'user_groups.group_id']);
+
+        if (!$user_recipents->isEmpty()) {
+            foreach ($user_recipents as $key => $recipient) {
+                $contact =  UserContact::where(['user_contacts.contact_id' => $recipient->recipient_id, 'user_contacts.user_id' => $id])
+                    ->leftjoin('contact_status', 'user_contacts.contact_status_id', '=', 'contact_status.id')
+                    ->get(['user_contacts.contact_status_id', 'contact_status.contact_title']);
+
+                if (!$contact->isEmpty()) {
+                    $recipient->contact_title = $contact[0]->contact_title;
+                } else {
+                    $recipient->contact_title = '';
+                }
+            }
+        }
 
         return view('frontend.recipents.allRecipents', compact(
             'title',
@@ -452,6 +466,9 @@ class UserController extends Controller
         $recipient_id = $request->recipient_id;
         $contact_status_id = $request->contact_status_id;
 
+        if ($request->contact_status_id == null) {
+            $delete_legacy = UserContact::where(['user_contacts.contact_id'=>$recipient_id, 'user_contacts.user_id'=>$id])->delete();
+        }
         if ($request->contact_status_id != null) {
             $user_contact = UserContact::where(['contact_id' => $recipient_id, 'user_id' => $id])
                 ->first(['id']);
@@ -489,18 +506,18 @@ class UserController extends Controller
     public function deleteRecipent(Request $request)
     {
         $id = Auth::user()->id;
-        $delete_from_recipient = UserRecipient::where(['recipient_id'=>$request->id, 'user_id'=>$id])->delete();
+        $delete_from_recipient = UserRecipient::where(['recipient_id' => $request->id, 'user_id' => $id])->delete();
 
-        $delete_from_contact = UserContact::where(['contact_id'=>$request->id, 'user_id'=>$id])->delete();
+        $delete_from_contact = UserContact::where(['contact_id' => $request->id, 'user_id' => $id])->delete();
 
-        $delete_from_group = UserGroup::where(['recipient_id'=>$request->id, 'user_id'=>$id])->delete();
+        $delete_from_group = UserGroup::where(['recipient_id' => $request->id, 'user_id' => $id])->delete();
 
-        $delete_from_legacy = Legacy::where(['recipient_id'=>$request->id, 'user_id'=>$id])->delete();
+        $delete_from_legacy = Legacy::where(['recipient_id' => $request->id, 'user_id' => $id])->delete();
 
-        $delete_from_schedule_media = ScheduleMedia::where(['recipient_id'=>$request->id, 'user_id'=>$id])->delete();
+        $delete_from_schedule_media = ScheduleMedia::where(['recipient_id' => $request->id, 'user_id' => $id])->delete();
 
         $delete_from_share_media = ShareMedia::where('recipient_id', $request->id)->delete();
-        
+
         return redirect()->route('user.recipents')->withSuccess('Recipient was deleted successfully');
         // return redirect()->route('user.medias.my-media');
     }

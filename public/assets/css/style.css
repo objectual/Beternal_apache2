@@ -3524,3 +3524,9 @@ body {
     color: #000000;
     background-color: #F7DB02; 
 }
+
+.contact-label {
+    font-size: 13px;
+    color: #f7db02 !important;
+    text-transform: uppercase;
+}

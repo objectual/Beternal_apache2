@@ -5,7 +5,7 @@
     <div class="scroll-div recipent-div">
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
-                <form method="POST" action="{{ route('user.recipents.update-recipent') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('user.recipents.update-recipent') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
                     @csrf
                     <input type="hidden" name="recipient_id" value="{{ $recipient->recipient_id }}">
                     <div class="bg-add">
@@ -90,7 +90,7 @@
                                 @if($recipient->contact_status_id != '')
                                 <div class="col-lg-4 col-6">
                                     <label class="container-check label-add cl-white">{{ strtoupper($recipient->contact_title) }}
-                                        <input type="checkbox" class="contact-status" id="contact_5" name="contact_status_id" value="{{ $recipient->contact_status_id }}" onclick="selectContact(this)" checked />
+                                        <input type="checkbox" class="contact-status" id="contact_5" name="contact_status_id" value="{{ $recipient->contact_status_id }}" checked />
                                         <span class="checkmark add-check"></span>
                                     </label>
                                 </div>
@@ -101,7 +101,7 @@
                                 @if(!(in_array($contact->id, $user_contact)))
                                 <div class="col-lg-4 col-6">
                                     <label class="container-check label-add cl-white">{{ strtoupper($contact->contact_title) }}
-                                        <input type="checkbox" class="contact-status" id="{{ $id_name }}" name="contact_status_id" value="{{ $contact->id }}" onclick="selectContact(this)" />
+                                        <input type="checkbox" class="contact-status" id="{{ $id_name }}" name="contact_status_id" value="{{ $contact->id }}" />
                                         <span class="checkmark add-check"></span>
                                     </label>
                                 </div>
@@ -109,6 +109,8 @@
                                 @endforeach
                                 @endif
                             </div>
+                            <div class="col-12" id="show_status_msg"></div>
+
                             <h4 class="text-white mt-3 mb-3">EXISTING GROUP</h4>
                             <div class="row" id="user_group">
                                 @if(isset($groups))
@@ -170,13 +172,13 @@
 @endsection
 
 <script type="text/javascript">
-    function selectContact(current) {
-        var inputs = document.querySelectorAll('.contact-status');
-        for (var i = 0; i < inputs.length; i++) {
-            inputs[i].checked = false;
-        }
-        current.checked = true;
-    }
+    // function selectContact(current) {
+    //     var inputs = document.querySelectorAll('.contact-status');
+    //     for (var i = 0; i < inputs.length; i++) {
+    //         inputs[i].checked = false;
+    //     }
+    //     current.checked = true;
+    // }
 
     function selectGroup(current) {
         var inputs = document.querySelectorAll('.user-group');
@@ -210,5 +212,22 @@
                 }
             }
         });
+    }
+
+    function validateForm() {
+        var inputs = document.querySelectorAll('.contact-status');
+        var status_msg = '<span class="cl-white">Please select only one status!</span>';
+        var selected_status = 0;
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].checked == true) {
+                selected_status++;
+            }
+        }
+        if (selected_status > 1) {
+            $('#show_status_msg').empty();
+            $("#show_status_msg").append(status_msg);
+            return false;
+        }
+        return true;
     }
 </script>
