@@ -78,9 +78,9 @@
                         <script src="{!! asset('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js') !!}"></script>
                         <script src="{!! asset('https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js') !!}"></script>
                         <div class="col-lg-6 mt-2">
-                            <div class="input-group mb-3" id="phone_div">
+                            <div class="input-group phone-area mb-3" id="phone_div">
                                 <div class="input-group-append">
-                                    <span class="input-group-text input-back account-label" id="basic-addon2">Phone Number</span>
+                                    <span class="input-group-text input-back account-label" id="basic-addon2">Phone </span>
                                 </div>
                                 <input id="phone" name="phone" type="tel" value="{{ old('phone') }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" onfocus="myFunction(this)" required />
                                 <div class="col-12 text-white" id="show_phone_msg"></div>

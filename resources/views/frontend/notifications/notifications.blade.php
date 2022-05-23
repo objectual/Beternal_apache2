@@ -6,8 +6,7 @@
         <div class="row pb-5">
             <div class="col-lg-6 pb-5 m-auto">
                 <h5 class="text-white notif-head">NOTIFICATION</h5>
-                <div class="d-flex bg-white notification mt-3">
-                    <img class="noti-img" src="{{ asset('/public/assets/images/mini-icon.png') }}" />
+                <div class="d-flex notification mt-3">
                     <div>
                         <p class="mx-2 mb-0">
                             <span class="color-secondary">User@14342134</span> has
@@ -20,8 +19,7 @@
                     </div>
                 </div>
 
-                <div class="d-flex bg-white notification mt-3">
-                    <img class="noti-img" src="{{ asset('/public/assets/images/mini-icon.png') }}" />
+                <div class="d-flex notification mt-3">
                     <div>
                         <p class="mx-2 mb-0">
                             <span class="color-secondary">User@14342134</span> has
@@ -34,8 +32,7 @@
                     </div>
                 </div>
 
-                <div class="d-flex bg-white notification mt-3">
-                    <img class="noti-img" src="{{ asset('/public/assets/images/mini-icon.png') }}" />
+                <div class="d-flex notification mt-3">
                     <div>
                         <p class="mx-2 mb-0">
                             <span class="color-secondary">User@14342134</span> has
@@ -48,8 +45,7 @@
                     </div>
                 </div>
 
-                <div class="d-flex bg-white notification mt-3">
-                    <img class="noti-img" src="{{ asset('/public/assets/images/mini-icon.png') }}" />
+                <div class="d-flex notification mt-3">
                     <div>
                         <p class="mx-2 mb-0">
                             <span class="color-secondary">User@14342134</span> has
@@ -62,8 +58,7 @@
                     </div>
                 </div>
 
-                <div class="d-flex bg-white notification mt-3">
-                    <img class="noti-img" src="{{ asset('/public/assets/images/mini-icon.png') }}" />
+                <div class="d-flex notification mt-3">
                     <div>
                         <p class="mx-2 mb-0">
                             <span class="color-secondary">User@14342134</span> has
@@ -76,9 +71,8 @@
                     </div>
                 </div>
 
-                <div class="d-flex bg-white notification mt-3">
-                    <img class="noti-img" src="{{ asset('/public/assets/images/mini-icon.png') }}" />
-                    <div>
+                <div class="d-flex notification mt-3">
+                        <div>
                         <p class="mx-2 mb-0">
                             <span class="color-secondary">User@14342134</span> has
                             uploaded data of 23GB and downloaded data of 11GB, All

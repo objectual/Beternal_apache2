@@ -82,7 +82,7 @@
                                 <label for="exampleInputPassword1" class="form-label text-white sol-page-labels text-start d-block">Email *</label>
                                 <input type="email" class="form-control sol-form" id="exampleInputPassword1" />
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3 phone-area">
                                 <label for="exampleInputPassword1" class="form-label text-white sol-page-labels text-start d-block">Phone</label>
                                 <input type="text" class="form-control sol-form" id="exampleInputPassword1" />
                             </div>

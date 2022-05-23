@@ -61,7 +61,7 @@
                     </p>
                 </div> -->
 
-                <div class="col-md-12 payment-phone">
+                <div class="col-md-12 payment-phone phone-area">
                     <p class="card-label">Phone Number</p>
                     <div class="input-group col-md-4 mb-3">
                         <input id="phone" name="phone" type="tel" value="{{ old('phone') }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />

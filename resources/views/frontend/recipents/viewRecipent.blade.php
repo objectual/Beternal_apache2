@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="row g-3">
-                    <div class="col-md-12 margin-recipent">
+                    <div class="col-md-12 margin-recipent phone-area">
                         <p class="recipent-data recipent-label m-0">Phone</p>
                         <p class="recipent-data m-0 text-white">{{ $recipient->phone_number }}</p>
                         <hr />

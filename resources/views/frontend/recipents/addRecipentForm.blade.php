@@ -71,7 +71,7 @@
                                 </div>
 
                                 <div class="col-12" id="show_phone_msg"></div>
-                                <div class="input-group mb-3 recipent-phone">
+                                <div class="input-group phone-area mb-3 recipent-phone">
                                     <div class="input-group-append">
                                         <span class="input-group-text add-label" id="basic-addon2">PHONE</span>
                                     </div>

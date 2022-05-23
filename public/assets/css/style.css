@@ -415,8 +415,8 @@ body {
 }
 
 .schedule {
-    font-size: 14px;
-    color: #fff;
+    font-size: 16px;
+    color: #000;
 }
 
 .schedule-div {
@@ -737,6 +737,7 @@ body {
 .notification p {
     font-size: 14px;
     font-family: "FranklinGotItcTEEMedCon";
+    color: #fff;
 }
 
 .color-time {
@@ -744,16 +745,7 @@ body {
 }
 /**** notification Css *****/
 
-.loader {
-    background-image: url(../images/splash-bg.jpg);
-    background-repeat: no-repeat;
-    background-size: cover; 
-}
-.bg-solution {
-    background-image: url(../images/splash-bg.jpg);
-    background-repeat: no-repeat;
-    background-size: cover; 
-}
+ 
 .loader p {
     color: #fff;
     /* position: absolute; */
@@ -874,7 +866,7 @@ body {
     transform: rotate(0deg);
 }
 .accordion-button {
-    background-color: rgb(0 0 0 / 50%);
+    background-color: rgb(0, 0, 0, 0.3);
     color: transparent !important;
     font-size: 20px;
 }
@@ -1299,7 +1291,7 @@ textarea {
     height: 20px;
 }
 .contact-us {
-    background-color: rgb(0 0 0 / 50%);
+    background-color: rgb(0, 0, 0, 0.3);
     padding: 20px 40px;
     text-align: center;
     border-radius: 5px;
@@ -1369,9 +1361,7 @@ textarea {
         max-height: 85%; 
         margin-top: 20%;
     }
-    .iti--allow-dropdown {
-        width: 63% !important;
-    }
+  
     .nav-header .container {
         padding: 0px;
     }
@@ -1531,9 +1521,7 @@ textarea {
         height: 100px !important;
         width: 100px !important;
     }
-    .add-input {
-        height: 40px;
-    }
+ 
     .recipent-add-btn {
         height: 40px !important;
     }
@@ -2430,6 +2418,7 @@ ul {
 .footer-menu {
     padding: 15px;
     border-top: 2px solid #242428;
+    border-bottom: 2px solid #242428;
 }
 
 .footer-menu span {
@@ -3345,7 +3334,7 @@ body {
 
 .accordion-item { 
     border: 0px solid transparent !important;
-    background-color: rgb(255, 255, 255, 0.5) !important;
+    background-color: rgb(0, 0, 0, 0.3) !important;
 }
 
 .accordion-button:not(.collapsed) { 
@@ -3449,7 +3438,7 @@ body {
 }
 
 .iti--allow-dropdown {
-    width: 71%;
+    width: 85%;
 }
 
 .payment-phone .iti--allow-dropdown {
@@ -3461,7 +3450,7 @@ body {
 }
 
 .recipent-phone .iti--allow-dropdown {
-    width: 79% !important;
+    width: 85% !important;
 }
 
 .recipent-phone .iti--allow-dropdown input[type=text] {
@@ -3481,6 +3470,7 @@ body {
 
 body {
     background-image: url(../images/bg.png); 
+    background-position: center;
     background-size: cover;
 }
 
@@ -3529,4 +3519,23 @@ body {
     font-size: 13px;
     color: #f7db02 !important;
     text-transform: uppercase;
+}
+
+.phone-area .input-group-append {
+    width: 15% !important;
+}
+
+.contact-us .privacy-placeholder {
+    background: #000;
+    color: #fff;
+}
+
+.contact-us .privacy-placeholder::placeholder {
+    color: #fff;
+}
+
+
+.notification {
+    background-color: rgb(0, 0, 0, 0.3);
+
 }
