@@ -82,9 +82,9 @@
                             </div>
                         </div>
                         <div class="col-lg-6 mt-2">
-                            <div class="input-group mb-3">
+                            <div class="input-group phone-area mb-3">
                                 <div class="input-group-append">
-                                    <span class="input-group-text input-back account-label" id="basic-addon2">Phone Number</span>
+                                    <span class="input-group-text input-back account-label" id="basic-addon2">Phone </span>
                                 </div>
                                 <input id="phone" name="phone" type="tel" value="{{ old('phone_number') ?? $user[0]->phone_number }}" class="form-control text-end" aria-describedby="basic-addon1" required />
                                 <div class="col-12 text-white" id="show_phone_msg"></div>

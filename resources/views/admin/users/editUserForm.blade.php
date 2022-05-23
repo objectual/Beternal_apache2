@@ -62,8 +62,8 @@
                     <label for="email">Email</label>
                     <input type="email" class="form-control" id="email" name="email" value="{{ $user[0]->email }}" placeholder="Enter Email" required>
                   </div>
-                  <div class="form-group col-lg-6">
-                    <label for="phone_number">Phone Number</label>
+                  <div class="form-group phone-area col-lg-6">
+                    <label for="phone_number">Phone </label>
                     <input type="text" class="form-control" id="phone" name="phone" value="{{ $user[0]->phone_number }}" placeholder="Enter Phone Number" required>
                   </div>
                 </div>
