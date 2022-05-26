@@ -286,9 +286,11 @@ class UserController extends Controller
                 'country_id' => ['required'],
                 'state_province_id' => ['required'],
                 'city_id' => ['required'],
-                'zip_postal_code' => ['required'],
             ]);
 
+            if ($request->postal_code_format == null) {
+                $request->zip_postal_code = '00000';
+            }
             if (request()->file('image')) {
                 $image = request()->file('image');
                 $image_new = time() . $image->getClientOriginalName();

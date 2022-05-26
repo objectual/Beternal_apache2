@@ -42,13 +42,13 @@
                     <div class="col-lg-12">
                         <a class=" " href="#">
                             <div class="video">
-                                <video id="ban_video" class="tv_video">
+                                <video id="ban_video" class="tv_video" controls>
                                     <source src="{{ asset('/public/assets/images/landing-video.mp4') }}" type="video/mp4" />
                                     Your browser does not support the video tag.
                                 </video>
 
-                                <div class="play-bt"></div>
-                                <div class="pause-bt" style="display: none"></div>
+                                <!-- <div class="play-bt"></div>
+                                <div class="pause-bt" style="display: none"></div> -->
                             </div>
                             <div class="bg-black border-shared-img">
                                 <div class="row">
@@ -74,7 +74,7 @@
                 </div>
                 <div class="row mt-3 px-2">
                     <div class="col-lg-2 col-6 px-1 col-4">
-                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."> 
+                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
@@ -97,11 +97,11 @@
                         </a>
                     </div>
                     <div class="col-lg-2 col-6 px-1 col-4">
-                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."> 
+                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                <span class="above-img-span">First Contact</span>
+                                        <span class="above-img-span">First Contact</span>
 
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
@@ -122,11 +122,11 @@
                         </a>
                     </div>
                     <div class="col-lg-2 col-6 px-1 col-4">
-                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."> 
+                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                <span class="above-img-span">First Contact</span>
+                                        <span class="above-img-span">First Contact</span>
 
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
@@ -147,11 +147,11 @@
                         </a>
                     </div>
                     <div class="col-lg-2 col-6 px-1 col-4">
-                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."> 
+                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                <span class="above-img-span">First Contact</span>
+                                        <span class="above-img-span">First Contact</span>
 
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
@@ -172,11 +172,11 @@
                         </a>
                     </div>
                     <div class="col-lg-2 col-6 px-1 col-4">
-                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."> 
+                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                <span class="above-img-span">First Contact</span>
+                                        <span class="above-img-span">First Contact</span>
 
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
@@ -197,11 +197,11 @@
                         </a>
                     </div>
                     <div class="col-lg-2 col-6 px-1 col-4">
-                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."> 
+                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                <span class="above-img-span">First Contact</span>
+                                        <span class="above-img-span">First Contact</span>
 
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
@@ -222,11 +222,11 @@
                         </a>
                     </div>
                     <div class="col-lg-2 col-6 px-1 col-4">
-                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."> 
+                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                <span class="above-img-span">First Contact</span>
+                                        <span class="above-img-span">First Contact</span>
 
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
@@ -247,11 +247,11 @@
                         </a>
                     </div>
                     <div class="col-lg-2 col-6 px-1 col-4">
-                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."> 
+                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                <span class="above-img-span">First Contact</span>
+                                        <span class="above-img-span">First Contact</span>
 
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
@@ -272,11 +272,11 @@
                         </a>
                     </div>
                     <div class="col-lg-2 col-6 px-1 col-4">
-                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."> 
+                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                <span class="above-img-span">First Contact</span>
+                                        <span class="above-img-span">First Contact</span>
 
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">
@@ -297,11 +297,11 @@
                         </a>
                     </div>
                     <div class="col-lg-2 col-6 px-1 col-4">
-                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward."> 
+                        <a class="example-image-link legacy-images-text" href="http://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg" data-lightbox="example-set" data-title="Click the right half of the image to move forward.">
                             <div class="bg-black border-shared-img">
                                 <div class="row">
                                     <div class="col-lg-7 col-7">
-                                <span class="above-img-span">First Contact</span>
+                                        <span class="above-img-span">First Contact</span>
 
                                     </div>
                                     <div class="col-lg-5 col-5 text-end">

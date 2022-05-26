@@ -54,13 +54,13 @@
                     <div class="col-lg-12">
                         <a class=" " href="#">
                             <div class="video">
-                                <video id="ban_video" class="tv_video">
+                                <video id="ban_video" class="tv_video" controls>
                                     <source src="{{ asset('/public/assets/images/solution.mp4') }}" type="video/mp4" />
                                     Your browser does not support the video tag.
                                 </video>
 
-                                <div class="play-bt"></div>
-                                <div class="pause-bt" style="display: none"></div>
+                                <!-- <div class="play-bt"></div>
+                                <div class="pause-bt" style="display: none"></div> -->
                             </div>
                             <div class="bg-black legacy-main-box">
                                 <div class="row">

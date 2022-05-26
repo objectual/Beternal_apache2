@@ -291,11 +291,10 @@
     var today = new Date();
     // var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var current_year = today.getFullYear();
-    var current_month = today.toLocaleString('default', { month: 'long' });
+    var current_month = today.toLocaleString('default', {
+        month: 'long'
+    });
     var current_date = today.getDate();
-    alert(current_year);
-    alert(current_month);
-    alert(current_date);
     $('#month_year').append('<span class="month cl-white mt-3" id="current_month">test</span><br />');
     $('#month_year').append('<span class="year cl-white mt-3" id="current_year">2025</span>');
 

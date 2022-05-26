@@ -3,9 +3,100 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Country;
+use App\Models\StateProvince;
+use App\Models\City;
 
 class HomeController extends Controller
 {
+    // public function setCountries()
+    // {
+    //     $servername = "localhost";
+    //     $username = "root";
+    //     $password = "";
+    //     $dbname = "world";
+
+    //     $conn = mysqli_connect($servername, $username, $password, $dbname);
+    //     if (!$conn) {
+    //         die("Connection failed: " . mysqli_connect_error());
+    //     }
+
+    //     $sql = "SELECT id, name, iso2 FROM countries";
+    //     $result = $conn->query($sql);
+
+    //     if ($result->num_rows > 0) {
+    //         while ($row = $result->fetch_assoc()) {
+    //             $country = new Country();
+    //             $country->country_name = $row["name"];
+    //             $country->country_code = $row["iso2"];
+    //             $country->save();
+    //         }
+    //         echo 'Success';
+    //     } else {
+    //         echo "0 results";
+    //     }
+    //     $conn->close();
+    // }
+
+    // public function setStates()
+    // {
+    //     $servername = "localhost";
+    //     $username = "root";
+    //     $password = "";
+    //     $dbname = "world";
+
+    //     $conn = mysqli_connect($servername, $username, $password, $dbname);
+    //     if (!$conn) {
+    //         die("Connection failed: " . mysqli_connect_error());
+    //     }
+
+    //     $sql = "SELECT id, name, country_id FROM states";
+    //     $result = $conn->query($sql);
+
+    //     if ($result->num_rows > 0) {
+    //         while ($row = $result->fetch_assoc()) {
+    //             $state = new StateProvince();
+    //             $state->id = $row["id"];
+    //             $state->name = $row["name"];
+    //             $state->country_id = $row["country_id"];
+    //             $state->save();
+    //         }
+    //         echo 'Success';
+    //     } else {
+    //         echo "0 results";
+    //     }
+    //     $conn->close();
+    // }
+
+    // public function setCities()
+    // {
+    //     $servername = "localhost";
+    //     $username = "root";
+    //     $password = "";
+    //     $dbname = "world";
+
+    //     $conn = mysqli_connect($servername, $username, $password, $dbname);
+    //     if (!$conn) {
+    //         die("Connection failed: " . mysqli_connect_error());
+    //     }
+
+    //     $sql = "SELECT id, name, state_id FROM cities WHERE country_id BETWEEN 201 AND 250;";
+    //     $result = $conn->query($sql);
+
+    //     if ($result->num_rows > 0) {
+    //         while ($row = $result->fetch_assoc()) {
+    //             $city = new City();
+    //             $city->city_name = $row["name"];
+    //             $city->state_province_id = $row["state_id"];
+    //             $city->save();
+    //         }
+    //         echo 'Success';
+    //     } else {
+    //         echo "0 results";
+    //     }
+    //     $conn->close();
+    // }
+
     public function index()
     {
         // $title = "HOME";
