@@ -6,96 +6,368 @@ use Illuminate\Http\Request;
 use App\Models\Country;
 use App\Models\StateProvince;
 use App\Models\City;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-    // public function setCountries()
-    // {
-    //     $servername = "localhost";
-    //     $username = "root";
-    //     $password = "";
-    //     $dbname = "world";
+    public function setCountries()
+    {
+        set_time_limit(1200);
+        $servername = "167.99.0.236";
+        $username = "root";
+        $password = "my-secret-pw";
+        $dbname = "world";
 
-    //     $conn = mysqli_connect($servername, $username, $password, $dbname);
-    //     if (!$conn) {
-    //         die("Connection failed: " . mysqli_connect_error());
-    //     }
+        $conn = mysqli_connect($servername, $username, $password, $dbname);
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
 
-    //     $sql = "SELECT id, name, iso2 FROM countries";
-    //     $result = $conn->query($sql);
+        $sql = "SELECT id, name, iso2 FROM countries";
+        $result = $conn->query($sql);
 
-    //     if ($result->num_rows > 0) {
-    //         while ($row = $result->fetch_assoc()) {
-    //             $country = new Country();
-    //             $country->country_name = $row["name"];
-    //             $country->country_code = $row["iso2"];
-    //             $country->save();
-    //         }
-    //         echo 'Success';
-    //     } else {
-    //         echo "0 results";
-    //     }
-    //     $conn->close();
-    // }
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $country = new Country();
+                $country->country_name = $row["name"];
+                $country->country_code = $row["iso2"];
+                $country->save();
+            }
+            echo 'Success';
+        } else {
+            echo "0 results";
+        }
+        $conn->close();
+    }
 
-    // public function setStates()
-    // {
-    //     $servername = "localhost";
-    //     $username = "root";
-    //     $password = "";
-    //     $dbname = "world";
+    public function setStates()
+    {
+        set_time_limit(1200);
+        $servername = "167.99.0.236";
+        $username = "root";
+        $password = "my-secret-pw";
+        $dbname = "world";
 
-    //     $conn = mysqli_connect($servername, $username, $password, $dbname);
-    //     if (!$conn) {
-    //         die("Connection failed: " . mysqli_connect_error());
-    //     }
+        $conn = mysqli_connect($servername, $username, $password, $dbname);
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
 
-    //     $sql = "SELECT id, name, country_id FROM states";
-    //     $result = $conn->query($sql);
+        $sql = "SELECT id, name, country_id FROM states";
+        $result = $conn->query($sql);
 
-    //     if ($result->num_rows > 0) {
-    //         while ($row = $result->fetch_assoc()) {
-    //             $state = new StateProvince();
-    //             $state->id = $row["id"];
-    //             $state->name = $row["name"];
-    //             $state->country_id = $row["country_id"];
-    //             $state->save();
-    //         }
-    //         echo 'Success';
-    //     } else {
-    //         echo "0 results";
-    //     }
-    //     $conn->close();
-    // }
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $state = new StateProvince();
+                $state->id = $row["id"];
+                $state->name = $row["name"];
+                $state->country_id = $row["country_id"];
+                $state->save();
+            }
+            echo 'Success';
+        } else {
+            echo "0 results";
+        }
+        $conn->close();
+    }
 
-    // public function setCities()
-    // {
-    //     $servername = "localhost";
-    //     $username = "root";
-    //     $password = "";
-    //     $dbname = "world";
+    public function setCities()
+    {
+        set_time_limit(1200);
+        $servername = "167.99.0.236";
+        $username = "root";
+        $password = "my-secret-pw";
+        $dbname = "world";
 
-    //     $conn = mysqli_connect($servername, $username, $password, $dbname);
-    //     if (!$conn) {
-    //         die("Connection failed: " . mysqli_connect_error());
-    //     }
+        $conn = mysqli_connect($servername, $username, $password, $dbname);
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
 
-    //     $sql = "SELECT id, name, state_id FROM cities WHERE country_id BETWEEN 201 AND 250;";
-    //     $result = $conn->query($sql);
+        $sql = "SELECT id, name, state_id FROM cities WHERE country_id BETWEEN 200 AND 250";
+        $result = $conn->query($sql);
 
-    //     if ($result->num_rows > 0) {
-    //         while ($row = $result->fetch_assoc()) {
-    //             $city = new City();
-    //             $city->city_name = $row["name"];
-    //             $city->state_province_id = $row["state_id"];
-    //             $city->save();
-    //         }
-    //         echo 'Success';
-    //     } else {
-    //         echo "0 results";
-    //     }
-    //     $conn->close();
-    // }
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $city = new City();
+                $city->city_name = $row["name"];
+                $city->state_province_id = $row["state_id"];
+                $city->save();
+            }
+            echo 'Success';
+        } else {
+            echo "0 results";
+        }
+        $conn->close();
+    }
+
+    public function citiesData($id)
+    {
+        set_time_limit(1200);
+        $servername = "167.99.0.236";
+        $username = "root";
+        $password = "my-secret-pw";
+        $dbname = "world";
+
+        $conn = mysqli_connect($servername, $username, $password, $dbname);
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+
+        if ($id == 1) {
+            $sql = "SELECT id, city_name, state_id FROM city_1";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $city = new City();
+                    $city->city_name = $row["city_name"];
+                    $city->state_province_id = $row["state_id"];
+                    $city->save();
+                }
+                echo 'Success';
+            } else {
+                echo "0 results";
+            }
+        }
+        else if ($id == 2) {
+            $sql = "SELECT id, city_name, state_id FROM city_2";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $city = new City();
+                    $city->city_name = $row["city_name"];
+                    $city->state_province_id = $row["state_id"];
+                    $city->save();
+                }
+                echo 'Success';
+            } else {
+                echo "0 results";
+            }
+        }
+        else if ($id == 3) {
+            $sql = "SELECT id, city_name, state_id FROM city_3";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $city = new City();
+                    $city->city_name = $row["city_name"];
+                    $city->state_province_id = $row["state_id"];
+                    $city->save();
+                }
+                echo 'Success';
+            } else {
+                echo "0 results";
+            }
+        }
+        else if ($id == 4) {
+            $sql = "SELECT id, city_name, state_id FROM city_4";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $city = new City();
+                    $city->city_name = $row["city_name"];
+                    $city->state_province_id = $row["state_id"];
+                    $city->save();
+                }
+                echo 'Success';
+            } else {
+                echo "0 results";
+            }
+        }
+        else if ($id == 5) {
+            $sql = "SELECT id, city_name, state_id FROM city_5";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $city = new City();
+                    $city->city_name = $row["city_name"];
+                    $city->state_province_id = $row["state_id"];
+                    $city->save();
+                }
+                echo 'Success';
+            } else {
+                echo "0 results";
+            }
+        }
+        else if ($id == 6) {
+            $sql = "SELECT id, city_name, state_id FROM city_6";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $city = new City();
+                    $city->city_name = $row["city_name"];
+                    $city->state_province_id = $row["state_id"];
+                    $city->save();
+                }
+                echo 'Success';
+            } else {
+                echo "0 results";
+            }
+        }
+        else if ($id == 7) {
+            $sql = "SELECT id, city_name, state_id FROM city_7";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $city = new City();
+                    $city->city_name = $row["city_name"];
+                    $city->state_province_id = $row["state_id"];
+                    $city->save();
+                }
+                echo 'Success';
+            } else {
+                echo "0 results";
+            }
+        }
+        else if ($id == 8) {
+            $sql = "SELECT id, city_name, state_id FROM city_8";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $city = new City();
+                    $city->city_name = $row["city_name"];
+                    $city->state_province_id = $row["state_id"];
+                    $city->save();
+                }
+                echo 'Success';
+            } else {
+                echo "0 results";
+            }
+        }
+        else if ($id == 9) {
+            $sql = "SELECT id, city_name, state_id FROM city_9";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $city = new City();
+                    $city->city_name = $row["city_name"];
+                    $city->state_province_id = $row["state_id"];
+                    $city->save();
+                }
+                echo 'Success';
+            } else {
+                echo "0 results";
+            }
+        }
+        else if ($id == 10) {
+            $sql = "SELECT id, city_name, state_id FROM city_10";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $city = new City();
+                    $city->city_name = $row["city_name"];
+                    $city->state_province_id = $row["state_id"];
+                    $city->save();
+                }
+                echo 'Success';
+            } else {
+                echo "0 results";
+            }
+        }
+        else if ($id == 11) {
+            $sql = "SELECT id, city_name, state_id FROM city_11";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $city = new City();
+                    $city->city_name = $row["city_name"];
+                    $city->state_province_id = $row["state_id"];
+                    $city->save();
+                }
+                echo 'Success';
+            } else {
+                echo "0 results";
+            }
+        }
+        else if ($id == 12) {
+            $sql = "SELECT id, city_name, state_id FROM city_12";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $city = new City();
+                    $city->city_name = $row["city_name"];
+                    $city->state_province_id = $row["state_id"];
+                    $city->save();
+                }
+                echo 'Success';
+            } else {
+                echo "0 results";
+            }
+        }
+        else if ($id == 13) {
+            $sql = "SELECT id, city_name, state_id FROM city_13";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $city = new City();
+                    $city->city_name = $row["city_name"];
+                    $city->state_province_id = $row["state_id"];
+                    $city->save();
+                }
+                echo 'Success';
+            } else {
+                echo "0 results";
+            }
+        }
+        else if ($id == 14) {
+            $sql = "SELECT id, city_name, state_id FROM city_14";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $city = new City();
+                    $city->city_name = $row["city_name"];
+                    $city->state_province_id = $row["state_id"];
+                    $city->save();
+                }
+                echo 'Success';
+            } else {
+                echo "0 results";
+            }
+        }
+        else if ($id == 15) {
+            $sql = "SELECT id, city_name, state_id FROM city_15";
+            $result = $conn->query($sql);
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $city = new City();
+                    $city->city_name = $row["city_name"];
+                    $city->state_province_id = $row["state_id"];
+                    $city->save();
+                }
+                echo 'Success';
+            } else {
+                echo "0 results";
+            }
+        }
+        $conn->close();
+    }
+
+    public function totalCity()
+    {
+        $cities =  City::whereBetween('id', [140001, 150000])
+        ->get(['id', 'city_name', 'state_province_id']);
+
+        foreach ($cities as $key => $city) {
+            $add_city = DB::table('city_15')
+            ->insert(['city_name'=>$city->city_name, 'state_id'=>$city->state_province_id]);
+        }
+        echo 'Success';
+    }
 
     public function index()
     {
