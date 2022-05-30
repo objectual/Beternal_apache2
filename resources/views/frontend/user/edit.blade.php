@@ -12,6 +12,7 @@
                     @method('POST')
                     @csrf
                     <input type="hidden" id="country_code" name="country_code" value="">
+                    <input type="hidden" id="postal_code_format" name="postal_code_format" value="{{ $user[0]->zip_code_format }}">
                     @if(Session()->has('update'))
                     <br>
                     <div class="alert alert-info" role="alert" style="font-size: 18px; height: 45px; padding-left:250px;">
@@ -86,7 +87,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Phone </span>
                                 </div>
-                                <input id="phone" name="phone" type="tel" value="{{ old('phone_number') ?? $user[0]->phone_number }}" class="form-control text-end" aria-describedby="basic-addon1" required />
+                                <input id="phone" name="phone" type="tel" value="{{ old('phone_number') ?? $user[0]->phone_number }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" maxlength="15" size="25" onKeyup='addDashes(this)' required />
                                 <div class="col-12 text-white" id="show_phone_msg"></div>
                                 @if($errors->has('phone_number'))
                                 <div class="error">{{ $errors->first('phone_number') }}</div>
@@ -137,7 +138,9 @@
                                 <option value="{{ $user[0]->country_id }}" selected>{{ $user[0]->country_name }}</option>
                                 @if(isset($countries))
                                 @foreach($countries as $key => $country)
-                                <option value="{{ $country->id }}">{{ $country->country_name }}</option>
+                                <option id="{{ $country->postal_code_format }}" value="{{ $country->id }}">
+                                    {{ $country->country_name }}
+                                </option>
                                 @endforeach
                                 @endif
                                 </select>
@@ -183,11 +186,12 @@
                             </div>
                         </div>
                         <div class="col-lg-6 mt-2">
-                            <div class="input-group mb-3">
+                            <div class="input-group mb-3" id="zip_code">
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Zip / Postal Code</span>
                                 </div>
                                 <input id="zip_postal_code" name="zip_postal_code" type="text" value="{{ old('zip_postal_code') ?? $user[0]->zip_postal_code }}" class="form-control text-end" aria-describedby="basic-addon1" required />
+                                <div class="col-12 text-white" id="show_postal_msg"></div>
                                 @if($errors->has('zip_postal_code'))
                                 <div class="error">{{ $errors->first('zip_postal_code') }}</div>
                                 @endif
@@ -228,10 +232,94 @@
 @endsection
 
 <script type="text/javascript">
+    window.addDashes = function addDashes(f) {
+        var phone = document.getElementById('phone');
+        var phone_placeholder = phone.placeholder;
+        var x = 0;
+        const check_integer = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        const index_of_char = [];
+        const count_n = [];
+
+        var char_1 = '';
+        var char_2 = '';
+        var char_3 = '';
+        var char_4 = '';
+        var char_5 = '';
+        var num_1 = '';
+        var num_2 = '';
+        var num_3 = '';
+        var num_4 = '';
+        var num_5 = '';
+        var a = 1;
+        var b = 1;
+        var check_length = phone_placeholder.length - 1;
+        for (var i = 0; i < phone_placeholder.length; i++) {
+            var check_placeholder = parseInt(phone_placeholder[i]);
+            if (check_integer.includes(check_placeholder)) {
+                x++;
+                if (i == check_length) {
+                    count_n.push(x);
+                }
+            } else {
+                index_of_char.push(i);
+                count_n.push(x);
+                x = 0;
+                if (a == 1) {
+                    char_1 = phone_placeholder[i];
+                }
+                if (a == 2) {
+                    char_2 = phone_placeholder[i];
+                }
+                if (a == 3) {
+                    char_3 = phone_placeholder[i];
+                }
+                if (a == 4) {
+                    char_4 = phone_placeholder[i];
+                }
+                if (a == 5) {
+                    char_5 = phone_placeholder[i];
+                }
+                a++;
+            }
+        }
+        for (var j = 0; j < count_n.length; j++) {
+            if (b == 1) {
+                num_1 = count_n[j];
+            }
+            if (b == 2) {
+                num_2 = count_n[j];
+            }
+            if (b == 3) {
+                num_3 = count_n[j];
+            }
+            if (b == 4) {
+                num_4 = count_n[j];
+            }
+            if (b == 5) {
+                num_5 = count_n[j];
+            }
+            b++;
+        }
+        var r = /(\D+)/g,
+            npa = '',
+            nxx = '',
+            nxy = '',
+            nxz = '',
+            last4 = '';
+        f.value = f.value.replace(r, '');
+        npa = f.value.substr(0, num_1);
+        nxx = f.value.substr(num_1, num_2);
+        nxy = f.value.substr(num_1 + num_2, num_3);
+        nxz = f.value.substr(num_2 + num_3, num_4);
+        last4 = f.value.substr(num_3 + num_4, num_5);
+        f.value = npa + char_1 + nxx + char_2 + nxy + char_3 + nxz + char_4 + last4;
+    }
+
     function selectCountry() {
         var select = document.getElementById('country_id');
         var option = select.options[select.selectedIndex];
         var id = option.value;
+        var postal_code_format = document.getElementById('postal_code_format');
 
         $.ajax({
             url: 'provinces/' + id,
@@ -258,6 +346,18 @@
                 }
             }
         });
+
+        postal_code_format.value = option.id;
+        var required_field = 'Required Field';
+        var validity = '';
+        var zip_input = '<div class="input-group-append"><span class="input-group-text add-label" id="basic-addon2">Zip / Postal Code</span></div><input type="text" id="zip_postal_code" name="zip_postal_code" value="" class="form-control add-input" placeholder="Required Field" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity(' + required_field + ')" oninput="setCustomValidity(' + validity + ')" required /><div class="col-12 text-white" id="show_postal_msg"></div>';
+        $('#show_postal_msg').empty();
+        $('#zip_code').empty();
+        $('#zip_code').append(zip_input);
+        if (option.id == 00000 || option.id == NULL) {
+            $('#show_postal_msg').empty();
+            $('#zip_code').empty();
+        }
     }
 
     function selectProvince() {
@@ -296,7 +396,6 @@
         var phone = document.getElementById('phone');
         var phone_number = phone.value;
         var phone_placeholder = phone.placeholder;
-        var phone_msg = 'Required format is '+ phone_placeholder;
         var selected_flag = document.querySelector('.iti__selected-flag');
         var get_code = selected_flag.getAttribute('aria-activedescendant');
         var country_code = '';
@@ -306,47 +405,61 @@
         var word_index = word_length - 1;
         if (myArray[word_index] == 'preferred') {
             country_code = myArray[--word_index];
-        }
-        else {
+        } else {
             country_code = myArray[word_index];
         }
         phone_code.value = country_code;
-        if (phone_number.length == phone_placeholder.length) {
-            var number_special_char = 0;
-            var placeholder_special_char = 0;
-            for (var i = 0; i < phone_number.length; i++) {
-                var check_number = parseInt(phone_number[i]);
-                var check_placeholder = parseInt(phone_placeholder[i]);
-                if (!([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(check_number))) {
-                    number_special_char++;
-                    if (phone_number[i] != phone_placeholder[i]) {
-                        $('#show_phone_msg').empty();
-                        $("#show_phone_msg").append(phone_msg);
-                        return false;
-                    }
-                }
-                if (!([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(check_placeholder))) {
-                    placeholder_special_char++
-                }
-            }
-            if(number_special_char != placeholder_special_char) {
-                $('#show_phone_msg').empty();
-                $("#show_phone_msg").append(phone_msg);
-                return false;
-            }
-            else {
-                $('#show_phone_msg').empty();
-            }
-        }
-        else {
+
+        if (phone_number.length != phone_placeholder.length) {
             $('#show_phone_msg').empty();
-            $("#show_phone_msg").append(phone_msg);
+            $("#show_phone_msg").append('Phone number is incomplete!');
             return false;
         }
+
         $('#show_confirm_pass_msg').empty();
         if (pass != password_confirmation) {
             $("#show_confirm_pass_msg").append('Password & confirm password are not matched!');
             return false;
         }
+
+        var postal_code_format = document.getElementById('postal_code_format').value;
+        if (postal_code_format != 00000 || postal_code_format != NULL) {
+            var zip_postal_code = document.getElementById('zip_postal_code').value;
+            var postal_msg = 'Format not matched! required format is ' + postal_code_format;
+            if (postal_code_format.length == zip_postal_code.length) {
+                for (var i = 0; i < zip_postal_code.length; i++) {
+                    var check_number_postal = parseInt(zip_postal_code[i]);
+                    var check_postal_format = parseInt(postal_code_format[i]);
+                    const check_integer = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+                    const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+                    if (check_integer.includes(check_postal_format)) {
+                        if (!(check_integer.includes(check_number_postal))) {
+                            $('#show_postal_msg').empty();
+                            $("#show_postal_msg").append(postal_msg);
+                            return false;
+                        }
+                    } else if (alphabet.includes(postal_code_format[i])) {
+                        if (!(alphabet.includes(zip_postal_code[i]))) {
+                            $('#show_postal_msg').empty();
+                            $("#show_postal_msg").append(postal_msg);
+                            return false;
+                        }
+                    } else if (!(check_integer.includes(check_postal_format)) && !(alphabet.includes(postal_code_format[i]))) {
+                        if (zip_postal_code[i] != postal_code_format[i]) {
+                            $('#show_postal_msg').empty();
+                            $("#show_postal_msg").append(postal_msg);
+                            return false;
+                        }
+                    }
+                }
+                $('#show_postal_msg').empty();
+            } else {
+                $('#show_postal_msg').empty();
+                $("#show_postal_msg").append(postal_msg);
+                return false;
+            }
+        }
+        alert('testing')
+        return true;
     }
 </script>

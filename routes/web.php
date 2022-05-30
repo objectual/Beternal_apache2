@@ -31,25 +31,10 @@ use App\Http\Controllers\SubscriptionController;
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 
-Route::get('/set-countries', [HomeController::class, 'setCountries'])->name('set-countries');
-Route::get('/set-states', [HomeController::class, 'setStates'])->name('set-states');
-Route::get('/set-cities', [HomeController::class, 'setCities'])->name('set-cities');
-Route::get('/total-city', [HomeController::class, 'totalCity'])->name('total-city');
-Route::get('/cities-data/{id}', [HomeController::class, 'citiesData'])->name('cities-data');
-// Route::get('/city-2', [HomeController::class, 'totalCity'])->name('total-city');
-// Route::get('/city-3', [HomeController::class, 'totalCity'])->name('total-city');
-// Route::get('/city-4', [HomeController::class, 'totalCity'])->name('total-city');
-// Route::get('/city-5', [HomeController::class, 'totalCity'])->name('total-city');
-// Route::get('/city-6', [HomeController::class, 'totalCity'])->name('total-city');
-// Route::get('/city-7', [HomeController::class, 'totalCity'])->name('total-city');
-// Route::get('/city-8', [HomeController::class, 'totalCity'])->name('total-city');
-// Route::get('/city-9', [HomeController::class, 'totalCity'])->name('total-city');
-// Route::get('/city-10', [HomeController::class, 'totalCity'])->name('total-city');
-// Route::get('/city-11', [HomeController::class, 'totalCity'])->name('total-city');
-// Route::get('/city-12', [HomeController::class, 'totalCity'])->name('total-city');
-// Route::get('/city-13', [HomeController::class, 'totalCity'])->name('total-city');
-// Route::get('/city-14', [HomeController::class, 'totalCity'])->name('total-city');
-// Route::get('/city-15', [HomeController::class, 'totalCity'])->name('total-city');
+// Route::get('/set-countries', [HomeController::class, 'setCountries'])->name('set-countries');
+// Route::get('/set-states', [HomeController::class, 'setStates'])->name('set-states');
+// Route::get('/set-cities', [HomeController::class, 'setCities'])->name('set-cities');
+// Route::get('/cities-data/{id}', [HomeController::class, 'citiesData'])->name('cities-data');
 
 // start routes for ajax request
 Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);

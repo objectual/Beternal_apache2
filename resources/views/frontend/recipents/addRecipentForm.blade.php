@@ -76,7 +76,7 @@
                                     <div class="input-group-append">
                                         <span class="input-group-text add-label" id="basic-addon2">PHONE</span>
                                     </div>
-                                    <input type="text" id="phone" name="phone" value="{{ old('phone') }}" class="form-control add-input" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
+                                    <input type="text" id="phone" name="phone" value="{{ old('phone') }}" class="form-control add-input" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" maxlength="15" size="25" onKeyup='addDashes(this)' required />
                                 </div>
 
                                 @if($errors->has('address'))
@@ -219,6 +219,89 @@
 @endsection
 
 <script type="text/javascript">
+    window.addDashes = function addDashes(f) {
+        var phone = document.getElementById('phone');
+        var phone_placeholder = phone.placeholder;
+        var x = 0;
+        const check_integer = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        const index_of_char = [];
+        const count_n = [];
+
+        var char_1 = '';
+        var char_2 = '';
+        var char_3 = '';
+        var char_4 = '';
+        var char_5 = '';
+        var num_1 = '';
+        var num_2 = '';
+        var num_3 = '';
+        var num_4 = '';
+        var num_5 = '';
+        var a = 1;
+        var b = 1;
+        var check_length = phone_placeholder.length - 1;
+        for (var i = 0; i < phone_placeholder.length; i++) {
+            var check_placeholder = parseInt(phone_placeholder[i]);
+            if (check_integer.includes(check_placeholder)) {
+                x++;
+                if (i == check_length) {
+                    count_n.push(x);
+                }
+            } else {
+                index_of_char.push(i);
+                count_n.push(x);
+                x = 0;
+                if (a == 1) {
+                    char_1 = phone_placeholder[i];
+                }
+                if (a == 2) {
+                    char_2 = phone_placeholder[i];
+                }
+                if (a == 3) {
+                    char_3 = phone_placeholder[i];
+                }
+                if (a == 4) {
+                    char_4 = phone_placeholder[i];
+                }
+                if (a == 5) {
+                    char_5 = phone_placeholder[i];
+                }
+                a++;
+            }
+        }
+        for (var j = 0; j < count_n.length; j++) {
+            if (b == 1) {
+                num_1 = count_n[j];
+            }
+            if (b == 2) {
+                num_2 = count_n[j];
+            }
+            if (b == 3) {
+                num_3 = count_n[j];
+            }
+            if (b == 4) {
+                num_4 = count_n[j];
+            }
+            if (b == 5) {
+                num_5 = count_n[j];
+            }
+            b++;
+        }
+        var r = /(\D+)/g,
+            npa = '',
+            nxx = '',
+            nxy = '',
+            nxz = '',
+            last4 = '';
+        f.value = f.value.replace(r, '');
+        npa = f.value.substr(0, num_1);
+        nxx = f.value.substr(num_1, num_2);
+        nxy = f.value.substr(num_1 + num_2, num_3);
+        nxz = f.value.substr(num_2 + num_3, num_4);
+        last4 = f.value.substr(num_3 + num_4, num_5);
+        f.value = npa + char_1 + nxx + char_2 + nxy + char_3 + nxz + char_4 + last4;
+    }
+
     function selectCountry() {
         var select = document.getElementById('country_id');
         var option = select.options[select.selectedIndex];
@@ -346,7 +429,7 @@
         var inputs = document.querySelectorAll('.user-group');
         var phone_number = phone.value;
         var phone_placeholder = phone.placeholder;
-        var phone_msg = '<span class="cl-white">Format not matched! required format is ' + phone_placeholder + '</span>';
+        var phone_msg = '<span class="cl-white">Phone number is incomplete!</span>';
         var selected_flag = document.querySelector('.iti__selected-flag');
         var get_code = selected_flag.getAttribute('aria-activedescendant');
         var country_code = '';
@@ -362,32 +445,7 @@
         }
         phone_code.value = country_code;
 
-        if (phone_number.length == phone_placeholder.length) {
-            var number_special_char = 0;
-            var placeholder_special_char = 0;
-            for (var i = 0; i < phone_number.length; i++) {
-                var check_number = parseInt(phone_number[i]);
-                var check_placeholder = parseInt(phone_placeholder[i]);
-                if (!([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(check_number))) {
-                    number_special_char++;
-                    if (phone_number[i] != phone_placeholder[i]) {
-                        $('#show_phone_msg').empty();
-                        $("#show_phone_msg").append(phone_msg);
-                        return false;
-                    }
-                }
-                if (!([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(check_placeholder))) {
-                    placeholder_special_char++
-                }
-            }
-            if (number_special_char != placeholder_special_char) {
-                $('#show_phone_msg').empty();
-                $("#show_phone_msg").append(phone_msg);
-                return false;
-            } else {
-                $('#show_phone_msg').empty();
-            }
-        } else {
+        if (phone_number.length != phone_placeholder.length) {
             $('#show_phone_msg').empty();
             $("#show_phone_msg").append(phone_msg);
             return false;

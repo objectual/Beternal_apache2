@@ -40,6 +40,12 @@ class UserController extends Controller
         $countries =  Country::all();
         $plans = Plan::where('status', 1)->get();
         $user_roles = UserRole::where('status', 1)->get();
+        $postal_code_format = Country::where('id', $user[0]->country_id)
+            ->get(['postal_code_format']);
+
+        if (!$postal_code_format->isEmpty()) {
+            $user[0]->zip_code_format = $postal_code_format[0]->postal_code_format;
+        }
         if ($user) {
             $country_id = $user[0]->country_id;
             $state_province_id = $user[0]->state_province_id;
@@ -98,6 +104,13 @@ class UserController extends Controller
         $id = Auth::user()->id;
         $user = userDetails($id);
         $countries =  Country::all();
+
+        $postal_code_format = Country::where('id', Auth::user()->country_id)
+            ->get(['postal_code_format']);
+
+        if (!$postal_code_format->isEmpty()) {
+            $user[0]->zip_code_format = $postal_code_format[0]->postal_code_format;
+        }
 
         $provinces = StateProvince::where('country_id', Auth::user()->country_id)
             ->get(['state_province.id', 'state_province.name']);
