@@ -10,7 +10,7 @@
                     <img class="signup-success" src="{{ asset('/public/assets/images/success-signup.svg') }}" />
                     <div class="text-center mb-4">
                         <a href="{{ route('dashboard') }}" class="btn w-100 bg-black mb-3 m-auto text-center py-2 mt-3">
-                            <span class="schedule">CONTINUE</span>
+                            <span class="schedule text-white">CONTINUE</span>
                         </a>
                     </div>
                 </div>
