@@ -3267,7 +3267,7 @@ body {
 }
 
 .eye-pass-reg {
-    padding: 18px 19px;
+    padding: 19.5px 19px;
     border-radius: 0px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px !important;
@@ -3434,7 +3434,7 @@ body {
 }
 
 .iti--allow-dropdown input, .iti--allow-dropdown input[type=text], .iti--allow-dropdown input[type=tel], .iti--separate-dial-code input, .iti--separate-dial-code input[type=text], .iti--separate-dial-code input[type=tel] {
-    padding: 19px 7px !important;
+    padding: 18.5px 7px !important;
 }
 
 .iti--allow-dropdown {
@@ -3538,4 +3538,23 @@ body {
 .notification {
     background-color: rgb(0, 0, 0, 0.3);
 
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff;
+  -webkit-box-shadow: 0 0 0px 1000px #000 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+
+.phone-area input {
+    border-radius: 0px !important;
 }
