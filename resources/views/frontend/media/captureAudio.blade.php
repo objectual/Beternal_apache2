@@ -361,12 +361,12 @@
                                 $("#show_title_msg_2").append(msg);
                                 return false;
                             }
-                            if (format.test(description)) {
-                                $('#show_title_msg_2').empty();
-                                $('#show_description_msg_2').empty();
-                                $("#show_description_msg_2").append(msg);
-                                return false;
-                            }
+                            // if (format.test(description)) {
+                            //     $('#show_title_msg_2').empty();
+                            //     $('#show_description_msg_2').empty();
+                            //     $("#show_description_msg_2").append(msg);
+                            //     return false;
+                            // }
                             if (my_media >= plan_details[0].video_audio_limit) {
                                 $('#show_title_msg_2').empty();
                                 $('#show_description_msg_2').empty();
@@ -614,12 +614,12 @@
             $("#show_title_msg").append(msg);
             return false;
         }
-        if (format.test(description)) {
-            $('#show_title_msg').empty();
-            $('#show_description_msg').empty();
-            $("#show_description_msg").append(msg);
-            return false;
-        }
+        // if (format.test(description)) {
+        //     $('#show_title_msg').empty();
+        //     $('#show_description_msg').empty();
+        //     $("#show_description_msg").append(msg);
+        //     return false;
+        // }
         if (my_media < plan_details[0].video_audio_limit) {
             return true;
         } else {

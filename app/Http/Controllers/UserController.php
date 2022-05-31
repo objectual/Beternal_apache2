@@ -424,6 +424,7 @@ class UserController extends Controller
         $title = "EDIT RECIPIENT";
         $id = Auth::user()->id;
         $recipient_id = $request->id;
+        $countries =  Country::all();
         $contact_status =  ContactStatus::all();
         $contacts = UserContact::where('user_id', $id)->get(['contact_status_id']);
         $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
@@ -432,7 +433,13 @@ class UserController extends Controller
             ->join('countries', 'users.country_id', '=', 'countries.id')
             ->join('state_province', 'users.state_province_id', '=', 'state_province.id')
             ->join('cities', 'users.city_id', '=', 'cities.id')
-            ->first(['users.id as recipient_id', 'users.name as first_name', 'users.last_name', 'users.profile_image', 'users.email', 'users.phone_number', 'users.address', 'users.address_2', 'users.zip_postal_code', 'countries.country_name', 'state_province.name', 'cities.city_name']);
+            ->first(['users.id as recipient_id', 'users.name as first_name', 'users.last_name', 'users.profile_image', 'users.email', 'users.phone_number', 'users.address', 'users.address_2', 'users.zip_postal_code', 'users.country_id', 'users.state_province_id', 'users.city_id', 'countries.country_name', 'countries.country_code', 'countries.postal_code_format', 'state_province.name', 'cities.city_name']);
+
+        $provinces = StateProvince::where('country_id', $recipient->country_id)
+            ->get(['state_province.id', 'state_province.name']);
+
+        $cities = City::where('state_province_id', $recipient->state_province_id)
+            ->get(['cities.id', 'cities.city_name']);
 
         $user_contacts =  UserContact::where(['contact_id' => $recipient_id, 'user_id' => $id])
             ->join('contact_status', 'user_contacts.contact_status_id', '=', 'contact_status.id')
@@ -468,9 +475,12 @@ class UserController extends Controller
 
         return view('frontend.recipents.editRecipentForm', compact(
             'title',
+            'countries',
             'contact_status',
             'groups',
             'recipient',
+            'provinces',
+            'cities',
             'user_contact'
         ));
     }
@@ -480,6 +490,46 @@ class UserController extends Controller
         $id = Auth::user()->id;
         $recipient_id = $request->recipient_id;
         $contact_status_id = $request->contact_status_id;
+
+        $request->validate([
+            'name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
+            'last_name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'phone' => ['required', 'string'],
+            'address' => ['required', 'string', 'min:5', 'max:255'],
+            'image' => 'image|mimes:jpeg,png,jpg,svg,bmp',
+            'country_id' => ['required'],
+            'state_province_id' => ['required'],
+            'city_id' => ['required'],
+        ]);
+
+        $update_recipient = User::findOrFail($recipient_id);
+        if ($request->postal_code_format == null) {
+            $request->zip_postal_code = '00000';
+        }
+        if (request()->file('image')) {
+            $image = request()->file('image');
+            $image_new = time() . $image->getClientOriginalName();
+            $image->move('public/media/image/', $image_new);
+            $image_new  =   '/public/media/image/' . $image_new;
+        } else {
+            $image_new  =   $update_recipient->profile_image;
+        }
+
+        $update_recipient = User::findOrFail($recipient_id);
+        $update_recipient->name              =  $request->name;
+        $update_recipient->last_name         =  $request->last_name;
+        $update_recipient->email             =  $request->email;
+        $update_recipient->country_code      =  $request->country_code;
+        $update_recipient->phone_number      =  $request->phone;
+        $update_recipient->address           =  $request->address;
+        $update_recipient->address_2         =  $request->address_2;
+        $update_recipient->profile_image     =  $image_new;
+        $update_recipient->country_id        =  $request->country_id;
+        $update_recipient->state_province_id =  $request->state_province_id;
+        $update_recipient->city_id           =  $request->city_id;
+        $update_recipient->zip_postal_code   =  $request->zip_postal_code;
+        $update_recipient->save();
 
         if ($request->contact_status_id == null) {
             $delete_legacy = UserContact::where(['user_contacts.contact_id'=>$recipient_id, 'user_contacts.user_id'=>$id])->delete();

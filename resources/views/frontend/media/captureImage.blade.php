@@ -472,12 +472,12 @@
             title_msg.append(msg);
             return false;
         }
-        if (format.test(description)) {
-            title_msg.empty();
-            description_msg.empty();
-            description_msg.append(msg);
-            return false;
-        }
+        // if (format.test(description)) {
+        //     title_msg.empty();
+        //     description_msg.empty();
+        //     description_msg.append(msg);
+        //     return false;
+        // }
         if (my_media < plan_details[0].photo_limit) {
             return true;
         } else {
