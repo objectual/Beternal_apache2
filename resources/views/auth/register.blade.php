@@ -20,7 +20,7 @@
                         <div class="col-lg-4"></div>
                         <div class="col-lg-4">
                             <div class="text-center">
-                                <img src="{{ asset('/public/media/image/default.png') }}" id="output" class="image-upload mb-2" style="border-radius: 100%" />
+                                <label for="file"><img src="{{ asset('/public/media/image/default.png') }}" id="output" class="image-upload mb-2" style="border-radius: 100%" /></label>
                                 @if($errors->has('image'))
                                 <div class="error text-white">{{ $errors->first('image') }}</div>
                                 @endif

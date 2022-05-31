@@ -28,8 +28,7 @@
                         <div class="col-lg-4"></div>
                         <div class="col-lg-4">
                             <div class="text-center">
-                                {{-- <img src="./images/recipent.png" class="image-upload mb-2" />s --}}
-                                <img src="@if(Auth::user()->profile_image){{asset( Auth::user()->profile_image) }}@else{{ asset('/assets/media/image/default.png') }}@endif" id="output" value="{{ Auth::user()->image }}" class="image-upload mb-2" style="border-radius: 100%" />
+                                <label for="file"><img src="@if(Auth::user()->profile_image){{asset( Auth::user()->profile_image) }}@else{{ asset('/assets/media/image/default.png') }}@endif" id="output" value="{{ Auth::user()->image }}" class="image-upload mb-2" style="border-radius: 100%" /></label>
                                 <a class="mt-5 cl-white upload upload-web px-3">
                                     <label class="icon-upload" for="file">&nbsp;&nbsp;<span class="upload-font">Upload Image</span></label>
                                     <input type="file" accept="image/*" name="image" id="file" value="{{ Auth::user()->image }}" onchange="loadFile(event)" style="display: none;">
