@@ -81,16 +81,17 @@
     function recipentByName() {
         var recipent_name = document.getElementById('name').value;
         var obj = JSON.parse('<?php echo json_encode($user_recipents) ?>');
+        var add_new = '<div class="col-lg-2 col-4 text-center"><a href="recipents/add-form" class=""><img class="recipent-img" src="public/assets/images/add.svg" /><p class="sel-text color-primary mt-3">Add </p></a></div>';
+
+        $('#show_recipents').empty();
+        $("#show_recipents").append(add_new);
 
         if (obj != null) {
             len = obj.length;
         }
         if (recipent_name != '') {
             recipent_name = recipent_name.toLowerCase();
-            $('#show_recipents').empty();
             if (len > 0) {
-                var add_new = '<div class="col-lg-2 col-4 text-center"><a href="recipents/add-form" class=""><img class="recipent-img" src="public/assets/images/add.svg" /><p class="sel-text color-primary mt-3">Add </p></a></div>';
-                $("#show_recipents").append(add_new);
                 for (var i = 0; i < len; i++) {
                     var name = obj[i].name;
                     var last_name = obj[i].last_name;
@@ -99,13 +100,23 @@
                     if (recipent_name == name || recipent_name == last_name) {
                         var profile_image = obj[i].profile_image;
                         var display_image = profile_image.substring(1);
-
-                        var add_new = '<div class="col-lg-2 col-4 text-center"><a href="recipents/add-form" class=""><img class="recipent-img" src="public/assets/images/add.svg" /><p class="sel-text color-primary mt-3">Add </p></a></div>';
-
                         var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><a href="recipents/view-recipent/' + obj[i].recipient_id + '" class=""><img class="recipent-img" src="' + display_image + '" style="border-radius: 100%" /><p class="cl-white sel-text mt-3">' + name + ' ' + last_name + '</p><p class="mb-0 contact-label">' + obj[i].contact_title + '</p></a></div>';
 
                         $("#show_recipents").append(recipent);
                     }
+                }
+            }
+        } else {
+            if (len > 0) {
+                for (var i = 0; i < len; i++) {
+                    var name = obj[i].name;
+                    var last_name = obj[i].last_name;
+                    var profile_image = obj[i].profile_image;
+                    var display_image = profile_image.substring(1);
+
+                    var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><a href="recipents/view-recipent/' + obj[i].recipient_id + '" class=""><img class="recipent-img" src="' + display_image + '" style="border-radius: 100%" /><p class="cl-white sel-text mt-3">' + name + ' ' + last_name + '</p><p class="mb-0 contact-label">' + obj[i].contact_title + '</p></a></div>';
+
+                    $("#show_recipents").append(recipent);
                 }
             }
         }
@@ -140,25 +151,21 @@
             }
         } else if (contact_id != '') {
             $('#show_recipents').empty();
-            $.ajax({
-                url: 'filter-recipent/' + contact_id,
-                type: 'get',
-                success: function(response) {
-                    var len = 0;
-                    $("#show_recipents").append(add_new);
-                    if (response != null) {
-                        len = response.length;
-                    }
-                    if (len > 0) {
-                        var name = response[0].name;
-                        var last_name = response[0].last_name;
-                        var profile_image = response[0].profile_image;
-                        var display_image = profile_image.substring(1);
-                        var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><img class="recipent-img" src="' + display_image + '" style="border-radius: 100%" /><p class="cl-white sel-text mt-3">' + name + ' ' + last_name + '</p></div>';
-                        $("#show_recipents").append(recipent);
-                    }
+            $("#show_recipents").append(add_new);
+            for (var i = 0; i < len; i++) {
+                var name = obj[i].name;
+                var last_name = obj[i].last_name;
+                name = name.toLowerCase();
+                last_name = last_name.toLowerCase();
+                if (contact_id == obj[i].contact_id) {
+                    var profile_image = obj[i].profile_image;
+                    var display_image = profile_image.substring(1);
+
+                    var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><a href="recipents/view-recipent/' + obj[i].recipient_id + '" class=""><img class="recipent-img" src="' + display_image + '" style="border-radius: 100%" /><p class="cl-white sel-text mt-3">' + name + ' ' + last_name + '</p><p class="mb-0 contact-label">' + obj[i].contact_title + '</p></a></div>';
+
+                    $("#show_recipents").append(recipent);
                 }
-            });
+            }
         } else if (group_id != '') {
             $('#show_recipents').empty();
             if (len > 0) {
@@ -179,14 +186,12 @@
             if (len > 0) {
                 $("#show_recipents").append(add_new);
                 for (var i = 0; i < len; i++) {
-
                     var name = obj[i].name;
                     var last_name = obj[i].last_name;
                     var profile_image = obj[i].profile_image;
                     var display_image = profile_image.substring(1);
-                    var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><img class="recipent-img" src="' + display_image + '" style="border-radius: 100%" /><p class="cl-white sel-text mt-3">' + name + ' ' + last_name + '</p></div>';
+                    var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><a href="recipents/view-recipent/' + obj[i].recipient_id + '" class=""><img class="recipent-img" src="' + display_image + '" style="border-radius: 100%" /><p class="cl-white sel-text mt-3">' + name + ' ' + last_name + '</p><p class="mb-0 contact-label">' + obj[i].contact_title + '</p></a></div>';
                     $("#show_recipents").append(recipent);
-
                 }
             }
         }
