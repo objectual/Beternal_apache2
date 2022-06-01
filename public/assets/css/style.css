@@ -633,6 +633,7 @@ body {
     width: 115px;
     height: 115px;
     object-fit: cover;
+    border-radius: 100%;
 }
 .bg-add {
     background-color: transparent;
@@ -3558,3 +3559,6 @@ select:-webkit-autofill:focus {
 .phone-area input {
     border-radius: 0px !important;
 }
+
+
+select option { color: #fff !important; }
