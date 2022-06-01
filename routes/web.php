@@ -70,7 +70,7 @@ Route::middleware('auth', 'user')->group(function () {
         Route::get('/',[UserController::class,'allRecipents'])->name('user.recipents');
         Route::get('add-form',[UserController::class,'addForm'])->name('user.recipents.add-form');
         Route::post('/add-recipent', [UserController::class, 'addRecipent'])->name('user.recipents.add-recipent');
-        Route::get('view-recipent',[UserController::class,'viewRecipent'])->name('user.recipents.view-recipent');
+        Route::get('view-recipent/{id}',[UserController::class,'viewRecipent'])->name('user.recipents.view-recipent');
         Route::get('edit-recipent',[UserController::class,'editRecipent'])->name('user.recipents.edit-recipent');
         Route::post('/update-recipent', [UserController::class, 'updateRecipent'])->name('user.recipents.update-recipent');
         Route::get('delete-recipent/{id}',[UserController::class,'deleteRecipent'])->name('user.recipents.delete-recipent');

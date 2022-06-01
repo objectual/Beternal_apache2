@@ -223,8 +223,10 @@ class UserController extends Controller
                     ->get(['user_contacts.contact_status_id', 'contact_status.contact_title']);
 
                 if (!$contact->isEmpty()) {
+                    $recipient->contact_id = $contact[0]->contact_status_id;
                     $recipient->contact_title = $contact[0]->contact_title;
                 } else {
+                    $recipient->contact_id = 0;
                     $recipient->contact_title = '';
                 }
             }
