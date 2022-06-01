@@ -247,7 +247,7 @@ class UserController extends Controller
         $contacts = UserContact::where('user_id', $id)->get(['contact_status_id']);
         $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
         if ($groups->isEmpty()) {
-            $defined_groups = array('Spouse or Significant Other', 'Family', 'Friend', 'None');
+            $defined_groups = array('Spouse or Partner', 'Family', 'Friend', 'None');
             for ($i = 0; $i < count($defined_groups); $i++) {
                 $add_group = new Group();
                 $add_group->group_title = $defined_groups[$i];
@@ -433,7 +433,7 @@ class UserController extends Controller
             ->join('countries', 'users.country_id', '=', 'countries.id')
             ->join('state_province', 'users.state_province_id', '=', 'state_province.id')
             ->join('cities', 'users.city_id', '=', 'cities.id')
-            ->first(['users.id as recipient_id', 'users.name as first_name', 'users.last_name', 'users.profile_image', 'users.email', 'users.phone_number', 'users.address', 'users.address_2', 'users.zip_postal_code', 'users.country_id', 'users.state_province_id', 'users.city_id', 'countries.country_name', 'countries.country_code', 'countries.postal_code_format', 'state_province.name', 'cities.city_name']);
+            ->first(['users.id as recipient_id', 'users.name as first_name', 'users.last_name', 'users.profile_image', 'users.email', 'users.country_code', 'users.phone_number', 'users.address', 'users.address_2', 'users.zip_postal_code', 'users.country_id', 'users.state_province_id', 'users.city_id', 'countries.country_name', 'countries.postal_code_format', 'state_province.name', 'cities.city_name']);
 
         $provinces = StateProvince::where('country_id', $recipient->country_id)
             ->get(['state_province.id', 'state_province.name']);

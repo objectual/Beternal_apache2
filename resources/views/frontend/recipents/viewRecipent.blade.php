@@ -13,7 +13,10 @@
                         <a href="{{ route('user.recipents.edit-recipent', ['id' => $recipient->recipient_id]) }}" class="icon-edit">
                             <img class="mt-2 img-edit" src="{{ asset('public/assets/images/edit.png') }}" />
                         </a>
-                        <a href="{{ route('user.recipents.delete-recipent', ['id' => $recipient->recipient_id]) }}" class="icon-edit">
+                        <!-- <a href="{{ route('user.recipents.delete-recipent', ['id' => $recipient->recipient_id]) }}" class="icon-edit">
+                            <img class="mt-2 img-edit" src="{{ asset('/public/assets/images/delete-new.png') }}" />
+                        </a> -->
+                        <a id="{{ $recipient->recipient_id }}" class="icon-edit" data-bs-target="#delete" onclick="deleteRecipient(this)">
                             <img class="mt-2 img-edit" src="{{ asset('/public/assets/images/delete-new.png') }}" />
                         </a>
                     </div>
@@ -60,4 +63,32 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6 text-center offset-lg-3">
+                        <p>
+                            Are you sure you want to delete recipient ?
+                        </p>
+                        <div class="text-center mb-4">
+                            <a href="" class="mx-1" id="delete_recipient"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
+                            <a class="mx-1" data-bs-dismiss="modal" aria-label="Close"><img src="{{ asset('/public/assets/images/no.png') }}" /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+
+<script>
+    function deleteRecipient(current) {
+        var element = document.getElementById('delete_recipient');
+        element.href = "delete-recipent/"+ current.id;
+        $("#delete").modal("show");
+    }
+</script>

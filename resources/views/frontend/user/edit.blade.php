@@ -123,6 +123,7 @@
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Confirm Password</span>
                                 </div>
                                 <input id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}" type="password" class="form-control text-end" autocomplete="new-password" aria-describedby="basic-addon1" />
+                                <div class="col-12 text-white" id="show_confirm_pass_msg"></div>
                                 @if($errors->has('password_confirmation'))
                                 <div class="error">{{ $errors->first('password_confirmation') }}</div>
                                 @endif
@@ -417,6 +418,7 @@
 
         $('#show_confirm_pass_msg').empty();
         if (pass != password_confirmation) {
+            alert('testing');
             $("#show_confirm_pass_msg").append('Password & confirm password are not matched!');
             return false;
         }
@@ -458,7 +460,6 @@
                 return false;
             }
         }
-        alert('testing')
         return true;
     }
 </script>

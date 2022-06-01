@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="{!! asset('/public/build/css/intlTelInput.css') !!}" />
 @extends("admin.layouts.layout")
 @section("title","Admin Edit User")
 
@@ -43,9 +44,11 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form method="POST" action="{{ route('admin.users.update') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('admin.users.update') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
               @csrf
               <input type="hidden" name="user_id" value="{{ $user[0]->id }}">
+              <input type="hidden" id="country_code" name="country_code" value="">
+              <input type="hidden" id="postal_code_format" name="postal_code_format" value="{{ $user[0]->zip_code_format }}">
               <div class="card-body">
                 <div class="row">
                   <div class="form-group col-lg-6">
@@ -64,7 +67,8 @@
                   </div>
                   <div class="form-group phone-area col-lg-6">
                     <label for="phone_number">Phone </label>
-                    <input type="text" class="form-control" id="phone" name="phone" value="{{ $user[0]->phone_number }}" placeholder="Enter Phone Number" required>
+                    <input type="tel" class="form-control" id="phone" name="phone" value="{{ $user[0]->phone_number }}" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" maxlength="15" size="25" onKeyup='addDashes(this)' required>
+                    <div class="col-12" id="show_phone_msg"></div>
                   </div>
                 </div>
                 <div class="row">
@@ -74,11 +78,11 @@
                       @if(isset($countries))
                       @foreach($countries as $key => $country)
                       @if($country->id == $user[0]->country_id)
-                      <option value="{{ $country->id }}" selected>
+                      <option id="{{ $country->postal_code_format }}" value="{{ $country->id }}" selected>
                         {{ $country->country_name }}
                       </option>
                       @else
-                      <option value="{{ $country->id }}">
+                      <option id="{{ $country->postal_code_format }}" value="{{ $country->id }}">
                         {{ $country->country_name }}
                       </option>
                       @endif
@@ -144,9 +148,10 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="form-group col-lg-6">
+                  <div class="form-group col-lg-6" id="zip_code">
                     <label for="zip_postal_code">Zip / Postal Code</label>
                     <input type="text" class="form-control" id="zip_postal_code" name="zip_postal_code" value="{{ $user[0]->zip_postal_code }}" placeholder="Enter Zip / Postal Code" required>
+                    <div class="col-12" id="show_postal_msg"></div>
                   </div>
                   <div class="form-group col-lg-6">
                     <label for="status">User Role</label>
@@ -196,9 +201,103 @@
   </section>
   <!-- /.content -->
 </div>
+<script src="{!! asset('/public/build/js/intlTelInput.js') !!}"></script>
+<script>
+  var input = document.querySelector("#phone");
+  var country_code = '<?= $user[0]->country_code ?>';
+  if (country_code.length == 0) {
+    country_code = "pk";
+  }
+  window.intlTelInput(input, {
+    initialCountry: country_code,
+    utilsScript: "{!! asset('/public/build/js/utils.js') !!}",
+  });
 
-<script type="text/javascript">
+  window.addDashes = function addDashes(f) {
+    var phone = document.getElementById('phone');
+    var phone_placeholder = phone.placeholder;
+    var x = 0;
+    const check_integer = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const index_of_char = [];
+    const count_n = [];
+
+    var char_1 = '';
+    var char_2 = '';
+    var char_3 = '';
+    var char_4 = '';
+    var char_5 = '';
+    var num_1 = '';
+    var num_2 = '';
+    var num_3 = '';
+    var num_4 = '';
+    var num_5 = '';
+    var a = 1;
+    var b = 1;
+    var check_length = phone_placeholder.length - 1;
+    for (var i = 0; i < phone_placeholder.length; i++) {
+      var check_placeholder = parseInt(phone_placeholder[i]);
+      if (check_integer.includes(check_placeholder)) {
+        x++;
+        if (i == check_length) {
+          count_n.push(x);
+        }
+      } else {
+        index_of_char.push(i);
+        count_n.push(x);
+        x = 0;
+        if (a == 1) {
+          char_1 = phone_placeholder[i];
+        }
+        if (a == 2) {
+          char_2 = phone_placeholder[i];
+        }
+        if (a == 3) {
+          char_3 = phone_placeholder[i];
+        }
+        if (a == 4) {
+          char_4 = phone_placeholder[i];
+        }
+        if (a == 5) {
+          char_5 = phone_placeholder[i];
+        }
+        a++;
+      }
+    }
+    for (var j = 0; j < count_n.length; j++) {
+      if (b == 1) {
+        num_1 = count_n[j];
+      }
+      if (b == 2) {
+        num_2 = count_n[j];
+      }
+      if (b == 3) {
+        num_3 = count_n[j];
+      }
+      if (b == 4) {
+        num_4 = count_n[j];
+      }
+      if (b == 5) {
+        num_5 = count_n[j];
+      }
+      b++;
+    }
+    var r = /(\D+)/g,
+      npa = '',
+      nxx = '',
+      nxy = '',
+      nxz = '',
+      last4 = '';
+    f.value = f.value.replace(r, '');
+    npa = f.value.substr(0, num_1);
+    nxx = f.value.substr(num_1, num_2);
+    nxy = f.value.substr(num_1 + num_2, num_3);
+    nxz = f.value.substr(num_2 + num_3, num_4);
+    last4 = f.value.substr(num_3 + num_4, num_5);
+    f.value = npa + char_1 + nxx + char_2 + nxy + char_3 + nxz + char_4 + last4;
+  }
+
   function selectCountry() {
+    alert('testing')
     var select = document.getElementById('country_id');
     var option = select.options[select.selectedIndex];
     var country_id = option.value;
@@ -219,8 +318,101 @@
         }
       }
     }
+
+    // var postal_code_format = document.getElementById('postal_code_format');
+    // postal_code_format.value = option.id;
+    // var required_field = 'Required Field';
+    // var validity = '';
+    // var zip_input = '<label for="zip_postal_code">Zip / Postal Code</label><input type="text" class="form-control" id="zip_postal_code" name="zip_postal_code" value="" placeholder="Required Field" oninvalid="this.setCustomValidity(' + required_field + ')" oninput="setCustomValidity(' + validity + ')" required><div class="col-12" id="show_postal_msg"></div>';
+    // $('#show_postal_msg').empty();
+    // $('#zip_code').empty();
+    // $('#zip_code').append(zip_input);
+    // if (option.id == 00000 || option.id == NULL) {
+    //   $('#show_postal_msg').empty();
+    //   $('#zip_code').empty();
+    // }
   }
 
+  function validateForm() {
+    var phone_code = document.getElementById('country_code');
+    var phone = document.getElementById('phone');
+    var phone_number = phone.value;
+    var phone_placeholder = phone.placeholder;
+    var selected_flag = document.querySelector('.iti__selected-flag');
+    var get_code = selected_flag.getAttribute('aria-activedescendant');
+    var country_code = '';
+    const myArray = get_code.split("-");
+    var word = myArray[1];
+    var word_length = myArray.length;
+    var word_index = word_length - 1;
+    if (myArray[word_index] == 'preferred') {
+      country_code = myArray[--word_index];
+    } else {
+      country_code = myArray[word_index];
+    }
+    phone_code.value = country_code;
+
+    if (phone_number.length != phone_placeholder.length) {
+      $('#show_phone_msg').empty();
+      $("#show_phone_msg").append('Phone number is incomplete!');
+      return false;
+    }
+
+    var postal_code_format = document.getElementById('postal_code_format').value;
+    if (postal_code_format != 00000 || postal_code_format != NULL) {
+      var zip_postal_code = document.getElementById('zip_postal_code').value;
+      var postal_msg = 'Format not matched! required format is ' + postal_code_format;
+      if (postal_code_format.length == zip_postal_code.length) {
+        for (var i = 0; i < zip_postal_code.length; i++) {
+          var check_number_postal = parseInt(zip_postal_code[i]);
+          var check_postal_format = parseInt(postal_code_format[i]);
+          const check_integer = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+          const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+          if (check_integer.includes(check_postal_format)) {
+            if (!(check_integer.includes(check_number_postal))) {
+              $('#show_postal_msg').empty();
+              $("#show_postal_msg").append(postal_msg);
+              return false;
+            }
+          } else if (alphabet.includes(postal_code_format[i])) {
+            if (!(alphabet.includes(zip_postal_code[i]))) {
+              $('#show_postal_msg').empty();
+              $("#show_postal_msg").append(postal_msg);
+              return false;
+            }
+          } else if (!(check_integer.includes(check_postal_format)) && !(alphabet.includes(postal_code_format[i]))) {
+            if (zip_postal_code[i] != postal_code_format[i]) {
+              $('#show_postal_msg').empty();
+              $("#show_postal_msg").append(postal_msg);
+              return false;
+            }
+          }
+        }
+        $('#show_postal_msg').empty();
+      } else {
+        $('#show_postal_msg').empty();
+        $("#show_postal_msg").append(postal_msg);
+        return false;
+      }
+    }
+    return true;
+  }
+</script>
+@endsection
+@section('js')
+
+<script>
+  $(function() {
+    $("#example1").DataTable({
+      "responsive": true,
+      "lengthChange": false,
+      "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  });
+</script>
+
+<script type="text/javascript">
   function selectProvince() {
     var select = document.getElementById('state_province_id');
     var option = select.options[select.selectedIndex];
@@ -242,4 +434,5 @@
     }
   }
 </script>
+
 @endsection

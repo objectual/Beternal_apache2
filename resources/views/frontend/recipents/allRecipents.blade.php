@@ -99,7 +99,6 @@
                     if (recipent_name == name || recipent_name == last_name) {
                         var profile_image = obj[i].profile_image;
                         var display_image = profile_image.substring(1);
-                        alert(profile_image)
 
                         var add_new = '<div class="col-lg-2 col-4 text-center"><a href="recipents/add-form" class=""><img class="recipent-img" src="public/assets/images/add.svg" /><p class="sel-text color-primary mt-3">Add </p></a></div>';
 
