@@ -41,29 +41,39 @@
                 </div>
             </div>
             <div class="row mt-1">
-                <div class="col-lg-4 text-start">
+                <div class="col-lg-4 text-start mt-4">
                     <p class="media-head text-white">{{ $get_media[0]->title }}</p>
-                </div>
-                <div class="col-lg-2 col-4 text-white media-head">
-                    <!-- <p>Group</p> -->
-                </div>
-                <div class="col-lg-6 col-8 text-end">
-                    <p class="media-clock-p text-white"><img class="media-clock-img" src="{{ asset('/public/assets/images/clock.png') }}" />&nbsp;{{ $get_media[0]->created_at }}</p>
-                </div>
-            </div>
+                 <p class="media-head text-white">{{ $get_media[0]->description }}</p>
+                 <p class="media-clock-p text-white"><img class="media-clock-img" src="{{ asset('/public/assets/images/clock.png') }}" />&nbsp;{{ $get_media[0]->created_at }}</p>
 
-            <div class="row mt-1">
-                <div class="row d-flex">
+
+                </div>
+                <div class="col-lg-4 text-white media-head mt-4">
+                <div class=" d-flex">
+                    <div class="text-white details-text">Groups : &nbsp;&nbsp;</div>
+                    <div class="text-white p-0 details-text">
                     @if($get_media[0]->all_recipient != null)
+                    @foreach($get_media[0]->all_group as $group)
+                        {{ $group->group_title }},
+                    @endforeach
+                    @endif
+                    </div>
+                </div>
+                </div>
+                <div class="col-lg-4 text-end mt-4">
+                @if($get_media[0]->all_recipient != null)
                     @foreach($get_media[0]->all_recipient as $recipient)
-                    <div class="col-md-1 col-3"><img class="media-recipent" src="{{ asset($recipient->profile_image) }}"></div>
-                    <div class="text-white col-md-2 p-0 col-5 details-text">{{ $recipient->name }} {{ $recipient->last_name }},</div>
+                    <div class="d-flex mb-4"> 
+                    <div><img class="media-recipent" src="{{ asset($recipient->profile_image) }}"></div>
+                    <div class="text-white details-text mx-2">{{ $recipient->name }} {{ $recipient->last_name }},</div>
+                    </div>
+                    
                     @endforeach
                     @endif
                 </div>
             </div>
 
-            <div class="row mt-1">
+            <!-- <div class="row mt-1">
                 <div class="row d-flex">
                     <div class="col-md-1 col-6 text-white details-text">Groups :</div>
                     <div class="text-white col-md-11 p-0 col-5 details-text">
@@ -76,11 +86,27 @@
                 </div>
             </div>
 
-            <div class="row mt-1">
+            <div class="row mt-4">
+                <div class="row d-flex">
+                    @if($get_media[0]->all_recipient != null)
+                    @foreach($get_media[0]->all_recipient as $recipient)
+                    <div class="d-flex col-md-3 mb-4"> 
+                    <div><img class="media-recipent" src="{{ asset($recipient->profile_image) }}"></div>
+                    <div class="text-white details-text mx-2">{{ $recipient->name }} {{ $recipient->last_name }},</div>
+                    </div>
+                    
+                    @endforeach
+                    @endif
+                </div>
+            </div> -->
+
+          
+
+            <!-- <div class="row mt-1">
                 <div class="col-lg-12">
                     <p class="media-head text-white">{{ $get_media[0]->description }}</p>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 

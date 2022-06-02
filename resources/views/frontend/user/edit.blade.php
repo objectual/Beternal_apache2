@@ -53,7 +53,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">First Name</span>
                                 </div>
-                                <input id="name" name="name" type="text" value="{{ old('name') ?? $user[0]->name }}" class="form-control text-end" aria-describedby="basic-addon1" required />
+                                <input id="name" name="name" type="text" value="{{ old('name') ?? $user[0]->name }}" class="form-control text-start" aria-describedby="basic-addon1" required />
                                 @if($errors->has('name'))
                                 <div class="error">{{ $errors->first('name') }}</div>
                                 @endif
@@ -64,7 +64,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Last Name</span>
                                 </div>
-                                <input id="last_name" name="last_name" type="text" value="{{ old('last_name') ?? $user[0]->last_name }}" class="form-control text-end" aria-describedby="basic-addon1" required />
+                                <input id="last_name" name="last_name" type="text" value="{{ old('last_name') ?? $user[0]->last_name }}" class="form-control text-start" aria-describedby="basic-addon1" required />
                                 @if($errors->has('last_name'))
                                 <div class="error">{{ $errors->first('last_name') }}</div>
                                 @endif
@@ -75,7 +75,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Email</span>
                                 </div>
-                                <input id="email" name="email" type="email" value="{{ old('email') ?? $user[0]->email }}" class="form-control text-end" aria-describedby="basic-addon1" required />
+                                <input id="email" name="email" type="email" value="{{ old('email') ?? $user[0]->email }}" class="form-control text-start" aria-describedby="basic-addon1" required />
                                 @if($errors->has('email'))
                                 <div class="error">{{ $errors->first('email') }}</div>
                                 @endif
@@ -86,7 +86,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Phone </span>
                                 </div>
-                                <input id="phone" name="phone" type="tel" value="{{ old('phone_number') ?? $user[0]->phone_number }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" maxlength="15" size="25" onKeyup='addDashes(this)' required />
+                                <input id="phone" name="phone" type="tel" value="{{ old('phone_number') ?? $user[0]->phone_number }}" class="form-control text-start" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" maxlength="15" size="25" onKeyup='addDashes(this)' required />
                                 <div class="col-12 text-white" id="show_phone_msg"></div>
                                 @if($errors->has('phone_number'))
                                 <div class="error">{{ $errors->first('phone_number') }}</div>
@@ -99,7 +99,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Address</span>
                                 </div>
-                                <input id="address" name="address" type="text" value="{{ old('address') ?? $user[0]->address }}" class="form-control text-end" aria-describedby="basic-addon1" required />
+                                <input id="address" name="address" type="text" value="{{ old('address') ?? $user[0]->address }}" class="form-control text-start" aria-describedby="basic-addon1" required />
                                 @if($errors->has('address'))
                                 <div class="error">{{ $errors->first('address') }}</div>
                                 @endif
@@ -111,7 +111,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Password</span>
                                 </div>
-                                <input id="password" name="password" type="password" value="{{ old('password') }}" class="form-control text-end" old autocomplete="new-password" aria-describedby="basic-addon1" />
+                                <input id="password" name="password" type="password" value="{{ old('password') }}" class="form-control text-start" old autocomplete="new-password" aria-describedby="basic-addon1" />
                                 @if($errors->has('password'))
                                 <div class="error">{{ $errors->first('password') }}</div>
                                 @endif
@@ -122,7 +122,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Confirm Password</span>
                                 </div>
-                                <input id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}" type="password" class="form-control text-end" autocomplete="new-password" aria-describedby="basic-addon1" />
+                                <input id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}" type="password" class="form-control text-start" autocomplete="new-password" aria-describedby="basic-addon1" />
                                 <div class="col-12 text-white" id="show_confirm_pass_msg"></div>
                                 @if($errors->has('password_confirmation'))
                                 <div class="error">{{ $errors->first('password_confirmation') }}</div>
@@ -134,7 +134,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Country</span>
                                 </div>
-                                <select id="country_id" name="country_id" class="form-control text-end" aria-describedby="basic-addon1" onChange="selectCountry()" required />
+                                <select id="country_id" name="country_id" class="form-control text-start" aria-describedby="basic-addon1" onChange="selectCountry()" required />
                                 <option value="{{ $user[0]->country_id }}" selected>{{ $user[0]->country_name }}</option>
                                 @if(isset($countries))
                                 @foreach($countries as $key => $country)
@@ -154,7 +154,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">State / Province</span>
                                 </div>
-                                <select id="state_province_id" name="state_province_id" class="form-control text-end" aria-describedby="basic-addon1" onChange="selectProvince()" required />
+                                <select id="state_province_id" name="state_province_id" class="form-control text-start" aria-describedby="basic-addon1" onChange="selectProvince()" required />
                                 <option value="{{ $user[0]->state_province_id }}" selected>{{ $user[0]->province_name }}</option>
                                 @if(isset($countries))
                                 @foreach($provinces as $key => $province)
@@ -172,7 +172,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">City</span>
                                 </div>
-                                <select id="city_id" name="city_id" class="form-control text-end" aria-describedby="basic-addon1" required />
+                                <select id="city_id" name="city_id" class="form-control text-start" aria-describedby="basic-addon1" required />
                                 <option value="{{ $user[0]->city_id }}">{{ $user[0]->city_name }}</option>
                                 @if(isset($cities))
                                 @foreach($cities as $key => $city)
@@ -190,7 +190,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Zip / Postal Code</span>
                                 </div>
-                                <input id="zip_postal_code" name="zip_postal_code" type="text" value="{{ old('zip_postal_code') ?? $user[0]->zip_postal_code }}" class="form-control text-end" aria-describedby="basic-addon1" required />
+                                <input id="zip_postal_code" name="zip_postal_code" type="text" value="{{ old('zip_postal_code') ?? $user[0]->zip_postal_code }}" class="form-control text-start" aria-describedby="basic-addon1" required />
                                 <div class="col-12 text-white" id="show_postal_msg"></div>
                                 @if($errors->has('zip_postal_code'))
                                 <div class="error">{{ $errors->first('zip_postal_code') }}</div>

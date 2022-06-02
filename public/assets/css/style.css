@@ -656,7 +656,8 @@ body {
 }
 .label-add {
     color: #fff;
-    font-size: 14px;
+    font-size: 14px;    
+    margin-right: 20px;
 }
 
 .payment-h3 {
@@ -1354,6 +1355,12 @@ textarea {
     display: none;
 }
 @media screen and (min-width: 280px) and (max-width: 991px) {
+    audio {
+        width: 100%;
+    }
+    .tv_video{
+        height: 250px !important;
+    }
     .select-recipent-bottom-padding {
         padding-bottom: 15%;
         padding-top: 3%;
@@ -1869,7 +1876,11 @@ textarea {
         font-size: 14px !important;
     }
     .my-media-detail-padding {
-        padding-top: 20px;
+        margin: 60px 0px;
+        padding-bottom: 60px !important; 
+    }
+    .my-media-detail-padding .scroll-div {
+        overflow-y: hidden; 
     }
     .loader {
         /* background-image: linear-gradient(
@@ -2409,6 +2420,7 @@ textarea {
 .media-recipent {
     height: 40px;
     width: 40px;
+    border-radius: 100%;
 }
 
 ol,
@@ -3330,7 +3342,7 @@ body {
 }
 
 .visa-img {
-    margin-top: 34px;
+    margin-top: 30px;
 }
 
 .accordion-item { 
@@ -3435,7 +3447,7 @@ body {
 }
 
 .iti--allow-dropdown input, .iti--allow-dropdown input[type=text], .iti--allow-dropdown input[type=tel], .iti--separate-dial-code input, .iti--separate-dial-code input[type=text], .iti--separate-dial-code input[type=tel] {
-    padding: 18.5px 7px !important;
+    padding:18.5px 7px 18.5px 50px !important;
 }
 
 .iti--allow-dropdown {
@@ -3562,3 +3574,30 @@ select:-webkit-autofill:focus {
 
 
 select option { color: #fff !important; }
+
+
+.form-select {
+    color: #ffffff;
+    background-color: #000;
+    border: none;
+}
+
+#redirectModal {
+    z-index: 99999;
+}
+
+.my-media-detail-padding{
+    background-color: rgb(0, 0, 0, 0.3);
+    padding: 0px 20px;
+    border-radius: 10px;
+}
+
+.recipent-phone .iti--allow-dropdown input[type=text] {
+    text-align: left;
+    padding-left: 50px !important;
+}
+
+.record-images {
+    cursor: pointer;
+}
+
