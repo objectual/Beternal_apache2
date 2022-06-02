@@ -173,25 +173,21 @@
                                 </div>
                                 <h4 class="text-white">STATUS</h4>
                             </div>
-                            <div class="row">
+                            <div class="d-flex">
                                 @if($recipient->contact_status_id != '')
-                                <div class="col-lg-4 col-6">
-                                    <label class="container-check label-add cl-white">{{ strtoupper($recipient->contact_title) }}
+                                <label class="container-check label-add cl-white">{{ strtoupper($recipient->contact_title) }}
                                         <input type="checkbox" class="contact-status" id="contact_5" name="contact_status_id" value="{{ $recipient->contact_status_id }}" checked />
                                         <span class="checkmark add-check"></span>
                                     </label>
-                                </div>
                                 @endif
                                 @if(isset($contact_status))
                                 @foreach($contact_status as $key => $contact)
                                 @php $id_name = 'contact_' . ++$key; @endphp
                                 @if(!(in_array($contact->id, $user_contact)))
-                                <div class="col-lg-4 col-6">
-                                    <label class="container-check label-add cl-white">{{ strtoupper($contact->contact_title) }}
+                                <label class="container-check label-add cl-white">{{ strtoupper($contact->contact_title) }}
                                         <input type="checkbox" class="contact-status" id="{{ $id_name }}" name="contact_status_id" value="{{ $contact->id }}" />
                                         <span class="checkmark add-check"></span>
                                     </label>
-                                </div>
                                 @endif
                                 @endforeach
                                 @endif
@@ -199,12 +195,11 @@
                             <div class="col-12" id="show_status_msg"></div>
 
                             <h4 class="text-white mt-3 mb-3">EXISTING GROUP</h4>
-                            <div class="row" id="user_group">
+                            <div class="d-flex" id="user_group">
                                 @if(isset($groups))
                                 @foreach($groups as $key => $group)
                                 @php $id_name = 'group_' . ++$key; @endphp
-                                <div class="col-lg-4 col-4">
-                                    <label class="container-check label-add cl-white">{{ strtoupper($group->group_title) }}
+                                <label class="container-check label-add cl-white">{{ strtoupper($group->group_title) }}
                                         @if($recipient->group_id == $group->id)
                                         <input type="checkbox" class="user-group" id="{{ $id_name }}" name="group_id" value="{{ $group->id }}" onclick="selectGroup(this)" checked />
                                         @else
@@ -212,7 +207,6 @@
                                         @endif
                                         <span class="checkmark add-check"></span>
                                     </label>
-                                </div>
                                 @endforeach
                                 @endif
                             </div>

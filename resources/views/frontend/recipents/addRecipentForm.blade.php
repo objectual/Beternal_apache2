@@ -139,32 +139,28 @@
                                 </div>
                                 <h4 class="text-white">STATUS</h4>
                             </div>
-                            <div class="row">
+                            <div class="d-flex">
                                 @if(isset($contact_status))
                                 @foreach($contact_status as $key => $contact)
                                 @php $id_name = 'contact_' . ++$key; @endphp
                                 @if(!(in_array($contact->id, $user_contact)))
-                                <div class="col-lg-4 col-6">
-                                    <label class="container-check label-add cl-white">{{ strtoupper($contact->contact_title) }}
+                                <label class="container-check label-add cl-white">{{ strtoupper($contact->contact_title) }}
                                         <input type="checkbox" class="contact-status" id="{{ $id_name }}" name="contact_status_id" value="{{ $contact->id }}" onclick="selectContact(this)" />
                                         <span class="checkmark add-check"></span>
                                     </label>
-                                </div>
                                 @endif
                                 @endforeach
                                 @endif
                             </div>
                             <h4 class="text-white mt-3 mb-3">GROUPS</h4>
-                            <div class="row" id="user_group">
+                            <div class="d-flex" id="user_group">
                                 @if(isset($groups))
                                 @foreach($groups as $key => $group)
                                 @php $id_name = 'group_' . ++$key; @endphp
-                                <div class="col-lg-4 col-4">
-                                    <label class="container-check label-add cl-white">{{ strtoupper($group->group_title) }}
+                                <label class="container-check label-add cl-white">{{ strtoupper($group->group_title) }}
                                         <input type="checkbox" class="user-group" id="{{ $id_name }}" name="group_id" value="{{ $group->id }}" onclick="selectGroup(this)" />
                                         <span class="checkmark add-check"></span>
                                     </label>
-                                </div>
                                 @endforeach
                                 @endif
                             </div>
