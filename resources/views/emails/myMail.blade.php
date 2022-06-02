@@ -6,10 +6,11 @@
 </head>
 
 <body>
-    <h1>Welcome</h1>
-    <p>Your account has been successfully created</p>
+    <h1>Welcome. You are registered.</h1>
+    <p>Dear {{ Auth::user()->name }} {{ Auth::user()->last_name }}</p>
 
     <p>Thank you</p>
+    <p>bETERNAL Team</p>
 </body>
 
 </html>
