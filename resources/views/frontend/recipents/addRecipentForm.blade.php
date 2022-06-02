@@ -218,86 +218,89 @@
 
 <script type="text/javascript">
     window.addDashes = function addDashes(f) {
-        var phone = document.getElementById('phone');
-        var phone_placeholder = phone.placeholder;
-        var x = 0;
-        const check_integer = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-        const index_of_char = [];
-        const count_n = [];
+        let unicode = event.keyCode;
+        if (unicode != 8) {
+            var phone = document.getElementById('phone');
+            var phone_placeholder = phone.placeholder;
+            var x = 0;
+            const check_integer = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+            const index_of_char = [];
+            const count_n = [];
 
-        var char_1 = '';
-        var char_2 = '';
-        var char_3 = '';
-        var char_4 = '';
-        var char_5 = '';
-        var num_1 = '';
-        var num_2 = '';
-        var num_3 = '';
-        var num_4 = '';
-        var num_5 = '';
-        var a = 1;
-        var b = 1;
-        var check_length = phone_placeholder.length - 1;
-        for (var i = 0; i < phone_placeholder.length; i++) {
-            var check_placeholder = parseInt(phone_placeholder[i]);
-            if (check_integer.includes(check_placeholder)) {
-                x++;
-                if (i == check_length) {
+            var char_1 = '';
+            var char_2 = '';
+            var char_3 = '';
+            var char_4 = '';
+            var char_5 = '';
+            var num_1 = '';
+            var num_2 = '';
+            var num_3 = '';
+            var num_4 = '';
+            var num_5 = '';
+            var a = 1;
+            var b = 1;
+            var check_length = phone_placeholder.length - 1;
+            for (var i = 0; i < phone_placeholder.length; i++) {
+                var check_placeholder = parseInt(phone_placeholder[i]);
+                if (check_integer.includes(check_placeholder)) {
+                    x++;
+                    if (i == check_length) {
+                        count_n.push(x);
+                    }
+                } else {
+                    index_of_char.push(i);
                     count_n.push(x);
+                    x = 0;
+                    if (a == 1) {
+                        char_1 = phone_placeholder[i];
+                    }
+                    if (a == 2) {
+                        char_2 = phone_placeholder[i];
+                    }
+                    if (a == 3) {
+                        char_3 = phone_placeholder[i];
+                    }
+                    if (a == 4) {
+                        char_4 = phone_placeholder[i];
+                    }
+                    if (a == 5) {
+                        char_5 = phone_placeholder[i];
+                    }
+                    a++;
                 }
-            } else {
-                index_of_char.push(i);
-                count_n.push(x);
-                x = 0;
-                if (a == 1) {
-                    char_1 = phone_placeholder[i];
-                }
-                if (a == 2) {
-                    char_2 = phone_placeholder[i];
-                }
-                if (a == 3) {
-                    char_3 = phone_placeholder[i];
-                }
-                if (a == 4) {
-                    char_4 = phone_placeholder[i];
-                }
-                if (a == 5) {
-                    char_5 = phone_placeholder[i];
-                }
-                a++;
             }
+            for (var j = 0; j < count_n.length; j++) {
+                if (b == 1) {
+                    num_1 = count_n[j];
+                }
+                if (b == 2) {
+                    num_2 = count_n[j];
+                }
+                if (b == 3) {
+                    num_3 = count_n[j];
+                }
+                if (b == 4) {
+                    num_4 = count_n[j];
+                }
+                if (b == 5) {
+                    num_5 = count_n[j];
+                }
+                b++;
+            }
+            var r = /(\D+)/g,
+                npa = '',
+                nxx = '',
+                nxy = '',
+                nxz = '',
+                last4 = '';
+            f.value = f.value.replace(r, '');
+            npa = f.value.substr(0, num_1);
+            nxx = f.value.substr(num_1, num_2);
+            nxy = f.value.substr(num_1 + num_2, num_3);
+            nxz = f.value.substr(num_2 + num_3, num_4);
+            last4 = f.value.substr(num_3 + num_4, num_5);
+            f.value = npa + char_1 + nxx + char_2 + nxy + char_3 + nxz + char_4 + last4;
         }
-        for (var j = 0; j < count_n.length; j++) {
-            if (b == 1) {
-                num_1 = count_n[j];
-            }
-            if (b == 2) {
-                num_2 = count_n[j];
-            }
-            if (b == 3) {
-                num_3 = count_n[j];
-            }
-            if (b == 4) {
-                num_4 = count_n[j];
-            }
-            if (b == 5) {
-                num_5 = count_n[j];
-            }
-            b++;
-        }
-        var r = /(\D+)/g,
-            npa = '',
-            nxx = '',
-            nxy = '',
-            nxz = '',
-            last4 = '';
-        f.value = f.value.replace(r, '');
-        npa = f.value.substr(0, num_1);
-        nxx = f.value.substr(num_1, num_2);
-        nxy = f.value.substr(num_1 + num_2, num_3);
-        nxz = f.value.substr(num_2 + num_3, num_4);
-        last4 = f.value.substr(num_3 + num_4, num_5);
-        f.value = npa + char_1 + nxx + char_2 + nxy + char_3 + nxz + char_4 + last4;
     }
 
     function selectCountry() {
