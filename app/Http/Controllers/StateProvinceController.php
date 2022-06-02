@@ -10,7 +10,7 @@ class StateProvinceController extends Controller
 {
     public function getStateProvinces($id)
     {
-        $state_provinces = StateProvince::where(['country_id'=>$id, 'status'=>1])->get();
+        $state_provinces = StateProvince::where(['country_id'=>$id, 'status'=>1])->orderBy('name', 'asc')->get();
         return $state_provinces;
     }
 

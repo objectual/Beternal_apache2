@@ -111,7 +111,10 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Password</span>
                                 </div>
-                                <input id="password" name="password" type="password" value="{{ old('password') }}" class="form-control text-end" old autocomplete="new-password" aria-describedby="basic-addon1" />
+                                <input id="password" name="password" type="password" value="{{ old('password') }}" class="form-control text-end" old autocomplete="new-password" aria-describedby="basic-addon1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" oninvalid="this.setCustomValidity('Should be at least 8 characters with one upper, one lower and one number')" oninput="setCustomValidity('')" />
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text eye-pass-reg" id="basic-addon1"><img style="height: 20px; width: 20px;" src="{{ asset('/public/assets/images/eye.png') }}" onclick="showPassword()" /></span>
+                                </div>
                                 @if($errors->has('password'))
                                 <div class="error">{{ $errors->first('password') }}</div>
                                 @endif
@@ -122,7 +125,10 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Confirm Password</span>
                                 </div>
-                                <input id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}" type="password" class="form-control text-end" autocomplete="new-password" aria-describedby="basic-addon1" />
+                                <input id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}" type="password" class="form-control text-end" autocomplete="new-password" aria-describedby="basic-addon1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" oninvalid="this.setCustomValidity('Should be at least 8 characters with one upper, one lower and one number')" oninput="setCustomValidity('')" />
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text eye-pass-reg" id="basic-addon1"><img style="height: 20px; width: 20px;" src="{{ asset('/public/assets/images/eye.png') }}" onclick="showConfirmPassword()" /></span>
+                                </div>
                                 <div class="col-12 text-white" id="show_confirm_pass_msg"></div>
                                 @if($errors->has('password_confirmation'))
                                 <div class="error">{{ $errors->first('password_confirmation') }}</div>
@@ -315,6 +321,24 @@
         f.value = npa + char_1 + nxx + char_2 + nxy + char_3 + nxz + char_4 + last4;
     }
 
+    function showPassword() {
+        var pass = document.getElementById("password");
+        if (pass.type === "password") {
+            pass.type = "text";
+        } else {
+            pass.type = "password";
+        }
+    }
+
+    function showConfirmPassword() {
+        var confirm_pass = document.getElementById("password_confirmation");
+        if (confirm_pass.type === "password") {
+            confirm_pass.type = "text";
+        } else {
+            confirm_pass.type = "password";
+        }
+    }
+
     function selectCountry() {
         var select = document.getElementById('country_id');
         var option = select.options[select.selectedIndex];
@@ -384,6 +408,9 @@
                         var o = new Option(city_name, id);
                         $("#city_id").append(o);
                     }
+                } else {
+                    var o = new Option(option.text, 0);
+                    $("#city_id").append(o);
                 }
             }
         });
@@ -418,7 +445,6 @@
 
         $('#show_confirm_pass_msg').empty();
         if (pass != password_confirmation) {
-            alert('testing');
             $("#show_confirm_pass_msg").append('Password & confirm password are not matched!');
             return false;
         }

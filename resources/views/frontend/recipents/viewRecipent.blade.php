@@ -1,6 +1,7 @@
 @extends("frontend.layouts.layout")
 @section("title","View Recipient")
 @section("content")
+@php $base_url = url(''); @endphp
 <div class="container-fluid bg-create recipent-back pb-5 pt-5">
     <div class="scroll-div">
         <div class="col-lg-6 offset-lg-3">
@@ -87,8 +88,10 @@
 
 <script>
     function deleteRecipient(current) {
+        var base_url = '<?= $base_url ?>';
+        var set_path = base_url + '/recipents/delete-recipent/'+ current.id;
         var element = document.getElementById('delete_recipient');
-        element.href = "delete-recipent/"+ current.id;
+        element.href = set_path;
         $("#delete").modal("show");
     }
 </script>

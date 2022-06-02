@@ -131,8 +131,8 @@ class UserController extends Controller
     {
         if ($request->password == null) {
             $request->validate([
-                'name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
-                'last_name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
+                'name' => ['required', 'string', 'min:3', 'max:255'],
+                'last_name' => ['required', 'string', 'min:3', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)],
                 // 'email' => Rules::unique('users')->ignore(Auth::user()->id),
                 'phone' => ['required', 'string'],
@@ -157,6 +157,10 @@ class UserController extends Controller
                 'city_id' => ['required'],
                 'zip_postal_code' => ['required'],
             ]);
+        }
+        if ($request->city_id == 0) {
+            $default_city = City::orderBy('id', 'desc')->first();
+            $request->city_id = $default_city->id;
         }
         if (request()->file('image')) {
             $image = request()->file('image');
@@ -292,8 +296,8 @@ class UserController extends Controller
 
         if ($check_email->isEmpty()) {
             $request->validate([
-                'name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
-                'last_name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
+                'name' => ['required', 'string', 'min:3', 'max:255'],
+                'last_name' => ['required', 'string', 'min:3', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'phone' => ['required', 'string'],
                 'address' => ['required', 'string', 'min:5', 'max:255'],
@@ -303,6 +307,10 @@ class UserController extends Controller
                 'city_id' => ['required'],
             ]);
 
+            if ($request->city_id == 0) {
+                $default_city = City::orderBy('id', 'desc')->first();
+                $request->city_id = $default_city->id;
+            }
             if ($request->postal_code_format == null) {
                 $request->zip_postal_code = '00000';
             }
@@ -494,8 +502,8 @@ class UserController extends Controller
         $contact_status_id = $request->contact_status_id;
 
         $request->validate([
-            'name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
-            'last_name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
+            'name' => ['required', 'string', 'min:3', 'max:255'],
+            'last_name' => ['required', 'string', 'min:3', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'phone' => ['required', 'string'],
             'address' => ['required', 'string', 'min:5', 'max:255'],
@@ -506,6 +514,10 @@ class UserController extends Controller
         ]);
 
         $update_recipient = User::findOrFail($recipient_id);
+        if ($request->city_id == 0) {
+            $default_city = City::orderBy('id', 'desc')->first();
+            $request->city_id = $default_city->id;
+        }
         if ($request->postal_code_format == null) {
             $request->zip_postal_code = '00000';
         }

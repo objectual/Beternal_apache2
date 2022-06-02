@@ -297,7 +297,6 @@
   }
 
   function selectCountry() {
-    alert('testing')
     var select = document.getElementById('country_id');
     var option = select.options[select.selectedIndex];
     var country_id = option.value;

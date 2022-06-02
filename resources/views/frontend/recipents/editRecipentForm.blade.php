@@ -147,17 +147,14 @@
                                         <span class="input-group-text add-label" id="basic-addon2">City</span>
                                     </div>
                                     <select id="city_id" name="city_id" class="form-control add-input" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
+                                    <option value="{{ $recipient->city_id }}" selected>
+                                        {{ $recipient->city_name }}
+                                    </option>
                                     @if(isset($cities))
                                     @foreach($cities as $key => $city)
-                                    @if($city->id == $recipient->city_id)
-                                    <option value="{{ $city->id }}" selected>
-                                        {{ $city->city_name }}
-                                    </option>
-                                    @else
                                     <option value="{{ $city->id }}">
                                         {{ $city->city_name }}
                                     </option>
-                                    @endif
                                     @endforeach
                                     @endif
                                     </select>
@@ -429,6 +426,9 @@
                         var o = new Option(city_name, id);
                         $("#city_id").append(o);
                     }
+                } else {
+                    var o = new Option(option.text, 0);
+                    $("#city_id").append(o);
                 }
             }
         });

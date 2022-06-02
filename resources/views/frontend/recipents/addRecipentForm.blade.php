@@ -378,6 +378,9 @@
                         var o = new Option(city_name, id);
                         $("#city_id").append(o);
                     }
+                } else {
+                    var o = new Option(option.text, 0);
+                    $("#city_id").append(o);
                 }
             }
         });

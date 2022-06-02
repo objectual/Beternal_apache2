@@ -16,9 +16,7 @@
                     @include("frontend.layouts.header")
                     @yield("content")
                     @show
-                    @if(Auth::user())
-                        @include("frontend.layouts.footer_menu")
-                    @endif
+                    @include("frontend.layouts.footer_menu")
                     @include("frontend.layouts.footer")
                 </div>
             </div>

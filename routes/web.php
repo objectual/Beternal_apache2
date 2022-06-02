@@ -39,7 +39,7 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 // start routes for ajax request
 Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
 Route::get('/cities/{id}', [CityController::class, 'getCities']);
-// Route::get('/filter-recipent/{contact_id}', [UserController::class, 'filterRecipent']);
+Route::get('/filter-recipent/{contact_id}', [UserController::class, 'filterRecipent']);
 // end routes for ajax request
 
 // start footer routes
@@ -89,7 +89,7 @@ Route::middleware('auth', 'user')->group(function () {
         Route::get('shared-media-recipents',[MediaController::class,'sharedMediaRecipents'])->name('user.medias.shared-media-recipents');
         Route::get('shared-media',[MediaController::class,'sharedMedia'])->name('user.medias.shared-media');
         Route::get('my-media-details/{id}',[MediaController::class,'myMediaDetails'])->name('user.medias.my-media-details');
-        Route::get('my-media-delete',[MediaController::class,'myMediaDelete'])->name('user.medias.my-media-delete');
+        Route::get('my-media-delete/{id}',[MediaController::class,'myMediaDelete'])->name('user.medias.my-media-delete');
     });
     Route::group(['prefix' => 'legacy'], function () {
         Route::get('/',[MediaController::class,'legacy'])->name('user.legacy');

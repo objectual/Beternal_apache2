@@ -1,6 +1,7 @@
 @extends("frontend.layouts.layout")
 @section("title","My Media Details")
 @section("content")
+@php $base_url = url(''); @endphp
 <div class="container-fluid shared-back-light pt-5 pb-3  bg-calendar">
     <div class="col-lg-10 offset-lg-1 my-media-detail-padding">
         <div class="scroll-div">
@@ -11,7 +12,7 @@
                             <img src="{{ asset('/public/assets/images/edit-icon-media-details.png') }}" class="edit-icon-style mt-1">
                             <p class="px-2 text-white mx-1">Edit</p>
                         </a> -->
-                        <a href="{{ route('user.medias.my-media-delete', ['id' => $get_media[0]->id]) }}" class="d-flex">
+                        <a id="{{ $get_media[0]->id }}" class="d-flex" data-bs-target="#delete" onclick="deleteMedia(this)">
                             <img src="{{ asset('/public/assets/images/delete-new.png') }}" class="delete-icon-style mt-1">
                             <p class="px-2 text-white mx-1">Delete</p>
                         </a>
@@ -66,11 +67,11 @@
                 <div class="row d-flex">
                     <div class="col-md-1 col-6 text-white details-text">Groups :</div>
                     <div class="text-white col-md-11 p-0 col-5 details-text">
-                    @if($get_media[0]->all_recipient != null)
-                    @foreach($get_media[0]->all_group as $group)
+                        @if($get_media[0]->all_recipient != null)
+                        @foreach($get_media[0]->all_group as $group)
                         {{ $group->group_title }},
-                    @endforeach
-                    @endif
+                        @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
@@ -84,4 +85,34 @@
     </div>
 
 </div>
+
+<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6 text-center offset-lg-3">
+                        <p>
+                            Are you sure you want to delete media ?
+                        </p>
+                        <div class="text-center mb-4">
+                            <a href="" class="mx-1" id="delete_media"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
+                            <a class="mx-1" data-bs-dismiss="modal" aria-label="Close"><img src="{{ asset('/public/assets/images/no.png') }}" /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+
+<script>
+    function deleteMedia(current) {
+        var base_url = '<?= $base_url ?>';
+        var set_path = base_url + '/medias/my-media-delete/'+ current.id;
+        var element = document.getElementById('delete_media');
+        element.href = set_path;
+        $("#delete").modal("show");
+    }
+</script>

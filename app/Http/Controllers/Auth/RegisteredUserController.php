@@ -55,8 +55,8 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
-            'last_name' => ['required', 'string', 'alpha', 'min:3', 'max:255'],
+            'name' => ['required', 'string', 'min:3', 'max:255'],
+            'last_name' => ['required', 'string', 'min:3', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required', 'string'],
             'address' => ['required', 'string', 'min:5', 'max:255'],
@@ -67,6 +67,10 @@ class RegisteredUserController extends Controller
             'city_id' => ['required'],
             'zip_postal_code' => ['required'],
         ]);
+        if ($request->city_id == 0) {
+            $default_city = City::orderBy('id', 'desc')->first();
+            $request->city_id = $default_city->id;
+        }
         if(request()->file('image')){
             // dd('is image');
             $image = request()->file('image');
