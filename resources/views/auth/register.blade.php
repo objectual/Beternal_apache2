@@ -47,7 +47,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">First Name</span>
                                 </div>
-                                <input id="name" name="name" type="text" value="{{ old('name') }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
+                                <input id="name" name="name" type="text" value="{{ old('name') }}" class="form-control text-start" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                             </div>
                             @if($errors->has('name'))
                             <div class="error text-white">{{ $errors->first('name') }}</div>
@@ -58,7 +58,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Last Name</span>
                                 </div>
-                                <input id="last_name" name="last_name" type="text" value="{{ old('last_name') }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
+                                <input id="last_name" name="last_name" type="text" value="{{ old('last_name') }}" class="form-control text-start" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                             </div>
                             @if($errors->has('last_name'))
                             <div class="error text-white">{{ $errors->first('last_name') }}</div>
@@ -69,7 +69,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Email</span>
                                 </div>
-                                <input id="email" name="email" type="email" value="{{ old('email') }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
+                                <input id="email" name="email" type="email" value="{{ old('email') }}" class="form-control text-start" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                             </div>
                             @if($errors->has('email'))
                             <div class="error text-white">{{ $errors->first('email') }}</div>
@@ -80,7 +80,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Phone </span>
                                 </div>
-                                <input id="phone" name="phone" type="tel" value="{{ old('phone') }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" maxlength="15" size="25" onKeyup='addDashes(this)' required />
+                                <input id="phone" name="phone" type="tel" value="{{ old('phone') }}" class="form-control text-start" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" maxlength="15" size="25" onKeyup='addDashes(this)' required />
                                 <div class="col-12 text-white" id="show_phone_msg"></div>
                             </div>
                             @if($errors->has('phone'))
@@ -92,7 +92,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Address</span>
                                 </div>
-                                <input id="address" name="address" type="text" value="{{ old('address') }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
+                                <input id="address" name="address" type="text" value="{{ old('address') }}" class="form-control text-start" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                             </div>
                             @if($errors->has('address'))
                             <div class="error text-white">{{ $errors->first('address') }}</div>
@@ -103,7 +103,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Password</span>
                                 </div>
-                                <input id="password" name="password" type="password" value="{{ old('password') }}" class="form-control text-end" old autocomplete="new-password" aria-describedby="basic-addon1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" oninvalid="this.setCustomValidity('Should be at least 8 characters with one upper, one lower and one number')" oninput="setCustomValidity('')" required />
+                                <input id="password" name="password" type="password" value="{{ old('password') }}" class="form-control text-start" old autocomplete="new-password" aria-describedby="basic-addon1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" oninvalid="this.setCustomValidity('Should be at least 8 characters with one upper, one lower and one number')" oninput="setCustomValidity('')" required />
                                 <div class="input-group-prepend">
                                     <span class="input-group-text eye-pass-reg" id="basic-addon1"><img style="height: 20px; width: 20px;" src="{{ asset('/public/assets/images/eye.png') }}" onclick="showPassword()" /></span>
                                 </div>
@@ -132,7 +132,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Country</span>
                                 </div>
-                                <select id="country_id" name="country_id" class="form-control text-end" aria-describedby="basic-addon1" onChange="selectCountry()" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
+                                <select id="country_id" name="country_id" class="form-control text-start" aria-describedby="basic-addon1" onChange="selectCountry()" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 <option value="">Select Country</option>
                                 @if(isset($countries))
                                 @foreach($countries as $key => $country)
@@ -152,7 +152,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">State / Province</span>
                                 </div>
-                                <select id="state_province_id" name="state_province_id" class="form-control text-end" aria-describedby="basic-addon1" onChange="selectProvince()" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
+                                <select id="state_province_id" name="state_province_id" class="form-control text-start" aria-describedby="basic-addon1" onChange="selectProvince()" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 <option value="">Select State / Province</option>
                                 </select>
                             </div>
@@ -165,7 +165,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">City</span>
                                 </div>
-                                <select id="city_id" name="city_id" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
+                                <select id="city_id" name="city_id" class="form-control text-start" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 <option value="">Select City</option>
                                 </select>
                             </div>
@@ -178,7 +178,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Zip / Postal Code</span>
                                 </div>
-                                <input id="zip_postal_code" name="zip_postal_code" type="text" value="{{ old('zip_postal_code') }}" class="form-control text-end" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
+                                <input id="zip_postal_code" name="zip_postal_code" type="text" value="{{ old('zip_postal_code') }}" class="form-control text-start" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
                                 <div class="col-12 text-white" id="show_postal_msg"></div>
                             </div>
                             @if($errors->has('zip_postal_code'))
