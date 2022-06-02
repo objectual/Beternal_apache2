@@ -111,7 +111,10 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Password</span>
                                 </div>
-                                <input id="password" name="password" type="password" value="{{ old('password') }}" class="form-control text-start" old autocomplete="new-password" aria-describedby="basic-addon1" />
+                                <input id="password" name="password" type="password" value="{{ old('password') }}" class="form-control text-start" old autocomplete="new-password" aria-describedby="basic-addon1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" oninvalid="this.setCustomValidity('Should be at least 8 characters with one upper, one lower and one number')" oninput="setCustomValidity('')" />
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text eye-pass-reg" id="basic-addon1"><img style="height: 20px; width: 20px;" src="{{ asset('/public/assets/images/eye.png') }}" onclick="showPassword()" /></span>
+                                </div>
                                 @if($errors->has('password'))
                                 <div class="error">{{ $errors->first('password') }}</div>
                                 @endif
@@ -122,7 +125,10 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Confirm Password</span>
                                 </div>
-                                <input id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}" type="password" class="form-control text-start" autocomplete="new-password" aria-describedby="basic-addon1" />
+                                <input id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}" type="password" class="form-control text-start" autocomplete="new-password" aria-describedby="basic-addon1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" oninvalid="this.setCustomValidity('Should be at least 8 characters with one upper, one lower and one number')" oninput="setCustomValidity('')" />
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text eye-pass-reg" id="basic-addon1"><img style="height: 20px; width: 20px;" src="{{ asset('/public/assets/images/eye.png') }}" onclick="showConfirmPassword()" /></span>
+                                </div>
                                 <div class="col-12 text-white" id="show_confirm_pass_msg"></div>
                                 @if($errors->has('password_confirmation'))
                                 <div class="error">{{ $errors->first('password_confirmation') }}</div>
