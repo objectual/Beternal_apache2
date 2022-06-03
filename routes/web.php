@@ -39,7 +39,7 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 // start routes for ajax request
 Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
 Route::get('/cities/{id}', [CityController::class, 'getCities']);
-// Route::get('/filter-recipent/{contact_id}', [UserController::class, 'filterRecipent']);
+Route::get('/filter-recipent/{contact_id}', [UserController::class, 'filterRecipent']);
 // end routes for ajax request
 
 // start footer routes

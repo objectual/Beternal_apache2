@@ -71,10 +71,31 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $id = $request->user_id;
+        $request->validate([
+            'name' => ['required', 'string', 'min:3', 'max:255'],
+            'last_name' => ['required', 'string', 'min:3', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'phone' => ['required', 'string'],
+            'address' => ['required', 'string', 'min:5', 'max:255'],
+            'image' => 'image|mimes:jpeg,png,jpg,svg,bmp',
+            'country_id' => ['required'],
+            'state_province_id' => ['required'],
+            'city_id' => ['required'],
+        ]);
+
+        if ($request->city_id == 0) {
+            $default_city = City::orderBy('id', 'desc')->first();
+            $request->city_id = $default_city->id;
+        }
+        if ($request->postal_code_format == null) {
+            $request->zip_postal_code = '00000';
+        }
+
         $update_user = User::findOrFail($id);
         $update_user->name = $request->name;
         $update_user->last_name = $request->last_name;
         $update_user->email = $request->email;
+        $update_user->country_code = $request->country_code;
         $update_user->phone_number = $request->phone;
         $update_user->zip_postal_code = $request->zip_postal_code;
         $update_user->address = $request->address;

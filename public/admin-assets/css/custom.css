@@ -68,3 +68,11 @@
   .content-wrapper {
     margin-bottom: 56px;
   }
+
+  .d-grid {
+    display: grid;
+  }
+
+  .connectedSortable {
+    margin-bottom: 50px;
+  }

@@ -13,7 +13,7 @@ use App\Models\StateProvince;
         ->join('countries', 'users.country_id', '=', 'countries.id')
         ->join('state_province', 'users.state_province_id', '=', 'state_province.id')
         ->join('cities', 'users.city_id', '=', 'cities.id')
-        ->get(['users.*', 'user_roles.role_name', 'plans.title', 'countries.country_name', 'state_province.name as province_name', 'cities.city_name']);
+        ->get(['users.*', 'user_roles.role_name', 'plans.title', 'countries.country_name', 'countries.postal_code_format', 'state_province.name as province_name', 'cities.city_name']);
         return $user;    
     }
 
