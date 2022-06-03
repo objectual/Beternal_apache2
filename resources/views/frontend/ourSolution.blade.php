@@ -16,7 +16,7 @@
                             another, those precious clips are potentially lost forever.
                             According to Big Social, your “private” data is anything but.
                         </p>
-                        <a href="./create-account.html" class="solution-acc-btn">CREATE ACCOUNT</a>
+                        <a href="{{ route('register') }}" class="solution-acc-btn">CREATE ACCOUNT</a>
                     </div>
                 </div>
                 <div class="container-fluid break-free-back">

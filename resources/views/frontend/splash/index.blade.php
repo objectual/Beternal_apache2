@@ -1,38 +1,54 @@
 @extends("frontend.layouts.layout")
 @section("title","Splash")
 @section("content")
+@if(session()->has('message'))
+<div class="modal-dialog logout-modal">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-10 text-center offset-lg-1">
+                    <p>{{ session()->get('message') }}</p>
+                    <div class="text-center mb-4">
+                        <a href="{{ route('index') }}" class="mx-1"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@else
 <div class="loader">
     <div class="splash-main">
         <div class="bg-sp-1 px-5">
-        <div class="container">
-        <div class="row">
-        <div class="col-lg-2"></div>
-            
-            <div class="col-lg-8">
-                <p class="sp-head-1">
-                    bETERNAL is a secure legacy-creation and preservation platform.
-                </p>
-                <p class="sp-head-2">
-                    In a time where social media wants to permanently and mindlessly
-                    tell the story of your life through your digital footprint, we
-                    invite you to take your story back.
-                </p>
+            <div class="container">
                 <div class="row">
-                    <div class="col-lg-12 p-0-m">
-                    <video class="landing_video" controls>
-                            <source src="{{ asset('/public/assets/images/solution.mp4') }}" type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
+                    <div class="col-lg-2"></div>
+
+                    <div class="col-lg-8">
+                        <p class="sp-head-1">
+                            bETERNAL is a secure legacy-creation and preservation platform.
+                        </p>
+                        <p class="sp-head-2">
+                            In a time where social media wants to permanently and mindlessly
+                            tell the story of your life through your digital footprint, we
+                            invite you to take your story back.
+                        </p>
+                        <div class="row">
+                            <div class="col-lg-12 p-0-m">
+                                <video class="landing_video" controls>
+                                    <source src="{{ asset('/public/assets/images/solution.mp4') }}" type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        </div>
+                        <p class="sp-head-2">
+                            Through interactive prompts, we help you tell your life story and
+                            share it with only those you choose.
+                        </p>
                     </div>
+                    <div class="col-lg-2"></div>
                 </div>
-                <p class="sp-head-2">
-                    Through interactive prompts, we help you tell your life story and
-                    share it with only those you choose.
-                </p>
             </div>
-            <div class="col-lg-2"></div>
-        </div>
-        </div>
         </div>
         <div class="row bg-sp-2 px-5">
             <div class="col-12">
@@ -80,4 +96,5 @@
         </div>
     </div>
 </div>
+@endif
 @endsection
