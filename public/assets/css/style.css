@@ -3601,3 +3601,6 @@ select option { color: #fff !important; }
     cursor: pointer;
 }
 
+.logout-modal {
+    max-width: 380px !important;
+}
