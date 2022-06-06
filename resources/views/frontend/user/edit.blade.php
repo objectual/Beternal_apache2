@@ -86,7 +86,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text input-back account-label" id="basic-addon2">Phone </span>
                                 </div>
-                                <input id="phone" name="phone" type="tel" value="{{ old('phone_number') ?? $user[0]->phone_number }}" class="form-control text-start" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" maxlength="15" size="25" onKeyup='addDashes(this)' required />
+                                <input id="phone" name="phone" type="tel" value="{{ old('phone_number') ?? $user[0]->phone_number }}" class="form-control text-start" aria-describedby="basic-addon1" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" maxlength="15" onKeyup='addDashes(this)' required />
                                 <div class="col-12 text-white" id="show_phone_msg"></div>
                                 @if($errors->has('phone_number'))
                                 <div class="error">{{ $errors->first('phone_number') }}</div>
@@ -243,84 +243,121 @@
         if (unicode != 8) {
             var phone = document.getElementById('phone');
             var phone_placeholder = phone.placeholder;
-            var x = 0;
             const check_integer = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
             const index_of_char = [];
             const count_n = [];
 
-            var char_1 = '';
-            var char_2 = '';
-            var char_3 = '';
-            var char_4 = '';
-            var char_5 = '';
-            var num_1 = '';
-            var num_2 = '';
-            var num_3 = '';
-            var num_4 = '';
-            var num_5 = '';
-            var a = 1;
-            var b = 1;
-            var check_length = phone_placeholder.length - 1;
-            for (var i = 0; i < phone_placeholder.length; i++) {
-                var check_placeholder = parseInt(phone_placeholder[i]);
-                if (check_integer.includes(check_placeholder)) {
-                    x++;
-                    if (i == check_length) {
-                        count_n.push(x);
+            // var char_1 = '';
+            // var char_2 = '';
+            // var char_3 = '';
+            // var char_4 = '';
+            // var char_5 = '';
+            // var num_1 = '';
+            // var num_2 = '';
+            // var num_3 = '';
+            // var num_4 = '';
+            // var num_5 = '';
+            // var a = 1;
+            // var b = 1;
+            // var x = 0;
+            // var check_length = phone_placeholder.length - 1;
+            // for (var i = 0; i < phone_placeholder.length; i++) {
+            //     var check_placeholder = parseInt(phone_placeholder[i]);
+            //     if (check_integer.includes(check_placeholder)) {
+            //         x++;
+            //         if (i == check_length) {
+            //             count_n.push(x);
+            //         }
+            //     } else {
+            //         index_of_char.push(i);
+            //         count_n.push(x);
+            //         x = 0;
+            //         if (a == 1) {
+            //             char_1 = phone_placeholder[i];
+            //         }
+            //         if (a == 2) {
+            //             char_2 = phone_placeholder[i];
+            //         }
+            //         if (a == 3) {
+            //             char_3 = phone_placeholder[i];
+            //         }
+            //         if (a == 4) {
+            //             char_4 = phone_placeholder[i];
+            //         }
+            //         if (a == 5) {
+            //             char_5 = phone_placeholder[i];
+            //         }
+            //         a++;
+            //     }
+            // }
+            // for (var j = 0; j < count_n.length; j++) {
+            //     if (b == 1) {
+            //         num_1 = count_n[j];
+            //     }
+            //     if (b == 2) {
+            //         num_2 = count_n[j];
+            //     }
+            //     if (b == 3) {
+            //         num_3 = count_n[j];
+            //     }
+            //     if (b == 4) {
+            //         num_4 = count_n[j];
+            //     }
+            //     if (b == 5) {
+            //         num_5 = count_n[j];
+            //     }
+            //     b++;
+            // }
+            // var r = /(\D+)/g,
+            //     npa = '',
+            //     nxx = '',
+            //     nxy = '',
+            //     nxz = '',
+            //     last4 = '';
+            // f.value = f.value.replace(r, '');
+            // npa = f.value.substr(0, num_1);
+            // nxx = f.value.substr(num_1, num_2);
+            // nxy = f.value.substr(num_1 + num_2, num_3);
+            // nxz = f.value.substr(num_2 + num_3, num_4);
+            // last4 = f.value.substr(num_3 + num_4, num_5);
+            // f.value = npa + char_1 + nxx + char_2 + nxy + char_3 + nxz + char_4 + last4;
+
+            phone.setAttribute('maxlength', phone_placeholder.length);
+            if (phone.value.length <= phone_placeholder.length) {
+                if (phone.value.length < 2) {
+                    var first_index = parseInt(phone_placeholder[0]);
+                    var first_integer = 0;
+                    if (check_integer.includes(first_index)) {
+                        first_integer = 1;
                     }
-                } else {
-                    index_of_char.push(i);
-                    count_n.push(x);
-                    x = 0;
-                    if (a == 1) {
-                        char_1 = phone_placeholder[i];
+                    if (first_integer == 0) {
+                        var first_char = '';
+                        first_char = phone_placeholder[0];
+                        first_char = first_char + phone.value;
+                        phone.value = first_char;
                     }
-                    if (a == 2) {
-                        char_2 = phone_placeholder[i];
+                }
+                if (phone.value.length < phone_placeholder.length) {
+                    var len = phone.value.length;
+                    var check_placeholder = parseInt(phone_placeholder[len]);
+                    if (!(check_integer.includes(check_placeholder))) {
+                        var phone_format = '';
+                        phone_format = phone.value;
+                        phone_format = phone_format + phone_placeholder[len];
+                        phone.value = phone_format;
                     }
-                    if (a == 3) {
-                        char_3 = phone_placeholder[i];
+                }
+                if (phone.value.length < phone_placeholder.length) {
+                    var len_2 = phone.value.length;
+                    var check_placeholder_2 = parseInt(phone_placeholder[len_2]);
+                    if (!(check_integer.includes(check_placeholder_2))) {
+                        var phone_format_2 = '';
+                        phone_format_2 = phone.value;
+                        phone_format_2 = phone_format_2 + phone_placeholder[len_2];
+                        phone.value = phone_format_2;
                     }
-                    if (a == 4) {
-                        char_4 = phone_placeholder[i];
-                    }
-                    if (a == 5) {
-                        char_5 = phone_placeholder[i];
-                    }
-                    a++;
                 }
             }
-            for (var j = 0; j < count_n.length; j++) {
-                if (b == 1) {
-                    num_1 = count_n[j];
-                }
-                if (b == 2) {
-                    num_2 = count_n[j];
-                }
-                if (b == 3) {
-                    num_3 = count_n[j];
-                }
-                if (b == 4) {
-                    num_4 = count_n[j];
-                }
-                if (b == 5) {
-                    num_5 = count_n[j];
-                }
-                b++;
-            }
-            var r = /(\D+)/g,
-                npa = '',
-                nxx = '',
-                nxy = '',
-                nxz = '',
-                last4 = '';
-            f.value = f.value.replace(r, '');
-            npa = f.value.substr(0, num_1);
-            nxx = f.value.substr(num_1, num_2);
-            nxy = f.value.substr(num_1 + num_2, num_3);
-            nxz = f.value.substr(num_2 + num_3, num_4);
-            last4 = f.value.substr(num_3 + num_4, num_5);
-            f.value = npa + char_1 + nxx + char_2 + nxy + char_3 + nxz + char_4 + last4;
         }
     }
 
@@ -440,6 +477,14 @@
         }
         phone_code.value = country_code;
 
+        const check_alpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+        for (var i = 0; i < phone_number.length; i++) {
+            if (check_alpha.includes(phone_number[i])) {
+                $('#show_phone_msg').empty();
+                $("#show_phone_msg").append('Phone number is not valid!');
+                return false;
+            }
+        }
         if (phone_number.length != phone_placeholder.length) {
             $('#show_phone_msg').empty();
             $("#show_phone_msg").append('Phone number is incomplete!');

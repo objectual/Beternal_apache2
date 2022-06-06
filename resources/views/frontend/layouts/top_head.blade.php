@@ -63,23 +63,3 @@
     </div>
 </nav>
 @endif
-
-
-<div class="modal fade" id="logout" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog logout-modal">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-10 text-center offset-lg-1">
-                        <p>
-                        You have been logged out!
-                        </p>
-                        <div class="text-center mb-4">
-                            <a href="" class="mx-1" id="delete_recipient"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

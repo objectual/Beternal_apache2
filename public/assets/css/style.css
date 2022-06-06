@@ -3604,3 +3604,7 @@ select option { color: #fff !important; }
 .logout-modal {
     max-width: 380px !important;
 }
+
+.zip {
+    text-transform: capitalize !important;
+}
