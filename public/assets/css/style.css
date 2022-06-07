@@ -1355,6 +1355,10 @@ textarea {
     display: none;
 }
 @media screen and (min-width: 280px) and (max-width: 991px) {
+    .plr-0 {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
     audio {
         width: 100%;
     }
