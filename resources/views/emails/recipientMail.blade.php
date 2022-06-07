@@ -13,12 +13,12 @@
     <p>Thank you</p>
     <p>bETERNAL Team</p>
 
-    <div class="row pt-3 pb-5 media-icons">
-        <div class="col-lg-2">
-            <a href="http://167.99.0.236/"><button class="filter-btn btn w-100 text-center py-2">DENY</button></a>
+    <div style="display:flex;">
+        <div class="">
+            <a href="http://167.99.0.236/"><button style="color: #000; border-radius: 5px; padding: 9px 55px;    background-color: #F7DB02; border-style: none; cursor: pointer;">DENY</button></a>
         </div>
-        <div class="col-lg-2">
-            <a href="http://167.99.0.236/"><button class="filter-btn btn w-100 text-center py-2">CONFIRM</button></a>
+        <div class="">
+            <a href="http://167.99.0.236/"><button style="color: #000; border-radius: 5px; padding: 9px 55px;    background-color: #F7DB02; border-style: none; margin-left:10px;">CONFIRM</button></a>
         </div>
     </div>
 </body>
