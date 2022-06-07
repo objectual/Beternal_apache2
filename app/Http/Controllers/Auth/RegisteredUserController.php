@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules;
 use App\Models\Country;
 use App\Models\StateProvince;
@@ -108,7 +109,7 @@ class RegisteredUserController extends Controller
             'body' => 'This is for testing email'
         ];
        
-        \Mail::to($user->email)->send(new \App\Mail\MyMail($details));
+        Mail::to($user->email)->send(new \App\Mail\MyMail($details));
 
         return redirect()->route('success-signup');
     }

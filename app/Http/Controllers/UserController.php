@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use App\Models\User;
@@ -273,6 +274,8 @@ class UserController extends Controller
         $contact_status =  ContactStatus::all();
         $contacts = UserContact::where('user_id', $id)->get(['contact_status_id']);
         $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
+        $plan_details = Plan::where('id', Auth::user()->plan_id)->first(['recipient_limit']);
+        $recipient_count =  UserRecipient::where('user_id', $id)->count();
         if ($groups->isEmpty()) {
             $defined_groups = array('Spouse or Partner', 'Family', 'Friend', 'None');
             for ($i = 0; $i < count($defined_groups); $i++) {
@@ -296,7 +299,9 @@ class UserController extends Controller
             'countries',
             'contact_status',
             'groups',
-            'user_contact'
+            'user_contact',
+            'plan_details',
+            'recipient_count'
         ));
     }
 
@@ -375,6 +380,14 @@ class UserController extends Controller
                 $add_contact->contact_id   =  $add_recipent->id;
                 $add_contact->user_id   =  Auth::user()->id;
                 $add_contact->save();
+
+                $get_contact = ContactStatus::where('id', $add_contact->contact_status_id)->first();
+
+                $data = array('first_name' => $add_recipent->name, 'last_name' => $add_recipent->last_name, 'contact_status' => $get_contact->contact_title);
+                Mail::send('emails.recipientMail', $data, function ($message) {
+                    $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
+                    $message->from('team@beternal.life', 'bETERNAL Team');
+                });
             }
             if ($request->group_id != null) {
                 $add_recipent_in_group = new UserGroup();
@@ -567,7 +580,7 @@ class UserController extends Controller
         $update_recipient->save();
 
         if ($request->contact_status_id == null) {
-            $delete_legacy = UserContact::where(['user_contacts.contact_id'=>$recipient_id, 'user_contacts.user_id'=>$id])->delete();
+            $delete_legacy = UserContact::where(['user_contacts.contact_id' => $recipient_id, 'user_contacts.user_id' => $id])->delete();
         }
         if ($request->contact_status_id != null) {
             $user_contact = UserContact::where(['contact_id' => $recipient_id, 'user_id' => $id])

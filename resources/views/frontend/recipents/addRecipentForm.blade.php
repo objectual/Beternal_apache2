@@ -182,6 +182,7 @@
 
                         </div>
                         <div class="row padding-add padd-bottom">
+                            <div class="col-12" id="show_recipient_msg"></div>
                             <div class="col-lg-12 text-center mt-4 mb-4">
                                 <button type="submit" data-bs-toggle="modal" data-bs-target="#confirmModal" class="recipent-mob-btn
                             btn
@@ -551,6 +552,15 @@
                 $("#show_postal_msg").append(postal_msg);
                 return false;
             }
+        }
+
+        var plan_details = JSON.parse('<?php echo json_encode($plan_details) ?>');
+        var my_recipient = JSON.parse('<?php echo json_encode($recipient_count) ?>');
+        if (my_recipient < plan_details.recipient_limit) {
+            return true;
+        } else {
+            $("#show_recipient_msg").append('<span class="cl-white">Sorry your limit for add recipient has been fully filled !</span>');
+            return false;
         }
         return true;
     }
