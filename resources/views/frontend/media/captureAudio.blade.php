@@ -38,7 +38,9 @@
 
                             <script>
                                 var loadFile = function(event) {
-                                    var msg = '<span class="cl-white">Successfully Attached Audio File</span>';
+                                    var base_url = '<?= $base_url ?>';
+                                    var set_url = base_url+ '/public/assets/images/success-signup.svg';
+                                    var msg = '<p class="text-white">Successfully Attached</p><img src="'+ set_url +'" width="50" />';
                                     $('#attachment').empty();
                                     $('#attachment').append(msg);
                                 };
