@@ -7,6 +7,7 @@
     $month = "$mydate[month]";
     $date = "$mydate[mday]";
     $year = "$mydate[year]";
+    $current_month = strtoupper($month);
 @endphp
 <div class="container-fluid bg-create delivery-padding bg-calendar">
     <div class="scroll-div">
@@ -25,7 +26,7 @@
                         <div id="carouselExampleControls mob-col" class="carousel slide year-slide" data-interval="false">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <p class="cl-white">JAN</p>
+                                    <p class="cl-white">{{ $current_month }}</p>
                                 </div>
                                 <div class="carousel-item">
                                     <p>FEB</p>
@@ -48,7 +49,7 @@
                         <div id="carouselExampleControls mob-col" class="carousel slide year-slide" data-interval="false">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <p class="cl-white">2022</p>
+                                    <p class="cl-white">{{ $year }}</p>
                                 </div>
                                 <div class="carousel-item">
                                     <p>2020</p>
@@ -289,14 +290,11 @@
 
 <script>
     var today = new Date();
-    // var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var current_year = today.getFullYear();
-    var current_month = today.toLocaleString('default', {
-        month: 'long'
-    });
+    var current_month = today.toLocaleString('default', {month: 'short'});
     var current_date = today.getDate();
-    $('#month_year').append('<span class="month cl-white mt-3" id="current_month">test</span><br />');
-    $('#month_year').append('<span class="year cl-white mt-3" id="current_year">2025</span>');
+    // $('#month_year').append('<span class="month cl-white mt-3" id="current_month">test</span><br />');
+    // $('#month_year').append('<span class="year cl-white mt-3" id="current_year">2025</span>');
 
     // let d = new Date(2020, 08, 21); // 2020-06-21
     // var  months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];

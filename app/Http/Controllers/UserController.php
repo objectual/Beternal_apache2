@@ -381,13 +381,20 @@ class UserController extends Controller
                 $add_contact->user_id   =  Auth::user()->id;
                 $add_contact->save();
 
-                $get_contact = ContactStatus::where('id', $add_contact->contact_status_id)->first();
+                $contact = ContactStatus::where('id', $add_contact->contact_status_id)->first();
+                session()->put(['email'=>$add_recipent->email, 'name'=>$add_recipent->name]);
+                $data = array('first_name' => $add_recipent->name, 'last_name' => $add_recipent->last_name, 'contact_status' => $contact->contact_title);
 
-                $data = array('first_name' => $add_recipent->name, 'last_name' => $add_recipent->last_name, 'contact_status' => $get_contact->contact_title);
                 Mail::send('emails.recipientMail', $data, function ($message) {
                     $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
                     $message->from('team@beternal.life', 'bETERNAL Team');
                 });
+                Mail::send('emails.toRecipientMail', $data, function ($message) {
+                    $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
+                    $message->from('team@beternal.life', 'bETERNAL Team');
+                });
+                session()->forget('email');
+                session()->forget('name');
             }
             if ($request->group_id != null) {
                 $add_recipent_in_group = new UserGroup();
