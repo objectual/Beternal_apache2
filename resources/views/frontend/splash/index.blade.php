@@ -7,7 +7,7 @@
         <div class="modal-body">
             <div class="row">
                 <div class="col-lg-10 text-center offset-lg-1">
-                    <p>{{ session()->get('message') }}</p>
+                    <p class="text-white">{{ session()->get('message') }}</p>
                     <div class="text-center mb-4">
                         <a href="{{ route('index') }}" class="mx-1"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
                     </div>
