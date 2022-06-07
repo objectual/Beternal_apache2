@@ -33,8 +33,16 @@
                                 <div class="error">{{ $errors->first('file_name') }}</div>
                                 @endif
                                 <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Device Gallery</label>
-                                <input type="file" accept="audio/*" name="file_name" id="file" style="display: none;">
+                                <input type="file" accept="audio/*" name="file_name" id="file" style="display: none;" onchange="loadFile(event)">
                             </a>
+
+                            <script>
+                                var loadFile = function(event) {
+                                    var msg = '<span class="cl-white">Successfully Attached Audio File</span>';
+                                    $('#attachment').empty();
+                                    $('#attachment').append(msg);
+                                };
+                            </script>
                         </div>
                         <div class="col-md-4 text-center">
                             <a href="{{ route('user.medias.my-media') }}">
@@ -45,6 +53,11 @@
                             </a>
                         </div>
                     </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <div class="col-md-12 text-center" id="attachment"></div>
+                    </div>
+
                     <div class="mt-5">
                         <div class="mb-3 w-100">
                             <label for="audio_title" class="form-label text-white">Audio Title</label>
@@ -142,7 +155,7 @@
                         <h2 class="text-white">Recording</h2>
                         <audio id="preview" width="160" height="120" autoplay muted></audio><br /><br />
                         <div class="btn-group">
-                            <div id="startButton" class="start-rec-btn px-3" > Start </div>
+                            <div id="startButton" class="start-rec-btn px-3"> Start </div>
                             <div id="stopButton" class="btn btn-danger" style="display:none; margin-left:5px;"> Stop </div>
                         </div>
                     </div>
