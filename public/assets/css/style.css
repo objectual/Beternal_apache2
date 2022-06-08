@@ -3616,3 +3616,12 @@ select option { color: #fff !important; }
 .logout-modal .modal-content {
     background-color: rgb(0, 0, 0, 0.3) !important;
 }
+
+
+.group-color {
+    width: 150px;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    float: inherit;
+}

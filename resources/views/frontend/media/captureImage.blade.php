@@ -58,7 +58,7 @@
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-between mt-4">
+                    <div class="row mt-4">
                         <div class="col-md-12 text-center" id="attachment"></div>
                     </div>
                     
