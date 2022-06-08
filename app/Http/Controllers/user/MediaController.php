@@ -85,6 +85,11 @@ class MediaController extends Controller
 
     public function uploadMedia(Request $request)
     {
+        if ($request->upload_type == "media") {
+            dd('add to media');
+        } else if ($request->upload_type == "legacy") {
+            dd('add to legacy');
+        }
         if ($request->media_type == 'video') {
             $this->validate($request, [
                 'file_name' => 'required|file|mimetypes:video/mp4,video/avi,video/mpeg,video/quicktime',
@@ -121,25 +126,33 @@ class MediaController extends Controller
         $media->save();
 
         if ($media) {
-            if (!(empty($request->recipient_id))) {
-                if (count($request->recipient_id) > 0) {
-                    for ($i = 0; $i < count($request->recipient_id); $i++) {
-                        $share_media = new ShareMedia();
-                        $share_media->media_id = $media->id;
-                        $share_media->recipient_id = $request->recipient_id[$i];
-                        $share_media->save();
+            if ($request->upload_type == "media") {
+                if (!(empty($request->recipient_id))) {
+                    if (count($request->recipient_id) > 0) {
+                        for ($i = 0; $i < count($request->recipient_id); $i++) {
+                            $share_media = new ShareMedia();
+                            $share_media->media_id = $media->id;
+                            $share_media->recipient_id = $request->recipient_id[$i];
+                            $share_media->save();
+                        }
                     }
                 }
-            }
-            if (!(empty($request->group_id))) {
-                if (count($request->group_id) > 0) {
-                    for ($i = 0; $i < count($request->group_id); $i++) {
-                        $share_media_in_group = new ShareMediaGroup();
-                        $share_media_in_group->media_id = $media->id;
-                        $share_media_in_group->group_id = $request->group_id[$i];
-                        $share_media_in_group->save();
+                if (!(empty($request->group_id))) {
+                    if (count($request->group_id) > 0) {
+                        for ($i = 0; $i < count($request->group_id); $i++) {
+                            $share_media_in_group = new ShareMediaGroup();
+                            $share_media_in_group->media_id = $media->id;
+                            $share_media_in_group->group_id = $request->group_id[$i];
+                            $share_media_in_group->save();
+                        }
                     }
                 }
+            } else if ($request->upload_type == "legacy") {
+                // $add_legacy = new Legacy();
+                // $add_legacy->media_id = $media->id;
+                // $add_legacy->recipient_id = $request->recipient_id[$i];
+                // $add_legacy->save();
+                dd('In Progress');
             }
             return redirect()->route($route)->with('status', 'Uploaded successfully');
         } else {
@@ -266,12 +279,12 @@ class MediaController extends Controller
         if (!$all_media->isEmpty()) {
             foreach ($all_media as $key => $media) {
                 $recipients = ShareMedia::where('media_id', $media->id)
-                ->join('users', 'share_media.recipient_id', '=', 'users.id')
-                ->get(['share_media.recipient_id', 'users.name', 'users.last_name']);
+                    ->join('users', 'share_media.recipient_id', '=', 'users.id')
+                    ->get(['share_media.recipient_id', 'users.name', 'users.last_name']);
 
                 $groups = ShareMediaGroup::where('media_id', $media->id)
-                ->join('groups', 'share_media_groups.group_id', '=', 'groups.id')
-                ->get(['share_media_groups.group_id', 'groups.group_title']);
+                    ->join('groups', 'share_media_groups.group_id', '=', 'groups.id')
+                    ->get(['share_media_groups.group_id', 'groups.group_title']);
 
                 if (!$recipients->isEmpty()) {
                     $media->recipient_id = $recipients[0]->recipient_id;
@@ -327,12 +340,12 @@ class MediaController extends Controller
         $get_media = Media::where('id', $request->id)->get(['*']);
         if (!$get_media->isEmpty()) {
             $recipients = ShareMedia::where('media_id', $request->id)
-            ->join('users', 'share_media.recipient_id', '=', 'users.id')
-            ->get(['share_media.recipient_id', 'users.name', 'users.last_name', 'users.profile_image']);
+                ->join('users', 'share_media.recipient_id', '=', 'users.id')
+                ->get(['share_media.recipient_id', 'users.name', 'users.last_name', 'users.profile_image']);
 
             $groups = ShareMediaGroup::where('media_id', $request->id)
-            ->join('groups', 'share_media_groups.group_id', '=', 'groups.id')
-            ->get(['share_media_groups.group_id', 'groups.group_title']);
+                ->join('groups', 'share_media_groups.group_id', '=', 'groups.id')
+                ->get(['share_media_groups.group_id', 'groups.group_title']);
 
             if (!$recipients->isEmpty()) {
                 $get_media[0]->all_recipient = $recipients;

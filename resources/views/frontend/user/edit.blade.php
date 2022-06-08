@@ -161,10 +161,17 @@
                                     <span class="input-group-text input-back account-label" id="basic-addon2">State / Province</span>
                                 </div>
                                 <select id="state_province_id" name="state_province_id" class="form-control text-start" aria-describedby="basic-addon1" onChange="selectProvince()" required />
-                                <option value="{{ $user[0]->state_province_id }}" selected>{{ $user[0]->province_name }}</option>
                                 @if(isset($countries))
                                 @foreach($provinces as $key => $province)
-                                <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                @if($user[0]->province_name == $province->name)
+                                <option value="{{ $province->id }}" selected>
+                                    {{ $province->name }}
+                                </option>
+                                @else
+                                <option value="{{ $province->id }}">
+                                    {{ $province->name }}
+                                </option>
+                                @endif
                                 @endforeach
                                 @endif
                                 </select>
@@ -179,11 +186,24 @@
                                     <span class="input-group-text input-back account-label" id="basic-addon2">City</span>
                                 </div>
                                 <select id="city_id" name="city_id" class="form-control text-start" aria-describedby="basic-addon1" required />
-                                <option value="{{ $user[0]->city_id }}">{{ $user[0]->city_name }}</option>
+                                @if($user[0]->city_name == "Default City")
+                                <option value="{{ $user[0]->city_id }}" selected>
+                                    {{ $user[0]->city_name }}
+                                </option>
+                                @else
                                 @if(isset($cities))
                                 @foreach($cities as $key => $city)
-                                <option value="{{ $city->id }}">{{ $city->city_name }}</option>
+                                @if($user[0]->city_id == $city->id)
+                                <option value="{{ $city->id }}" selected>
+                                    {{ $city->city_name }}
+                                </option>
+                                @else
+                                <option value="{{ $city->id }}">
+                                    {{ $city->city_name }}
+                                </option>
+                                @endif
                                 @endforeach
+                                @endif
                                 @endif
                                 </select>
                                 @if($errors->has('city_id'))

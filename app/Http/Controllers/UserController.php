@@ -135,6 +135,7 @@ class UserController extends Controller
         }
 
         $provinces = StateProvince::where('country_id', Auth::user()->country_id)
+            ->orderBy('name', 'asc')
             ->get(['state_province.id', 'state_province.name']);
 
         $cities = City::where('state_province_id', Auth::user()->state_province_id)
@@ -240,7 +241,8 @@ class UserController extends Controller
         $user_recipents =  UserRecipient::where(['user_recipients.user_id' => $id, 'user_groups.user_id' => $id])
             ->join('users', 'user_recipients.recipient_id', '=', 'users.id')
             ->leftjoin('user_groups', 'user_recipients.recipient_id', '=', 'user_groups.recipient_id')
-            ->get(['user_recipients.recipient_id', 'users.name', 'users.last_name', 'users.profile_image', 'user_groups.recipient_id as group_recipient_id', 'user_groups.group_id']);
+            ->leftjoin('groups', 'user_groups.group_id', '=', 'groups.id')
+            ->get(['user_recipients.recipient_id', 'users.name', 'users.last_name', 'users.profile_image', 'user_groups.recipient_id as group_recipient_id', 'user_groups.group_id', 'groups.group_title']);
 
         if (!$user_recipents->isEmpty()) {
             foreach ($user_recipents as $key => $recipient) {
