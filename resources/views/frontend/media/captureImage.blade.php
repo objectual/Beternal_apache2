@@ -12,6 +12,7 @@
         <form method="POST" action="{{ route('user.medias.upload-media') }}" id="main_form" enctype="multipart/form-data" onsubmit="return validateForm(this)">
             @csrf
             <input type="hidden" id="media_type" name="media_type" value="photo">
+            <input type="hidden" id="upload_type" name="upload_type" value="">
             <div class="row">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-6 mt-4">
@@ -162,7 +163,6 @@
                 <form method="POST" action="{{ route('user.medias.store-media') }}" id="modal_form" enctype="multipart/form-data" onsubmit="return validateForm(this)">
                     @csrf
                     <input type="hidden" id="media_type" name="media_type" value="photo">
-                    <input type="hidden" id="upload_type" name="upload_type" value="">
                     <div class="container-fluid pb-4 h-auto upgrade-back mt-2">
                         <div class="scroll-div">
                             <div class="row">

@@ -87,7 +87,6 @@ class MediaController extends Controller
 
     public function uploadMedia(Request $request)
     {
-        dd('In Progress');
         if ($request->media_type == 'video') {
             $this->validate($request, [
                 'file_name' => 'required|file|mimetypes:video/mp4,video/avi,video/mpeg,video/quicktime',
