@@ -482,11 +482,11 @@
         var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
         var msg = '<span class="cl-white">Sorry format not matched! only alphanumeric characters allowed</span>';
 
-        if (format.test(title)) {
-            title_msg.empty();
-            title_msg.append(msg);
-            return false;
-        }
+        // if (format.test(title)) {
+        //     title_msg.empty();
+        //     title_msg.append(msg);
+        //     return false;
+        // }
         // if (format.test(description)) {
         //     title_msg.empty();
         //     description_msg.empty();

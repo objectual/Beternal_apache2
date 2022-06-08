@@ -487,6 +487,7 @@ class UserController extends Controller
             ->first(['users.id as recipient_id', 'users.name as first_name', 'users.last_name', 'users.profile_image', 'users.email', 'users.country_code', 'users.phone_number', 'users.address', 'users.address_2', 'users.zip_postal_code', 'users.country_id', 'users.state_province_id', 'users.city_id', 'countries.country_name', 'countries.postal_code_format', 'state_province.name', 'cities.city_name']);
 
         $provinces = StateProvince::where('country_id', $recipient->country_id)
+            ->orderBy('name', 'asc')
             ->get(['state_province.id', 'state_province.name']);
 
         $cities = City::where('state_province_id', $recipient->state_province_id)

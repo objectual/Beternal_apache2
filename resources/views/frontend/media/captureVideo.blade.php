@@ -371,11 +371,11 @@
                                 $("#show_description_msg_2").append(msg_2);
                                 return false;
                             }
-                            if (format.test(title)) {
-                                $('#show_title_msg_2').empty();
-                                $("#show_title_msg_2").append(msg);
-                                return false;
-                            }
+                            // if (format.test(title)) {
+                            //     $('#show_title_msg_2').empty();
+                            //     $("#show_title_msg_2").append(msg);
+                            //     return false;
+                            // }
                             // if (format.test(description)) {
                             //     $('#show_title_msg_2').empty();
                             //     $('#show_description_msg_2').empty();
@@ -627,11 +627,11 @@
         var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
         var msg = '<span class="cl-white">Sorry format not matched! only alphanumeric characters allowed</span>';
 
-        if (format.test(title)) {
-            $('#show_title_msg').empty();
-            $("#show_title_msg").append(msg);
-            return false;
-        }
+        // if (format.test(title)) {
+        //     $('#show_title_msg').empty();
+        //     $("#show_title_msg").append(msg);
+        //     return false;
+        // }
         // if (format.test(description)) {
         //     $('#show_title_msg').empty();
         //     $('#show_description_msg').empty();
