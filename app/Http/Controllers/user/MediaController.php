@@ -110,6 +110,7 @@ class MediaController extends Controller
         }
 
         if ($request->upload_type == "media") {
+            dd('In Progress');
             $media = new Media();
             $media->title = $request->title;
             $media->description = $request->description;
@@ -159,6 +160,7 @@ class MediaController extends Controller
             }
         }
         if ($request->upload_type == "legacy") {
+            dd('In Progress');
             $legacy = new Legacy();
             $legacy->title = $request->title;
             $legacy->description = $request->description;

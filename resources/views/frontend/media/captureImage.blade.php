@@ -132,9 +132,14 @@
                         @endforeach
                         @endif
                     </div>
+                    <div class="row pt-4" id="submit_button" style="display: none;">
+                        <div class="col-12 ">
+                            <button class="btn upg-add-img-btn w-100" id="first_form">Save Your Memory</button>
+                        </div>
+                    </div>
                     <div class="row pt-4">
                         <div class="col-12 ">
-                            <button class="btn upg-add-img-btn w-100">Save Your Memory</button>
+                            <a class="btn upg-add-img-btn w-100" onclick="uploadType(this)">Save Your Memory</a>
                         </div>
                     </div>
                     <div class="row pt-4">
@@ -157,6 +162,7 @@
                 <form method="POST" action="{{ route('user.medias.store-media') }}" id="modal_form" enctype="multipart/form-data" onsubmit="return validateForm(this)">
                     @csrf
                     <input type="hidden" id="media_type" name="media_type" value="photo">
+                    <input type="hidden" id="upload_type" name="upload_type" value="">
                     <div class="container-fluid pb-4 h-auto upgrade-back mt-2">
                         <div class="scroll-div">
                             <div class="row">
@@ -288,21 +294,11 @@
                 <div class="row">
                     <div class="col-lg-8 text-center offset-lg-2">
                         <img class="mt-4 mb-3 audio-pop" src="./images/video-pop.png" />
-                        <p>
-                            We have received your memory, which has been added to Your Legacy.
+                        <p>Uploaded successfully.</p>
                         </p>
-                        </p>
-                        <!-- <div class="row text-center mb-4 mt-5">
-                           <div class="col-lg-6">
-                               <a href="./schedule-media.html" class="btn upg-select-del-btn w-100">Scheduled Media</a>
-                           </div>
-                           <div class="col-lg-6">
-                              <a href="./legacy.html" class="btn upg-select-del-btn w-100">Legacy</a>
-                           </div>                           
-                        </div> -->
                         <div class="row text-center mb-4 mt-5">
                             <div class="col-lg-6 offset-lg-3">
-                                <a href="./legacy.html" class="btn upg-select-del-btn w-100">OK</a>
+                                <a href="{{ route('user.medias.capture-image') }}" class="btn upg-select-del-btn w-100">OK</a>
                             </div>
                         </div>
                     </div>
@@ -311,9 +307,51 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="selectType" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6 text-center offset-lg-3">
+                        <img class="mt-4 mb-3 audio-pop" src="{{ asset('/public/assets/images/audio-pop.png') }}" />
+                    </div>
+                </div>
+                <div class="row pt-3 pb-5 media-icons">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-3">
+                        <button class="filter-btn btn w-100 text-center py-2" onclick="addToMedia(this)">Add To Media</button>
+                    </div>
+                    <div class="col-lg-3">
+                        <button class="filter-btn btn w-100 text-center py-2" onclick="addToLegacy(this)">Add To Legacy</button>
+                    </div>
+                    <div class="col-lg-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 <script type="text/javascript">
+    function uploadType() {
+        $("#selectType").modal("show");
+    }
+
+    function addToMedia() {
+        var upload_type = document.getElementById('upload_type');
+        upload_type.value = 'media';
+        $("#selectType").modal("hide");
+        $("#first_form").click()
+    }
+
+    function addToLegacy() {
+        var upload_type = document.getElementById('upload_type');
+        upload_type.value = 'legacy';
+        $("#selectType").modal("hide");
+        $("#first_form").click()
+    }
+
     function recipentByName(current) {
         var obj = JSON.parse('<?php echo json_encode($user_recipents) ?>');
         // var base_path = 'http://localhost/love-kumar/beternal/Beternal_apache2';
