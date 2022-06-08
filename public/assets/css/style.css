@@ -1354,7 +1354,7 @@ textarea {
 .solution-header {
     display: none;
 }
-@media screen and (min-width: 280px) and (max-width: 991px) {
+@media screen and (min-width: 280px) and (max-width: 991px) { 
     .plr-0 {
         padding-left: 0px !important;
         padding-right: 0px !important;
@@ -2737,7 +2737,7 @@ ul {
         border-top: none !important;
         background-color: #000;
         display: flex !important;
-        position: absolute;
+        position: fixed;
         width: 100%;
         padding: 7px !important;
         margin: 0px;
