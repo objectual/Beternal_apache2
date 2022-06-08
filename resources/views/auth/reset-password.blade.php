@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-lg-4 offset-lg-4">
                     <div class="login forget-login">
-                        <h4 class="mt-3 mb-5 forget-head">SET YOUR NEW PASSWORD</h4>
+                        <h4 class="mt-3 mb-5 forget-head text-white">SET YOUR NEW PASSWORD</h4>
                         @if($errors->has('email'))
                         <h4 class="error">{{ $errors->first('email') }}</h4>
                         @endif
@@ -57,7 +57,7 @@
                             @if($errors->has('password_confirmation'))
                             <div class="error">{{ $errors->first('password_confirmation') }}</div>
                             @endif
-                            <div class="col-12" id="show_confirm_pass_msg"></div>
+                            <div class="col-12 text-white" id="show_confirm_pass_msg"></div>
                         </div>
 
                         <div class="btn w-100 bg-black mb-5 m-auto text-center p-1 mt-1">

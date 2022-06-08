@@ -1398,6 +1398,7 @@ textarea {
     }
     .d-grid-mobile {
         display: grid !important;
+        z-index: 999;
     }
     .contact-us {
         padding: 10px 15px;
@@ -2036,6 +2037,8 @@ textarea {
     }
     .payment-back-mob {
         height: 100%;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
     }
     .margin-message {
         margin-left: 0px !important;
