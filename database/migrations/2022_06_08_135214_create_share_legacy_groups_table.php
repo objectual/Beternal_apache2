@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('share_legacy_group', function (Blueprint $table) {
+        Schema::create('share_legacy_groups', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('legacy_id');
             $table->foreign('legacy_id')->references('id')->on('legacy')->onDelete('cascade');
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('share_legacy_group');
+        Schema::dropIfExists('share_legacy_groups');
     }
 };

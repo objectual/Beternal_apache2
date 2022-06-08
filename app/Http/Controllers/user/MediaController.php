@@ -14,6 +14,8 @@ use App\Models\ShareMediaGroup;
 use App\Models\Plan;
 use App\Models\Legacy;
 use App\Models\ScheduleMedia;
+use App\Models\ShareLegacy;
+use App\Models\ShareLegacyGroup;
 use Illuminate\Support\Facades\Storage;
 
 class MediaController extends Controller
@@ -85,11 +87,6 @@ class MediaController extends Controller
 
     public function uploadMedia(Request $request)
     {
-        if ($request->upload_type == "media") {
-            dd('add to media');
-        } else if ($request->upload_type == "legacy") {
-            dd('add to legacy');
-        }
         if ($request->media_type == 'video') {
             $this->validate($request, [
                 'file_name' => 'required|file|mimetypes:video/mp4,video/avi,video/mpeg,video/quicktime',
@@ -112,26 +109,73 @@ class MediaController extends Controller
             $route = 'user.medias.capture-image';
         }
 
-        $media = new Media();
-        $media->title = $request->title;
-        $media->description = $request->description;
-        $media->path = '/';
-        if ($request->hasFile('file_name')) {
-            // $path = $request->file('file_name')->store($folder, ['disk' => 'my_files']);
-            $path = $request->file('file_name')->store($folder, 's3');
-            $media->file_name = $path;
-        }
-        $media->type = $request->media_type;
-        $media->user_id = Auth::user()->id;
-        $media->save();
+        if ($request->upload_type == "media") {
+            $media = new Media();
+            $media->title = $request->title;
+            $media->description = $request->description;
+            $media->path = '/';
+            if ($request->hasFile('file_name')) {
+                // $path = $request->file('file_name')->store($folder, ['disk' => 'my_files']);
+                $path = $request->file('file_name')->store($folder, 's3');
+                $media->file_name = $path;
+            }
+            $media->type = $request->media_type;
+            $media->user_id = Auth::user()->id;
+            $media->save();
 
-        if ($media) {
-            if ($request->upload_type == "media") {
+            if ($media) {
+                if ($request->upload_type == "media") {
+                    if (!(empty($request->recipient_id))) {
+                        if (count($request->recipient_id) > 0) {
+                            for ($i = 0; $i < count($request->recipient_id); $i++) {
+                                $share_media = new ShareMedia();
+                                $share_media->media_id = $media->id;
+                                $share_media->recipient_id = $request->recipient_id[$i];
+                                $share_media->save();
+                            }
+                        }
+                    }
+                    if (!(empty($request->group_id))) {
+                        if (count($request->group_id) > 0) {
+                            for ($i = 0; $i < count($request->group_id); $i++) {
+                                $share_media_in_group = new ShareMediaGroup();
+                                $share_media_in_group->media_id = $media->id;
+                                $share_media_in_group->group_id = $request->group_id[$i];
+                                $share_media_in_group->save();
+                            }
+                        }
+                    }
+                }
+                return redirect()->route($route)->with('status', 'Uploaded successfully');
+            } else {
+                if ($request->media_type == 'video') {
+                    return redirect()->route('user.medias.capture-video');
+                }
+                if ($request->media_type == 'audio') {
+                    return redirect()->route('user.medias.capture-audio');
+                } else {
+                    return redirect()->route('user.medias.capture-image');
+                }
+            }
+        }
+        if ($request->upload_type == "legacy") {
+            $legacy = new Legacy();
+            $legacy->title = $request->title;
+            $legacy->description = $request->description;
+            if ($request->hasFile('file_name')) {
+                $path = $request->file('file_name')->store($folder, 's3');
+                $legacy->file_name = $path;
+            }
+            $legacy->type = $request->media_type;
+            $legacy->user_id = Auth::user()->id;
+            $legacy->save();
+
+            if ($legacy) {
                 if (!(empty($request->recipient_id))) {
                     if (count($request->recipient_id) > 0) {
                         for ($i = 0; $i < count($request->recipient_id); $i++) {
-                            $share_media = new ShareMedia();
-                            $share_media->media_id = $media->id;
+                            $share_media = new ShareLegacy();
+                            $share_media->legacy_id = $legacy->id;
                             $share_media->recipient_id = $request->recipient_id[$i];
                             $share_media->save();
                         }
@@ -140,29 +184,23 @@ class MediaController extends Controller
                 if (!(empty($request->group_id))) {
                     if (count($request->group_id) > 0) {
                         for ($i = 0; $i < count($request->group_id); $i++) {
-                            $share_media_in_group = new ShareMediaGroup();
-                            $share_media_in_group->media_id = $media->id;
+                            $share_media_in_group = new ShareLegacyGroup();
+                            $share_media_in_group->legacy_id = $legacy->id;
                             $share_media_in_group->group_id = $request->group_id[$i];
                             $share_media_in_group->save();
                         }
                     }
                 }
-            } else if ($request->upload_type == "legacy") {
-                // $add_legacy = new Legacy();
-                // $add_legacy->media_id = $media->id;
-                // $add_legacy->recipient_id = $request->recipient_id[$i];
-                // $add_legacy->save();
-                dd('In Progress');
-            }
-            return redirect()->route($route)->with('status', 'Uploaded successfully');
-        } else {
-            if ($request->media_type == 'video') {
-                return redirect()->route('user.medias.capture-video');
-            }
-            if ($request->media_type == 'audio') {
-                return redirect()->route('user.medias.capture-audio');
+                return redirect()->route($route)->with('status', 'Uploaded successfully');
             } else {
-                return redirect()->route('user.medias.capture-image');
+                if ($request->media_type == 'video') {
+                    return redirect()->route('user.medias.capture-video');
+                }
+                if ($request->media_type == 'audio') {
+                    return redirect()->route('user.medias.capture-audio');
+                } else {
+                    return redirect()->route('user.medias.capture-image');
+                }
             }
         }
     }
