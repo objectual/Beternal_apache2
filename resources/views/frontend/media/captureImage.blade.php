@@ -2,6 +2,22 @@
 @section("title","Capture Image")
 @section("content")
 @php $base_url = url(''); @endphp
+@if(session()->has('message'))
+<div class="modal-dialog logout-modal">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-10 text-center offset-lg-1">
+                    <p class="text-white">{{ session()->get('message') }}</p>
+                    <div class="text-center mb-4">
+                        <a href="{{ route('user.medias.my-media') }}" class="mx-1"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@else
 <div class="container-fluid bg-create pb-4 h-auto upgrade-back">
     <div class="scroll-div">
         @if (Session::has('status'))
@@ -331,6 +347,21 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="loader" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog logout-modal">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-10 text-center offset-lg-1">
+                        <p class="text-white">Please Wait</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 @endsection
 
 <script type="text/javascript">
@@ -532,6 +563,7 @@
         //     return false;
         // }
         if (my_media < plan_details[0].photo_limit) {
+            $("#loader").modal("show");
             return true;
         } else {
             title_msg.empty();

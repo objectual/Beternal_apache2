@@ -146,16 +146,9 @@ class MediaController extends Controller
                         }
                     }
                 }
-                return redirect()->route($route)->with('status', 'Uploaded successfully');
+                return redirect()->route($route)->with('message', 'Uploaded successfully');
             } else {
-                if ($request->media_type == 'video') {
-                    return redirect()->route('user.medias.capture-video');
-                }
-                if ($request->media_type == 'audio') {
-                    return redirect()->route('user.medias.capture-audio');
-                } else {
-                    return redirect()->route('user.medias.capture-image');
-                }
+                return redirect()->route($route);
             }
         }
         if ($request->upload_type == "legacy") {
@@ -191,16 +184,9 @@ class MediaController extends Controller
                         }
                     }
                 }
-                return redirect()->route($route)->with('status', 'Uploaded successfully');
+                return redirect()->route($route)->with('message', 'Uploaded successfully');
             } else {
-                if ($request->media_type == 'video') {
-                    return redirect()->route('user.medias.capture-video');
-                }
-                if ($request->media_type == 'audio') {
-                    return redirect()->route('user.medias.capture-audio');
-                } else {
-                    return redirect()->route('user.medias.capture-image');
-                }
+                return redirect()->route($route);
             }
         }
     }
@@ -414,7 +400,7 @@ class MediaController extends Controller
     {
         $get_media = Media::where('id', $request->id)->get(['file_name']);
         if (!$get_media->isEmpty()) {
-            $delete_legacy = Legacy::where('media_id', $request->id)->delete();
+            // $delete_legacy = Legacy::where('media_id', $request->id)->delete();
             $delete_schedule_media = ScheduleMedia::where('media_id', $request->id)->delete();
             $delete_share_media = ShareMedia::where('media_id', $request->id)->delete();
             $delete_share_media_groups = ShareMediaGroup::where('media_id', $request->id)->delete();
