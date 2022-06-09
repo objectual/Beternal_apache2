@@ -11,7 +11,7 @@
     <body>   
         <div class="container-fluid h-100">
             <div class="row flex-nowrap h-100">
-                <div class="col p-0">
+                <div class="col p-0 z-9">
                     @include("frontend.layouts.top_head")
                     @include("frontend.layouts.header")
                     @yield("content")
