@@ -283,9 +283,8 @@ body {
     padding: 10px;
     border-radius: 5px;
 }
-.bg-create {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5)),
-        url(../images/bg.png);
+.recip-bg {
+    background-image:url(../images/bg.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -1355,6 +1354,9 @@ textarea {
     display: none;
 }
 @media screen and (min-width: 280px) and (max-width: 991px) { 
+    .bg-add .input-group-text {
+        width: auto !important;
+    }
     .plr-0 {
         padding-left: 0px !important;
         padding-right: 0px !important;
@@ -1535,7 +1537,9 @@ textarea {
     }
  
     .recipent-add-btn {
-        height: 40px !important;
+        justify-content: center;
+        align-items: center; 
+        display: flex;
     }
     .filter-heading {
         text-align: left !important;
@@ -3627,4 +3631,13 @@ select option { color: #fff !important; }
     overflow: hidden !important;
     text-overflow: ellipsis;
     float: inherit;
+}
+
+
+#user_group {
+    flex-wrap: wrap;
+}
+
+.z-9 {
+    z-index: 9999;
 }

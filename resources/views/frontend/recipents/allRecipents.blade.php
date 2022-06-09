@@ -2,7 +2,7 @@
 @section("title","Recipients")
 @section("content")
 
-<div class="container-fluid bg-create scroll-height-mobile mobile-padding recipent-padding-bottom">
+<div class="container-fluid bg-create scroll-height-mobile mobile-padding recipent-padding-bottom recip-bg">
     <div class="col-md-10 m-auto">
         <div class="scroll-div">
             <div class="row">
