@@ -414,7 +414,112 @@ class MediaController extends Controller
     public function legacy()
     {
         $title = "LEGACY";
-        return view('frontend.legacy.legacy', compact('title'));
+        $id = Auth::user()->id;
+        $user_recipents = userRecipients($id);
+        $all_legacy = Legacy::where('user_id', $id)->get(['*']);
+        $video_count =  Legacy::where(['user_id' => $id, 'type' => 'video'])->count();
+        $audio_count =  Legacy::where(['user_id' => $id, 'type' => 'audio'])->count();
+        $photo_count =  Legacy::where(['user_id' => $id, 'type' => 'photo'])->count();
+        $user_groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
+
+        if (!$all_legacy->isEmpty()) {
+            foreach ($all_legacy as $key => $legacy) {
+                $recipients = ShareLegacy::where('legacy_id', $legacy->id)
+                    ->join('users', 'share_legacy.recipient_id', '=', 'users.id')
+                    ->get(['share_legacy.recipient_id', 'users.name', 'users.last_name']);
+
+                $groups = ShareLegacyGroup::where('legacy_id', $legacy->id)
+                    ->join('groups', 'share_legacy_groups.group_id', '=', 'groups.id')
+                    ->get(['share_legacy_groups.group_id', 'groups.group_title']);
+
+                if (!$recipients->isEmpty()) {
+                    $legacy->recipient_id = $recipients[0]->recipient_id;
+                    $legacy->recipient_first_name = $recipients[0]->name;
+                    $legacy->recipient_last_name = $recipients[0]->last_name;
+                    $legacy->all_recipient = $recipients;
+                }
+                if ($recipients->isEmpty()) {
+                    $legacy->recipient_id = 0;
+                    $legacy->recipient_first_name = 'N/A';
+                    $legacy->recipient_last_name = '';
+                    $legacy->all_recipient = null;
+                }
+                if (!$groups->isEmpty()) {
+                    $legacy->group_title = $groups[0]->group_title;
+                    $legacy->all_group = $groups;
+                }
+                if ($groups->isEmpty()) {
+                    $legacy->group_title = '';
+                    $legacy->all_group = null;
+                }
+            }
+        }
+
+        $full_path = Storage::disk('s3')->url('photo');
+        $get_path = explode('photo', $full_path);
+        $file_path = $get_path[0];
+
+        return view('frontend.legacy.legacy', compact(
+            'title',
+            'all_legacy',
+            'video_count',
+            'audio_count',
+            'photo_count',
+            'user_recipents',
+            'user_groups',
+            'file_path'
+        ));
+    }
+
+    public function myLegacyDetails(Request $request)
+    {
+        $title = "LEGACY DETAILS";
+        $get_legacy = Legacy::where('id', $request->id)->get(['*']);
+        if (!$get_legacy->isEmpty()) {
+            $recipients = ShareLegacy::where('legacy_id', $request->id)
+                ->join('users', 'share_legacy.recipient_id', '=', 'users.id')
+                ->get(['share_legacy.recipient_id', 'users.name', 'users.last_name', 'users.profile_image']);
+
+            $groups = ShareLegacyGroup::where('legacy_id', $request->id)
+                ->join('groups', 'share_legacy_groups.group_id', '=', 'groups.id')
+                ->get(['share_legacy_groups.group_id', 'groups.group_title']);
+
+            if (!$recipients->isEmpty()) {
+                $get_legacy[0]->all_recipient = $recipients;
+            }
+            if ($recipients->isEmpty()) {
+                $get_legacy[0]->all_recipient = null;
+            }
+            if (!$groups->isEmpty()) {
+                $get_legacy[0]->all_group = $groups;
+            }
+            if ($groups->isEmpty()) {
+                $get_legacy[0]->all_group = null;
+            }
+        }
+
+        $full_path = Storage::disk('s3')->url('photo');
+        $get_path = explode('photo', $full_path);
+        $file_path = $get_path[0];
+
+        return view('frontend.legacy.legacyDetails', compact(
+            'title',
+            'get_legacy',
+            'file_path'
+        ));
+    }
+
+    public function legacyDelete(Request $request)
+    {
+        $get_legacy = Legacy::where('id', $request->id)->get(['file_name']);
+        if (!$get_legacy->isEmpty()) {
+            $delete_share_legacy = ShareLegacy::where('legacy_id', $request->id)->delete();
+            $delete_share_legacy_groups = ShareLegacyGroup::where('legacy_id', $request->id)->delete();
+            $delete_legacy = Legacy::where('id', $request->id)->delete();
+            Storage::disk('s3')->delete($get_legacy[0]->file_name);
+            return redirect()->route('user.legacy')->withSuccess('File was deleted successfully');
+        }
+        return redirect()->route('user.legacy');
     }
 
     public function successLegacy()
