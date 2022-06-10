@@ -635,13 +635,10 @@ class UserController extends Controller
 
         $delete_from_group = UserGroup::where(['recipient_id' => $request->id, 'user_id' => $id])->delete();
 
-        $delete_from_legacy = Legacy::where(['recipient_id' => $request->id, 'user_id' => $id])->delete();
-
         $delete_from_schedule_media = ScheduleMedia::where(['recipient_id' => $request->id, 'user_id' => $id])->delete();
 
         $delete_from_share_media = ShareMedia::where('recipient_id', $request->id)->delete();
 
         return redirect()->route('user.recipents')->withSuccess('Recipient was deleted successfully');
-        // return redirect()->route('user.medias.my-media');
     }
 }
