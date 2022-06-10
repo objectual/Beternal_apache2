@@ -499,7 +499,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-6 text-center offset-lg-3">
-                        <img class="mt-4 mb-3 audio-pop" src="{{ asset('/public/assets/images/audio-pop.png') }}" />
+                        <img class="mt-4 mb-3 audio-pop" src="{{ asset('/public/assets/images/audio (2).png') }}" />
                     </div>
                 </div>
                 <div class="row pt-3 pb-5 media-icons">
@@ -523,6 +523,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-10 text-center offset-lg-1">
+                        <img style="height:60px; width:60px;" src="{{ asset('/public/assets/images/loader.gif')}}" /> 
                         <p class="text-white">Please Wait</p>
                     </div>
                 </div>

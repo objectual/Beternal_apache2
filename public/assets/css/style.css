@@ -701,7 +701,7 @@ body {
 /**** account profile Css *****/
 .img-edit {
     height: 30px;
-    width: 30px;
+    cursor: pointer;
 }
 .edit {
     border-radius: 5px;
@@ -3622,6 +3622,9 @@ select option { color: #fff !important; }
 
 .logout-modal .modal-content {
     background-color: rgb(0, 0, 0, 0.3) !important;
+    top: 35%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-35%);
 }
 
 
@@ -3640,4 +3643,37 @@ select option { color: #fff !important; }
 
 .z-9 {
     z-index: 9999;
+}
+
+
+#delete .modal-content {
+    background-color: rgb(0, 0, 0, 0.3) !important; 
+}
+
+#delete .modal-dialog {
+    top: 35%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-35%);
+}
+
+.delete-a {
+    cursor: pointer; 
+}
+
+.close-cancel {
+    cursor: pointer;
+}
+ 
+
+.modal-backdrop { 
+    background-color: transparent;
+}
+
+#selectType .modal-content {
+    background-color: rgb(0, 0, 0, 0.3) !important; 
+}
+
+.loader-gif {
+    height: 60px;
+    width: 60px;
 }
