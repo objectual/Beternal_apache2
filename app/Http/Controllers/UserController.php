@@ -239,10 +239,9 @@ class UserController extends Controller
         $user_contacts =  UserContact::where('user_id', $id)->get(['id', 'contact_id']);
 
         $user_recipents =  UserRecipient::where(['user_recipients.user_id' => $id, 'user_groups.user_id' => $id])
-            ->join('users', 'user_recipients.recipient_id', '=', 'users.id')
             ->leftjoin('user_groups', 'user_recipients.recipient_id', '=', 'user_groups.recipient_id')
             ->leftjoin('groups', 'user_groups.group_id', '=', 'groups.id')
-            ->get(['user_recipients.recipient_id', 'users.name', 'users.last_name', 'users.profile_image', 'user_groups.recipient_id as group_recipient_id', 'user_groups.group_id', 'groups.group_title']);
+            ->get(['user_recipients.recipient_id', 'user_recipients.name', 'user_recipients.last_name', 'user_recipients.profile_image', 'user_groups.recipient_id as group_recipient_id', 'user_groups.group_id', 'groups.group_title']);
 
         if (!$user_recipents->isEmpty()) {
             foreach ($user_recipents as $key => $recipient) {
@@ -320,8 +319,10 @@ class UserController extends Controller
 
     public function addRecipent(Request $request)
     {
-        $check_email =  User::where('email', $request->email)->get(['id', 'email']);
-
+        $check_email =  User::where('email', $request->email)->get(['id', 'email', 'recipient_status']);
+        if ($request->email == Auth::user()->email) {
+            return redirect()->route('user.recipents.add-form')->with('message', 'Sorry you can not add recipient with your own email!');
+        }
         if ($check_email->isEmpty()) {
             $request->validate([
                 'name' => ['required', 'string', 'min:3', 'max:255'],
@@ -368,12 +369,27 @@ class UserController extends Controller
             $add_recipent->state_province_id =  $request->state_province_id;
             $add_recipent->city_id           =  $request->city_id;
             $add_recipent->zip_postal_code   =  $request->zip_postal_code;
+            $add_recipent->recipient_status  =  0;
             $add_recipent->save();
 
+            $for_user = 'emails.recipientMail';
+            $for_recipient = 'emails.toRecipientMail';
             if ($add_recipent) {
                 $add_user_recipent = new UserRecipient();
-                $add_user_recipent->recipient_id =  $add_recipent->id;
-                $add_user_recipent->user_id      =  Auth::user()->id;
+                $add_user_recipent->recipient_id      =  $add_recipent->id;
+                $add_user_recipent->user_id           =  Auth::user()->id;
+                $add_user_recipent->name              =  $request->name;
+                $add_user_recipent->last_name         =  $request->last_name;
+                $add_user_recipent->email             =  $request->email;
+                $add_user_recipent->country_code      =  $request->country_code;
+                $add_user_recipent->phone_number      =  $request->phone;
+                $add_user_recipent->address           =  $request->address;
+                $add_user_recipent->address_2         =  $request->address_2;
+                $add_user_recipent->profile_image     =  $image_new;
+                $add_user_recipent->country_id        =  $request->country_id;
+                $add_user_recipent->state_province_id =  $request->state_province_id;
+                $add_user_recipent->city_id           =  $request->city_id;
+                $add_user_recipent->zip_postal_code   =  $request->zip_postal_code;
                 $add_user_recipent->save();
             }
             if ($request->contact_status_id != null) {
@@ -383,20 +399,8 @@ class UserController extends Controller
                 $add_contact->user_id   =  Auth::user()->id;
                 $add_contact->save();
 
-                $contact = ContactStatus::where('id', $add_contact->contact_status_id)->first();
-                session()->put(['email'=>$add_recipent->email, 'name'=>$add_recipent->name]);
-                $data = array('first_name' => $add_recipent->name, 'last_name' => $add_recipent->last_name, 'contact_status' => $contact->contact_title);
-
-                Mail::send('emails.recipientMail', $data, function ($message) {
-                    $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
-                    $message->from('team@beternal.life', 'bETERNAL Team');
-                });
-                Mail::send('emails.toRecipientMail', $data, function ($message) {
-                    $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
-                    $message->from('team@beternal.life', 'bETERNAL Team');
-                });
-                session()->forget('email');
-                session()->forget('name');
+                $for_user = 'emails.contactMail';
+                $for_recipient = 'emails.toContactMail';
             }
             if ($request->group_id != null) {
                 $add_recipent_in_group = new UserGroup();
@@ -405,25 +409,98 @@ class UserController extends Controller
                 $add_recipent_in_group->user_id     =  Auth::user()->id;
                 $add_recipent_in_group->save();
             }
-        } else {
-            $add_user_recipent = new UserRecipient();
-            $add_user_recipent->recipient_id =  $check_email[0]->id;
-            $add_user_recipent->user_id      =  Auth::user()->id;
-            $add_user_recipent->save();
 
-            if ($request->contact_status_id != null) {
-                $add_contact = new UserContact();
-                $add_contact->contact_status_id =  $request->contact_status_id;
-                $add_contact->contact_id   =  $check_email[0]->id;
-                $add_contact->user_id   =  Auth::user()->id;
-                $add_contact->save();
-            }
-            if ($request->group_id != null) {
-                $add_recipent_in_group = new UserGroup();
-                $add_recipent_in_group->recipient_id =  $check_email[0]->id;
-                $add_recipent_in_group->group_id     =  $request->group_id;
-                $add_recipent_in_group->user_id     =  Auth::user()->id;
-                $add_recipent_in_group->save();
+            $contact = ContactStatus::where('id', $add_contact->contact_status_id)->first();
+            session()->put(['email' => $add_recipent->email, 'name' => $add_recipent->name]);
+            $data = array('first_name' => $add_recipent->name, 'last_name' => $add_recipent->last_name, 'contact_status' => $contact->contact_title, 'action_url' => 0);
+
+            Mail::send($for_user, $data, function ($message) {
+                $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
+                $message->from('team@beternal.life', 'bETERNAL Team');
+            });
+            Mail::send($for_recipient, $data, function ($message) {
+                $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
+                $message->from('team@beternal.life', 'bETERNAL Team');
+            });
+            session()->forget('email');
+            session()->forget('name');
+        } else {
+            $check_recipient = UserRecipient::where(['email' => $request->email, 'user_id' => Auth::user()->id])->get(['id', 'email']);
+            if ($check_recipient->isEmpty()) {
+                if ($request->city_id == 0) {
+                    $default_city = City::orderBy('id', 'desc')->first();
+                    $request->city_id = $default_city->id;
+                }
+                if ($request->postal_code_format == null) {
+                    $request->zip_postal_code = '00000';
+                }
+                if (request()->file('image')) {
+                    $image = request()->file('image');
+                    $image_new = time() . $image->getClientOriginalName();
+                    $image->move('public/media/image/', $image_new);
+                    $image_new  =   '/public/media/image/' . $image_new;
+                } else {
+                    $image_new  =   '/public/media/image/default.png';
+                }
+
+                $contact_title = '';
+                $for_user = 'emails.recipientMail';
+                $for_recipient = 'emails.toRecipientMail';
+                $add_user_recipent = new UserRecipient();
+                $add_user_recipent->recipient_id      =  $check_email[0]->id;
+                $add_user_recipent->user_id           =  Auth::user()->id;
+                $add_user_recipent->name              =  $request->name;
+                $add_user_recipent->last_name         =  $request->last_name;
+                $add_user_recipent->email             =  $request->email;
+                $add_user_recipent->country_code      =  $request->country_code;
+                $add_user_recipent->phone_number      =  $request->phone;
+                $add_user_recipent->address           =  $request->address;
+                $add_user_recipent->address_2         =  $request->address_2;
+                $add_user_recipent->profile_image     =  $image_new;
+                $add_user_recipent->country_id        =  $request->country_id;
+                $add_user_recipent->state_province_id =  $request->state_province_id;
+                $add_user_recipent->city_id           =  $request->city_id;
+                $add_user_recipent->zip_postal_code   =  $request->zip_postal_code;
+                $add_user_recipent->save();
+
+                if ($request->contact_status_id != null) {
+                    $add_contact = new UserContact();
+                    $add_contact->contact_status_id =  $request->contact_status_id;
+                    $add_contact->contact_id   =  $check_email[0]->id;
+                    $add_contact->user_id   =  Auth::user()->id;
+                    $add_contact->save();
+
+                    $contact = ContactStatus::where('id', $add_contact->contact_status_id)
+                    ->first();
+
+                    $contact_title = $contact->contact_title;
+                    $for_user = 'emails.contactMail';
+                    $for_recipient = 'emails.toContactMail';
+                }
+                if ($request->group_id != null) {
+                    $add_recipent_in_group = new UserGroup();
+                    $add_recipent_in_group->recipient_id =  $check_email[0]->id;
+                    $add_recipent_in_group->group_id     =  $request->group_id;
+                    $add_recipent_in_group->user_id     =  Auth::user()->id;
+                    $add_recipent_in_group->save();
+                }
+
+                session()->put(['email' => $add_user_recipent->email, 'name' => $add_user_recipent->name]);
+
+                $data = array('first_name' => $add_user_recipent->name, 'last_name' => $add_user_recipent->last_name, 'contact_status' => $contact_title, 'action_url' => $check_email[0]->recipient_status);
+
+                Mail::send($for_user, $data, function ($message) {
+                    $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
+                    $message->from('team@beternal.life', 'bETERNAL Team');
+                });
+                Mail::send($for_recipient, $data, function ($message) {
+                    $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
+                    $message->from('team@beternal.life', 'bETERNAL Team');
+                });
+                session()->forget('email');
+                session()->forget('name');
+            } else {
+                return redirect()->route('user.recipents.add-form')->with('message', 'You already have recipient with email "'.$request->email.'"');
             }
         }
 
@@ -453,8 +530,8 @@ class UserController extends Controller
             ->join('groups', 'user_groups.group_id', '=', 'groups.id')
             ->first(['groups.id', 'groups.group_title']);
 
-        $recipient =  User::where('id', $recipient_id)
-            ->first(['users.id as recipient_id', 'users.name', 'users.last_name', 'users.profile_image', 'users.email', 'users.phone_number']);
+        $recipient =  UserRecipient::where(['recipient_id' => $recipient_id, 'user_id' => $id])
+            ->first(['recipient_id', 'name', 'last_name', 'profile_image', 'email', 'phone_number']);
 
         if ($user_contacts != null) {
             $recipient->contact_title = $user_contacts->contact_title;
@@ -482,11 +559,11 @@ class UserController extends Controller
         $contacts = UserContact::where('user_id', $id)->get(['contact_status_id']);
         $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
 
-        $recipient =  User::where('users.id', $recipient_id)
-            ->join('countries', 'users.country_id', '=', 'countries.id')
-            ->join('state_province', 'users.state_province_id', '=', 'state_province.id')
-            ->join('cities', 'users.city_id', '=', 'cities.id')
-            ->first(['users.id as recipient_id', 'users.name as first_name', 'users.last_name', 'users.profile_image', 'users.email', 'users.country_code', 'users.phone_number', 'users.address', 'users.address_2', 'users.zip_postal_code', 'users.country_id', 'users.state_province_id', 'users.city_id', 'countries.country_name', 'countries.postal_code_format', 'state_province.name', 'cities.city_name']);
+        $recipient =  UserRecipient::where(['user_recipients.recipient_id' => $recipient_id, 'user_id' => $id])
+            ->join('countries', 'user_recipients.country_id', '=', 'countries.id')
+            ->join('state_province','user_recipients.state_province_id','=','state_province.id')
+            ->join('cities', 'user_recipients.city_id', '=', 'cities.id')
+            ->first(['user_recipients.id', 'user_recipients.recipient_id', 'user_recipients.name as first_name', 'user_recipients.last_name', 'user_recipients.profile_image', 'user_recipients.email', 'user_recipients.country_code', 'user_recipients.phone_number', 'user_recipients.address', 'user_recipients.address_2', 'user_recipients.zip_postal_code', 'user_recipients.country_id', 'user_recipients.state_province_id', 'user_recipients.city_id', 'countries.country_name', 'countries.postal_code_format', 'state_province.name', 'cities.city_name']);
 
         $provinces = StateProvince::where('country_id', $recipient->country_id)
             ->orderBy('name', 'asc')
@@ -542,7 +619,7 @@ class UserController extends Controller
     public function updateRecipent(Request $request)
     {
         $id = Auth::user()->id;
-        $recipient_id = $request->recipient_id;
+        $user_recipient_id = $request->recipient_id;
         $contact_status_id = $request->contact_status_id;
 
         $request->validate([
@@ -557,7 +634,8 @@ class UserController extends Controller
             'city_id' => ['required'],
         ]);
 
-        $update_recipient = User::findOrFail($recipient_id);
+        $update_recipient = UserRecipient::findOrFail($user_recipient_id);
+        $recipient_id = $update_recipient->recipient_id;
         if ($request->city_id == 0) {
             $default_city = City::orderBy('id', 'desc')->first();
             $request->city_id = $default_city->id;
@@ -574,7 +652,6 @@ class UserController extends Controller
             $image_new  =   $update_recipient->profile_image;
         }
 
-        $update_recipient = User::findOrFail($recipient_id);
         $update_recipient->name              =  $request->name;
         $update_recipient->last_name         =  $request->last_name;
         $update_recipient->email             =  $request->email;

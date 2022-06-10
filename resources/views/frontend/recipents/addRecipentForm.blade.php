@@ -2,6 +2,22 @@
 @extends("frontend.layouts.layout")
 @section("title","Add Recipient Form")
 @section("content")
+@if(session()->has('message'))
+<div class="modal-dialog logout-modal">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-10 text-center offset-lg-1">
+                    <p class="text-white">{{ session()->get('message') }}</p>
+                    <div class="text-center mb-4">
+                        <a href="{{ route('user.recipents.add-form') }}" class="mx-1"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@else
 <div class="container-fluid bg-dash add-background">
     <div class="scroll-div recipent-div">
         <div class="row">
@@ -145,9 +161,9 @@
                                 @php $id_name = 'contact_' . ++$key; @endphp
                                 @if(!(in_array($contact->id, $user_contact)))
                                 <label class="container-check label-add cl-white">{{ strtoupper($contact->contact_title) }}
-                                        <input type="checkbox" class="contact-status" id="{{ $id_name }}" name="contact_status_id" value="{{ $contact->id }}" onclick="selectContact(this)" />
-                                        <span class="checkmark add-check"></span>
-                                    </label>
+                                    <input type="checkbox" class="contact-status" id="{{ $id_name }}" name="contact_status_id" value="{{ $contact->id }}" onclick="selectContact(this)" />
+                                    <span class="checkmark add-check"></span>
+                                </label>
                                 @endif
                                 @endforeach
                                 @endif
@@ -158,9 +174,9 @@
                                 @foreach($groups as $key => $group)
                                 @php $id_name = 'group_' . ++$key; @endphp
                                 <label class="container-check label-add cl-white">{{ strtoupper($group->group_title) }}
-                                        <input type="checkbox" class="user-group" id="{{ $id_name }}" name="group_id" value="{{ $group->id }}" onclick="selectGroup(this)" />
-                                        <span class="checkmark add-check"></span>
-                                    </label>
+                                    <input type="checkbox" class="user-group" id="{{ $id_name }}" name="group_id" value="{{ $group->id }}" onclick="selectGroup(this)" />
+                                    <span class="checkmark add-check"></span>
+                                </label>
                                 @endforeach
                                 @endif
                             </div>
@@ -207,6 +223,7 @@
         </div>
     </div>
 </div>
+@endif
 
 <script src="{!! asset('/public/build/js/intlTelInput.js') !!}"></script>
 <script>

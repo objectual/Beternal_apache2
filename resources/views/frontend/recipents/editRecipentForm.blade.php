@@ -8,7 +8,7 @@
             <div class="col-lg-6 offset-lg-3">
                 <form method="POST" action="{{ route('user.recipents.update-recipent') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
                     @csrf
-                    <input type="hidden" name="recipient_id" value="{{ $recipient->recipient_id }}">
+                    <input type="hidden" name="recipient_id" value="{{ $recipient->id }}">
                     <input type="hidden" id="country_code" name="country_code" value="">
                     <input type="hidden" id="postal_code_format" name="postal_code_format" value="{{ $recipient->postal_code_format }}">
                     <div class="bg-add">
@@ -70,7 +70,7 @@
                                     <div class="input-group-append">
                                         <span class="input-group-text add-label" id="basic-addon2">EMAIL</span>
                                     </div>
-                                    <input type="email" name="email" value="{{ $recipient->email }}" class="form-control add-input" aria-describedby="basic-addon1" placeholder="Required Field" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required />
+                                    <input type="email" name="email" value="{{ $recipient->email }}" class="form-control add-input" aria-describedby="basic-addon1" placeholder="Required Field" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" readonly />
                                 </div>
 
                                 <div class="col-12" id="show_phone_msg"></div>
