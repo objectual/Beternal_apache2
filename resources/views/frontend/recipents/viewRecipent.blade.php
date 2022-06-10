@@ -65,18 +65,18 @@
     </div>
 </div>
 
-<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade delete-recipent" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-6 text-center offset-lg-3">
-                        <p>
+                        <p class="text-white">
                             Are you sure you want to delete recipient ?
                         </p>
                         <div class="text-center mb-4">
                             <a href="" class="mx-1" id="delete_recipient"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
-                            <a class="mx-1" data-bs-dismiss="modal" aria-label="Close"><img src="{{ asset('/public/assets/images/no.png') }}" /></a>
+                            <a class="mx-1 close-cancel" data-bs-dismiss="modal" aria-label="Close"><img src="{{ asset('/public/assets/images/no.png') }}" /></a>
                         </div>
                     </div>
                 </div>

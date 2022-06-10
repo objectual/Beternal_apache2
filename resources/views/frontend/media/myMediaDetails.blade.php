@@ -12,7 +12,7 @@
                             <img src="{{ asset('/public/assets/images/edit-icon-media-details.png') }}" class="edit-icon-style mt-1">
                             <p class="px-2 text-white mx-1">Edit</p>
                         </a> -->
-                        <a id="{{ $get_media[0]->id }}" class="d-flex" data-bs-target="#delete" onclick="deleteMedia(this)">
+                        <a id="{{ $get_media[0]->id }}" class="d-flex delete-a" data-bs-target="#delete" onclick="deleteMedia(this)">
                             <img src="{{ asset('/public/assets/images/delete-new.png') }}" class="delete-icon-style mt-1">
                             <p class="px-2 text-white mx-1">Delete</p>
                         </a>
@@ -118,12 +118,12 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-6 text-center offset-lg-3">
-                        <p>
+                        <p class="text-white"> 
                             Are you sure you want to delete media ?
                         </p>
                         <div class="text-center mb-4">
                             <a href="" class="mx-1" id="delete_media"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
-                            <a class="mx-1" data-bs-dismiss="modal" aria-label="Close"><img src="{{ asset('/public/assets/images/no.png') }}" /></a>
+                            <a class="mx-1 close-cancel" data-bs-dismiss="modal" aria-label="Close"><img src="{{ asset('/public/assets/images/no.png') }}" /></a>
                         </div>
                     </div>
                 </div>
