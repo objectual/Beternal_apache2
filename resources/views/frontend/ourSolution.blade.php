@@ -41,7 +41,7 @@
                             right. Your<br />
                             legacy. Your way. Be eternal.
                         </p>
-                        <a href="./create-account.html" class="solution-sign-up-btn mt-4 d-block">SIGN UP</a>
+                        <a href="{{ route('register') }}" class="solution-sign-up-btn mt-4 d-block">SIGN UP</a>
                     </div>
                     <div class="row">
                         <div class="col-lg-3"></div>
