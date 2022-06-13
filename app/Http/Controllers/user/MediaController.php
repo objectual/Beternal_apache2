@@ -30,13 +30,9 @@ class MediaController extends Controller
     {
         $title = "CREATE VIDEO";
         $id = Auth::user()->id;
-        $user_recipents =  UserRecipient::where('user_id', $id)
-            ->join('users', 'user_recipients.recipient_id', '=', 'users.id')
-            ->get(['user_recipients.recipient_id', 'users.name', 'users.last_name', 'users.profile_image']);
-
+        $user_recipents = userRecipients($id);
         $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
         $plan_details = Plan::where('id', Auth::user()->plan_id)->get(['*']);
-
         $my_media = userAudioVideoCount($id);
 
         return view('frontend.media.captureVideo', compact(
@@ -146,7 +142,7 @@ class MediaController extends Controller
                         }
                     }
                 }
-                return redirect()->route($route)->with('message', 'Uploaded successfully');
+                return redirect()->route('user.medias.my-media')->with('message', 'Uploaded successfully');
             } else {
                 return redirect()->route($route);
             }
@@ -184,7 +180,7 @@ class MediaController extends Controller
                         }
                     }
                 }
-                return redirect()->route($route)->with('message', 'Uploaded successfully');
+                return redirect()->route('user.legacy')->with('message','Uploaded successfully');
             } else {
                 return redirect()->route($route);
             }
@@ -303,8 +299,8 @@ class MediaController extends Controller
         if (!$all_media->isEmpty()) {
             foreach ($all_media as $key => $media) {
                 $recipients = ShareMedia::where('media_id', $media->id)
-                    ->join('users', 'share_media.recipient_id', '=', 'users.id')
-                    ->get(['share_media.recipient_id', 'users.name', 'users.last_name']);
+                    ->join('user_recipients', 'share_media.recipient_id', '=', 'user_recipients.recipient_id')
+                    ->get(['share_media.recipient_id', 'name', 'last_name']);
 
                 $groups = ShareMediaGroup::where('media_id', $media->id)
                     ->join('groups', 'share_media_groups.group_id', '=', 'groups.id')
@@ -364,8 +360,8 @@ class MediaController extends Controller
         $get_media = Media::where('id', $request->id)->get(['*']);
         if (!$get_media->isEmpty()) {
             $recipients = ShareMedia::where('media_id', $request->id)
-                ->join('users', 'share_media.recipient_id', '=', 'users.id')
-                ->get(['share_media.recipient_id', 'users.name', 'users.last_name', 'users.profile_image']);
+                ->join('user_recipients', 'share_media.recipient_id', '=', 'user_recipients.recipient_id')
+                ->get(['share_media.recipient_id', 'name', 'last_name', 'profile_image']);
 
             $groups = ShareMediaGroup::where('media_id', $request->id)
                 ->join('groups', 'share_media_groups.group_id', '=', 'groups.id')
@@ -425,8 +421,8 @@ class MediaController extends Controller
         if (!$all_legacy->isEmpty()) {
             foreach ($all_legacy as $key => $legacy) {
                 $recipients = ShareLegacy::where('legacy_id', $legacy->id)
-                    ->join('users', 'share_legacy.recipient_id', '=', 'users.id')
-                    ->get(['share_legacy.recipient_id', 'users.name', 'users.last_name']);
+                    ->join('user_recipients', 'share_legacy.recipient_id', '=', 'user_recipients.recipient_id')
+                    ->get(['share_legacy.recipient_id', 'name', 'last_name']);
 
                 $groups = ShareLegacyGroup::where('legacy_id', $legacy->id)
                     ->join('groups', 'share_legacy_groups.group_id', '=', 'groups.id')
@@ -477,8 +473,8 @@ class MediaController extends Controller
         $get_legacy = Legacy::where('id', $request->id)->get(['*']);
         if (!$get_legacy->isEmpty()) {
             $recipients = ShareLegacy::where('legacy_id', $request->id)
-                ->join('users', 'share_legacy.recipient_id', '=', 'users.id')
-                ->get(['share_legacy.recipient_id', 'users.name', 'users.last_name', 'users.profile_image']);
+                ->join('user_recipients', 'share_legacy.recipient_id', '=', 'user_recipients.recipient_id')
+                ->get(['share_legacy.recipient_id', 'name', 'last_name', 'profile_image']);
 
             $groups = ShareLegacyGroup::where('legacy_id', $request->id)
                 ->join('groups', 'share_legacy_groups.group_id', '=', 'groups.id')

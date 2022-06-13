@@ -4,6 +4,22 @@
 @section("title","Legacy")
 @section("content")
 @php $base_url = url(''); @endphp
+@if(session()->has('message'))
+<div class="modal-dialog logout-modal">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-10 text-center offset-lg-1">
+                    <p class="text-white">{{ session()->get('message') }}</p>
+                    <div class="text-center mb-4">
+                        <a href="{{ route('user.legacy') }}" class="mx-1"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@else
 <div class="container-fluid bg-create pt-2 pb-2 scroll-height-mobile mobile-padding">
     <div class="col-lg-10 offset-lg-1">
         <div class="scroll-div">
@@ -205,6 +221,7 @@
         </div>
     </div>
 </div>
+@endif
 @endsection
 
 <script src="{{ asset('/public/assets/js/lightbox-plus-jquery.min.js') }}"></script>

@@ -19,8 +19,7 @@ use App\Models\StateProvince;
 
     function userRecipients($id) {
         $user_recipents =  UserRecipient::where('user_id', $id)
-        ->join('users', 'user_recipients.recipient_id', '=', 'users.id')
-        ->get(['user_recipients.recipient_id', 'users.name', 'users.last_name', 'users.profile_image']);
+        ->get(['recipient_id', 'name', 'last_name', 'profile_image']);
         return $user_recipents;
     }
 
