@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Media;
 use App\Models\UserRecipient;
 use App\Models\Group;
@@ -16,7 +17,7 @@ use App\Models\Legacy;
 use App\Models\ScheduleMedia;
 use App\Models\ShareLegacy;
 use App\Models\ShareLegacyGroup;
-use Illuminate\Support\Facades\Storage;
+use App\Models\UserGroup;
 
 class MediaController extends Controller
 {
@@ -180,7 +181,7 @@ class MediaController extends Controller
                         }
                     }
                 }
-                return redirect()->route('user.legacy')->with('message','Uploaded successfully');
+                return redirect()->route('user.legacy')->with('message', 'Uploaded successfully');
             } else {
                 return redirect()->route($route);
             }
@@ -342,15 +343,75 @@ class MediaController extends Controller
         ));
     }
 
-    public function sharedMediaRecipents()
-    {
-        $title = "SHARED MEDIA BY RECIPIENTS";
-        return view('frontend.media.sharedMediaRecipents', compact('title'));
-    }
-
     public function sharedMedia()
     {
         $title = "SHARED MEDIA";
+        $id = Auth::user()->id;
+        $all_media = ShareMedia::where('share_media.recipient_id', $id)
+            ->join('media', 'share_media.media_id', '=', 'media.id')
+            ->join('user_recipients', 'media.user_id', '=', 'user_recipients.recipient_id')
+            ->get([
+                'share_media.recipient_id',
+                'media.*', 'user_recipients.name as sender_first_name',
+                'user_recipients.last_name as sender_last_name',
+                'user_recipients.recipient_id as sender_id'
+            ]);
+
+        $user_recipents = userRecipients($id);
+        $user_groups =  UserGroup::where('recipient_id', $id)
+            ->leftjoin('groups', 'user_groups.group_id', '=', 'groups.id')->get(['groups.id', 'groups.group_title']);
+
+        if (!$all_media->isEmpty()) {
+            foreach ($all_media as $key => $media) {
+                $groups = ShareMediaGroup::where('media_id', $media->id)
+                    ->join('groups', 'share_media_groups.group_id', '=', 'groups.id')
+                    ->get(['share_media_groups.group_id', 'groups.group_title']);
+
+                if (!$groups->isEmpty()) {
+                    $media->group_title = $groups[0]->group_title;
+                }
+                if ($groups->isEmpty()) {
+                    $media->group_title = '';
+                }
+            }
+        }
+        if (!$user_groups->isEmpty()) {
+            foreach ($user_groups as $key => $group) {
+                $group_media = ShareMediaGroup::where('group_id', $group->id)
+                    ->join('media', 'share_media_groups.media_id', '=', 'media.id')
+                    ->join('users', 'media.user_id', '=', 'users.id')
+                    ->get([
+                        'media.*',
+                        'users.name as sender_first_name',
+                        'users.last_name as sender_last_name',
+                        'users.id as sender_id'
+                    ]);
+
+                if (!$group_media->isEmpty()) {
+                    $group->media = $group_media;
+                }
+                if ($group_media->isEmpty()) {
+                    $group->media = null;
+                }
+            }
+        }
+
+        $full_path = Storage::disk('s3')->url('photo');
+        $get_path = explode('photo', $full_path);
+        $file_path = $get_path[0];
+
+        return view('frontend.media.sharedMediaRecipents', compact(
+            'title',
+            'all_media',
+            'user_recipents',
+            'user_groups',
+            'file_path'
+        ));
+    }
+
+    public function sharedMediaRecipents()
+    {
+        $title = "SHARED MEDIA BY RECIPIENTS";
         return view('frontend.media.sharedMediaSingleRecipent', compact('title'));
     }
 

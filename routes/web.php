@@ -86,10 +86,10 @@ Route::middleware('auth', 'user')->group(function () {
         Route::post('upload-media',[MediaController::class,'uploadMedia'])->name('user.medias.upload-media');
         Route::post('store-media', [MediaController::class,'store'])->name('user.medias.store-media');
         Route::get('my-media',[MediaController::class,'myMedia'])->name('user.medias.my-media');
-        Route::get('shared-media-recipents',[MediaController::class,'sharedMediaRecipents'])->name('user.medias.shared-media-recipents');
-        Route::get('shared-media',[MediaController::class,'sharedMedia'])->name('user.medias.shared-media');
         Route::get('my-media-details/{id}',[MediaController::class,'myMediaDetails'])->name('user.medias.my-media-details');
         Route::get('my-media-delete/{id}',[MediaController::class,'myMediaDelete'])->name('user.medias.my-media-delete');
+        Route::get('shared-media',[MediaController::class,'sharedMedia'])->name('user.medias.shared-media');
+        Route::get('shared-media-recipents',[MediaController::class,'sharedMediaRecipents'])->name('user.medias.shared-media-recipents');
     });
     Route::group(['prefix' => 'legacy'], function () {
         Route::get('/',[MediaController::class,'legacy'])->name('user.legacy');
