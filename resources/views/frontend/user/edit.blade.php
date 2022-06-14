@@ -3,7 +3,7 @@
 @section("title","My Profile Edit")
 @section("content")
 
-<div class="container-fluid payment-back-mob accont-padding-top">
+<div class="container-fluid payment-back-mob accont-padding-top edit-register">
     <div class="scroll-div">
         <div class="row">
             <div class="col-lg-3"></div>

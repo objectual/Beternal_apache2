@@ -1358,6 +1358,28 @@ textarea {
     display: none;
 }
 @media screen and (min-width: 280px) and (max-width: 991px) { 
+    .payment-back-mob .scroll-div {
+        height: auto !important;
+    }
+    .scheduled-media {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+    .scheduled-media .scroll-div {
+        height: auto !important;
+    }
+    .edit-register .scroll-div {
+        height: auto !important;
+    }
+    .add-media .scroll-div {
+        height: auto !important;
+    }
+    .account-back .scroll-div {
+        height: auto !important;
+    }
+    .dashboard-back .scroll-div {
+        overflow-y: hidden !important;
+    }
     .bg-add .input-group-text {
         width: auto !important;
     }

@@ -2,7 +2,7 @@
 @extends("frontend.layouts.layout")
 @section("title","Schedule Media")
 @section("content")
-<div class="container-fluid shared-back-light mobile-padding pb-5">
+<div class="container-fluid shared-back-light mobile-padding pb-5 scheduled-media">
     <div class="row">
         <div class="col-lg-10 offset-lg-1">
             <div class="scroll-div">
