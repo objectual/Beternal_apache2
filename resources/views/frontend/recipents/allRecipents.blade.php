@@ -63,6 +63,9 @@
                 <div class="col-lg-2 text-center col-4 position-relative">
                     <a href="{{ route('user.recipents.view-recipent', ['id' => $recipent->recipient_id]) }}" class="">
                         <img class="recipent-img" src="{{ asset($recipent->profile_image) }}" style="border-radius: 100%" />
+                        @if($recipent->status == 1)
+                        <img class="delete-recipent" src="{{ asset('public/assets/images/verified-tick.png') }}" height="20" width="20" />
+                        @endif
                         <p class="cl-white sel-text mt-3 mb-0">{{ $recipent->name }}</p>
                         <p class="mb-0 contact-label">{{ $recipent->group_title }}</p>
                         <p class="mb-0 contact-label">{{ $recipent->contact_title }}</p>
@@ -83,6 +86,7 @@
         var recipent_name = document.getElementById('name').value;
         var obj = JSON.parse('<?php echo json_encode($user_recipents) ?>');
         var add_new = '<div class="col-lg-2 col-4 text-center"><a href="recipents/add-form" class=""><img class="recipent-img" src="public/assets/images/add.svg" /><p class="sel-text color-primary mt-3">Add </p></a></div>';
+        var verified_tick = 'public/assets/images/verified-tick.png';
 
         $('#show_recipents').empty();
         $("#show_recipents").append(add_new);
@@ -101,7 +105,11 @@
                     if (recipent_name == name || recipent_name == last_name) {
                         var profile_image = obj[i].profile_image;
                         var display_image = profile_image.substring(1);
-                        var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><a href="recipents/view-recipent/' + obj[i].recipient_id + '" class=""><img class="recipent-img" src="' + display_image + '" style="border-radius: 100%" /><p class="cl-white sel-text mt-3">' + name +'</p><p class="mb-0 contact-label">' + obj[i].group_title +'</p><p class="mb-0 contact-label">' + obj[i].contact_title + '</p></a></div>';
+                        var for_verified = '';
+                        if (obj[i].status == 1) {
+                            for_verified = '<img class="delete-recipent" src="' + verified_tick + '" height="20" width="20" />';
+                        }
+                        var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><a href="recipents/view-recipent/' + obj[i].recipient_id + '" class=""><img class="recipent-img" src="' + display_image + '" style="border-radius: 100%" />' + for_verified + '<p class="cl-white sel-text mt-3">' + name + '</p><p class="mb-0 contact-label">' + obj[i].group_title + '</p><p class="mb-0 contact-label">' + obj[i].contact_title + '</p></a></div>';
 
                         $("#show_recipents").append(recipent);
                     }
@@ -114,8 +122,12 @@
                     var last_name = obj[i].last_name;
                     var profile_image = obj[i].profile_image;
                     var display_image = profile_image.substring(1);
+                    var for_verified = '';
+                    if (obj[i].status == 1) {
+                        for_verified = '<img class="delete-recipent" src="' + verified_tick + '" height="20" width="20" />';
+                    }
 
-                    var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><a href="recipents/view-recipent/' + obj[i].recipient_id + '" class=""><img class="recipent-img" src="' + display_image + '" style="border-radius: 100%" /><p class="cl-white sel-text mt-3">' + name +'</p><p class="mb-0 contact-label">' + obj[i].group_title +'</p><p class="mb-0 contact-label">' + obj[i].contact_title + '</p></a></div>';
+                    var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><a href="recipents/view-recipent/' + obj[i].recipient_id + '" class=""><img class="recipent-img" src="' + display_image + '" style="border-radius: 100%" />' + for_verified + '<p class="cl-white sel-text mt-3">' + name + '</p><p class="mb-0 contact-label">' + obj[i].group_title + '</p><p class="mb-0 contact-label">' + obj[i].contact_title + '</p></a></div>';
 
                     $("#show_recipents").append(recipent);
                 }
@@ -128,6 +140,7 @@
         var contact_id = document.getElementById('user_contact').value;
         var obj = JSON.parse('<?php echo json_encode($user_recipents) ?>');
         var add_new = '<div class="col-lg-2 col-4 text-center"><a href="recipents/add-form" class=""><img class="recipent-img" src="public/assets/images/add.svg" /><p class="sel-text color-primary mt-3">Add </p></a></div>';
+        var verified_tick = 'public/assets/images/verified-tick.png';
 
         if (obj != null) {
             len = obj.length;
@@ -144,8 +157,12 @@
                 if (group_id == obj[i].group_id && contact_id == obj[i].contact_id) {
                     var profile_image = obj[i].profile_image;
                     var display_image = profile_image.substring(1);
+                    var for_verified = '';
+                    if (obj[i].status == 1) {
+                        for_verified = '<img class="delete-recipent" src="' + verified_tick + '" height="20" width="20" />';
+                    }
 
-                    var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><a href="recipents/view-recipent/' + obj[i].recipient_id + '" class=""><img class="recipent-img" src="' + display_image + '" style="border-radius: 100%" /><p class="cl-white sel-text mt-3">' + name +'</p><p class="mb-0 contact-label">' + obj[i].group_title +'</p><p class="mb-0 contact-label">' + obj[i].contact_title + '</p></a></div>';
+                    var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><a href="recipents/view-recipent/' + obj[i].recipient_id + '" class=""><img class="recipent-img" src="' + display_image + '" style="border-radius: 100%" />' + for_verified + '<p class="cl-white sel-text mt-3">' + name + '</p><p class="mb-0 contact-label">' + obj[i].group_title + '</p><p class="mb-0 contact-label">' + obj[i].contact_title + '</p></a></div>';
 
                     $("#show_recipents").append(recipent);
                 }
@@ -161,8 +178,12 @@
                 if (contact_id == obj[i].contact_id) {
                     var profile_image = obj[i].profile_image;
                     var display_image = profile_image.substring(1);
+                    var for_verified = '';
+                    if (obj[i].status == 1) {
+                        for_verified = '<img class="delete-recipent" src="' + verified_tick + '" height="20" width="20" />';
+                    }
 
-                    var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><a href="recipents/view-recipent/' + obj[i].recipient_id + '" class=""><img class="recipent-img" src="' + display_image + '" style="border-radius: 100%" /><p class="cl-white sel-text mt-3">' + name +'</p><p class="mb-0 contact-label">' + obj[i].group_title +'</p><p class="mb-0 contact-label">' + obj[i].contact_title + '</p></a></div>';
+                    var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><a href="recipents/view-recipent/' + obj[i].recipient_id + '" class=""><img class="recipent-img" src="' + display_image + '" style="border-radius: 100%" />' + for_verified + '<p class="cl-white sel-text mt-3">' + name + '</p><p class="mb-0 contact-label">' + obj[i].group_title + '</p><p class="mb-0 contact-label">' + obj[i].contact_title + '</p></a></div>';
 
                     $("#show_recipents").append(recipent);
                 }
@@ -177,7 +198,11 @@
                         var last_name = obj[i].last_name;
                         var profile_image = obj[i].profile_image;
                         var display_image = profile_image.substring(1);
-                        var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><a href="recipents/view-recipent/' + obj[i].recipient_id + '" class=""><img class="recipent-img" src="' + display_image + '" style="border-radius: 100%" /><p class="cl-white sel-text mt-3">' + name + '</p><p class="mb-0 contact-label">' + obj[i].group_title +'</p><p class="mb-0 contact-label">' + obj[i].contact_title + '</p></a></div>';
+                        var for_verified = '';
+                        if (obj[i].status == 1) {
+                            for_verified = '<img class="delete-recipent" src="' + verified_tick + '" height="20" width="20" />';
+                        }
+                        var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><a href="recipents/view-recipent/' + obj[i].recipient_id + '" class=""><img class="recipent-img" src="' + display_image + '" style="border-radius: 100%" />' + for_verified + '<p class="cl-white sel-text mt-3">' + name + '</p><p class="mb-0 contact-label">' + obj[i].group_title + '</p><p class="mb-0 contact-label">' + obj[i].contact_title + '</p></a></div>';
                         $("#show_recipents").append(recipent);
                     }
                 }
@@ -191,7 +216,11 @@
                     var last_name = obj[i].last_name;
                     var profile_image = obj[i].profile_image;
                     var display_image = profile_image.substring(1);
-                    var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><a href="recipents/view-recipent/' + obj[i].recipient_id + '" class=""><img class="recipent-img" src="' + display_image + '" style="border-radius: 100%" /><p class="cl-white sel-text mt-3">' + name + '</p><p class="mb-0 contact-label">' + obj[i].group_title +'</p><p class="mb-0 contact-label">' + obj[i].contact_title + '</p></a></div>';
+                    var for_verified = '';
+                    if (obj[i].status == 1) {
+                        for_verified = '<img class="delete-recipent" src="' + verified_tick + '" height="20" width="20" />';
+                    }
+                    var recipent = '<div class="col-lg-2 text-center col-4 position-relative"><a href="recipents/view-recipent/' + obj[i].recipient_id + '" class=""><img class="recipent-img" src="' + display_image + '" style="border-radius: 100%" />' + for_verified + '<p class="cl-white sel-text mt-3">' + name + '</p><p class="mb-0 contact-label">' + obj[i].group_title + '</p><p class="mb-0 contact-label">' + obj[i].contact_title + '</p></a></div>';
                     $("#show_recipents").append(recipent);
                 }
             }

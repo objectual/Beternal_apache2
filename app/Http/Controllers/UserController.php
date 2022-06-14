@@ -241,7 +241,7 @@ class UserController extends Controller
         $user_recipents =  UserRecipient::where(['user_recipients.user_id' => $id, 'user_groups.user_id' => $id])
             ->leftjoin('user_groups', 'user_recipients.recipient_id', '=', 'user_groups.recipient_id')
             ->leftjoin('groups', 'user_groups.group_id', '=', 'groups.id')
-            ->get(['user_recipients.recipient_id', 'user_recipients.name', 'user_recipients.last_name', 'user_recipients.profile_image', 'user_groups.recipient_id as group_recipient_id', 'user_groups.group_id', 'groups.group_title']);
+            ->get(['user_recipients.recipient_id', 'user_recipients.name', 'user_recipients.last_name', 'user_recipients.profile_image', 'user_recipients.status', 'user_groups.recipient_id as group_recipient_id', 'user_groups.group_id', 'groups.group_title']);
 
         if (!$user_recipents->isEmpty()) {
             foreach ($user_recipents as $key => $recipient) {
@@ -320,6 +320,7 @@ class UserController extends Controller
     public function addRecipent(Request $request)
     {
         $check_email =  User::where('email', $request->email)->get(['id', 'email', 'recipient_status']);
+
         if ($request->email == Auth::user()->email) {
             return redirect()->route('user.recipents.add-form')->with('message', 'Sorry you can not add recipient with your own email!');
         }
@@ -372,8 +373,11 @@ class UserController extends Controller
             $add_recipent->recipient_status  =  0;
             $add_recipent->save();
 
+            $contact_title = '';
+            $token = 'fhhfvhf' . $request->name . time() . $request->last_name . 'hfvhfhvf';
             $for_user = 'emails.recipientMail';
             $for_recipient = 'emails.toRecipientMail';
+
             if ($add_recipent) {
                 $add_user_recipent = new UserRecipient();
                 $add_user_recipent->recipient_id      =  $add_recipent->id;
@@ -390,6 +394,7 @@ class UserController extends Controller
                 $add_user_recipent->state_province_id =  $request->state_province_id;
                 $add_user_recipent->city_id           =  $request->city_id;
                 $add_user_recipent->zip_postal_code   =  $request->zip_postal_code;
+                $add_user_recipent->token             =  $token;
                 $add_user_recipent->save();
             }
             if ($request->contact_status_id != null) {
@@ -399,6 +404,8 @@ class UserController extends Controller
                 $add_contact->user_id   =  Auth::user()->id;
                 $add_contact->save();
 
+                $contact = ContactStatus::where('id', $add_contact->contact_status_id)->first();
+                $contact_title = $contact->contact_title;
                 $for_user = 'emails.contactMail';
                 $for_recipient = 'emails.toContactMail';
             }
@@ -410,9 +417,12 @@ class UserController extends Controller
                 $add_recipent_in_group->save();
             }
 
-            $contact = ContactStatus::where('id', $add_contact->contact_status_id)->first();
             session()->put(['email' => $add_recipent->email, 'name' => $add_recipent->name]);
-            $data = array('first_name' => $add_recipent->name, 'last_name' => $add_recipent->last_name, 'contact_status' => $contact->contact_title, 'action_url' => 'http://167.99.0.236/register');
+            $base_url = url('');
+            $deny_url = $base_url;
+            $confirmation_url = $base_url . '/confirmation/' . $add_user_recipent->token;
+
+            $data = array('first_name' => $add_recipent->name, 'last_name' => $add_recipent->last_name, 'contact_status' => $contact_title, 'deny_url' => $deny_url, 'confirm_url' => $confirmation_url);
 
             Mail::send($for_user, $data, function ($message) {
                 $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
@@ -444,8 +454,10 @@ class UserController extends Controller
                 }
 
                 $contact_title = '';
+                $token = 'fhhfvhf' . $request->name . time() . $request->last_name . 'hfvhfhvf';
                 $for_user = 'emails.recipientMail';
                 $for_recipient = 'emails.toRecipientMail';
+
                 $add_user_recipent = new UserRecipient();
                 $add_user_recipent->recipient_id      =  $check_email[0]->id;
                 $add_user_recipent->user_id           =  Auth::user()->id;
@@ -461,6 +473,7 @@ class UserController extends Controller
                 $add_user_recipent->state_province_id =  $request->state_province_id;
                 $add_user_recipent->city_id           =  $request->city_id;
                 $add_user_recipent->zip_postal_code   =  $request->zip_postal_code;
+                $add_user_recipent->token             =  $token;
                 $add_user_recipent->save();
 
                 if ($request->contact_status_id != null) {
@@ -471,7 +484,7 @@ class UserController extends Controller
                     $add_contact->save();
 
                     $contact = ContactStatus::where('id', $add_contact->contact_status_id)
-                    ->first();
+                        ->first();
 
                     $contact_title = $contact->contact_title;
                     $for_user = 'emails.contactMail';
@@ -487,7 +500,11 @@ class UserController extends Controller
 
                 session()->put(['email' => $add_user_recipent->email, 'name' => $add_user_recipent->name]);
 
-                $data = array('first_name' => $add_user_recipent->name, 'last_name' => $add_user_recipent->last_name, 'contact_status' => $contact_title, 'action_url' => 'http://167.99.0.236/login');
+                $base_url = url('');
+                $deny_url = $base_url;
+                $confirmation_url = $base_url . '/confirmation/' . $add_user_recipent->token;
+
+                $data = array('first_name' => $add_user_recipent->name, 'last_name' => $add_user_recipent->last_name, 'contact_status' => $contact_title, 'deny_url' => $deny_url, 'confirm_url' => $confirmation_url);
 
                 Mail::send($for_user, $data, function ($message) {
                     $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
@@ -500,11 +517,32 @@ class UserController extends Controller
                 session()->forget('email');
                 session()->forget('name');
             } else {
-                return redirect()->route('user.recipents.add-form')->with('message', 'You already have recipient with email "'.$request->email.'"');
+                return redirect()->route('user.recipents.add-form')->with('message', 'You already have recipient with email "' . $request->email . '"');
             }
         }
 
         return redirect()->route('user.recipents');
+    }
+
+    public function recipientConfirmation(Request $request)
+    {
+        $title = "CONFIRMATION";
+        $message = "No any request found!";
+        $check_recipient = UserRecipient::where('token', $request->token)->first('status');
+        if($check_recipient)
+        {
+            if ($check_recipient->status == 0) {
+                $recipient = UserRecipient::where('token', $request->token)->update([
+                    'status' => 1,
+                ]);
+                $message = "We received your confirmation, thank you";
+            } else {
+                $message = "You already confirmed";
+            }
+        } else {
+            $message = "No any request found!";
+        }
+        return view('frontend.confirmation', compact('title', 'message'));
     }
 
     public function filterRecipent($contact_id)
@@ -561,7 +599,7 @@ class UserController extends Controller
 
         $recipient =  UserRecipient::where(['user_recipients.recipient_id' => $recipient_id, 'user_id' => $id])
             ->join('countries', 'user_recipients.country_id', '=', 'countries.id')
-            ->join('state_province','user_recipients.state_province_id','=','state_province.id')
+            ->join('state_province', 'user_recipients.state_province_id', '=', 'state_province.id')
             ->join('cities', 'user_recipients.city_id', '=', 'cities.id')
             ->first(['user_recipients.id', 'user_recipients.recipient_id', 'user_recipients.name as first_name', 'user_recipients.last_name', 'user_recipients.profile_image', 'user_recipients.email', 'user_recipients.country_code', 'user_recipients.phone_number', 'user_recipients.address', 'user_recipients.address_2', 'user_recipients.zip_postal_code', 'user_recipients.country_id', 'user_recipients.state_province_id', 'user_recipients.city_id', 'countries.country_name', 'countries.postal_code_format', 'state_province.name', 'cities.city_name']);
 
