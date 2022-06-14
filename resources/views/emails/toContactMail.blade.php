@@ -18,11 +18,7 @@
             <a href="http://167.99.0.236/"><button style="color: #000; border-radius: 5px; padding: 9px 55px;    background-color: #F7DB02; border-style: none; cursor: pointer;">DENY</button></a>
         </div>
         <div class="">
-            @if($action_url == 0)
-            <a href="http://167.99.0.236/register"><button style="color: #000; border-radius: 5px; padding: 9px 55px;    background-color: #F7DB02; border-style: none; margin-left:10px;">CONFIRM</button></a>
-            @else
-            <a href="http://167.99.0.236/login"><button style="color: #000; border-radius: 5px; padding: 9px 55px;    background-color: #F7DB02; border-style: none; margin-left:10px;">CONFIRM</button></a>
-            @endif
+            <a href="{{ $action_url }}"><button style="color: #000; border-radius: 5px; padding: 9px 55px;    background-color: #F7DB02; border-style: none; margin-left:10px;">CONFIRM</button></a>
         </div>
     </div>
 </body>

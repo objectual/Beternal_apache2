@@ -412,7 +412,7 @@ class UserController extends Controller
 
             $contact = ContactStatus::where('id', $add_contact->contact_status_id)->first();
             session()->put(['email' => $add_recipent->email, 'name' => $add_recipent->name]);
-            $data = array('first_name' => $add_recipent->name, 'last_name' => $add_recipent->last_name, 'contact_status' => $contact->contact_title, 'action_url' => 0);
+            $data = array('first_name' => $add_recipent->name, 'last_name' => $add_recipent->last_name, 'contact_status' => $contact->contact_title, 'action_url' => 'http://167.99.0.236/register');
 
             Mail::send($for_user, $data, function ($message) {
                 $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
@@ -487,7 +487,7 @@ class UserController extends Controller
 
                 session()->put(['email' => $add_user_recipent->email, 'name' => $add_user_recipent->name]);
 
-                $data = array('first_name' => $add_user_recipent->name, 'last_name' => $add_user_recipent->last_name, 'contact_status' => $contact_title, 'action_url' => $check_email[0]->recipient_status);
+                $data = array('first_name' => $add_user_recipent->name, 'last_name' => $add_user_recipent->last_name, 'contact_status' => $contact_title, 'action_url' => 'http://167.99.0.236/login');
 
                 Mail::send($for_user, $data, function ($message) {
                     $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
