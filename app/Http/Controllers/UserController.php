@@ -419,7 +419,7 @@ class UserController extends Controller
 
             session()->put(['email' => $add_recipent->email, 'name' => $add_recipent->name]);
             $base_url = url('');
-            $deny_url = $base_url;
+            $deny_url = $base_url . '/deny/' . $add_user_recipent->token;
             $confirmation_url = $base_url . '/confirmation/' . $add_user_recipent->token;
 
             $data = array('first_name' => $add_recipent->name, 'last_name' => $add_recipent->last_name, 'contact_status' => $contact_title, 'deny_url' => $deny_url, 'confirm_url' => $confirmation_url);
@@ -501,7 +501,7 @@ class UserController extends Controller
                 session()->put(['email' => $add_user_recipent->email, 'name' => $add_user_recipent->name]);
 
                 $base_url = url('');
-                $deny_url = $base_url;
+                $deny_url = $base_url . '/deny/' . $add_user_recipent->token;
                 $confirmation_url = $base_url . '/confirmation/' . $add_user_recipent->token;
 
                 $data = array('first_name' => $add_user_recipent->name, 'last_name' => $add_user_recipent->last_name, 'contact_status' => $contact_title, 'deny_url' => $deny_url, 'confirm_url' => $confirmation_url);
@@ -528,7 +528,19 @@ class UserController extends Controller
     {
         $title = "CONFIRMATION";
         $token = $request->token;
-        return view('frontend.confirmation', compact('title', 'token'));
+        $check_recipient = UserRecipient::where('token', $request->token)->first('status');
+        if ($check_recipient) {
+            if ($check_recipient->status == 0) {
+                return view('frontend.confirmation', compact('title', 'token'));
+            } else if ($check_recipient->status == 1) {
+                $message = "You already confirmed";
+            } else {
+                $message = "You already denied";
+            }
+        } else {
+            $message = "Not found any request!";
+        }
+        return view('frontend.confirmation', compact('title', 'message'));
     }
 
     public function updateConfirmation(Request $request)
@@ -583,8 +595,32 @@ class UserController extends Controller
                 }
 
                 $message = "We received your confirmation, thank you";
-            } else {
+            } else if ($check_recipient->status == 1) {
                 $message = "You already confirmed";
+            } else {
+                $message = "You already denied";
+            }
+        } else {
+            $message = "Not found any request!";
+        }
+        return view('frontend.confirmation', compact('title', 'message'));
+    }
+
+    public function recipientDeny(Request $request)
+    {
+        $title = "DENY SUCCESS";
+        $check_recipient = UserRecipient::where('token', $request->token)->first('status');
+
+        if ($check_recipient) {
+            if ($check_recipient->status == 0) {
+                $recipient = UserRecipient::where('token', $request->token)->update([
+                    'status' => 2,
+                ]);
+                $message = "Request has been denied!";
+            } else if ($check_recipient->status == 1) {
+                $message = "You already confirmed";
+            } else {
+                $message = "You already denied";
             }
         } else {
             $message = "Not found any request!";

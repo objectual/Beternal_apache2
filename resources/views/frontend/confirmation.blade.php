@@ -26,7 +26,7 @@
             <div class="row pt-3 pb-5 media-icons mt-4">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-3">
-                    <a href="{{ route('index') }}">
+                    <a href="{{ url('deny/'.$token) }}">
                         <button class="filter-btn btn w-100 text-center py-2 mt-2">REJECT</button>
                     </a>
                 </div>
