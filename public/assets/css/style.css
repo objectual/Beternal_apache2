@@ -1358,6 +1358,9 @@ textarea {
     display: none;
 }
 @media screen and (min-width: 280px) and (max-width: 991px) { 
+   .check-ver {
+    right: 12px !important;
+}
     .payment-back-mob .scroll-div {
         height: auto !important;
     }
@@ -3702,4 +3705,10 @@ select option { color: #fff !important; }
 .loader-gif {
     height: 60px;
     width: 60px;
+}
+
+.check-ver {
+    right: 38px;
+    width: 26px;
+    height: 26px;
 }

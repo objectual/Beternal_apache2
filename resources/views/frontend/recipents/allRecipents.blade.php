@@ -64,7 +64,7 @@
                     <a href="{{ route('user.recipents.view-recipent', ['id' => $recipent->recipient_id]) }}" class="">
                         <img class="recipent-img" src="{{ asset($recipent->profile_image) }}" style="border-radius: 100%" />
                         @if($recipent->status == 1)
-                        <img class="delete-recipent" src="{{ asset('public/assets/images/verified-tick.png') }}" height="20" width="20" />
+                        <img class="delete-recipent check-ver" src="{{ asset('public/assets/images/check.png') }}" height="20" width="20" />
                         @endif
                         <p class="cl-white sel-text mt-3 mb-0">{{ $recipent->name }}</p>
                         <p class="mb-0 contact-label">{{ $recipent->group_title }}</p>
@@ -86,7 +86,7 @@
         var recipent_name = document.getElementById('name').value;
         var obj = JSON.parse('<?php echo json_encode($user_recipents) ?>');
         var add_new = '<div class="col-lg-2 col-4 text-center"><a href="recipents/add-form" class=""><img class="recipent-img" src="public/assets/images/add.svg" /><p class="sel-text color-primary mt-3">Add </p></a></div>';
-        var verified_tick = 'public/assets/images/verified-tick.png';
+        var verified_tick = 'public/assets/images/check.png';
 
         $('#show_recipents').empty();
         $("#show_recipents").append(add_new);
@@ -140,7 +140,7 @@
         var contact_id = document.getElementById('user_contact').value;
         var obj = JSON.parse('<?php echo json_encode($user_recipents) ?>');
         var add_new = '<div class="col-lg-2 col-4 text-center"><a href="recipents/add-form" class=""><img class="recipent-img" src="public/assets/images/add.svg" /><p class="sel-text color-primary mt-3">Add </p></a></div>';
-        var verified_tick = 'public/assets/images/verified-tick.png';
+        var verified_tick = 'public/assets/images/check.png';
 
         if (obj != null) {
             len = obj.length;
