@@ -374,7 +374,7 @@ class UserController extends Controller
             $add_recipent->save();
 
             $contact_title = '';
-            $token = 'fhhfvhf' . $request->name . time() . $request->last_name . 'hfvhfhvf';
+            $token = '9394994fhhfvhf939939' . time() . '94584hfvhfhvf049945';
             $for_user = 'emails.recipientMail';
             $for_recipient = 'emails.toRecipientMail';
 
@@ -454,7 +454,7 @@ class UserController extends Controller
                 }
 
                 $contact_title = '';
-                $token = 'fhhfvhf' . $request->name . time() . $request->last_name . 'hfvhfhvf';
+                $token = '9394994fhhfvhf939939' . time() . '94584hfvhfhvf049945';
                 $for_user = 'emails.recipientMail';
                 $for_recipient = 'emails.toRecipientMail';
 
@@ -527,20 +527,55 @@ class UserController extends Controller
     public function recipientConfirmation(Request $request)
     {
         $title = "CONFIRMATION";
-        $message = "No any request found!";
-        $check_recipient = UserRecipient::where('token', $request->token)->first('status');
-        if($check_recipient)
-        {
+        $token = $request->token;
+        return view('frontend.confirmation', compact('title', 'token'));
+    }
+
+    public function updateConfirmation(Request $request)
+    {
+        $title = "CONFIRMATION SUCCESS";
+        $check_recipient = UserRecipient::where('token', $request->token)->first(['recipient_id', 'user_id', 'status', 'name', 'last_name', 'email']);
+
+        if ($check_recipient) {
             if ($check_recipient->status == 0) {
                 $recipient = UserRecipient::where('token', $request->token)->update([
                     'status' => 1,
                 ]);
+
+                $check_contact = UserContact::where(['user_contacts.contact_id' => $check_recipient->recipient_id, 'user_contacts.user_id' => $check_recipient->user_id])
+                    ->join('users', 'user_contacts.user_id', '=', 'users.id')
+                    ->join('contact_status', 'user_contacts.contact_status_id', '=', 'contact_status.id')
+                    ->first(['users.name', 'users.last_name', 'users.email', 'contact_title']);
+
+                $base_url = url('');
+                $confirmation_url = $base_url . '/splash';
+
+                if ($check_contact) {
+                    $for_send = 'emails.toUserConfirmationMail';
+                    session()->put(['email' => $check_contact->email, 'name' => $check_contact->name]);
+
+                    $data = array('first_name' => $check_contact->name, 'last_name' => $check_contact->last_name, 'recipient_first_name' => $check_recipient->name, 'recipient_last_name' => $check_recipient->last_name, 'contact_title' => $check_contact->contact_title, 'confirm_url' => $confirmation_url);
+                } else {
+                    $for_send = 'emails.toRecipientConfirmationMail';
+                    session()->put(['email' => $check_recipient->email, 'name' => $check_recipient->name]);
+
+                    $data = array('first_name' => $check_recipient->name, 'last_name' => $check_recipient->last_name, 'confirm_url' => $confirmation_url);
+                }
+
+                Mail::send($for_send, $data, function ($message) {
+                    $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
+                    $message->from('team@beternal.life', 'bETERNAL Team');
+                });
+
+                session()->forget('email');
+                session()->forget('name');
+
                 $message = "We received your confirmation, thank you";
             } else {
                 $message = "You already confirmed";
             }
         } else {
-            $message = "No any request found!";
+            $message = "Not found any request!";
         }
         return view('frontend.confirmation', compact('title', 'message'));
     }

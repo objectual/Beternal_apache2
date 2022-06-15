@@ -10,8 +10,8 @@
 
     <p>You have selected {{ $first_name }} {{ $last_name }} as your {{ $contact_status }} contact to ensure your well being.</p>
 
-    <p>Thank you</p>
-    <p>bETERNAL Team</p>
+    <p>Thank You</p>
+    <p>bETERNAL</p>
 
     <!-- <div style="display:flex;">
         <div class="">

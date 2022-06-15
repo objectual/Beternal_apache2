@@ -10,7 +10,7 @@
 
     <p>I have selected you as a my Recipient. Please confirm or deny your acceptance by clicking here.</p>
 
-    <p>Thank you</p>
+    <p>Thank You</p>
     <p>{{ Auth::user()->name }} {{ Auth::user()->last_name }}</p>
 
     <div style="display:flex;">

@@ -55,6 +55,7 @@ Route::get('/help-and-support', [HomeController::class, 'helpAndSupport'])->name
 Route::get('/forget-code', [HomeController::class, 'forgetCode'])->name('forget-code');
 Route::get('/survey', [HomeController::class, 'survey'])->name('servey');
 Route::get('/confirmation/{token}', [UserController::class, 'recipientConfirmation'])->name('confirmation');
+Route::get('/confirmation-success/{token}', [UserController::class, 'updateConfirmation'])->name('confirmation-success');
 
 // Route::get('/dashboard', function () {
 //     return view('frontend.dashboard');

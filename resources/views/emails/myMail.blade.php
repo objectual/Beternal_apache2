@@ -9,8 +9,8 @@
     <h1>Welcome. You are registered.</h1>
     <p>Dear {{ Auth::user()->name }} {{ Auth::user()->last_name }}</p>
 
-    <p>Thank you</p>
-    <p>bETERNAL Team</p>
+    <p>Thank You</p>
+    <p>bETERNAL</p>
 </body>
 
 </html>
