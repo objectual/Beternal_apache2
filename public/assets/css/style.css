@@ -3712,3 +3712,7 @@ select option { color: #fff !important; }
     width: 26px;
     height: 26px;
 }
+
+.reject-modal .modal-content {
+    background-color: rgb(0, 0, 0, 0.3) !important; 
+} 
