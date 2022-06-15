@@ -3676,7 +3676,7 @@ select option { color: #fff !important; }
 
 
 #delete .modal-content {
-    background-color: rgb(0, 0, 0, 0.3) !important; 
+    background-color: #000 !important; 
 }
 
 #delete .modal-dialog {
