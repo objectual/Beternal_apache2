@@ -551,24 +551,36 @@ class UserController extends Controller
                 $confirmation_url = $base_url . '/splash';
 
                 if ($check_contact) {
-                    $for_send = 'emails.toUserConfirmationMail';
-                    session()->put(['email' => $check_contact->email, 'name' => $check_contact->name]);
+                    session()->put(['email' => $check_recipient->email, 'name' => $check_recipient->name, 'user_email' => $check_contact->email, 'user_name' => $check_contact->name]);
 
-                    $data = array('first_name' => $check_contact->name, 'last_name' => $check_contact->last_name, 'recipient_first_name' => $check_recipient->name, 'recipient_last_name' => $check_recipient->last_name, 'contact_title' => $check_contact->contact_title, 'confirm_url' => $confirmation_url);
+                    $data = array('user_first_name' => $check_contact->name, 'user_last_name' => $check_contact->last_name, 'first_name' => $check_recipient->name, 'last_name' => $check_recipient->last_name, 'contact_title' => $check_contact->contact_title, 'confirm_url' => $confirmation_url);
+
+                    Mail::send('emails.toUserConfirmationMail', $data, function ($message) {
+                        $message->to(session()->get('user_email'), session()->get('user_name'))->subject('Recipient Notifications');
+                        $message->from('team@beternal.life', 'bETERNAL Team');
+                    });
+                    Mail::send('emails.toRecipientConfirmationMail', $data, function ($message) {
+                        $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
+                        $message->from('team@beternal.life', 'bETERNAL Team');
+                    });
+
+                    session()->forget('email');
+                    session()->forget('name');
+                    session()->forget('user_email');
+                    session()->forget('user_name');
                 } else {
-                    $for_send = 'emails.toRecipientConfirmationMail';
                     session()->put(['email' => $check_recipient->email, 'name' => $check_recipient->name]);
 
                     $data = array('first_name' => $check_recipient->name, 'last_name' => $check_recipient->last_name, 'confirm_url' => $confirmation_url);
+
+                    Mail::send('emails.toRecipientConfirmationMail', $data, function ($message) {
+                        $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
+                        $message->from('team@beternal.life', 'bETERNAL Team');
+                    });
+
+                    session()->forget('email');
+                    session()->forget('name');
                 }
-
-                Mail::send($for_send, $data, function ($message) {
-                    $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
-                    $message->from('team@beternal.life', 'bETERNAL Team');
-                });
-
-                session()->forget('email');
-                session()->forget('name');
 
                 $message = "We received your confirmation, thank you";
             } else {

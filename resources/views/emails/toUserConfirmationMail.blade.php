@@ -6,9 +6,9 @@
 </head>
 
 <body>
-    <p>Dear {{ $first_name }} {{ $last_name }}</p>
+    <p>Dear {{ $user_first_name }} {{ $user_last_name }}</p>
 
-    <p>{{ $recipient_first_name }} {{ $recipient_last_name }} has accepted your assignment as {{ $contact_title }}.</p>
+    <p>{{ $first_name }} {{ $last_name }} has accepted your assignment as {{ $contact_title }}.</p>
 
     <div style="display:flex;">
         <div class="">
