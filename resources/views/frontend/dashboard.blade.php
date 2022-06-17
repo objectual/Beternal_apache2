@@ -25,7 +25,7 @@
               </div>
             </div>
           </a>
-          <a href="{{ route('user.schedule-media') }}" class="col-lg-4 mt-3 text-center position-relative col-6">
+          <a href="{{ route('user.delivery') }}" class="col-lg-4 mt-3 text-center position-relative col-6">
             <div class=" p-3 dashboard-contain">
               <div class="col m-auto text-center">
                 <img class="" src="{{ asset('/public/assets/images/calendar.png') }}" />
