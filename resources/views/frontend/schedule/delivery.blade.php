@@ -321,49 +321,37 @@
         var current_date = '<?= $date ?>';
         var current_month = '<?= $given_month ?>';
         var current_year = '<?= $year ?>';
+        var current_day = '<?= $day ?>';
+        var normal_day = 'calendar-td-head weekdays-back';
+        var active_day = 'calendar-td-head sunday';
+        var class_sunday = normal_day;
+        var class_monday = normal_day;
+        var class_tuesday = normal_day;
+        var class_wednesday = normal_day;
+        var class_thursday = normal_day;
+        var class_friday = normal_day;
+        var class_saturday = normal_day;
 
         if (current == 'previous') {
-            var set_day = 1;
-            var set_month = default_month.value - 1;
-            var set_year = default_year.value;
+            var get_day = 1;
+            var get_month = default_month.value - 1;
+            var get_year = default_year.value;
 
-            if (set_month == 0) {
-                set_month = 12;
-                set_year = set_year - 1;
+            if (get_month == 0) {
+                get_month = 12;
+                get_year = get_year - 1;
             }
 
             var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            var get_month_name = months[set_month-1];
+            var get_month_name = months[get_month-1];
             var updated_month = get_month_name.toUpperCase();
             
-            default_day.value = set_day;
-            default_month.value = set_month;
-            default_year.value = set_year;
+            default_day.value = get_day;
+            default_month.value = get_month;
+            default_year.value = get_year;
 
-            $('#previous_month_next').empty();
-            $('#previous_month_next').append(updated_month);
-            $('#previous_year_next').empty();
-            $('#previous_year_next').append(set_year);
-
-            var days_name = '<td class="calendar-td-head weekdays-back">Sun</td><td class="calendar-td-head weekdays-back">Mon</td><td class="calendar-td-head weekdays-back">Tue</td><td class="calendar-td-head weekdays-back">Wed</td><td class="calendar-td-head weekdays-back">Thu</td><td class="calendar-td-head weekdays-back">Fri</td><td class="calendar-td-head weekdays-back">Sat</td>';
-
-            $('#days_name').empty();
-            $('#days_name').append(days_name);
-
-            let new_date = new Date(set_year, set_month-1, 1);
+            let new_date = new Date(get_year, get_month-1, 1);
             var get_day = new_date.getDay();
-            var days_28 = 28;
-            var days_30 = 30;
-            var days_31 = 31;
-            var month_30 = ['April', 'June', 'September', 'November'];
-            var month_31 = ['January', 'March', 'May', 'July', 'August', 'October', 'December'];
-            var week_days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            var first_day = week_days[get_day];
-            var first_row = 0;
-
-            if (set_year % 4 == 0) {
-                days_28 = days_28 + 1;
-            }
         }
         if (current == 'next') {
             let new_date = new Date(default_year.value, default_month.value, 1);
@@ -377,29 +365,47 @@
             default_day.value = get_date;
             default_month.value = get_month;
             default_year.value = get_year;
+        }
 
-            $('#previous_month_next').empty();
-            $('#previous_month_next').append(updated_month);
-            $('#previous_year_next').empty();
-            $('#previous_year_next').append(get_year);
+        $('#previous_month_next').empty();
+        $('#previous_month_next').append(updated_month);
+        $('#previous_year_next').empty();
+        $('#previous_year_next').append(get_year);
 
-            var days_name = '<td class="calendar-td-head weekdays-back">Sun</td><td class="calendar-td-head weekdays-back">Mon</td><td class="calendar-td-head weekdays-back">Tue</td><td class="calendar-td-head weekdays-back">Wed</td><td class="calendar-td-head weekdays-back">Thu</td><td class="calendar-td-head weekdays-back">Fri</td><td class="calendar-td-head weekdays-back">Sat</td>';
-
-            $('#days_name').empty();
-            $('#days_name').append(days_name);
-
-            var days_28 = 28;
-            var days_30 = 30;
-            var days_31 = 31;
-            var month_30 = ['April', 'June', 'September', 'November'];
-            var month_31 = ['January', 'March', 'May', 'July', 'August', 'October', 'December'];
-            var week_days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            var first_day = week_days[get_day];
-            var first_row = 0;
-
-            if (get_year % 4 == 0) {
-                days_28 = days_28 + 1;
+        if (get_month == current_month && get_year == current_year) {
+            if (current_day == 'Sunday') {
+                class_sunday = active_day;
+            } else if (current_day == 'Monday') {
+                class_monday = active_day;
+            } else if (current_day == 'Tuesday') {
+                class_tuesday = active_day;
+            } else if (current_day == 'Wednesday') {
+                class_wednesday = active_day;
+            } else if (current_day == 'Thursday') {
+                class_thursday = active_day;
+            } else if (current_day == 'Friday') {
+                class_friday = active_day;
+            } else if (current_day == 'Saturday') {
+                class_saturday = active_day;
             }
+        }
+
+        var days_name = '<td class="'+ class_sunday +'">Sun</td><td class="'+ class_monday +'">Mon</td><td class="'+ class_tuesday +'">Tue</td><td class="'+ class_wednesday +'">Wed</td><td class="'+ class_thursday +'">Thu</td><td class="'+ class_friday +'">Fri</td><td class="'+ class_saturday +'">Sat</td>';
+
+        $('#days_name').empty();
+        $('#days_name').append(days_name);
+
+        var days_28 = 28;
+        var days_30 = 30;
+        var days_31 = 31;
+        var month_30 = ['April', 'June', 'September', 'November'];
+        var month_31 = ['January', 'March', 'May', 'July', 'August', 'October', 'December'];
+        var week_days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        var first_day = week_days[get_day];
+        var first_row = 0;
+
+        if (get_year % 4 == 0) {
+            days_28 = days_28 + 1;
         }
         
         if (month_31.includes(get_month_name)) {
@@ -408,11 +414,27 @@
             for (var i = 0; i < week_days.length; i++) {
                 first_row++;
                 if (week_days[i] == first_day) {
-                    $('#show_date').append('<td><p class="">1</p></td>');
-                    if (first_row == 7) {
-                        $('#show_date').append('</tr><tr>');
+                    if (get_month == current_month && get_year == current_year) {
+                        if (current_date == 1) {
+                            $('#show_date').append('<td><p class="event-active">1</p></td>');
+                            if (first_row == 7) {
+                                $('#show_date').append('</tr><tr>');
+                            }
+                            break;
+                        } else {
+                            $('#show_date').append('<td><p class="">1</p></td>');
+                            if (first_row == 7) {
+                                $('#show_date').append('</tr><tr>');
+                            }
+                            break;
+                        }
+                    } else {
+                        $('#show_date').append('<td><p class="">1</p></td>');
+                        if (first_row == 7) {
+                            $('#show_date').append('</tr><tr>');
+                        }
+                        break;
                     }
-                    break;
                 } else {
                     $('#show_date').append('<td></td>');
                 }
@@ -421,7 +443,15 @@
             var row_break = first_row;
             for (var i = 2; i <= days_31; i++) {
                 row_break++;
-                $('#show_date').append('<td><p class="">'+ i +'</p></td>');
+                if (get_month == current_month && get_year == current_year) {
+                    if (current_date == i) {
+                        $('#show_date').append('<td><p class="event-active">'+ i +'</p></td>');
+                    } else {
+                        $('#show_date').append('<td><p class="">'+ i +'</p></td>');
+                    }
+                } else {
+                    $('#show_date').append('<td><p class="">'+ i +'</p></td>');
+                }
                 if (row_break == 7 || row_break == 14 || row_break == 21 || row_break == 28 || row_break == 35) {
                     $('#show_date').append('</tr><tr>');
                 }
@@ -433,11 +463,27 @@
             for (var i = 0; i < week_days.length; i++) {
                 first_row++;
                 if (week_days[i] == first_day) {
-                    $('#show_date').append('<td><p class="">1</p></td>');
-                    if (first_row == 7) {
-                        $('#show_date').append('</tr><tr>');
+                    if (get_month == current_month && get_year == current_year) {
+                        if (current_date == 1) {
+                            $('#show_date').append('<td><p class="event-active">1</p></td>');
+                            if (first_row == 7) {
+                                $('#show_date').append('</tr><tr>');
+                            }
+                            break;
+                        } else {
+                            $('#show_date').append('<td><p class="">1</p></td>');
+                            if (first_row == 7) {
+                                $('#show_date').append('</tr><tr>');
+                            }
+                            break;
+                        }
+                    } else {
+                        $('#show_date').append('<td><p class="">1</p></td>');
+                        if (first_row == 7) {
+                            $('#show_date').append('</tr><tr>');
+                        }
+                        break;
                     }
-                    break;
                 } else {
                     $('#show_date').append('<td></td>');
                 }
@@ -446,7 +492,15 @@
             var row_break = first_row;
             for (var i = 2; i <= days_30; i++) {
                 row_break++;
-                $('#show_date').append('<td><p class="">'+ i +'</p></td>');
+                if (get_month == current_month && get_year == current_year) {
+                    if (current_date == i) {
+                        $('#show_date').append('<td><p class="event-active">'+ i +'</p></td>');
+                    } else {
+                        $('#show_date').append('<td><p class="">'+ i +'</p></td>');
+                    }
+                } else {
+                    $('#show_date').append('<td><p class="">'+ i +'</p></td>');
+                }
                 if (row_break == 7 || row_break == 14 || row_break == 21 || row_break == 28 || row_break == 35) {
                     $('#show_date').append('</tr><tr>');
                 }
@@ -458,11 +512,27 @@
             for (var i = 0; i < week_days.length; i++) {
                 first_row++;
                 if (week_days[i] == first_day) {
-                    $('#show_date').append('<td><p class="">1</p></td>');
-                    if (first_row == 7) {
-                        $('#show_date').append('</tr><tr>');
+                    if (get_month == current_month && get_year == current_year) {
+                        if (current_date == 1) {
+                            $('#show_date').append('<td><p class="event-active">1</p></td>');
+                            if (first_row == 7) {
+                                $('#show_date').append('</tr><tr>');
+                            }
+                            break;
+                        } else {
+                            $('#show_date').append('<td><p class="">1</p></td>');
+                            if (first_row == 7) {
+                                $('#show_date').append('</tr><tr>');
+                            }
+                            break;
+                        }
+                    } else {
+                        $('#show_date').append('<td><p class="">1</p></td>');
+                        if (first_row == 7) {
+                            $('#show_date').append('</tr><tr>');
+                        }
+                        break;
                     }
-                    break;
                 } else {
                     $('#show_date').append('<td></td>');
                 }
@@ -471,7 +541,15 @@
             var row_break = first_row;
             for (var i = 2; i <= days_28; i++) {
                 row_break++;
-                $('#show_date').append('<td><p class="">'+ i +'</p></td>');
+                if (get_month == current_month && get_year == current_year) {
+                    if (current_date == i) {
+                        $('#show_date').append('<td><p class="event-active">'+ i +'</p></td>');
+                    } else {
+                        $('#show_date').append('<td><p class="">'+ i +'</p></td>');
+                    }
+                } else {
+                    $('#show_date').append('<td><p class="">'+ i +'</p></td>');
+                }
                 if (row_break == 7 || row_break == 14 || row_break == 21 || row_break == 28 || row_break == 35) {
                     $('#show_date').append('</tr><tr>');
                 }
