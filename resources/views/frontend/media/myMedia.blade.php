@@ -19,7 +19,7 @@
     </div>
 </div>
 @else
-<div class="container-fluid bg-create pt-2 pb-2 scroll-height-mobile mobile-padding">
+<div class="container-fluid bg-create pt-2 pb-2 scroll-height-mobile mobile-padding my-media">
     <div class="col-lg-10 offset-lg-1">
         <div class="scroll-div">
 
