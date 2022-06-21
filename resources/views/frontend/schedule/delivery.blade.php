@@ -2,15 +2,15 @@
 @section("title","Delivery")
 @section("content")
 @php
-    $mydate = getdate(date("U"));
-    $day = "$mydate[weekday]";
-    $month = "$mydate[month]";
-    $date = "$mydate[mday]";
-    $year = "$mydate[year]";
-    $current_month = strtoupper($month);
-    $given_month = "$mydate[mon]";
-    $for_current_month = getdate(mktime(1, 1, 1, $given_month, 1, $year));
-    $first_day = "$for_current_month[weekday]";
+$mydate = getdate(date("U"));
+$day = "$mydate[weekday]";
+$month = "$mydate[month]";
+$date = "$mydate[mday]";
+$year = "$mydate[year]";
+$current_month = strtoupper($month);
+$given_month = "$mydate[mon]";
+$for_current_month = getdate(mktime(1, 1, 1, $given_month, 1, $year));
+$first_day = "$for_current_month[weekday]";
 @endphp
 <div class="container-fluid bg-create delivery-padding bg-calendar">
     <div class="scroll-div">
@@ -37,12 +37,6 @@
                                         {{ $current_month }}
                                     </p>
                                 </div>
-                                <div class="carousel-item">
-                                    <p>FEB</p>
-                                </div>
-                                <div class="carousel-item">
-                                    <p>MAR</p>
-                                </div>
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev" onclick="changeMonth('previous')">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -60,12 +54,6 @@
                                 <div class="carousel-item active">
                                     <p class="cl-white" id="previous_year_next">{{ $year }}</p>
                                 </div>
-                                <div class="carousel-item">
-                                    <p>2020</p>
-                                </div>
-                                <div class="carousel-item">
-                                    <p>2020</p>
-                                </div>
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev" onclick="changeYear('previous')">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -80,13 +68,13 @@
                 </div>
 
                 @php
-                    $sunday_class = 'calendar-td-head weekdays-back';
-                    $monday_class = 'calendar-td-head weekdays-back';
-                    $tuesday_class = 'calendar-td-head weekdays-back';
-                    $wednesday_class = 'calendar-td-head weekdays-back';
-                    $thursday_class = 'calendar-td-head weekdays-back';
-                    $friday_class = 'calendar-td-head weekdays-back';
-                    $saturday_class = 'calendar-td-head weekdays-back';
+                $sunday_class = 'calendar-td-head weekdays-back';
+                $monday_class = 'calendar-td-head weekdays-back';
+                $tuesday_class = 'calendar-td-head weekdays-back';
+                $wednesday_class = 'calendar-td-head weekdays-back';
+                $thursday_class = 'calendar-td-head weekdays-back';
+                $friday_class = 'calendar-td-head weekdays-back';
+                $saturday_class = 'calendar-td-head weekdays-back';
                 @endphp
 
                 @if($day == 'Sunday')
@@ -106,13 +94,13 @@
                 @endif
 
                 @php
-                    $days_28 = 28;
-                    $days_29 = 29;
-                    $days_30 = 30;
-                    $days_31 = 31;
-                    $month_30 = array('April', 'June', 'September', 'November');
-                    $month_31 = array('January', 'March', 'May', 'July', 'August', 'October', 'December');
-                    $week_days = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+                $days_28 = 28;
+                $days_29 = 29;
+                $days_30 = 30;
+                $days_31 = 31;
+                $month_30 = array('April', 'June', 'September', 'November');
+                $month_31 = array('January', 'March', 'May', 'July', 'August', 'October', 'December');
+                $week_days = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
                 @endphp
 
                 <div class="row px-5 p-0-m">
@@ -133,110 +121,119 @@
                                 <tbody id="show_date">
                                     @php $first_row = 0; @endphp
                                     @if(in_array($month, $month_31))
-                                        <tr>
-                                            @for($i = 0; $i < count($week_days); $i++)
-                                                @php $first_row++; @endphp
-                                                @if($week_days[$i] == $first_day)
-                                                    @if($date == 1)
-                                                        <td><p class="event-active">1</p></td>
-                                                    @else
-                                                        <td><p class="cl-white" style="background-image: url('{{ asset('/public/assets/images/christopher-campbell-rDEOVtE7vOs-unsplash.jpg') }}'); background-size: cover;">1</p></td>
-                                                    @endif
-                                                    @if($first_row == 7)
-                                                        </tr><tr>
-                                                    @endif
-                                                    @php break; @endphp
-                                                @else
-                                                    <td></td>
-                                                @endif
-                                            @endfor
-                                            @php
-                                                $row_break = $first_row;
-                                                $days_31 + $first_row;
-                                            @endphp
-                                            @for($i = 2; $i <= $days_31; $i++)
-                                                @php $row_break++; @endphp
-                                                @if($date==$i)
-                                                    <td><p class="event-active">{{ $i }}</p></td>
-                                                @else
-                                                    <td><p class="">{{ $i }}</p></td>
-                                                @endif
-                                                @if($row_break == 7 || $row_break == 14 || $row_break == 21 ||
-                                                    $row_break == 28 || $row_break == 35)
-                                                    </tr><tr>
-                                                @endif
-                                            @endfor
-                                        </tr>
+                                    <tr>
+                                        @for($i = 0; $i < count($week_days); $i++) @php $first_row++; @endphp @if($week_days[$i]==$first_day) @if($date==1) <td>
+                                            <p class="event-active">1</p>
+                                            </td>
+                                            @else
+                                            <td>
+                                                <p class="cl-white" style="background-image: url('{{ asset('/public/assets/images/christopher-campbell-rDEOVtE7vOs-unsplash.jpg') }}'); background-size: cover;">1</p>
+                                            </td>
+                                            @endif
+                                            @if($first_row == 7)
+                                    </tr>
+                                    <tr>
+                                        @endif
+                                        @php break; @endphp
+                                        @else
+                                        <td></td>
+                                        @endif
+                                        @endfor
+                                        @php
+                                        $row_break = $first_row;
+                                        $days_31 + $first_row;
+                                        @endphp
+                                        @for($i = 2; $i <= $days_31; $i++) @php $row_break++; @endphp @if($date==$i) <td>
+                                            <p class="event-active">{{ $i }}</p>
+                                            </td>
+                                            @else
+                                            <td>
+                                                <p class="">{{ $i }}</p>
+                                            </td>
+                                            @endif
+                                            @if($row_break == 7 || $row_break == 14 || $row_break == 21 ||
+                                            $row_break == 28 || $row_break == 35)
+                                    </tr>
+                                    <tr>
+                                        @endif
+                                        @endfor
+                                    </tr>
                                     @elseif(in_array($month, $month_30))
-                                        <tr>
-                                            @for($i = 0; $i < count($week_days); $i++)
-                                                @php $first_row++; @endphp
-                                                @if($week_days[$i] == $first_day)
-                                                    @if($date == 1)
-                                                        <td><p class="event-active">1</p></td>
-                                                    @else
-                                                        <td><p class="cl-white" style="background-image: url('{{ asset('/public/assets/images/christopher-campbell-rDEOVtE7vOs-unsplash.jpg') }}'); background-size: cover;">1</p></td>
-                                                    @endif
-                                                    @if($first_row == 7)
-                                                        </tr><tr>
-                                                    @endif
-                                                    @php break; @endphp
-                                                @else
-                                                    <td></td>
-                                                @endif
-                                            @endfor
-                                            @php
-                                                $row_break = $first_row;
-                                                $days_30 + $first_row;
-                                            @endphp
-                                            @for($i = 2; $i <= $days_30; $i++)
-                                                @php $row_break++; @endphp
-                                                @if($date==$i)
-                                                    <td><p class="event-active">{{ $i }}</p></td>
-                                                @else
-                                                    <td><p class="">{{ $i }}</p></td>
-                                                @endif
-                                                @if($row_break == 7 || $row_break == 14 || $row_break == 21 ||
-                                                    $row_break == 28 || $row_break == 35)
-                                                    </tr><tr>
-                                                @endif
-                                            @endfor
-                                        </tr>
+                                    <tr>
+                                        @for($i = 0; $i < count($week_days); $i++) @php $first_row++; @endphp @if($week_days[$i]==$first_day) @if($date==1) <td onclick="selectMedia(1)">
+                                            <p class="event-active">1</p>
+                                            </td>
+                                            @else
+                                            <td onclick="selectMedia(1)">
+                                                <p class="cl-white" style="background-image: url('{{ asset('/public/assets/images/christopher-campbell-rDEOVtE7vOs-unsplash.jpg') }}'); background-size: cover;">1</p>
+                                            </td>
+                                            @endif
+                                            @if($first_row == 7)
+                                    </tr>
+                                    <tr>
+                                        @endif
+                                        @php break; @endphp
+                                        @else
+                                        <td></td>
+                                        @endif
+                                        @endfor
+                                        @php
+                                        $row_break = $first_row;
+                                        $days_30 + $first_row;
+                                        @endphp
+                                        @for($i = 2; $i <= $days_30; $i++) @php $row_break++; @endphp @if($date==$i) <td onclick="selectMedia({{ $i }})">
+                                            <p class="event-active">{{ $i }}</p>
+                                            </td>
+                                            @else
+                                            <td onclick="selectMedia({{ $i }})">
+                                                <p class="">{{ $i }}</p>
+                                            </td>
+                                            @endif
+                                            @if($row_break == 7 || $row_break == 14 || $row_break == 21 ||
+                                            $row_break == 28 || $row_break == 35)
+                                    </tr>
+                                    <tr>
+                                        @endif
+                                        @endfor
+                                    </tr>
                                     @elseif($month = 'February')
-                                        <tr>
-                                            @for($i = 0; $i < count($week_days); $i++)
-                                                @php $first_row++; @endphp
-                                                @if($week_days[$i] == $first_day)
-                                                    @if($date == 1)
-                                                        <td><p class="event-active">1</p></td>
-                                                    @else
-                                                        <td><p class="cl-white" style="background-image: url('{{ asset('/public/assets/images/christopher-campbell-rDEOVtE7vOs-unsplash.jpg') }}'); background-size: cover;">1</p></td>
-                                                    @endif
-                                                    @if($first_row == 7)
-                                                        </tr><tr>
-                                                    @endif
-                                                    @php break; @endphp
-                                                @else
-                                                    <td></td>
-                                                @endif
-                                            @endfor
-                                            @php
-                                                $row_break = $first_row;
-                                                $days_30 + $first_row;
-                                            @endphp
-                                            @for($i = 2; $i <= $days_28; $i++)
-                                                @php $row_break++; @endphp
-                                                @if($date==$i)
-                                                    <td><p class="event-active">{{ $i }}</p></td>
-                                                @else
-                                                    <td><p class="">{{ $i }}</p></td>
-                                                @endif
-                                                @if($row_break == 7 || $row_break == 14 || $row_break == 21 ||
-                                                    $row_break == 28 || $row_break == 35)
-                                                    </tr><tr>
-                                                @endif
-                                            @endfor
-                                        </tr>
+                                    <tr>
+                                        @for($i = 0; $i < count($week_days); $i++) @php $first_row++; @endphp @if($week_days[$i]==$first_day) @if($date==1) <td>
+                                            <p class="event-active">1</p>
+                                            </td>
+                                            @else
+                                            <td>
+                                                <p class="cl-white" style="background-image: url('{{ asset('/public/assets/images/christopher-campbell-rDEOVtE7vOs-unsplash.jpg') }}'); background-size: cover;">1</p>
+                                            </td>
+                                            @endif
+                                            @if($first_row == 7)
+                                    </tr>
+                                    <tr>
+                                        @endif
+                                        @php break; @endphp
+                                        @else
+                                        <td></td>
+                                        @endif
+                                        @endfor
+                                        @php
+                                        $row_break = $first_row;
+                                        $days_30 + $first_row;
+                                        @endphp
+                                        @for($i = 2; $i <= $days_28; $i++) @php $row_break++; @endphp @if($date==$i) <td>
+                                            <p class="event-active">{{ $i }}</p>
+                                            </td>
+                                            @else
+                                            <td>
+                                                <p class="">{{ $i }}</p>
+                                            </td>
+                                            @endif
+                                            @if($row_break == 7 || $row_break == 14 || $row_break == 21 ||
+                                            $row_break == 28 || $row_break == 35)
+                                    </tr>
+                                    <tr>
+                                        @endif
+                                        @endfor
+                                    </tr>
                                     @endif
                                 </tbody>
                             </table>
@@ -311,6 +308,141 @@
     </div>
 
 </div>
+
+<div class="modal fade" id="myMedia" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4 class="text-center" id="video_heading">My Video</h4>
+                <div class="row" id="video_display">
+                    <div class="col-lg-12 mt-3">
+                        <div class="row mt-3 px-2" id="all_videos">
+                            @if(isset($all_media))
+                            @foreach($all_media as $key => $video)
+                            @if($video->type == 'video')
+                            @php $date_time = explode(" ", $video->created_at); @endphp
+                            <div class="col-lg-3 px-1 col-6 col-md-4">
+                                <a class="example-image-link d-block" id="{{ $video->file_name }}" onclick="selectVideo(this)">
+                                    <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
+                                    <div class="play-bt-exm-one"></div>
+                                    <div class="pt-1 bg-black">
+                                        <span class="above-img-span">
+                                            {{ $video->title }}
+
+                                        </span>
+
+                                        <span class="group-color">
+                                            Group : {{ $video->group_title }}
+                                        </span>
+                                    </div>
+                                    <span class="ab-img-span">
+                                        {{ $video->recipient_first_name }} {{ $video->recipient_last_name }}
+                                    </span>
+
+                                    <span class="date-time pb-2">
+                                        {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
+                                    </span>
+                                </a>
+                                <button class="btn-view-details" onclick="mediaSelect({{ $video->id }})">Select</button>
+                            </div>
+                            @endif
+                            @endforeach
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="mt-5 text-center" id="photo_heading">My Photo</h4>
+                <div class="row" id="photo_display">
+                    <div class="col-lg-12 mt-3">
+                        <div class="row mt-3 px-2" id="all_photos">
+                            @if(isset($all_media))
+                            @foreach($all_media as $key => $photo)
+                            @if($photo->type == 'photo')
+                            @php $date_time = explode(" ", $photo->created_at); @endphp
+                            <div class="col-lg-3 px-1 col-6 col-md-4">
+                                <a class="example-image-link" href="{{ asset( $file_path.$photo->file_name )}}" id="{{ $photo->file_name }}" data-lightbox="example-set" data-title="<span>{{ $photo->description }}</span><br /><span>{{ $photo->created_at }}</span>" onclick="">
+                                    <img class="example-image" src="{{ asset( $file_path.$photo->file_name )}}" alt="" />
+
+                                    <div class="bg-black p-1">
+                                        <div class="d-flex pt-1 bg-black">
+                                            <span class="above-img-span">
+                                                {{ $photo->title }}
+
+                                            </span>
+
+                                            <span class="group-color">
+                                                Group : {{ $photo->group_title }}
+                                            </span>
+                                        </div>
+                                        <span class="ab-img-span">
+                                            {{ $photo->recipient_first_name }} {{ $photo->recipient_last_name }}
+                                        </span>
+
+                                        <span class="date-time pb-2">
+                                            {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
+                                        </span>
+                                    </div>
+                                </a>
+                                <a href="{{ route('user.medias.my-media-details', ['id' => $photo->id]) }}" class="btn-view-details">
+                                    View Details
+                                </a>
+                            </div>
+                            @endif
+                            @endforeach
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="mt-5 text-center" id="audio_heading">My Audio</h4>
+                <div class="row pb-5" id="audio_display">
+                    <div class="col-lg-12 text-center mt-3">
+                        <div class="row mt-3 px-2" id="all_audios">
+                            @if(isset($all_media))
+                            @foreach($all_media as $key => $audio)
+                            @if($audio->type == 'audio')
+                            @php $date_time = explode(" ", $audio->created_at); @endphp
+                            <div class="col-lg-3 px-1 col-md-4 col-6">
+                                <a class="example-image-link d-block" id="{{ $audio->file_name }}" onclick="selectAudio(this)">
+                                    <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
+                                    <div class="audio-bt-exm-one"></div>
+
+                                    <div class="bg-black p-1">
+                                        <div class="pt-1 bg-black">
+                                            <span class="above-img-span text-start">
+                                                {{ $audio->title }}
+
+                                            </span>
+
+                                            <span class="group-color">
+                                                Group : {{ $audio->group_title }}
+                                            </span>
+                                        </div>
+                                        <span class="ab-img-span text-start">
+                                            {{ $audio->recipient_first_name }} {{ $audio->recipient_last_name }}
+                                        </span>
+
+                                        <span class="date-time pb-2">
+                                            {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
+                                        </span>
+                                    </div>
+
+                                </a>
+                                <a href="{{ route('user.medias.my-media-details', ['id' => $audio->id]) }}" class="btn-view-details">
+                                    View Details
+                                </a>
+                            </div>
+                            @endif
+                            @endforeach
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 <script>
@@ -343,21 +475,23 @@
             }
 
             var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            var get_month_name = months[get_month-1];
+            var get_month_name = months[get_month - 1];
             var updated_month = get_month_name.toUpperCase();
-            
+
             default_day.value = get_day;
             default_month.value = get_month;
             default_year.value = get_year;
 
-            let new_date = new Date(get_year, get_month-1, 1);
+            let new_date = new Date(get_year, get_month - 1, 1);
             var get_day = new_date.getDay();
         }
         if (current == 'next') {
             let new_date = new Date(default_year.value, default_month.value, 1);
             var get_year = new_date.getFullYear();
-            var get_month_name = new_date.toLocaleString('default', {month: 'long'});
-            var get_month = new_date.getMonth()+1;
+            var get_month_name = new_date.toLocaleString('default', {
+                month: 'long'
+            });
+            var get_month = new_date.getMonth() + 1;
             var get_date = new_date.getDate();
             var get_day = new_date.getDay();
             var updated_month = get_month_name.toUpperCase();
@@ -390,7 +524,7 @@
             }
         }
 
-        var days_name = '<td class="'+ class_sunday +'">Sun</td><td class="'+ class_monday +'">Mon</td><td class="'+ class_tuesday +'">Tue</td><td class="'+ class_wednesday +'">Wed</td><td class="'+ class_thursday +'">Thu</td><td class="'+ class_friday +'">Fri</td><td class="'+ class_saturday +'">Sat</td>';
+        var days_name = '<td class="' + class_sunday + '">Sun</td><td class="' + class_monday + '">Mon</td><td class="' + class_tuesday + '">Tue</td><td class="' + class_wednesday + '">Wed</td><td class="' + class_thursday + '">Thu</td><td class="' + class_friday + '">Fri</td><td class="' + class_saturday + '">Sat</td>';
 
         $('#days_name').empty();
         $('#days_name').append(days_name);
@@ -407,7 +541,7 @@
         if (get_year % 4 == 0) {
             days_28 = days_28 + 1;
         }
-        
+
         if (month_31.includes(get_month_name)) {
             $('#show_date').empty();
             $('#show_date').append('<tr>');
@@ -438,19 +572,19 @@
                 } else {
                     $('#show_date').append('<td></td>');
                 }
-            
+
             }
             var row_break = first_row;
             for (var i = 2; i <= days_31; i++) {
                 row_break++;
                 if (get_month == current_month && get_year == current_year) {
                     if (current_date == i) {
-                        $('#show_date').append('<td><p class="event-active">'+ i +'</p></td>');
+                        $('#show_date').append('<td><p class="event-active">' + i + '</p></td>');
                     } else {
-                        $('#show_date').append('<td><p class="">'+ i +'</p></td>');
+                        $('#show_date').append('<td><p class="">' + i + '</p></td>');
                     }
                 } else {
-                    $('#show_date').append('<td><p class="">'+ i +'</p></td>');
+                    $('#show_date').append('<td><p class="">' + i + '</p></td>');
                 }
                 if (row_break == 7 || row_break == 14 || row_break == 21 || row_break == 28 || row_break == 35) {
                     $('#show_date').append('</tr><tr>');
@@ -487,19 +621,19 @@
                 } else {
                     $('#show_date').append('<td></td>');
                 }
-            
+
             }
             var row_break = first_row;
             for (var i = 2; i <= days_30; i++) {
                 row_break++;
                 if (get_month == current_month && get_year == current_year) {
                     if (current_date == i) {
-                        $('#show_date').append('<td><p class="event-active">'+ i +'</p></td>');
+                        $('#show_date').append('<td><p class="event-active">' + i + '</p></td>');
                     } else {
-                        $('#show_date').append('<td><p class="">'+ i +'</p></td>');
+                        $('#show_date').append('<td><p class="">' + i + '</p></td>');
                     }
                 } else {
-                    $('#show_date').append('<td><p class="">'+ i +'</p></td>');
+                    $('#show_date').append('<td><p class="">' + i + '</p></td>');
                 }
                 if (row_break == 7 || row_break == 14 || row_break == 21 || row_break == 28 || row_break == 35) {
                     $('#show_date').append('</tr><tr>');
@@ -536,19 +670,19 @@
                 } else {
                     $('#show_date').append('<td></td>');
                 }
-            
+
             }
             var row_break = first_row;
             for (var i = 2; i <= days_28; i++) {
                 row_break++;
                 if (get_month == current_month && get_year == current_year) {
                     if (current_date == i) {
-                        $('#show_date').append('<td><p class="event-active">'+ i +'</p></td>');
+                        $('#show_date').append('<td><p class="event-active">' + i + '</p></td>');
                     } else {
-                        $('#show_date').append('<td><p class="">'+ i +'</p></td>');
+                        $('#show_date').append('<td><p class="">' + i + '</p></td>');
                     }
                 } else {
-                    $('#show_date').append('<td><p class="">'+ i +'</p></td>');
+                    $('#show_date').append('<td><p class="">' + i + '</p></td>');
                 }
                 if (row_break == 7 || row_break == 14 || row_break == 21 || row_break == 28 || row_break == 35) {
                     $('#show_date').append('</tr><tr>');
@@ -573,7 +707,7 @@
         } else if (current == 'next') {
             set_year++;
         }
-        
+
         default_day.value = set_day;
         default_month.value = set_month;
         default_year.value = set_year;
@@ -588,14 +722,14 @@
         $('#days_name').empty();
         $('#days_name').append(days_name);
 
-        let new_date = new Date(set_year, set_month-1, 1);
+        let new_date = new Date(set_year, set_month - 1, 1);
         var get_day = new_date.getDay();
         var days_31 = 31;
         var week_days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         var first_day = week_days[get_day];
         var first_row = 0;
 
-        
+
         $('#show_date').empty();
         $('#show_date').append('<tr>');
         for (var i = 0; i < week_days.length; i++) {
@@ -608,16 +742,20 @@
                 break;
             } else {
                 $('#show_date').append('<td></td>');
-            }  
+            }
         }
         var row_break = first_row;
         for (var i = 2; i <= days_31; i++) {
             row_break++;
-            $('#show_date').append('<td><p class="">'+ i +'</p></td>');
+            $('#show_date').append('<td><p class="">' + i + '</p></td>');
             if (row_break == 7 || row_break == 14 || row_break == 21 || row_break == 28 || row_break == 35) {
                 $('#show_date').append('</tr><tr>');
             }
         }
         $('#show_date').append('</tr>');
+    }
+
+    function selectMedia(current) {
+        $("#myMedia").modal("show");
     }
 </script>

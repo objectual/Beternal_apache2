@@ -374,7 +374,7 @@ class UserController extends Controller
             $add_recipent->save();
 
             $contact_title = '';
-            $token = '9394994fhhfvhf939939' . time() . '94584hfvhfhvf049945';
+            $token = rand() . 'fhhfvhf' . rand() . time() . rand() . 'hfvhfhvf' . rand();
             $for_user = 'emails.recipientMail';
             $for_recipient = 'emails.toRecipientMail';
 
@@ -407,7 +407,7 @@ class UserController extends Controller
                 $contact = ContactStatus::where('id', $add_contact->contact_status_id)->first();
                 $contact_title = $contact->contact_title;
                 $for_user = 'emails.contactMail';
-                $for_recipient = 'emails.toContactMail';
+                $for_recipient = '';
             }
             if ($request->group_id != null) {
                 $add_recipent_in_group = new UserGroup();
@@ -419,19 +419,33 @@ class UserController extends Controller
 
             session()->put(['email' => $add_recipent->email, 'name' => $add_recipent->name]);
             $base_url = url('');
-            $deny_url = $base_url . '/deny/' . $add_user_recipent->token;
-            $confirmation_url = $base_url . '/confirmation/' . $add_user_recipent->token;
 
-            $data = array('first_name' => $add_recipent->name, 'last_name' => $add_recipent->last_name, 'contact_status' => $contact_title, 'deny_url' => $deny_url, 'confirm_url' => $confirmation_url);
+            if ($for_recipient == '') {
+                $deny_url = $base_url . '/deny-contact/' . $add_user_recipent->token;
+                $confirmation_url = $base_url . '/confirmation-contact/' . $add_user_recipent->token;
 
-            Mail::send($for_user, $data, function ($message) {
-                $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
-                $message->from('team@beternal.life', 'bETERNAL Team');
-            });
-            Mail::send($for_recipient, $data, function ($message) {
-                $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
-                $message->from('team@beternal.life', 'bETERNAL Team');
-            });
+                $data = array('first_name' => $add_recipent->name, 'last_name' => $add_recipent->last_name, 'contact_status' => $contact_title, 'deny_url' => $deny_url, 'confirm_url' => $confirmation_url);
+
+                Mail::send($for_user, $data, function ($message) {
+                    $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
+                    $message->from('team@beternal.life', 'bETERNAL Team');
+                });
+            } else {
+                $deny_url = $base_url . '/deny/' . $add_user_recipent->token;
+                $confirmation_url = $base_url . '/confirmation/' . $add_user_recipent->token;
+
+                $data = array('first_name' => $add_recipent->name, 'last_name' => $add_recipent->last_name, 'contact_status' => $contact_title, 'deny_url' => $deny_url, 'confirm_url' => $confirmation_url);
+
+                Mail::send($for_user, $data, function ($message) {
+                    $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
+                    $message->from('team@beternal.life', 'bETERNAL Team');
+                });
+                Mail::send($for_recipient, $data, function ($message) {
+                    $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
+                    $message->from('team@beternal.life', 'bETERNAL Team');
+                });
+            }
+
             session()->forget('email');
             session()->forget('name');
         } else {
@@ -454,7 +468,7 @@ class UserController extends Controller
                 }
 
                 $contact_title = '';
-                $token = '9394994fhhfvhf939939' . time() . '94584hfvhfhvf049945';
+                $token = rand() . 'fhhfvhf' . rand() . time() . rand() . 'hfvhfhvf' . rand();
                 $for_user = 'emails.recipientMail';
                 $for_recipient = 'emails.toRecipientMail';
 
@@ -488,7 +502,7 @@ class UserController extends Controller
 
                     $contact_title = $contact->contact_title;
                     $for_user = 'emails.contactMail';
-                    $for_recipient = 'emails.toContactMail';
+                    $for_recipient = '';
                 }
                 if ($request->group_id != null) {
                     $add_recipent_in_group = new UserGroup();
@@ -499,21 +513,34 @@ class UserController extends Controller
                 }
 
                 session()->put(['email' => $add_user_recipent->email, 'name' => $add_user_recipent->name]);
-
                 $base_url = url('');
-                $deny_url = $base_url . '/deny/' . $add_user_recipent->token;
-                $confirmation_url = $base_url . '/confirmation/' . $add_user_recipent->token;
 
-                $data = array('first_name' => $add_user_recipent->name, 'last_name' => $add_user_recipent->last_name, 'contact_status' => $contact_title, 'deny_url' => $deny_url, 'confirm_url' => $confirmation_url);
+                if ($for_recipient == '') {
+                    $deny_url = $base_url . '/deny-contact/' . $add_user_recipent->token;
+                    $confirmation_url = $base_url . '/confirmation-contact/' . $add_user_recipent->token;
 
-                Mail::send($for_user, $data, function ($message) {
-                    $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
-                    $message->from('team@beternal.life', 'bETERNAL Team');
-                });
-                Mail::send($for_recipient, $data, function ($message) {
-                    $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
-                    $message->from('team@beternal.life', 'bETERNAL Team');
-                });
+                    $data = array('first_name' => $add_user_recipent->name, 'last_name' => $add_user_recipent->last_name, 'contact_status' => $contact_title, 'deny_url' => $deny_url, 'confirm_url' => $confirmation_url);
+
+                    Mail::send($for_user, $data, function ($message) {
+                        $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
+                        $message->from('team@beternal.life', 'bETERNAL Team');
+                    });
+                } else {
+                    $deny_url = $base_url . '/deny/' . $add_user_recipent->token;
+                    $confirmation_url = $base_url . '/confirmation/' . $add_user_recipent->token;
+
+                    $data = array('first_name' => $add_user_recipent->name, 'last_name' => $add_user_recipent->last_name, 'contact_status' => $contact_title, 'deny_url' => $deny_url, 'confirm_url' => $confirmation_url);
+
+                    Mail::send($for_user, $data, function ($message) {
+                        $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
+                        $message->from('team@beternal.life', 'bETERNAL Team');
+                    });
+                    Mail::send($for_recipient, $data, function ($message) {
+                        $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
+                        $message->from('team@beternal.life', 'bETERNAL Team');
+                    });
+                }
+
                 session()->forget('email');
                 session()->forget('name');
             } else {
@@ -618,6 +645,100 @@ class UserController extends Controller
                 ]);
                 $message = "Request has been denied!";
             } else if ($check_recipient->status == 1) {
+                $message = "You already confirmed";
+            } else {
+                $message = "You already denied";
+            }
+        } else {
+            $message = "Not found any request!";
+        }
+        return view('frontend.confirmation', compact('title', 'message'));
+    }
+
+    public function contactConfirmation(Request $request)
+    {
+        $title = "CONFIRMATION";
+        $token = $request->token;
+        $check_recipient = UserRecipient::where('token', $request->token)
+            ->first('status_from_user');
+
+        if ($check_recipient) {
+            $status = $check_recipient->status_from_user;
+            if ($status == 0) {
+                return view('frontend.contactConfirmation', compact('title', 'token'));
+            } else if ($status == 1) {
+                $message = "You already confirmed";
+            } else {
+                $message = "You already denied";
+            }
+        } else {
+            $message = "Not found any request!";
+        }
+        return view('frontend.contactConfirmation', compact('title', 'message'));
+    }
+
+    public function updateContactConfirmation(Request $request)
+    {
+        $title = "CONFIRMATION SUCCESS";
+        $check_recipient = UserRecipient::where('token', $request->token)
+            ->first(['recipient_id', 'user_id', 'status_from_user', 'name', 'last_name', 'email']);
+
+        if ($check_recipient) {
+            $recipient_id = $check_recipient->recipient_id;
+            $user_id = $check_recipient->user_id;
+            $status = $check_recipient->status_from_user;
+
+            $user_contact = UserContact::where(['contact_id' => $recipient_id, 'user_id' => $user_id])
+                ->join('contact_status', 'user_contacts.contact_status_id', '=', 'contact_status.id')
+                ->join('users', 'user_contacts.user_id', '=', 'users.id')
+                ->first(['contact_title', 'name', 'last_name']);
+
+            if ($status == 0) {
+                $recipient = UserRecipient::where('token', $request->token)->update([
+                    'status_from_user' => 1,
+                ]);
+
+                session()->put(['email' => $check_recipient->email, 'name' => $check_recipient->name]);
+
+                $for_recipient = 'emails.toContactMail';
+                $base_url = url('');
+                $deny_url = $base_url . '/deny/' . $request->token;
+                $confirmation_url = $base_url . '/confirmation/' . $request->token;
+
+                $data = array('first_name' => $check_recipient->name, 'last_name' => $check_recipient->last_name, 'contact_status' => $user_contact->contact_title, 'deny_url' => $deny_url, 'confirm_url' => $confirmation_url, 'user_first_name' => $user_contact->name, 'user_last_name' => $user_contact->last_name);
+
+                Mail::send($for_recipient, $data, function ($message) {
+                    $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
+                    $message->from('team@beternal.life', 'bETERNAL Team');
+                });
+                session()->forget('email');
+                session()->forget('name');
+
+                $message = "We received your confirmation, thank you";
+            } else if ($status == 1) {
+                $message = "You already confirmed";
+            } else {
+                $message = "You already denied";
+            }
+        } else {
+            $message = "Not found any request!";
+        }
+        return view('frontend.confirmation', compact('title', 'message'));
+    }
+
+    public function contactDeny(Request $request)
+    {
+        $title = "DENY SUCCESS";
+        $check_recipient = UserRecipient::where('token', $request->token)
+            ->first('status_from_user');
+
+        if ($check_recipient) {
+            if ($check_recipient->status_from_user == 0) {
+                $recipient = UserRecipient::where('token', $request->token)->update([
+                    'status_from_user' => 2,
+                ]);
+                $message = "Request has been denied!";
+            } else if ($check_recipient->status_from_user == 1) {
                 $message = "You already confirmed";
             } else {
                 $message = "You already denied";

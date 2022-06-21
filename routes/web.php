@@ -57,6 +57,9 @@ Route::get('/survey', [HomeController::class, 'survey'])->name('servey');
 Route::get('/confirmation/{token}', [UserController::class, 'recipientConfirmation'])->name('confirmation');
 Route::get('/confirmation-success/{token}', [UserController::class, 'updateConfirmation'])->name('confirmation-success');
 Route::get('/deny/{token}', [UserController::class, 'recipientDeny'])->name('deny');
+Route::get('/confirmation-contact/{token}', [UserController::class, 'contactConfirmation'])->name('confirmation-contact');
+Route::get('/contact-success/{token}', [UserController::class, 'updateContactConfirmation'])->name('contact-success');
+Route::get('/deny-contact/{token}', [UserController::class, 'contactDeny'])->name('deny-contact');
 
 // Route::get('/dashboard', function () {
 //     return view('frontend.dashboard');

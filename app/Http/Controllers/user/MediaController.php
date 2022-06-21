@@ -594,7 +594,56 @@ class MediaController extends Controller
     public function deliveryMedia()
     {
         $title = "DELIVERY";
-        return view('frontend.schedule.delivery', compact('title'));
+        $id = Auth::user()->id;
+        $all_media = Media::where('user_id', $id)->get(['*']);
+
+        $user_recipents = userRecipients($id);
+        $user_groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
+
+        if (!$all_media->isEmpty()) {
+            foreach ($all_media as $key => $media) {
+                $recipients = ShareMedia::where('media_id', $media->id)
+                    ->join('user_recipients', 'share_media.recipient_id', '=', 'user_recipients.recipient_id')
+                    ->get(['share_media.recipient_id', 'name', 'last_name']);
+
+                $groups = ShareMediaGroup::where('media_id', $media->id)
+                    ->join('groups', 'share_media_groups.group_id', '=', 'groups.id')
+                    ->get(['share_media_groups.group_id', 'groups.group_title']);
+
+                if (!$recipients->isEmpty()) {
+                    $media->recipient_id = $recipients[0]->recipient_id;
+                    $media->recipient_first_name = $recipients[0]->name;
+                    $media->recipient_last_name = $recipients[0]->last_name;
+                    $media->all_recipient = $recipients;
+                }
+                if ($recipients->isEmpty()) {
+                    $media->recipient_id = 0;
+                    $media->recipient_first_name = 'N/A';
+                    $media->recipient_last_name = '';
+                    $media->all_recipient = null;
+                }
+                if (!$groups->isEmpty()) {
+                    $media->group_title = $groups[0]->group_title;
+                    $media->all_group = $groups;
+                }
+                if ($groups->isEmpty()) {
+                    $media->group_title = '';
+                    $media->all_group = null;
+                }
+            }
+        }
+
+        $full_path = Storage::disk('s3')->url('photo');
+        $get_path = explode('photo', $full_path);
+        $file_path = $get_path[0];
+
+        return view('frontend.schedule.delivery', compact(
+            'title',
+            'all_media',
+            'user_recipents',
+            'user_groups',
+            'file_path'
+        ));
     }
 
     public function successSchedule()
