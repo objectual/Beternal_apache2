@@ -1361,6 +1361,9 @@ textarea {
    .check-ver {
     right: 12px !important;
 }
+.my-media .scroll-div {
+    height: auto !important;
+}
     .payment-back-mob .scroll-div {
         height: auto !important;
     }
