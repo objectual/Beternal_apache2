@@ -81,9 +81,9 @@
                       @if(Auth::user()->id != $user->id)
                       <a href="{{ url('admin/users/show/'.$user->id) }}">
                         <i class="fas fa-edit"></i>
-                      </a>
-                      <a id="{{ $user->id }}" data-bs-target="#delete" onclick="deleteUser(this)">
-                        X
+                      </a> &nbsp;
+                      <a class="delete-user" id="{{ $user->id }}" data-bs-target="#delete" onclick="deleteUser(this)">
+                      <i class="fas fa-trash"></i>
                       </a>
                       @endif
                     </td>
@@ -128,7 +128,7 @@
             </p>
             <div class="text-center mb-4">
               <a href="" class="mx-1" id="delete_user"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
-              <a class="mx-1 close-cancel" data-bs-dismiss="modal" aria-label="Close"><img src="{{ asset('/public/assets/images/no.png') }}" /></a>
+              <a class="mx-1 close-cancel close" data-dismiss="modal" aria-label="Close"><img src="{{ asset('/public/assets/images/no.png') }}" /></a>
             </div>
           </div>
         </div>
@@ -136,6 +136,14 @@
     </div>
   </div>
 </div>
+<style> 
+  .delete-user {
+    cursor: pointer;
+}
+.close-cancel {
+    cursor: pointer;
+}
+</style>
 @endif
 @endsection
 @section('js')
