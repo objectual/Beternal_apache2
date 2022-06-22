@@ -127,6 +127,7 @@ Route::middleware('admin')->prefix('admin')->group(function () {
         Route::get('/',[UserController::class,'index'])->name('admin.users');
         Route::get('show/{id}',[UserController::class,'show'])->name('admin.users.show');
         Route::post('update',[UserController::class,'store'])->name('admin.users.update');
+        Route::get('delete/{id}',[UserController::class,'deleteUser'])->name('admin.users.delete');
     });
     Route::group(['prefix' => 'roles'], function () {
         Route::get('/',[UserRoleController::class,'index'])->name('admin.roles');

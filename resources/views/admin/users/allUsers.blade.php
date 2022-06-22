@@ -22,6 +22,23 @@
   <!-- /.content-header -->
   @endsection
   @section('content')
+  @php $base_url = url(''); @endphp
+  @if(session()->has('message'))
+  <div class="modal-dialog logout-modal">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-10 text-center offset-lg-1">
+            <p class="">{{ session()->get('message') }}</p>
+            <div class="text-center mb-4">
+              <a href="{{ route('admin.users') }}" class="mx-1"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  @else
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
@@ -65,10 +82,10 @@
                       <a href="{{ url('admin/users/show/'.$user->id) }}">
                         <i class="fas fa-edit"></i>
                       </a>
-                      @endif
-                      <!-- <a href="#">
+                      <a id="{{ $user->id }}" data-bs-target="#delete" onclick="deleteUser(this)">
                         X
-                      </a> -->
+                      </a>
+                      @endif
                     </td>
                   </tr>
                   @php
@@ -99,6 +116,27 @@
   </section>
   <!-- /.content -->
 </div>
+
+<div class="modal fade delete-recipent" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-6 text-center offset-lg-3">
+            <p class="">
+              Are you sure you want to delete user ?
+            </p>
+            <div class="text-center mb-4">
+              <a href="" class="mx-1" id="delete_user"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
+              <a class="mx-1 close-cancel" data-bs-dismiss="modal" aria-label="Close"><img src="{{ asset('/public/assets/images/no.png') }}" /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+@endif
 @endsection
 @section('js')
 
@@ -111,5 +149,13 @@
       "buttons": ["copy", "csv", "excel", "pdf", "print"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
   });
+
+  function deleteUser(current) {
+    var base_url = '<?= $base_url ?>';
+    var set_path = base_url + '/admin/users/delete/' + current.id;
+    var element = document.getElementById('delete_user');
+    element.href = set_path;
+    $("#delete").modal("show");
+  }
 </script>
 @endsection

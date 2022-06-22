@@ -14,9 +14,6 @@
                         <a href="{{ route('user.recipents.edit-recipent', ['id' => $recipient->recipient_id]) }}" class="icon-edit">
                             <img class="mt-2 img-edit" src="{{ asset('public/assets/images/edit.png') }}" />
                         </a>
-                        <!-- <a href="{{ route('user.recipents.delete-recipent', ['id' => $recipient->recipient_id]) }}" class="icon-edit">
-                            <img class="mt-2 img-edit" src="{{ asset('/public/assets/images/delete-new.png') }}" />
-                        </a> -->
                         <a id="{{ $recipient->recipient_id }}" class="icon-edit" data-bs-target="#delete" onclick="deleteRecipient(this)">
                             <img class="mt-2 img-edit" src="{{ asset('/public/assets/images/delete-new.png') }}" />
                         </a>

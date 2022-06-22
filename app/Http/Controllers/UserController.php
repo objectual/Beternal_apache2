@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use App\Models\User;
@@ -20,8 +21,12 @@ use App\Models\UserGroup;
 use App\Models\UserRole;
 use App\Models\Plan;
 use App\Models\Legacy;
+use App\Models\ShareLegacy;
+use App\Models\ShareLegacyGroup;
+use App\Models\Media;
 use App\Models\ScheduleMedia;
 use App\Models\ShareMedia;
+use App\Models\ShareMediaGroup;
 use App\helpers;
 
 class UserController extends Controller
@@ -959,5 +964,41 @@ class UserController extends Controller
         $delete_from_recipient = UserRecipient::where(['recipient_id' => $request->id, 'user_id' => $id])->delete();
 
         return redirect()->route('user.recipents')->withSuccess('Recipient was deleted successfully');
+    }
+
+    public function deleteUser(Request $request)
+    {
+        $id = Auth::user()->id;
+        $user_legacy = Legacy::where('user_id', $request->id)->get(['id', 'file_name']);
+        $user_media = Media::where('user_id', $request->id)->get(['id', 'file_name']);
+
+        if (!$user_legacy->isEmpty()) {
+            foreach ($user_legacy as $legacy) {
+                Storage::disk('s3')->delete($legacy->file_name);
+                $delete_from_share_legacy = ShareLegacy::where('legacy_id', $legacy->id)
+                ->delete();
+
+                $delete_from_share_legacy_group = ShareLegacyGroup::where('legacy_id', $legacy->id)->delete();
+            }
+        }
+        if (!$user_media->isEmpty()) {
+            foreach ($user_media as $media) {
+                Storage::disk('s3')->delete($media->file_name);
+                $delete_from_share_media = ShareMedia::where('media_id', $media->id)->delete();
+
+                $delete_from_share_media_group = ShareMediaGroup::where('media_id', $media->id)->delete();
+            }
+        }
+
+        $delete_from_contact = UserContact::where('user_id', $request->id)->delete();
+        $delete_from_group = UserGroup::where('user_id', $request->id)->delete();
+        $delete_from_schedule_media = ScheduleMedia::where('user_id', $request->id)->delete();
+        $delete_from_group = Group::where('user_id', $request->id)->delete();
+        $delete_from_legacy = Legacy::where('user_id', $request->id)->delete();
+        $delete_from_media = Media::where('user_id', $request->id)->delete();
+        $delete_from_recipient = UserRecipient::where('user_id', $request->id)->delete();
+        $delete_from_user = User::where('id', $request->id)->delete();
+
+        return redirect()->route('admin.users')->with('message', 'Deleted successfully');
     }
 }
