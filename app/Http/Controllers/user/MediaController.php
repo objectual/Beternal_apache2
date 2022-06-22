@@ -596,9 +596,7 @@ class MediaController extends Controller
         $title = "DELIVERY";
         $id = Auth::user()->id;
         $all_media = Media::where('user_id', $id)->get(['*']);
-
         $user_recipents = userRecipients($id);
-        $user_groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
 
         if (!$all_media->isEmpty()) {
             foreach ($all_media as $key => $media) {
@@ -641,7 +639,6 @@ class MediaController extends Controller
             'title',
             'all_media',
             'user_recipents',
-            'user_groups',
             'file_path'
         ));
     }

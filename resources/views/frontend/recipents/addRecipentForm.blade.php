@@ -576,6 +576,7 @@
         if (my_recipient < plan_details.recipient_limit) {
             return true;
         } else {
+            $("#show_recipient_msg").empty();
             $("#show_recipient_msg").append('<span class="cl-white">Sorry your limit for add recipient has been fully filled !</span>');
             return false;
         }

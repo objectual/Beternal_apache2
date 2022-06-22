@@ -384,9 +384,7 @@ $first_day = "$for_current_month[weekday]";
                                         </span>
                                     </div>
                                 </a>
-                                <a href="{{ route('user.medias.my-media-details', ['id' => $photo->id]) }}" class="btn-view-details">
-                                    View Details
-                                </a>
+                                <button class="btn-view-details" onclick="mediaSelect({{ $photo->id }})">Select</button>
                             </div>
                             @endif
                             @endforeach
@@ -429,9 +427,7 @@ $first_day = "$for_current_month[weekday]";
                                     </div>
 
                                 </a>
-                                <a href="{{ route('user.medias.my-media-details', ['id' => $audio->id]) }}" class="btn-view-details">
-                                    View Details
-                                </a>
+                                <button class="btn-view-details" onclick="mediaSelect({{ $audio->id }})">Select</button>
                             </div>
                             @endif
                             @endforeach
@@ -757,5 +753,9 @@ $first_day = "$for_current_month[weekday]";
 
     function selectMedia(current) {
         $("#myMedia").modal("show");
+    }
+
+    function mediaSelect(current) {
+        $("#myMedia").modal("hide");
     }
 </script>
