@@ -2,25 +2,22 @@
 @section("title","Delivery")
 @section("content")
 @php
-$mydate = getdate(date("U"));
-$day = "$mydate[weekday]";
-$month = "$mydate[month]";
-$date = "$mydate[mday]";
-$year = "$mydate[year]";
-$current_month = strtoupper($month);
-$given_month = "$mydate[mon]";
-$for_current_month = getdate(mktime(1, 1, 1, $given_month, 1, $year));
-$first_day = "$for_current_month[weekday]";
+    $mydate = getdate(date("U"));
+    $day = "$mydate[weekday]";
+    $month = "$mydate[month]";
+    $date = "$mydate[mday]";
+    $year = "$mydate[year]";
+    $current_month = strtoupper($month);
+    $given_month = "$mydate[mon]";
+    $for_current_month = getdate(mktime(1, 1, 1, $given_month, 1, $year));
+    $first_day = "$for_current_month[weekday]";
+    $base_url = url('');
 @endphp
 <div class="container-fluid bg-create delivery-padding bg-calendar">
     <div class="scroll-div">
         <div class="row">
             <div class="col-lg-12 mt-3 p-3 delivery-color">
                 <div class="row px-5 p-0-m mt-5">
-
-                    <input type="hidden" id="default_day" value="{{ $date }}">
-                    <input type="hidden" id="default_month" value="{{ $given_month }}">
-                    <input type="hidden" id="default_year" value="{{ $year }}">
 
                     <div class="col-lg-1 col-3 mb-4 text-start date-col">
                         <span class="date mt-3" id="current_date">{{ $date }}</span>
@@ -66,41 +63,61 @@ $first_day = "$for_current_month[weekday]";
                         </div>
                     </div>
                 </div>
-
-                @php
-                $sunday_class = 'calendar-td-head weekdays-back';
-                $monday_class = 'calendar-td-head weekdays-back';
-                $tuesday_class = 'calendar-td-head weekdays-back';
-                $wednesday_class = 'calendar-td-head weekdays-back';
-                $thursday_class = 'calendar-td-head weekdays-back';
-                $friday_class = 'calendar-td-head weekdays-back';
-                $saturday_class = 'calendar-td-head weekdays-back';
-                @endphp
-
-                @if($day == 'Sunday')
-                @php $sunday_class = 'calendar-td-head sunday'; @endphp
-                @elseif($day == 'Monday')
-                @php $monday_class = 'calendar-td-head sunday'; @endphp
-                @elseif($day == 'Tuesday')
-                @php $tuesday_class = 'calendar-td-head sunday'; @endphp
-                @elseif($day == 'Wednesday')
-                @php $wednesday_class = 'calendar-td-head sunday'; @endphp
-                @elseif($day == 'Thursday')
-                @php $thursday_class = 'calendar-td-head sunday'; @endphp
-                @elseif($day == 'Friday')
-                @php $friday_class = 'calendar-td-head sunday'; @endphp
-                @elseif($day == 'Saturday')
-                @php $saturday_class = 'calendar-td-head sunday'; @endphp
+                @php $schedule_dates = array(); @endphp
+                @if(isset($schedule_media) && !$schedule_media->isEmpty())
+                    @foreach($schedule_media as $media)
+                        @php
+                            $date_time = explode(' ', $media->date_time);
+                            $month_year = explode('-', $date_time[0]);
+                        @endphp
+                        @if($month_year[0] == $year && $month_year[1] == $given_month)
+                            @php
+                                $your_schedule = array(
+                                    'id' => $media->id,
+                                    'file' => $media->file_name,
+                                    'date' => $month_year[2],
+                                    'type' => $media->type
+                                );
+                                array_push($schedule_dates, $your_schedule);
+                            @endphp
+                        @endif
+                    @endforeach
                 @endif
 
                 @php
-                $days_28 = 28;
-                $days_29 = 29;
-                $days_30 = 30;
-                $days_31 = 31;
-                $month_30 = array('April', 'June', 'September', 'November');
-                $month_31 = array('January', 'March', 'May', 'July', 'August', 'October', 'December');
-                $week_days = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+                    $sunday_class = 'calendar-td-head weekdays-back';
+                    $monday_class = 'calendar-td-head weekdays-back';
+                    $tuesday_class = 'calendar-td-head weekdays-back';
+                    $wednesday_class = 'calendar-td-head weekdays-back';
+                    $thursday_class = 'calendar-td-head weekdays-back';
+                    $friday_class = 'calendar-td-head weekdays-back';
+                    $saturday_class = 'calendar-td-head weekdays-back';
+                @endphp
+
+                @if($day == 'Sunday')
+                    @php $sunday_class = 'calendar-td-head sunday'; @endphp
+                @elseif($day == 'Monday')
+                    @php $monday_class = 'calendar-td-head sunday'; @endphp
+                @elseif($day == 'Tuesday')
+                    @php $tuesday_class = 'calendar-td-head sunday'; @endphp
+                @elseif($day == 'Wednesday')
+                    @php $wednesday_class = 'calendar-td-head sunday'; @endphp
+                @elseif($day == 'Thursday')
+                    @php $thursday_class = 'calendar-td-head sunday'; @endphp
+                @elseif($day == 'Friday')
+                    @php $friday_class = 'calendar-td-head sunday'; @endphp
+                @elseif($day == 'Saturday')
+                    @php $saturday_class = 'calendar-td-head sunday'; @endphp
+                @endif
+
+                @php
+                    $days_28 = 28;
+                    $days_29 = 29;
+                    $days_30 = 30;
+                    $days_31 = 31;
+                    $month_30 = array('April', 'June', 'September', 'November');
+                    $month_31 = array('January', 'March', 'May', 'July', 'August', 'October', 'December');
+                    $week_days = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
                 @endphp
 
                 <div class="row px-5 p-0-m">
@@ -121,119 +138,269 @@ $first_day = "$for_current_month[weekday]";
                                 <tbody id="show_date">
                                     @php $first_row = 0; @endphp
                                     @if(in_array($month, $month_31))
-                                    <tr>
-                                        @for($i = 0; $i < count($week_days); $i++) @php $first_row++; @endphp @if($week_days[$i]==$first_day) @if($date==1) <td>
-                                            <p class="event-active">1</p>
-                                            </td>
+                                        <tr>
+                                        @for($i = 0; $i < count($week_days); $i++)
+                                            @php $first_row++; @endphp
+                                            @if($week_days[$i] == $first_day)
+                                                @if($date == 1)
+                                                    <td id="1" onclick="selectMedia(1)">
+                                                        <p class="event-active">1</p>
+                                                    </td>
+                                                @else
+                                                    <td id="1">
+                                                        <p class="">1</p>
+                                                    </td>
+                                                @endif
+                                                @if($first_row == 7)
+                                                    </tr>
+                                                    <tr>
+                                                @endif
+                                                @php break; @endphp
                                             @else
-                                            <td>
-                                                <p class="cl-white" style="background-image: url('{{ asset('/public/assets/images/christopher-campbell-rDEOVtE7vOs-unsplash.jpg') }}'); background-size: cover;">1</p>
-                                            </td>
+                                                <td></td>
                                             @endif
-                                            @if($first_row == 7)
-                                    </tr>
-                                    <tr>
-                                        @endif
-                                        @php break; @endphp
-                                        @else
-                                        <td></td>
-                                        @endif
                                         @endfor
                                         @php
-                                        $row_break = $first_row;
-                                        $days_31 + $first_row;
+                                            $row_break = $first_row;
+                                            $days_31 + $first_row;
                                         @endphp
-                                        @for($i = 2; $i <= $days_31; $i++) @php $row_break++; @endphp @if($date==$i) <td>
-                                            <p class="event-active">{{ $i }}</p>
-                                            </td>
+                                        @for($i = 2; $i <= $days_31; $i++)
+                                            @php $row_break++; @endphp
+                                            @if($date == $i)
+                                                <td id="{{ $i }}" onclick="selectMedia({{ $i }})">
+                                                    <p class="event-active">{{ $i }}</p>
+                                                </td>
                                             @else
-                                            <td>
-                                                <p class="">{{ $i }}</p>
-                                            </td>
+                                                @if($i > $date)
+                                                    <td id="{{ $i }}" onclick="selectMedia({{ $i }})">
+                                                        <p class="">{{ $i }}</p>
+                                                    </td>
+                                                @else
+                                                    <td id="{{ $i }}">
+                                                        <p class="">{{ $i }}</p>
+                                                    </td>
+                                                @endif
                                             @endif
-                                            @if($row_break == 7 || $row_break == 14 || $row_break == 21 ||
-                                            $row_break == 28 || $row_break == 35)
-                                    </tr>
-                                    <tr>
-                                        @endif
+                                            @if($row_break == 7 || $row_break == 14 || $row_break == 21 || $row_break == 28 || $row_break == 35)
+                                                </tr>
+                                                <tr>
+                                            @endif
                                         @endfor
-                                    </tr>
+                                        </tr>
                                     @elseif(in_array($month, $month_30))
-                                    <tr>
-                                        @for($i = 0; $i < count($week_days); $i++) @php $first_row++; @endphp @if($week_days[$i]==$first_day) @if($date==1) <td onclick="selectMedia(1)">
-                                            <p class="event-active">1</p>
-                                            </td>
+                                        <tr>
+                                        @for($i = 0; $i < count($week_days); $i++)
+                                            @php $first_row++; @endphp
+                                            @if($week_days[$i] == $first_day)
+                                                @if($date == 1)
+                                                    @if(count($schedule_dates) > 0)
+                                                        @php $set_media = 0; @endphp
+                                                        @for($a = 0; $a < count($schedule_dates); $a++)
+                                                            @if($schedule_dates[$a]['date'] == $date)
+                                                                @php $file = $schedule_dates[$a]['file']; @endphp
+                                                                <td id="1" onclick="actionMedia(1)">
+                                                                    <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover;">1</p>
+                                                                </td>
+                                                                @php
+                                                                    $set_media++;
+                                                                    $a = count($schedule_dates);
+                                                                @endphp
+                                                            @endif
+                                                        @endfor
+                                                        @if($set_media == 0)
+                                                            <td id="1" onclick="selectMedia(1)">
+                                                                <p class="event-active">1</p>
+                                                            </td>
+                                                        @endif
+                                                    @else
+                                                        <td id="1" onclick="selectMedia(1)">
+                                                            <p class="event-active">1</p>
+                                                        </td>
+                                                    @endif
+                                                @else
+                                                    @if(count($schedule_dates) > 0)
+                                                        @php $set_media = 0; @endphp
+                                                        @for($b = 0; $b < count($schedule_dates); $b++)
+                                                            @if($schedule_dates[$b]['date']==1)
+                                                                @php $file = $schedule_dates[$b]['file']; @endphp
+                                                                <td id="1" onclick="actionMedia(1)">
+                                                                    <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover;">1</p>
+                                                                </td>
+                                                                @php
+                                                                    $set_media++;
+                                                                    $b = count($schedule_dates);
+                                                                @endphp
+                                                            @endif
+                                                        @endfor
+                                                        @if($set_media == 0)
+                                                            <td id="1">
+                                                                <p class="">1</p>
+                                                            </td>
+                                                        @endif
+                                                    @else
+                                                        <td id="1">
+                                                            <p class="">1</p>
+                                                        </td>
+                                                    @endif
+                                                @endif
+                                                @if($first_row == 7)
+                                                    </tr>
+                                                    <tr>
+                                                @endif
+                                                @php break; @endphp
                                             @else
-                                            <td onclick="selectMedia(1)">
-                                                <p class="cl-white" style="background-image: url('{{ asset('/public/assets/images/christopher-campbell-rDEOVtE7vOs-unsplash.jpg') }}'); background-size: cover;">1</p>
-                                            </td>
+                                                <td></td>
                                             @endif
-                                            @if($first_row == 7)
-                                    </tr>
-                                    <tr>
-                                        @endif
-                                        @php break; @endphp
-                                        @else
-                                        <td></td>
-                                        @endif
                                         @endfor
                                         @php
-                                        $row_break = $first_row;
-                                        $days_30 + $first_row;
+                                            $row_break = $first_row;
+                                            $days_30 + $first_row;
                                         @endphp
-                                        @for($i = 2; $i <= $days_30; $i++) @php $row_break++; @endphp @if($date==$i) <td onclick="selectMedia({{ $i }})">
-                                            <p class="event-active">{{ $i }}</p>
-                                            </td>
+                                        @for($i = 2; $i <= $days_30; $i++)
+                                            @php $row_break++; @endphp
+                                            @if($date == $i)
+                                                @if(count($schedule_dates) > 0)
+                                                    @php $set_media = 0; @endphp
+                                                    @for($j = 0; $j < count($schedule_dates); $j++)
+                                                        @if($schedule_dates[$j]['date'] == $date)
+                                                            @php $file = $schedule_dates[$j]['file']; @endphp
+                                                            <td id="{{ $i }}" onclick="actionMedia({{ $i }})">
+                                                                <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover;">{{ $i }}</p>
+                                                            </td>
+                                                            @php
+                                                                $set_media++;
+                                                                $j = count($schedule_dates);
+                                                            @endphp
+                                                        @endif
+                                                    @endfor
+                                                    @if($set_media == 0)
+                                                        <td id="{{ $i }}" onclick="selectMedia({{ $i }})">
+                                                            <p class="event-active">{{ $i }}</p>
+                                                        </td>
+                                                    @endif
+                                                @else
+                                                    <td id="{{ $i }}" onclick="selectMedia({{ $i }})">
+                                                        <p class="event-active">{{ $i }}</p>
+                                                    </td>
+                                                @endif
                                             @else
-                                            <td onclick="selectMedia({{ $i }})">
-                                                <p class="">{{ $i }}</p>
-                                            </td>
+                                                @if($i > $date)
+                                                    @if(count($schedule_dates) > 0)
+                                                        @php $set_media = 0; @endphp
+                                                        @for($k = 0; $k < count($schedule_dates); $k++)
+                                                            @if($schedule_dates[$k]['date'] == $i)
+                                                                @php
+                                                                    $file = $schedule_dates[$k]['file'];
+                                                                    $type = $schedule_dates[$k]['type'];
+                                                                @endphp
+                                                                @if($type == 'video')
+                                                                <td id="{{ $i }}" onclick="actionMedia({{ $i }})">
+                                                                <p class="cl-white">{{ $i }}<video class="example-image"><source src="{{ asset($file_path.$file) }}" type="video/mp4"></video></p>
+                                                                </td>
+                                                                @else
+                                                                <td id="{{ $i }}" onclick="actionMedia({{ $i }})">
+                                                                    <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover;">{{ $i }}</p>
+                                                                </td>
+                                                                @endif
+                                                                @php
+                                                                    $set_media++;
+                                                                    $k = count($schedule_dates);
+                                                                @endphp
+                                                            @endif
+                                                        @endfor
+                                                        @if($set_media == 0)
+                                                            <td id="{{ $i }}" onclick="selectMedia({{ $i }})">
+                                                                <p class="">{{ $i }}</p>
+                                                            </td>
+                                                        @endif
+                                                    @else
+                                                        <td id="{{ $i }}" onclick="selectMedia({{ $i }})">
+                                                            <p class="">{{ $i }}</p>
+                                                        </td>
+                                                    @endif
+                                                @else
+                                                    @if(count($schedule_dates) > 0)
+                                                        @php $set_media = 0; @endphp
+                                                        @for($n = 0; $n < count($schedule_dates); $n++)
+                                                            @if($schedule_dates[$n]['date'] == $i)
+                                                                @php $file = $schedule_dates[$n]['file']; @endphp
+                                                                <td id="{{ $i }}" onclick="actionMedia({{ $i }})">
+                                                                    <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover;">{{ $i }}</p>
+                                                                </td>
+                                                                @php
+                                                                    $set_media++;
+                                                                    $n = count($schedule_dates);
+                                                                @endphp
+                                                            @endif
+                                                        @endfor
+                                                        @if($set_media == 0)
+                                                            <td id="{{ $i }}">
+                                                                <p class="">{{ $i }}</p>
+                                                            </td>
+                                                        @endif
+                                                    @else
+                                                        <td id="{{ $i }}">
+                                                            <p class="">{{ $i }}</p>
+                                                        </td>
+                                                    @endif
+                                                @endif
                                             @endif
-                                            @if($row_break == 7 || $row_break == 14 || $row_break == 21 ||
-                                            $row_break == 28 || $row_break == 35)
-                                    </tr>
-                                    <tr>
-                                        @endif
+                                            @if($row_break == 7 || $row_break == 14 || $row_break == 21 || $row_break == 28 || $row_break == 35)
+                                                </tr>
+                                                <tr>
+                                            @endif
                                         @endfor
-                                    </tr>
+                                        </tr>
                                     @elseif($month = 'February')
-                                    <tr>
-                                        @for($i = 0; $i < count($week_days); $i++) @php $first_row++; @endphp @if($week_days[$i]==$first_day) @if($date==1) <td>
-                                            <p class="event-active">1</p>
-                                            </td>
+                                        <tr>
+                                        @for($i = 0; $i < count($week_days); $i++)
+                                            @php $first_row++; @endphp
+                                            @if($week_days[$i] == $first_day)
+                                                @if($date == 1)
+                                                    <td id="1" onclick="selectMedia(1)">
+                                                        <p class="event-active">1</p>
+                                                    </td>
+                                                @else
+                                                    <td id="1">
+                                                        <p class="">1</p>
+                                                    </td>
+                                                @endif
+                                                @if($first_row == 7)
+                                                    </tr>
+                                                    <tr>
+                                                @endif
+                                                @php break; @endphp
                                             @else
-                                            <td>
-                                                <p class="cl-white" style="background-image: url('{{ asset('/public/assets/images/christopher-campbell-rDEOVtE7vOs-unsplash.jpg') }}'); background-size: cover;">1</p>
-                                            </td>
+                                                <td></td>
                                             @endif
-                                            @if($first_row == 7)
-                                    </tr>
-                                    <tr>
-                                        @endif
-                                        @php break; @endphp
-                                        @else
-                                        <td></td>
-                                        @endif
                                         @endfor
                                         @php
-                                        $row_break = $first_row;
-                                        $days_30 + $first_row;
+                                            $row_break = $first_row;
+                                            $days_30 + $first_row;
                                         @endphp
-                                        @for($i = 2; $i <= $days_28; $i++) @php $row_break++; @endphp @if($date==$i) <td>
-                                            <p class="event-active">{{ $i }}</p>
-                                            </td>
+                                        @for($i = 2; $i <= $days_28; $i++)
+                                            @php $row_break++; @endphp
+                                            @if($date == $i)
+                                                <td id="{{ $i }}" onclick="selectMedia({{ $i }})">
+                                                    <p class="event-active">{{ $i }}</p>
+                                                </td>
                                             @else
-                                            <td>
-                                                <p class="">{{ $i }}</p>
-                                            </td>
+                                                @if($i > $date)
+                                                    <td id="{{ $i }}" onclick="selectMedia({{ $i }})">
+                                                        <p class="">{{ $i }}</p>
+                                                    </td>
+                                                @else
+                                                    <td id="{{ $i }}">
+                                                        <p class="">{{ $i }}</p>
+                                                    </td>
+                                                @endif
                                             @endif
-                                            @if($row_break == 7 || $row_break == 14 || $row_break == 21 ||
-                                            $row_break == 28 || $row_break == 35)
-                                    </tr>
-                                    <tr>
-                                        @endif
+                                            @if($row_break == 7 || $row_break == 14 || $row_break == 21 || $row_break == 28 || $row_break == 35)
+                                                </tr>
+                                                <tr>
+                                            @endif
                                         @endfor
-                                    </tr>
+                                        </tr>
                                     @endif
                                 </tbody>
                             </table>
@@ -241,64 +408,97 @@ $first_day = "$for_current_month[weekday]";
                     </div>
                 </div>
                 <div class="row mt-4">
-                    <div class="col-lg-8 offset-lg-2">
-                        <div class="row p-0-m">
-                            <div class="col-lg-5">
-                                <p class="text-white">Select Time Format</p>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                    <label class="form-check-label text-white" for="inlineRadio1">12 HOURS</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                    <label class="form-check-label text-white" for="inlineRadio2">24 HOURS</label>
-                                </div>
-                            </div>
-                            <div class="col-lg-7 mt-4 text-start">
-                                <div class="time-bg">
-                                    <span class="time mt-3">Time <span class="time-detail">Newfoundland
-                                            (GMT-3:30)</span></span>
-                                    <span class="time-digit mt-3">11:30 am</span>
-                                </div>
-                            </div>
+                    <form method="POST" action="{{ route('user.schedule-delivery') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
+                        @csrf
 
-                        </div>
-                        <div class="col-md-12 mt-4 delivery-form">
-                            <div class="input-group py-3">
-                                <input type="text" class="py-2  form-control search-input input-search-delivery" placeholder="Recipient name">
-                                <div class="input-group-append">
-                                    <a href="#"><img class="search-ico search-delivery" src="{{ asset('/public/assets/images/search-white.png') }}" /> </a>
+                        <input type="hidden" id="default_day" name="default_day" value="{{ $date }}">
+                        <input type="hidden" id="default_month" name="default_month" value="{{ $given_month }}">
+                        <input type="hidden" id="default_year" name="default_year" value="{{ $year }}">
+                        <input type="hidden" id="media_date" name="media_date" value="">
+                        <input type="hidden" id="selected_file" name="selected_file" value="">
+                        <input type="hidden" id="upload_type" name="upload_type" value="">
+                        <input type="hidden" id="show_media" value="">
+
+                        <div class="col-lg-8 offset-lg-2">
+                            <div class="row p-0-m">
+                                <div class="col-lg-5">
+                                    <!-- <p class="text-white">Select Time Format</p>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                        <label class="form-check-label text-white" for="inlineRadio1">12 HOURS</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                        <label class="form-check-label text-white" for="inlineRadio2">24 HOURS</label>
+                                    </div> -->
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-lg-12 text-end p-0">
-                                <div class="d-flex justify-content-end">
-                                    <img src="{{ asset('/public/assets/images/recipent.png') }}" class="delivey-images mx-2">
-                                    <img src="{{ asset('/public/assets/images/recipent.png') }}" class="delivey-images mx-2">
-                                    <img src="{{ asset('/public/assets/images/recipent.png') }}" class="delivey-images mx-2">
+                                <div class="col-lg-7 mt-4 text-start">
+                                    <div class="time-bg">
+                                        <span class="time mt-3">Time</span>
+                                        <input type="time" id="media_time" name="media_time" class="time-bg" required>
+                                    </div>
                                 </div>
 
                             </div>
-                        </div>
-                        <div class="col-md-12 mt-4 delivery-form">
-                            <div class="mb-3">
-                                <textarea class="Description-form" id="exampleFormControlTextarea1" rows="3" placeholder="Description"></textarea>
+                            <div class="col-md-12 mt-4 delivery-form">
+                                <div class="input-group py-3">
+                                    <input type="text" id="name" class="py-2 form-control search-input input-search-delivery" placeholder="Search by Recipient's Name">
+                                    <div class="input-group-append">
+                                        <img class="search-ico search-delivery" src="{{ asset('/public/assets/images/search-white.png') }}" onclick="recipentByName()" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-lg-12 text-end p-0">
+                                    <div class="d-flex justify-content-end" id="show_recipient">
+                                        @if(isset($user_recipents) && !$user_recipents->isEmpty())
+                                        <div class="col-lg-2 col-4 rec-images">
+                                            <img src="{{ asset('public/media/image/all-users.png') }}">
+                                            <p class="cl-white sel-text mt-3">
+                                                <input class="form-check-input" type="checkbox" id="all_recipient" name="all_recipient" value="all recipient" onclick="selectAllRecipient(this)">
+                                                All
+                                            </p>
+                                        </div>
+                                        @foreach($user_recipents as $key => $recipent)
+                                        <div class="col-lg-2 col-4 rec-images">
+                                            <img src="{{ asset($recipent->profile_image) }}" class="delivey-images mx-2">
+                                            <p class="cl-white sel-text mt-3">
+                                                <input class="form-check-input user-recipient" type="checkbox" name="recipient_id[]" value="{{ $recipent->recipient_id }}">
+                                                {{ $recipent->name }}
+                                            </p>
+                                        </div>
+                                        @endforeach
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-12" id="show_recipient_msg" style="text-align: right;"></div>
+                            </div>
+                            <div class="col-md-12 mt-4 delivery-form">
+                                <div class="mb-3">
+                                    <textarea class="Description-form text-white" id="description" name="description" rows="3" placeholder="Description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12 delivery-form">
+                                <textarea class="Description-form text-white" id="message" name="message" rows="3" placeholder="Personal Message"></textarea>
+                            </div>
+                            <div class="row" style="display: none;">
+                                <div class="col-lg-6 text-center add-legacy mt-4">
+                                    <button data-bs-toggle="modal" data-bs-target="#confirmModal" class="btn w-100 delivery-schedule-btn m-auto text-center py-3 mb-5" id="first_form">ADD EVENT</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 mt-2" id="show_media_msg"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 text-center add-legacy mt-4">
+                                    <a class="btn w-100 delivery-schedule-btn m-auto text-center py-3 mb-5" onclick="uploadType('add_event')">ADD EVENT</a>
+                                </div>
+                                <div class="col-lg-6 text-center mt-4">
+                                    <a class="btn w-100 legacy-btn m-auto text-center py-3 mb-5" onclick="uploadType('add_legacy')">ADD TO MY LEGACY</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-12 delivery-form">
-                            <textarea class="Description-form" id="exampleFormControlTextarea1" rows="3" placeholder="Personal message"></textarea>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 text-center add-legacy mt-4">
-                                <button data-bs-toggle="modal" data-bs-target="#confirmModal" class="btn w-100 delivery-schedule-btn m-auto text-center
-                              py-3 mb-5">ADD EVENT</button>
-                            </div>
-                            <div class="col-lg-6 text-center mt-4">
-                                <button data-bs-toggle="modal" data-bs-target="#confirmModal" class="btn w-100 legacy-btn m-auto text-center py-3 mb-5">ADD TO MY LEGACY</button>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
 
             </div>
@@ -322,13 +522,14 @@ $first_day = "$for_current_month[weekday]";
                             @if($video->type == 'video')
                             @php $date_time = explode(" ", $video->created_at); @endphp
                             <div class="col-lg-3 px-1 col-6 col-md-4">
-                                <a class="example-image-link d-block" id="{{ $video->file_name }}" onclick="selectVideo(this)">
-                                    <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
+                                <a class="example-image-link d-block">
+                                    <video class="example-image">
+                                        <source src="{{ asset( $file_path.$video->file_name )}}"type="video/mp4">
+                                    </video>
                                     <div class="play-bt-exm-one"></div>
                                     <div class="pt-1 bg-black">
                                         <span class="above-img-span">
                                             {{ $video->title }}
-
                                         </span>
 
                                         <span class="group-color">
@@ -361,14 +562,13 @@ $first_day = "$for_current_month[weekday]";
                             @if($photo->type == 'photo')
                             @php $date_time = explode(" ", $photo->created_at); @endphp
                             <div class="col-lg-3 px-1 col-6 col-md-4">
-                                <a class="example-image-link" href="{{ asset( $file_path.$photo->file_name )}}" id="{{ $photo->file_name }}" data-lightbox="example-set" data-title="<span>{{ $photo->description }}</span><br /><span>{{ $photo->created_at }}</span>" onclick="">
+                                <a class="example-image-link">
                                     <img class="example-image" src="{{ asset( $file_path.$photo->file_name )}}" alt="" />
 
                                     <div class="bg-black p-1">
                                         <div class="d-flex pt-1 bg-black">
                                             <span class="above-img-span">
                                                 {{ $photo->title }}
-
                                             </span>
 
                                             <span class="group-color">
@@ -402,7 +602,7 @@ $first_day = "$for_current_month[weekday]";
                             @if($audio->type == 'audio')
                             @php $date_time = explode(" ", $audio->created_at); @endphp
                             <div class="col-lg-3 px-1 col-md-4 col-6">
-                                <a class="example-image-link d-block" id="{{ $audio->file_name }}" onclick="selectAudio(this)">
+                                <a class="example-image-link d-block">
                                     <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
                                     <div class="audio-bt-exm-one"></div>
 
@@ -410,7 +610,6 @@ $first_day = "$for_current_month[weekday]";
                                         <div class="pt-1 bg-black">
                                             <span class="above-img-span text-start">
                                                 {{ $audio->title }}
-
                                             </span>
 
                                             <span class="group-color">
@@ -425,7 +624,6 @@ $first_day = "$for_current_month[weekday]";
                                             {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
                                         </span>
                                     </div>
-
                                 </a>
                                 <button class="btn-view-details" onclick="mediaSelect({{ $audio->id }})">Select</button>
                             </div>
@@ -752,10 +950,178 @@ $first_day = "$for_current_month[weekday]";
     }
 
     function selectMedia(current) {
+        var show_media = document.getElementById('show_media');
+        var media_date = document.getElementById('media_date');
+        show_media.value = current;
+        media_date.value = current;
         $("#myMedia").modal("show");
     }
 
-    function mediaSelect(current) {
+    function mediaSelect(media_id) {
         $("#myMedia").modal("hide");
+        var show_media = document.getElementById('show_media').value;
+        var selected_file = document.getElementById('selected_file');
+        var base_path = '<?= $file_path ?>';
+        var base_url = '<?= $base_url ?>';
+        var all_media = JSON.parse('<?php echo json_encode($all_media) ?>');
+        var user_recipents = JSON.parse('<?php echo json_encode($user_recipents) ?>');
+        selected_file.value = media_id;
+
+        if (all_media != null) {
+            var all_media_len = all_media.length;
+        } else {
+            var all_media_len = 0;
+        }
+
+        if (all_media_len > 0) {
+            for (var i = 0; i < all_media_len; i++) {
+                if (all_media[i].id == media_id) {
+                    var file_name = all_media[i].file_name;
+                    var type = all_media[i].type;
+                    var media_file = '';
+
+                    if (type == 'video') {
+                        media_file = '<p class="cl-white">'+ show_media +'<video class="example-image"><source src="' + base_path + file_name + '" type="video/mp4"></video></p>';
+                    } else if (type == 'audio') {
+                        var file_url = '/public/assets/images/audio-pop.png';
+                        media_file = '<p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: cover;">'+ show_media +'</p>';
+                    } else {
+                        media_file = '<p class="cl-white" style="background-image: url(' + base_path + file_name + '); background-size: cover;">'+ show_media +'</p>';
+                    }
+                    
+                    var my_selected = document.getElementById(show_media);
+                    var set_width = my_selected.setAttribute('width', '170');
+                    var set_height = my_selected.setAttribute('height', '40');
+                    $('#'+ show_media).empty();
+                    $('#'+ show_media).append(media_file);
+
+                    const media_recipient = [];
+                    if (all_media[i].all_recipient != null) {
+                        var all_recipient_len = all_media[i].all_recipient.length;
+                        for (var j = 0; j < all_recipient_len; j++) {
+                            var recipient = all_media[i].all_recipient[j];
+                            media_recipient.push(recipient.recipient_id);
+                        }
+                    }
+
+                    var user_recipient_len = user_recipents.length;
+                    var all_recipient = '<div class="col-lg-2 col-4 rec-images"><img src="'+ base_url + '/public/media/image/all-users.png"><p class="cl-white sel-text mt-3"><input class="form-check-input" type="checkbox" id="all_recipient" name="all_recipient" value="all recipient" onclick="selectAllRecipient(this)"> All</p></div>';
+
+                    $("#show_recipient").empty();
+                    $("#show_recipient").append(all_recipient);
+
+                    for (var k = 0; k < user_recipient_len; k++) {
+                        var recipient_id = user_recipents[k].recipient_id;
+                        var name = user_recipents[k].name;
+                        var profile_image = user_recipents[k].profile_image;
+                        if (media_recipient.includes(user_recipents[k].recipient_id)) {
+                            var single_recipient = '<div class="col-lg-2 col-4 rec-images"><img src="' + base_url + profile_image + '" class="delivey-images mx-2"><p class="cl-white sel-text mt-3"><input class="form-check-input user-recipient" type="checkbox" name="recipient_id[]" value="'+ recipient_id +'" checked> ' + name + '</p></div>';
+                        } else {
+                            var single_recipient = '<div class="col-lg-2 col-4 rec-images"><img src="' + base_url + profile_image + '" class="delivey-images mx-2"><p class="cl-white sel-text mt-3"><input class="form-check-input user-recipient" type="checkbox" name="recipient_id[]" value="'+ recipient_id +'"> ' + name + '</p></div>';
+                        }
+                        $("#show_recipient").append(single_recipient);
+                    }
+                }
+            }
+        }
+    }
+
+    function recipentByName() {
+        var obj = JSON.parse('<?php echo json_encode($user_recipents) ?>');
+        var base_path = '<?= $base_url ?>';
+        var recipent_name = document.getElementById('name').value;
+        var div_recipient = $('#show_recipient');
+        var for_recipient_id = 'recipient_id[]';
+        var for_all_recipient = 'all_recipient';
+
+        if (obj != null) {
+            len = obj.length;
+        }
+
+        if (recipent_name != '') {
+            recipent_name = recipent_name.toLowerCase();
+            div_recipient.empty();
+            if (len > 0) {
+                for (var i = 0; i < len; i++) {
+                    var name = obj[i].name;
+                    name = name.toLowerCase();
+                    if (recipent_name == name) {
+                        var recipient_id = obj[i].recipient_id;
+                        var profile_image = obj[i].profile_image;
+
+                        var recipent = '<div class="col-lg-2 col-4 rec-images"><img src="' + base_path + profile_image + '" class="delivey-images mx-2"><p class="cl-white sel-text mt-3"><input class="form-check-input user-recipient" type="checkbox" name="' + for_recipient_id + '" value="'+ recipient_id +'"> ' + name + '</p></div>';
+
+                        div_recipient.append(recipent);
+                    }
+                }
+            }
+        } else {
+            var all_recipient = '<div class="col-lg-2 col-3 rec-images"><img src="' + base_path + '/public/media/image/all-users.png"><p class="cl-white sel-text mt-3"><input class="form-check-input" type="checkbox" id="' + for_all_recipient + '" name="' + for_all_recipient + '" value="all" onclick="selectAllRecipient(this)"> All</p></div>';
+
+            div_recipient.empty();
+            div_recipient.append(all_recipient);
+
+            for (var i = 0; i < len; i++) {
+                var name = obj[i].name;
+                name = name.toLowerCase();
+                var recipient_id = obj[i].recipient_id;
+                var profile_image = obj[i].profile_image;
+
+                var recipent = '<div class="col-lg-2 col-4 rec-images"><img src="' + base_path + profile_image + '" class="delivey-images mx-2"><p class="cl-white sel-text mt-3"><input class="form-check-input user-recipient" type="checkbox" name="' + for_recipient_id + '" value="'+ recipient_id +'"> ' + name + '</p></div>';
+
+                div_recipient.append(recipent);
+            }
+        }
+    }
+
+    function selectAllRecipient(current) {
+        if (current.id == 'all_recipient') {
+            var inputs = document.querySelectorAll('.user-recipient');
+        }
+        if (current.checked == true) {
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].checked = true;
+            }
+        }
+        if (current.checked == false) {
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].checked = false;
+            }
+        }
+    }
+
+    function uploadType(current) {
+        var upload_type = document.getElementById('upload_type');
+        upload_type.value = current;
+        $("#first_form").click()
+    }
+
+    function validateForm() {
+        var selected_file = document.getElementById('selected_file').value;
+        var inputs = document.querySelectorAll('.user-recipient');
+        var selected = 0;
+        var recipient_msg = '<span class="cl-white">Please select atleast one recipient!</span>';
+        var media_msg = '<span class="cl-white">Please select media from given calendar!</span>';
+
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].checked == true) {
+                selected = 1;
+                i = inputs.length;
+            }
+        }
+        if (selected == 0) {
+            $('#show_recipient_msg').empty();
+            $("#show_recipient_msg").append(recipient_msg);
+            return false;
+        }
+        $('#show_recipient_msg').empty();
+
+        if (selected_file == '') {
+            $('#show_media_msg').empty();
+            $("#show_media_msg").append(media_msg);
+            return false;
+        }
+        $('#show_media_msg').empty();
+        return true;
     }
 </script>

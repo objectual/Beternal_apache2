@@ -598,6 +598,10 @@ class MediaController extends Controller
         $all_media = Media::where('user_id', $id)->get(['*']);
         $user_recipents = userRecipients($id);
 
+        $schedule_media = ScheduleMedia::where('schedule_media.user_id', $id)
+        ->join('media', 'schedule_media.media_id', '=', 'media.id')
+        ->get(['schedule_media.id', 'schedule_media.date_time', 'media.file_name','media.type']);
+
         if (!$all_media->isEmpty()) {
             foreach ($all_media as $key => $media) {
                 $recipients = ShareMedia::where('media_id', $media->id)
@@ -639,8 +643,70 @@ class MediaController extends Controller
             'title',
             'all_media',
             'user_recipents',
-            'file_path'
+            'file_path',
+            'schedule_media'
         ));
+    }
+
+    public function scheduleDeliveryMedia(Request $request)
+    {
+        $date = $request->media_date;
+        $month = $request->default_month;
+        $year = $request->default_year;
+        $media_time = $request->media_time;
+        $date_time = $year . '-' . $month . '-' . $date . ' ' . $media_time;
+
+        if ($request->description == '') {
+            $request->description = 'Not Found';
+        }
+        if ($request->message == '') {
+            $request->message = 'Not Found';
+        }
+        if ($request->upload_type == "add_event") {
+            if (!(empty($request->recipient_id))) {
+                if (count($request->recipient_id) > 0) {
+                    for ($i = 0; $i < count($request->recipient_id); $i++) {
+                        $media = new ScheduleMedia();
+                        $media->date_time = $date_time;
+                        $media->description = $request->description;
+                        $media->message = $request->message;
+                        $media->media_id = $request->selected_file;
+                        $media->recipient_id = $request->recipient_id[$i];
+                        $media->group_id = 10;
+                        $media->user_id = Auth::user()->id;
+                        $media->save();
+                    }
+                }
+            }
+            return redirect()->route('user.success-schedule')->with('message', $date_time);
+        }
+        if ($request->upload_type == "add_legacy") {
+            $get_media = Media::where('id', $request->selected_file)->first('*');
+            $legacy = new Legacy();
+            $legacy->title = $get_media->title;
+            $legacy->description = $request->description;
+            $legacy->message = $request->message;
+            $legacy->file_name = $get_media->file_name;
+            $legacy->type = $get_media->type;
+            $legacy->user_id = Auth::user()->id;
+            $legacy->save();
+
+            if ($legacy) {
+                if (!(empty($request->recipient_id))) {
+                    if (count($request->recipient_id) > 0) {
+                        for ($i = 0; $i < count($request->recipient_id); $i++) {
+                            $share_legacy = new ShareLegacy();
+                            $share_legacy->legacy_id = $legacy->id;
+                            $share_legacy->recipient_id = $request->recipient_id[$i];
+                            $share_legacy->save();
+                        }
+                    }
+                }
+                return redirect()->route('user.legacy')->with('message','Uploaded successfully');
+            } else {
+                return redirect()->route('user.delivery');
+            }
+        }
     }
 
     public function successSchedule()

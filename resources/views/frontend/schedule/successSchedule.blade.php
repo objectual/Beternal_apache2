@@ -6,17 +6,18 @@
         <div class="col-lg-6 offset-lg-3 text-center success-img-bg">
             <div class="row">
                 <div class="col-lg-6 text-center offset-lg-3">
-                    <h1 class="mt-4 text-white">Anna Seth</h1>
+                    <h1 class="mt-4 text-white">Congratulation</h1>
                     <img class="signup-success" src="{{ asset('/public/assets/images/success-signup.svg') }}" />
 
+                    @if(session()->has('message'))
                     <p class="text-white">
                         You have successfully scheduled delivery of this memory on:
-                        AUGUST 20, 2021
+                        {{ session()->get('message') }}
                     </p>
                     <div class="text-center mb-4">
-                        <a href="#" class="mx-1"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
-                        <a href="#" class="mx-1" data-bs-dismiss="modal" aria-label="Close"><img src="{{ asset('/public/assets/images/no.png') }}" /></a>
+                        <a href="{{ route('user.delivery') }}" class="mx-1"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

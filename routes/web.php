@@ -106,6 +106,7 @@ Route::middleware('auth', 'user')->group(function () {
     Route::group(['prefix' => 'schedule-media'], function () {
         Route::get('/',[MediaController::class,'scheduleMedia'])->name('user.schedule-media');
         Route::get('/delivery',[MediaController::class,'deliveryMedia'])->name('user.delivery');
+        Route::post('/schedule-delivery',[MediaController::class,'scheduleDeliveryMedia'])->name('user.schedule-delivery');
         Route::get('/success-schedule',[MediaController::class,'successSchedule'])->name('user.success-schedule');
     });
     Route::group(['prefix' => 'subscription'], function () {
