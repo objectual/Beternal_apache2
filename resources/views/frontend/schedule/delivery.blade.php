@@ -199,7 +199,7 @@
                                                             @if($schedule_dates[$a]['date'] == $date)
                                                                 @php $file = $schedule_dates[$a]['file']; @endphp
                                                                 <td id="1" onclick="actionMedia(1)">
-                                                                    <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover;">1</p>
+                                                                    <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p>
                                                                 </td>
                                                                 @php
                                                                     $set_media++;
@@ -209,12 +209,12 @@
                                                         @endfor
                                                         @if($set_media == 0)
                                                             <td id="1" onclick="selectMedia(1)">
-                                                                <p class="event-active">1</p>
+                                                                <p class="event-active" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p>
                                                             </td>
                                                         @endif
                                                     @else
                                                         <td id="1" onclick="selectMedia(1)">
-                                                            <p class="event-active">1</p>
+                                                            <p class="event-active" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p>
                                                         </td>
                                                     @endif
                                                 @else
@@ -224,7 +224,7 @@
                                                             @if($schedule_dates[$b]['date']==1)
                                                                 @php $file = $schedule_dates[$b]['file']; @endphp
                                                                 <td id="1" onclick="actionMedia(1)">
-                                                                    <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover;">1</p>
+                                                                    <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p>
                                                                 </td>
                                                                 @php
                                                                     $set_media++;
@@ -234,12 +234,12 @@
                                                         @endfor
                                                         @if($set_media == 0)
                                                             <td id="1">
-                                                                <p class="">1</p>
+                                                                <p class="">&nbsp; &nbsp;1</p>
                                                             </td>
                                                         @endif
                                                     @else
                                                         <td id="1">
-                                                            <p class="">1</p>
+                                                            <p class="">&nbsp; &nbsp;1</p>
                                                         </td>
                                                     @endif
                                                 @endif
@@ -265,7 +265,7 @@
                                                         @if($schedule_dates[$j]['date'] == $date)
                                                             @php $file = $schedule_dates[$j]['file']; @endphp
                                                             <td id="{{ $i }}" onclick="actionMedia({{ $i }})">
-                                                                <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover;">{{ $i }}</p>
+                                                                <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;{{ $i }}</p>
                                                             </td>
                                                             @php
                                                                 $set_media++;
@@ -275,12 +275,12 @@
                                                     @endfor
                                                     @if($set_media == 0)
                                                         <td id="{{ $i }}" onclick="selectMedia({{ $i }})">
-                                                            <p class="event-active">{{ $i }}</p>
+                                                            <p class="event-active">&nbsp; &nbsp;{{ $i }}</p>
                                                         </td>
                                                     @endif
                                                 @else
                                                     <td id="{{ $i }}" onclick="selectMedia({{ $i }})">
-                                                        <p class="event-active">{{ $i }}</p>
+                                                        <p class="event-active">&nbsp; &nbsp;{{ $i }}</p>
                                                     </td>
                                                 @endif
                                             @else
@@ -294,13 +294,17 @@
                                                                     $type = $schedule_dates[$k]['type'];
                                                                 @endphp
                                                                 @if($type == 'video')
-                                                                <td id="{{ $i }}" onclick="actionMedia({{ $i }})">
-                                                                <p class="cl-white">{{ $i }}<video class="example-image"><source src="{{ asset($file_path.$file) }}" type="video/mp4"></video></p>
-                                                                </td>
+                                                                    <td id="{{ $i }}" onclick="actionMedia({{ $i }})">
+                                                                        <p class="cl-white">&nbsp; &nbsp;{{ $i }}
+                                                                            <video class="example-image video-calendar">
+                                                                                <source src="{{ asset($file_path.$file) }}" type="video/mp4">
+                                                                            </video>
+                                                                        </p>
+                                                                    </td>
                                                                 @else
-                                                                <td id="{{ $i }}" onclick="actionMedia({{ $i }})">
-                                                                    <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover;">{{ $i }}</p>
-                                                                </td>
+                                                                    <td id="{{ $i }}" onclick="actionMedia({{ $i }})">
+                                                                        <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;{{ $i }}</p>
+                                                                    </td>
                                                                 @endif
                                                                 @php
                                                                     $set_media++;
@@ -310,12 +314,12 @@
                                                         @endfor
                                                         @if($set_media == 0)
                                                             <td id="{{ $i }}" onclick="selectMedia({{ $i }})">
-                                                                <p class="">{{ $i }}</p>
+                                                                <p class="">&nbsp; &nbsp;{{ $i }}</p>
                                                             </td>
                                                         @endif
                                                     @else
                                                         <td id="{{ $i }}" onclick="selectMedia({{ $i }})">
-                                                            <p class="">{{ $i }}</p>
+                                                            <p class="">&nbsp; &nbsp;{{ $i }}</p>
                                                         </td>
                                                     @endif
                                                 @else
@@ -325,7 +329,7 @@
                                                             @if($schedule_dates[$n]['date'] == $i)
                                                                 @php $file = $schedule_dates[$n]['file']; @endphp
                                                                 <td id="{{ $i }}" onclick="actionMedia({{ $i }})">
-                                                                    <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover;">{{ $i }}</p>
+                                                                    <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;{{ $i }}</p>
                                                                 </td>
                                                                 @php
                                                                     $set_media++;
@@ -335,12 +339,12 @@
                                                         @endfor
                                                         @if($set_media == 0)
                                                             <td id="{{ $i }}">
-                                                                <p class="">{{ $i }}</p>
+                                                                <p class="">&nbsp; &nbsp;{{ $i }}</p>
                                                             </td>
                                                         @endif
                                                     @else
                                                         <td id="{{ $i }}">
-                                                            <p class="">{{ $i }}</p>
+                                                            <p class="">&nbsp; &nbsp;{{ $i }}</p>
                                                         </td>
                                                     @endif
                                                 @endif
@@ -452,7 +456,7 @@
                                 <div class="col-lg-12 text-end p-0">
                                     <div class="d-flex justify-content-end" id="show_recipient">
                                         @if(isset($user_recipents) && !$user_recipents->isEmpty())
-                                        <div class="col-lg-2 col-4 rec-images">
+                                        <div class="rec-images text-center px-2">
                                             <img src="{{ asset('public/media/image/all-users.png') }}">
                                             <p class="cl-white sel-text mt-3">
                                                 <input class="form-check-input" type="checkbox" id="all_recipient" name="all_recipient" value="all recipient" onclick="selectAllRecipient(this)">
@@ -460,7 +464,7 @@
                                             </p>
                                         </div>
                                         @foreach($user_recipents as $key => $recipent)
-                                        <div class="col-lg-2 col-4 rec-images">
+                                        <div class="rec-images text-center px-2">
                                             <img src="{{ asset($recipent->profile_image) }}" class="delivey-images mx-2">
                                             <p class="cl-white sel-text mt-3">
                                                 <input class="form-check-input user-recipient" type="checkbox" name="recipient_id[]" value="{{ $recipent->recipient_id }}">

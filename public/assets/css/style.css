@@ -385,11 +385,14 @@ body {
 .delivery-calendar tbody td {
 }
 
-.delivery-calendar tbody p {
-    padding: 50px 30px 50px 20px;
+.delivery-calendar tbody p { 
     border: 1px solid #b5b7b3;
     color: #fff;
     margin: 3px 3px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    position: relative;
 }
 
 .event-active {
@@ -2300,6 +2303,10 @@ textarea {
     }
 }
 @media screen and (min-width: 992px) and (max-width: 5000px) {
+    .delivery-calendar tbody p { 
+        height: 160px;
+        width: 162px;
+    }
     .pl-0{padding-left: 0px !important;}
     .pr-0{padding-right: 0px !important;}
     .dashboard-contain img {
@@ -3719,3 +3726,24 @@ select option { color: #fff !important; }
 .reject-modal .modal-content {
     background-color: rgb(0, 0, 0, 0.3) !important; 
 } 
+
+.video-calendar {
+    position: absolute;
+    top: -5px;
+    bottom: 0px;
+    z-index: -1;
+    object-fit: cover;
+    height: 158px;
+}
+
+#media_time {
+    background: transparent;
+    color: #fff;
+    border: none;
+}
+
+ 
+
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    background: url(../images/clock.png) no-repeat;
+ }
