@@ -338,7 +338,7 @@
                                                             @endif
                                                         @endfor
                                                         @if($set_media == 0)
-                                                            <td id="{{ $i }}">
+                                                            <td id="{{ $i }}" onclick="checkDate()">
                                                                 <p class="">&nbsp; &nbsp;{{ $i }}</p>
                                                             </td>
                                                         @endif
@@ -634,6 +634,23 @@
                             @endif
                             @endforeach
                             @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="showMsg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog logout-modal">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-10 text-center offset-lg-1">
+                        <p class="text-white">Please select future date!</p>
+                        <div class="text-center mb-4">
+                            <a href="{{ route('user.delivery') }}" class="mx-1"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
                         </div>
                     </div>
                 </div>
@@ -951,6 +968,10 @@
             }
         }
         $('#show_date').append('</tr>');
+    }
+
+    function checkDate() {
+        $("#showMsg").modal("show");
     }
 
     function selectMedia(current) {
