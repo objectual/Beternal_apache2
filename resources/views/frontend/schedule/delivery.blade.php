@@ -645,7 +645,7 @@
 </div>
 
 <div class="modal fade" id="showMsg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog logout-modal">
+    <div class="modal-dialog future-date-modal logout-modal">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="row">

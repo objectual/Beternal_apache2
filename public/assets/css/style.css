@@ -2303,6 +2303,9 @@ textarea {
     }
 }
 @media screen and (min-width: 992px) and (max-width: 5000px) {
+    .future-date-modal{ 
+    margin-top: 25% !important;
+    }
     .delivery-calendar tbody p { 
         height: 160px;
         width: 162px;
