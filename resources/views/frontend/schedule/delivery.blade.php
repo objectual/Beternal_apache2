@@ -519,7 +519,7 @@
     <div class="modal-dialog">
         <div class="modal-content bg-transparency">
             <div class="modal-body">
-            <button type="button" class="close close-select-media" data-dismiss="myMedia">&times;</button>
+            <button type="button" class="close close-select-media" data-dismiss="myMedia" onclick="closeMedia()">&times;</button>
                 <h4 class="text-center text-white mt-5" id="video_heading">My Video</h4>
                 <div class="row" id="video_display">
                     <div class="col-lg-12 mt-3">
@@ -983,6 +983,10 @@
         show_media.value = current;
         media_date.value = current;
         $("#myMedia").modal("show");
+    }
+
+    function closeMedia() {
+        $("#myMedia").modal("hide");
     }
 
     function mediaSelect(media_id) {
