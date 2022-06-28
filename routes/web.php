@@ -36,7 +36,7 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 // Route::get('/set-cities', [HomeController::class, 'setCities'])->name('set-cities');
 // Route::get('/cities-data/{id}', [HomeController::class, 'citiesData'])->name('cities-data');
 
-// start routes for ajax request
+// start routes for ajax request 
 Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
 Route::get('/cities/{id}', [CityController::class, 'getCities']);
 Route::get('/filter-recipent/{contact_id}', [UserController::class, 'filterRecipent']);
