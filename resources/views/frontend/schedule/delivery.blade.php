@@ -345,7 +345,7 @@
                                                             </td>
                                                         @endif
                                                     @else
-                                                        <td id="{{ $i }}">
+                                                        <td id="{{ $i }}" onclick="checkDate()">
                                                             <p class="">&nbsp; &nbsp;{{ $i }}</p>
                                                         </td>
                                                     @endif

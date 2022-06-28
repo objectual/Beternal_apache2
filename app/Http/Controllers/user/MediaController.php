@@ -600,7 +600,7 @@ class MediaController extends Controller
 
         $schedule_media = ScheduleMedia::where('schedule_media.user_id', $id)
         ->join('media', 'schedule_media.media_id', '=', 'media.id')
-        ->get(['schedule_media.id', 'schedule_media.date_time', 'media.file_name','media.type']);
+        ->get(['schedule_media.id', 'schedule_media.date_time', 'schedule_media.description', 'schedule_media.message', 'schedule_media.media_id', 'media.file_name','media.type']);
 
         if (!$all_media->isEmpty()) {
             foreach ($all_media as $key => $media) {
