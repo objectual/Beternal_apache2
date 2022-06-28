@@ -3747,3 +3747,10 @@ select option { color: #fff !important; }
   input[type="time"]::-webkit-calendar-picker-indicator {
     background: url(../images/clock.png) no-repeat;
  }
+
+ .img-calendar-play {
+    text-align: center;
+    display: block;
+    margin-left: 9px;
+    margin-right: auto;
+ }
