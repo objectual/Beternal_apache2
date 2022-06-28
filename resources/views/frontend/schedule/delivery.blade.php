@@ -299,6 +299,8 @@
                                                                             <video class="example-image video-calendar">
                                                                                 <source src="{{ asset($file_path.$file) }}" type="video/mp4">
                                                                             </video>
+                                                                            <a href="#"><img class="img-calendar-play" src="{{ asset('/public/assets/images/Exm-Buttons-Play.png') }}" onclick="recipentByName()" /></a>
+
                                                                         </p>
                                                                     </td>
                                                                 @else
