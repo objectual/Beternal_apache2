@@ -517,9 +517,10 @@
 
 <div class="modal fade" id="myMedia" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content bg-transparency">
             <div class="modal-body">
-                <h4 class="text-center" id="video_heading">My Video</h4>
+            <button type="button" class="close close-select-media" data-dismiss="myMedia">&times;</button>
+                <h4 class="text-center text-white mt-5" id="video_heading">My Video</h4>
                 <div class="row" id="video_display">
                     <div class="col-lg-12 mt-3">
                         <div class="row mt-3 px-2" id="all_videos">
@@ -559,7 +560,7 @@
                     </div>
                 </div>
 
-                <h4 class="mt-5 text-center" id="photo_heading">My Photo</h4>
+                <h4 class="mt-5 text-center text-white" id="photo_heading">My Photo</h4>
                 <div class="row" id="photo_display">
                     <div class="col-lg-12 mt-3">
                         <div class="row mt-3 px-2" id="all_photos">
@@ -599,7 +600,7 @@
                     </div>
                 </div>
 
-                <h4 class="mt-5 text-center" id="audio_heading">My Audio</h4>
+                <h4 class="mt-5 text-center text-white" id="audio_heading">My Audio</h4>
                 <div class="row pb-5" id="audio_display">
                     <div class="col-lg-12 text-center mt-3">
                         <div class="row mt-3 px-2" id="all_audios">
