@@ -127,10 +127,7 @@
                 @endif
 
                 @php
-                    $days_28 = 28;
-                    $days_29 = 29;
-                    $days_30 = 30;
-                    $days_31 = 31;
+                    $days_of_month = 0;
                     $month_30 = array('April', 'June', 'September', 'November');
                     $month_31 = array('January', 'March', 'May', 'July', 'August', 'October', 'December');
                     $week_days = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
@@ -154,57 +151,13 @@
                                 <tbody id="show_date">
                                     @php $first_row = 0; @endphp
                                     @if(in_array($month, $month_31))
-                                        <tr>
-                                        @for($i = 0; $i < count($week_days); $i++)
-                                            @php $first_row++; @endphp
-                                            @if($week_days[$i] == $first_day)
-                                                @if($date == 1)
-                                                    <td id="1" onclick="selectMedia(1)">
-                                                        <p class="event-active">1</p>
-                                                    </td>
-                                                @else
-                                                    <td id="1">
-                                                        <p class="">1</p>
-                                                    </td>
-                                                @endif
-                                                @if($first_row == 7)
-                                                    </tr>
-                                                    <tr>
-                                                @endif
-                                                @php break; @endphp
-                                            @else
-                                                <td></td>
-                                            @endif
-                                        @endfor
-                                        @php
-                                            $row_break = $first_row;
-                                            $days_31 + $first_row;
-                                        @endphp
-                                        @for($i = 2; $i <= $days_31; $i++)
-                                            @php $row_break++; @endphp
-                                            @if($date == $i)
-                                                <td id="{{ $i }}" onclick="selectMedia({{ $i }})">
-                                                    <p class="event-active">{{ $i }}</p>
-                                                </td>
-                                            @else
-                                                @if($i > $date)
-                                                    <td id="{{ $i }}" onclick="selectMedia({{ $i }})">
-                                                        <p class="">{{ $i }}</p>
-                                                    </td>
-                                                @else
-                                                    <td id="{{ $i }}">
-                                                        <p class="">{{ $i }}</p>
-                                                    </td>
-                                                @endif
-                                            @endif
-                                            @if($row_break == 7 || $row_break == 14 || $row_break == 21 || $row_break == 28 || $row_break == 35)
-                                                </tr>
-                                                <tr>
-                                            @endif
-                                        @endfor
-                                        </tr>
+                                        @php $days_of_month = 31; @endphp
                                     @elseif(in_array($month, $month_30))
-                                        <tr>
+                                        @php $days_of_month = 30; @endphp
+                                    @elseif($month = 'February')
+                                        @php $days_of_month = 28; @endphp
+                                    @endif
+                                    <tr>
                                         @for($i = 0; $i < count($week_days); $i++)
                                             @php $first_row++; @endphp
                                             @if($week_days[$i] == $first_day)
@@ -310,9 +263,9 @@
                                         @endfor
                                         @php
                                             $row_break = $first_row;
-                                            $days_30 + $first_row;
+                                            $days_of_month + $first_row;
                                         @endphp
-                                        @for($i = 2; $i <= $days_30; $i++)
+                                        @for($i = 2; $i <= $days_of_month; $i++)
                                             @php $row_break++; @endphp
                                             @if($date == $i)
                                                 @if(count($schedule_dates) > 0)
@@ -457,58 +410,7 @@
                                                 <tr>
                                             @endif
                                         @endfor
-                                        </tr>
-                                    @elseif($month = 'February')
-                                        <tr>
-                                        @for($i = 0; $i < count($week_days); $i++)
-                                            @php $first_row++; @endphp
-                                            @if($week_days[$i] == $first_day)
-                                                @if($date == 1)
-                                                    <td id="1" onclick="selectMedia(1)">
-                                                        <p class="event-active">1</p>
-                                                    </td>
-                                                @else
-                                                    <td id="1">
-                                                        <p class="">1</p>
-                                                    </td>
-                                                @endif
-                                                @if($first_row == 7)
-                                                    </tr>
-                                                    <tr>
-                                                @endif
-                                                @php break; @endphp
-                                            @else
-                                                <td></td>
-                                            @endif
-                                        @endfor
-                                        @php
-                                            $row_break = $first_row;
-                                            $days_30 + $first_row;
-                                        @endphp
-                                        @for($i = 2; $i <= $days_28; $i++)
-                                            @php $row_break++; @endphp
-                                            @if($date == $i)
-                                                <td id="{{ $i }}" onclick="selectMedia({{ $i }})">
-                                                    <p class="event-active">{{ $i }}</p>
-                                                </td>
-                                            @else
-                                                @if($i > $date)
-                                                    <td id="{{ $i }}" onclick="selectMedia({{ $i }})">
-                                                        <p class="">{{ $i }}</p>
-                                                    </td>
-                                                @else
-                                                    <td id="{{ $i }}">
-                                                        <p class="">{{ $i }}</p>
-                                                    </td>
-                                                @endif
-                                            @endif
-                                            @if($row_break == 7 || $row_break == 14 || $row_break == 21 || $row_break == 28 || $row_break == 35)
-                                                </tr>
-                                                <tr>
-                                            @endif
-                                        @endfor
-                                        </tr>
-                                    @endif
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -910,167 +812,71 @@
         $('#days_name').empty();
         $('#days_name').append(days_name);
 
-        var days_28 = 28;
-        var days_30 = 30;
-        var days_31 = 31;
+        var days_of_month = 0;
         var month_30 = ['April', 'June', 'September', 'November'];
         var month_31 = ['January', 'March', 'May', 'July', 'August', 'October', 'December'];
         var week_days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         var first_day = week_days[get_day];
         var first_row = 0;
 
-        if (get_year % 4 == 0) {
-            days_28 = days_28 + 1;
-        }
-
         if (month_31.includes(get_month_name)) {
-            $('#show_date').empty();
-            $('#show_date').append('<tr>');
-            for (var i = 0; i < week_days.length; i++) {
-                first_row++;
-                if (week_days[i] == first_day) {
-                    if (get_month == current_month && get_year == current_year) {
-                        if (current_date == 1) {
-                            $('#show_date').append('<td><p class="event-active">1</p></td>');
-                            if (first_row == 7) {
-                                $('#show_date').append('</tr><tr>');
-                            }
-                            break;
-                        } else {
-                            $('#show_date').append('<td><p class="">1</p></td>');
-                            if (first_row == 7) {
-                                $('#show_date').append('</tr><tr>');
-                            }
-                            break;
-                        }
-                    } else {
-                        $('#show_date').append('<td><p class="">1</p></td>');
-                        if (first_row == 7) {
-                            $('#show_date').append('</tr><tr>');
-                        }
-                        break;
-                    }
-                } else {
-                    $('#show_date').append('<td></td>');
-                }
-
-            }
-            var row_break = first_row;
-            for (var i = 2; i <= days_31; i++) {
-                row_break++;
-                if (get_month == current_month && get_year == current_year) {
-                    if (current_date == i) {
-                        $('#show_date').append('<td><p class="event-active">' + i + '</p></td>');
-                    } else {
-                        $('#show_date').append('<td><p class="">' + i + '</p></td>');
-                    }
-                } else {
-                    $('#show_date').append('<td><p class="">' + i + '</p></td>');
-                }
-                if (row_break == 7 || row_break == 14 || row_break == 21 || row_break == 28 || row_break == 35) {
-                    $('#show_date').append('</tr><tr>');
-                }
-            }
-            $('#show_date').append('</tr>');
+            days_of_month = 31;
         } else if (month_30.includes(get_month_name)) {
-            $('#show_date').empty();
-            $('#show_date').append('<tr>');
-            for (var i = 0; i < week_days.length; i++) {
-                first_row++;
-                if (week_days[i] == first_day) {
-                    if (get_month == current_month && get_year == current_year) {
-                        if (current_date == 1) {
-                            $('#show_date').append('<td><p class="event-active">1</p></td>');
-                            if (first_row == 7) {
-                                $('#show_date').append('</tr><tr>');
-                            }
-                            break;
-                        } else {
-                            $('#show_date').append('<td><p class="">1</p></td>');
-                            if (first_row == 7) {
-                                $('#show_date').append('</tr><tr>');
-                            }
-                            break;
-                        }
-                    } else {
-                        $('#show_date').append('<td><p class="">1</p></td>');
-                        if (first_row == 7) {
-                            $('#show_date').append('</tr><tr>');
-                        }
-                        break;
-                    }
-                } else {
-                    $('#show_date').append('<td></td>');
-                }
-
-            }
-            var row_break = first_row;
-            for (var i = 2; i <= days_30; i++) {
-                row_break++;
-                if (get_month == current_month && get_year == current_year) {
-                    if (current_date == i) {
-                        $('#show_date').append('<td><p class="event-active">' + i + '</p></td>');
-                    } else {
-                        $('#show_date').append('<td><p class="">' + i + '</p></td>');
-                    }
-                } else {
-                    $('#show_date').append('<td><p class="">' + i + '</p></td>');
-                }
-                if (row_break == 7 || row_break == 14 || row_break == 21 || row_break == 28 || row_break == 35) {
-                    $('#show_date').append('</tr><tr>');
-                }
-            }
-            $('#show_date').append('</tr>');
+            days_of_month = 30;
         } else if (get_month_name = 'February') {
-            $('#show_date').empty();
-            $('#show_date').append('<tr>');
-            for (var i = 0; i < week_days.length; i++) {
-                first_row++;
-                if (week_days[i] == first_day) {
-                    if (get_month == current_month && get_year == current_year) {
-                        if (current_date == 1) {
-                            $('#show_date').append('<td><p class="event-active">1</p></td>');
-                            if (first_row == 7) {
-                                $('#show_date').append('</tr><tr>');
-                            }
-                            break;
-                        } else {
-                            $('#show_date').append('<td><p class="">1</p></td>');
-                            if (first_row == 7) {
-                                $('#show_date').append('</tr><tr>');
-                            }
-                            break;
+            days_of_month = 28;
+            if (get_year % 4 == 0) {
+                days_of_month = days_of_month + 1;
+            }
+        }
+
+        $('#show_date').empty();
+        $('#show_date').append('<tr>');
+        for (var i = 0; i < week_days.length; i++) {
+            first_row++;
+            if (week_days[i] == first_day) {
+                if (get_month == current_month && get_year == current_year) {
+                    if (current_date == 1) {
+                        $('#show_date').append('<td><p class="event-active">&nbsp; &nbsp;1</p></td>');
+                        if (first_row == 7) {
+                            $('#show_date').append('</tr><tr>');
                         }
+                        break;
                     } else {
-                        $('#show_date').append('<td><p class="">1</p></td>');
+                        $('#show_date').append('<td><p class="">&nbsp; &nbsp;1</p></td>');
                         if (first_row == 7) {
                             $('#show_date').append('</tr><tr>');
                         }
                         break;
                     }
                 } else {
-                    $('#show_date').append('<td></td>');
-                }
-
-            }
-            var row_break = first_row;
-            for (var i = 2; i <= days_28; i++) {
-                row_break++;
-                if (get_month == current_month && get_year == current_year) {
-                    if (current_date == i) {
-                        $('#show_date').append('<td><p class="event-active">' + i + '</p></td>');
-                    } else {
-                        $('#show_date').append('<td><p class="">' + i + '</p></td>');
+                    $('#show_date').append('<td><p class="">&nbsp; &nbsp;1</p></td>');
+                    if (first_row == 7) {
+                        $('#show_date').append('</tr><tr>');
                     }
-                } else {
-                    $('#show_date').append('<td><p class="">' + i + '</p></td>');
+                    break;
                 }
-                if (row_break == 7 || row_break == 14 || row_break == 21 || row_break == 28 || row_break == 35) {
-                    $('#show_date').append('</tr><tr>');
-                }
+            } else {
+                $('#show_date').append('<td></td>');
             }
-            $('#show_date').append('</tr>');
         }
+        var row_break = first_row;
+        for (var i = 2; i <= days_of_month; i++) {
+            row_break++;
+            if (get_month == current_month && get_year == current_year) {
+                if (current_date == i) {
+                    $('#show_date').append('<td><p class="event-active">&nbsp; &nbsp;' + i + '</p></td>');
+                } else {
+                    $('#show_date').append('<td><p class="">&nbsp; &nbsp;' + i + '</p></td>');
+                }
+            } else {
+                $('#show_date').append('<td><p class="">&nbsp; &nbsp;' + i + '</p></td>');
+            }
+            if (row_break == 7 || row_break == 14 || row_break == 21 || row_break == 28 || row_break == 35) {
+                $('#show_date').append('</tr><tr>');
+            }
+        }
+        $('#show_date').append('</tr>');
     }
 
     function changeYear(current) {
@@ -1263,7 +1069,7 @@
                     }
 
                     var user_recipient_len = user_recipents.length;
-                    var all_recipient = '<div class="col-lg-2 col-4 rec-images"><img src="'+ base_url + '/public/media/image/all-users.png"><p class="cl-white sel-text mt-3"><input class="form-check-input" type="checkbox" id="all_recipient" name="all_recipient" value="all recipient" onclick="selectAllRecipient(this)"> All</p></div>';
+                    var all_recipient = '<div class="rec-images text-center px-2"><img src="'+ base_url + '/public/media/image/all-users.png"><p class="cl-white sel-text mt-3"><input class="form-check-input" type="checkbox" id="all_recipient" name="all_recipient" value="all recipient" onclick="selectAllRecipient(this)"> All</p></div>';
 
                     $("#show_recipient").empty();
                     $("#show_recipient").append(all_recipient);
@@ -1273,9 +1079,9 @@
                         var name = user_recipents[k].name;
                         var profile_image = user_recipents[k].profile_image;
                         if (media_recipient.includes(user_recipents[k].recipient_id)) {
-                            var single_recipient = '<div class="col-lg-2 col-4 rec-images"><img src="' + base_url + profile_image + '" class="delivey-images mx-2"><p class="cl-white sel-text mt-3"><input class="form-check-input user-recipient" type="checkbox" name="recipient_id[]" value="'+ recipient_id +'" checked> ' + name + '</p></div>';
+                            var single_recipient = '<div class="rec-images text-center px-2"><img src="' + base_url + profile_image + '" class="delivey-images mx-2"><p class="cl-white sel-text mt-3"><input class="form-check-input user-recipient" type="checkbox" name="recipient_id[]" value="'+ recipient_id +'" checked> ' + name + '</p></div>';
                         } else {
-                            var single_recipient = '<div class="col-lg-2 col-4 rec-images"><img src="' + base_url + profile_image + '" class="delivey-images mx-2"><p class="cl-white sel-text mt-3"><input class="form-check-input user-recipient" type="checkbox" name="recipient_id[]" value="'+ recipient_id +'"> ' + name + '</p></div>';
+                            var single_recipient = '<div class="rec-images text-center px-2"><img src="' + base_url + profile_image + '" class="delivey-images mx-2"><p class="cl-white sel-text mt-3"><input class="form-check-input user-recipient" type="checkbox" name="recipient_id[]" value="'+ recipient_id +'"> ' + name + '</p></div>';
                         }
                         $("#show_recipient").append(single_recipient);
                     }
