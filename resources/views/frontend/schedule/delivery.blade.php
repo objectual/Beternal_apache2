@@ -13,6 +13,22 @@
     $first_day = "$for_current_month[weekday]";
     $base_url = url('');
 @endphp
+@if(session()->has('message'))
+<div class="modal-dialog logout-modal">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-10 text-center offset-lg-1">
+                    <p class="text-white">{{ session()->get('message') }}</p>
+                    <div class="text-center mb-4">
+                        <a href="{{ route('user.delivery') }}" class="mx-1"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@else
 <div class="container-fluid bg-create delivery-padding bg-calendar">
     <div class="scroll-div">
         <div class="row">
@@ -197,10 +213,30 @@
                                                         @php $set_media = 0; @endphp
                                                         @for($a = 0; $a < count($schedule_dates); $a++)
                                                             @if($schedule_dates[$a]['date'] == $date)
-                                                                @php $file = $schedule_dates[$a]['file']; @endphp
-                                                                <td id="1" onclick="actionMedia(1)">
-                                                                    <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p>
-                                                                </td>
+                                                                @php
+                                                                    $id = $schedule_dates[$a]['id'];
+                                                                    $file = $schedule_dates[$a]['file'];
+                                                                    $type = $schedule_dates[$a]['type'];
+                                                                @endphp
+                                                                @if($type == 'video')
+                                                                    <td id="1" onclick="actionMedia({{ $id }})">
+                                                                        <p class="cl-white">&nbsp; &nbsp;1
+                                                                            <video class="example-image video-calendar">
+                                                                                <source src="{{ asset($file_path.$file) }}" type="video/mp4">
+                                                                            </video>
+                                                                            <a><img class="img-calendar-play" src="{{ asset('/public/assets/images/Exm-Buttons-Play.png') }}" /></a>
+                                                                        </p>
+                                                                    </td>
+                                                                @elseif($type == 'audio')
+                                                                    @php $audio_file = '/public/assets/images/audio-pop.png'; @endphp
+                                                                    <td id="1" onclick="actionMedia({{ $id }})">
+                                                                        <p class="cl-white" style="background-image: url('{{ asset($audio_file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p>
+                                                                    </td>
+                                                                @else
+                                                                    <td id="1" onclick="actionMedia({{ $id }})">
+                                                                        <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p>
+                                                                    </td>
+                                                                @endif
                                                                 @php
                                                                     $set_media++;
                                                                     $a = count($schedule_dates);
@@ -209,23 +245,43 @@
                                                         @endfor
                                                         @if($set_media == 0)
                                                             <td id="1" onclick="selectMedia(1)">
-                                                                <p class="event-active" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p>
+                                                                <p class="event-active">&nbsp; &nbsp;1</p>
                                                             </td>
                                                         @endif
                                                     @else
                                                         <td id="1" onclick="selectMedia(1)">
-                                                            <p class="event-active" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p>
+                                                            <p class="event-active">&nbsp; &nbsp;1</p>
                                                         </td>
                                                     @endif
                                                 @else
                                                     @if(count($schedule_dates) > 0)
                                                         @php $set_media = 0; @endphp
                                                         @for($b = 0; $b < count($schedule_dates); $b++)
-                                                            @if($schedule_dates[$b]['date']==1)
-                                                                @php $file = $schedule_dates[$b]['file']; @endphp
-                                                                <td id="1" onclick="actionMedia(1)">
-                                                                    <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p>
-                                                                </td>
+                                                            @if($schedule_dates[$b]['date'] == 1)
+                                                                @php
+                                                                    $id = $schedule_dates[$b]['id'];
+                                                                    $file = $schedule_dates[$b]['file'];
+                                                                    $type = $schedule_dates[$b]['type'];
+                                                                @endphp
+                                                                @if($type == 'video')
+                                                                    <td id="1" onclick="actionMedia({{ $id }})">
+                                                                        <p class="cl-white">&nbsp; &nbsp;1
+                                                                            <video class="example-image video-calendar">
+                                                                                <source src="{{ asset($file_path.$file) }}" type="video/mp4">
+                                                                            </video>
+                                                                            <a><img class="img-calendar-play" src="{{ asset('/public/assets/images/Exm-Buttons-Play.png') }}" /></a>
+                                                                        </p>
+                                                                    </td>
+                                                                @elseif($type == 'audio')
+                                                                    @php $audio_file = '/public/assets/images/audio-pop.png'; @endphp
+                                                                    <td id="1" onclick="actionMedia({{ $id }})">
+                                                                        <p class="cl-white" style="background-image: url('{{ asset($audio_file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p>
+                                                                    </td>
+                                                                @else
+                                                                    <td id="1" onclick="actionMedia({{ $id }})">
+                                                                        <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p>
+                                                                    </td>
+                                                                @endif
                                                                 @php
                                                                     $set_media++;
                                                                     $b = count($schedule_dates);
@@ -263,10 +319,30 @@
                                                     @php $set_media = 0; @endphp
                                                     @for($j = 0; $j < count($schedule_dates); $j++)
                                                         @if($schedule_dates[$j]['date'] == $date)
-                                                            @php $file = $schedule_dates[$j]['file']; @endphp
-                                                            <td id="{{ $i }}" onclick="actionMedia({{ $i }})">
-                                                                <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;{{ $i }}</p>
-                                                            </td>
+                                                            @php
+                                                                $id = $schedule_dates[$j]['id'];
+                                                                $file = $schedule_dates[$j]['file'];
+                                                                $type = $schedule_dates[$j]['type'];
+                                                            @endphp
+                                                            @if($type == 'video')
+                                                                <td id="{{ $i }}" onclick="actionMedia({{ $id }})">
+                                                                    <p class="cl-white">&nbsp; &nbsp;{{ $i }}
+                                                                        <video class="example-image video-calendar">
+                                                                            <source src="{{ asset($file_path.$file) }}" type="video/mp4">
+                                                                        </video>
+                                                                        <a><img class="img-calendar-play" src="{{ asset('/public/assets/images/Exm-Buttons-Play.png') }}" /></a>
+                                                                    </p>
+                                                                </td>
+                                                            @elseif($type == 'audio')
+                                                                @php $audio_file = '/public/assets/images/audio-pop.png'; @endphp
+                                                                <td id="{{ $i }}" onclick="actionMedia({{ $id }})">
+                                                                    <p class="cl-white" style="background-image: url('{{ asset($audio_file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;{{ $i }}</p>
+                                                                </td>
+                                                            @else
+                                                                <td id="{{ $i }}" onclick="actionMedia({{ $id }})">
+                                                                    <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;{{ $i }}</p>
+                                                                </td>
+                                                            @endif
                                                             @php
                                                                 $set_media++;
                                                                 $j = count($schedule_dates);
@@ -290,21 +366,26 @@
                                                         @for($k = 0; $k < count($schedule_dates); $k++)
                                                             @if($schedule_dates[$k]['date'] == $i)
                                                                 @php
+                                                                    $id = $schedule_dates[$k]['id'];
                                                                     $file = $schedule_dates[$k]['file'];
                                                                     $type = $schedule_dates[$k]['type'];
                                                                 @endphp
                                                                 @if($type == 'video')
-                                                                    <td id="{{ $i }}" onclick="actionMedia({{ $i }})">
+                                                                    <td id="{{ $i }}" onclick="actionMedia({{ $id }})">
                                                                         <p class="cl-white">&nbsp; &nbsp;{{ $i }}
                                                                             <video class="example-image video-calendar">
                                                                                 <source src="{{ asset($file_path.$file) }}" type="video/mp4">
                                                                             </video>
-                                                                            <a href="#"><img class="img-calendar-play" src="{{ asset('/public/assets/images/Exm-Buttons-Play.png') }}" onclick="recipentByName()" /></a>
-
+                                                                            <a><img class="img-calendar-play" src="{{ asset('/public/assets/images/Exm-Buttons-Play.png') }}" /></a>
                                                                         </p>
                                                                     </td>
+                                                                @elseif($type == 'audio')
+                                                                    @php $audio_file = '/public/assets/images/audio-pop.png'; @endphp
+                                                                    <td id="{{ $i }}" onclick="actionMedia({{ $id }})">
+                                                                        <p class="cl-white" style="background-image: url('{{ asset($audio_file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;{{ $i }}</p>
+                                                                    </td>
                                                                 @else
-                                                                    <td id="{{ $i }}" onclick="actionMedia({{ $i }})">
+                                                                    <td id="{{ $i }}" onclick="actionMedia({{ $id }})">
                                                                         <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;{{ $i }}</p>
                                                                     </td>
                                                                 @endif
@@ -329,10 +410,30 @@
                                                         @php $set_media = 0; @endphp
                                                         @for($n = 0; $n < count($schedule_dates); $n++)
                                                             @if($schedule_dates[$n]['date'] == $i)
-                                                                @php $file = $schedule_dates[$n]['file']; @endphp
-                                                                <td id="{{ $i }}" onclick="actionMedia({{ $i }})">
-                                                                    <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;{{ $i }}</p>
-                                                                </td>
+                                                                @php
+                                                                    $id = $schedule_dates[$n]['id'];
+                                                                    $file = $schedule_dates[$n]['file'];
+                                                                    $type = $schedule_dates[$n]['type'];
+                                                                @endphp
+                                                                @if($type == 'video')
+                                                                    <td id="{{ $i }}" onclick="actionMedia({{ $id }})">
+                                                                        <p class="cl-white">&nbsp; &nbsp;{{ $i }}
+                                                                            <video class="example-image video-calendar">
+                                                                                <source src="{{ asset($file_path.$file) }}" type="video/mp4">
+                                                                            </video>
+                                                                            <a><img class="img-calendar-play" src="{{ asset('/public/assets/images/Exm-Buttons-Play.png') }}" /></a>
+                                                                        </p>
+                                                                    </td>
+                                                                @elseif($type == 'audio')
+                                                                    @php $audio_file = '/public/assets/images/audio-pop.png'; @endphp
+                                                                    <td id="{{ $i }}" onclick="actionMedia({{ $id }})">
+                                                                        <p class="cl-white" style="background-image: url('{{ asset($audio_file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;{{ $i }}</p>
+                                                                    </td>
+                                                                @else
+                                                                    <td id="{{ $i }}" onclick="actionMedia({{ $id }})">
+                                                                        <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;{{ $i }}</p>
+                                                                    </td>
+                                                                @endif
                                                                 @php
                                                                     $set_media++;
                                                                     $n = count($schedule_dates);
@@ -519,7 +620,7 @@
     <div class="modal-dialog">
         <div class="modal-content bg-transparency">
             <div class="modal-body">
-            <button type="button" class="close close-select-media" data-dismiss="myMedia" onclick="closeMedia()">&times;</button>
+                <button type="button" class="close close-select-media" data-dismiss="myMedia" onclick="closeMedia()">&times;</button>
                 <h4 class="text-center text-white mt-5" id="video_heading">My Video</h4>
                 <div class="row" id="video_display">
                     <div class="col-lg-12 mt-3">
@@ -661,6 +762,68 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="myScheduleMedia" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-transparency">
+            <div class="modal-body">
+                <input type="hidden" id="delete_media" value="">
+                <button type="button" class="close close-select-media" data-dismiss="myScheduleMedia" onclick="closeScheduleMedia()">&times;</button>
+
+                <a class="icon-edit" data-bs-target="#delete" onclick="deleteMedia()"><img class="mt-2 img-edit" src="{{ asset('/public/assets/images/delete-new.png') }}" /></a>
+
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="row p-0-m">
+                        <div class="col-lg-12">
+                            <div class="" id="show_schedule_media"></div>
+                        </div>
+                    </div>
+                    <div class="row p-0-m">
+                        <div class="col-lg-12 mt-4 text-start">
+                            <div class="time-bg">
+                                <span class="time mt-3" id="media_date_time"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-lg-12 text-end p-0">
+                            <div class="d-flex justify-content-end" id="schedule_recipient"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-4 delivery-form">
+                        <div class="mb-3">
+                            <textarea class="Description-form text-white" id="media_description" rows="3" readonly></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12 delivery-form">
+                        <textarea class="Description-form text-white" id="media_personal_message" rows="3" readonly></textarea>
+                    </div>            
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade delete-recipent" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6 text-center offset-lg-3">
+                        <p class="text-white">
+                            Are you sure you want to delete schedule media ?
+                        </p>
+                        <div class="text-center mb-4">
+                            <a href="" class="mx-1" id="delete_schedule"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
+                            <a class="mx-1 close-cancel" data-bs-dismiss="modal" aria-label="Close"><img src="{{ asset('/public/assets/images/no.png') }}" /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 @endsection
 
 <script>
@@ -977,6 +1140,59 @@
         $("#showMsg").modal("show");
     }
 
+    function actionMedia(current) {
+        var base_path = '<?= $file_path ?>';
+        var base_url = '<?= $base_url ?>';delete_media
+        var schedule_media = JSON.parse('<?php echo json_encode($schedule_media) ?>');
+        var delete_media = document.getElementById('delete_media');
+        delete_media.value = current;
+
+        for (var i = 0; i < schedule_media.length; i++) {
+            if (current == schedule_media[i].id) {
+                var id = schedule_media[i].id;
+                var type = schedule_media[i].type;
+                var file_name = schedule_media[i].file_name;
+                var description = schedule_media[i].description;
+                var personal_message = schedule_media[i].message;
+                var media_recipients = schedule_media[i].all_recipient;
+                var date_time = 'Delivery Date & Time : '+ schedule_media[i].date_time;
+
+                if (type == 'video') {
+                    var media_for_display = '<video id="ban_video" class="tv_video" controls><source src="' + base_path + file_name + '" type="video/mp4" /></video>';
+                } else if (type == 'photo') {
+                    var media_for_display = '<picture id="ban_image" class="tv_image"><img src="' + base_path + file_name + '" type="image" height="500" width="720" /></picture>';
+                } else {
+                    var media_for_display = '<audio id="ban_audio" class="tv_audio" controls><source src="' + base_path + file_name + '" type="audio/mp3" /></audio>';
+                }
+
+                $('#show_schedule_media').empty();
+                $('#show_schedule_media').append(media_for_display);
+                $('#media_date_time').empty();
+                $('#media_date_time').append(date_time);
+                $('#media_description').empty();
+                $('#media_description').append(description);
+                $('#media_personal_message').empty();
+                $('#media_personal_message').append(personal_message);
+
+                if (media_recipients != null) {
+                    $('#schedule_recipient').empty();
+                    for (var j = 0; j < media_recipients.length; j++) {
+                        var name = media_recipients[j].name;
+                        var last_name = media_recipients[j].last_name;
+                        var profile_image = media_recipients[j].profile_image;
+                        var recipient = '<div class="rec-images text-center px-2"><img src="' + base_url + profile_image + '" class="delivey-images mx-2"><p class="cl-white sel-text mt-3">' + name + '</p></div>';
+                        $('#schedule_recipient').append(recipient);
+                    }
+                }
+            }
+        }
+        $("#myScheduleMedia").modal("show");
+    }
+
+    function closeScheduleMedia() {
+        $("#myScheduleMedia").modal("hide");
+    }
+
     function selectMedia(current) {
         var show_media = document.getElementById('show_media');
         var media_date = document.getElementById('media_date');
@@ -987,6 +1203,15 @@
 
     function closeMedia() {
         $("#myMedia").modal("hide");
+    }
+
+    function deleteMedia(current) {
+        var id = document.getElementById('delete_media').value;
+        var base_url = '<?= $base_url ?>';
+        var set_path = base_url + '/schedule-media/delete-schedule/'+ id;
+        var element = document.getElementById('delete_schedule');
+        element.href = set_path;
+        $("#delete").modal("show");
     }
 
     function mediaSelect(media_id) {
@@ -1013,12 +1238,13 @@
                     var media_file = '';
 
                     if (type == 'video') {
-                        media_file = '<p class="cl-white">'+ show_media +'<video class="example-image"><source src="' + base_path + file_name + '" type="video/mp4"></video></p>';
+                        var for_video = '/public/assets/images/Exm-Buttons-Play.png';
+                        media_file = '<p class="cl-white">&nbsp; &nbsp;'+ show_media +'<video class="example-image video-calendar"><source src="' + base_path + file_name + '" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a></p>';
                     } else if (type == 'audio') {
                         var file_url = '/public/assets/images/audio-pop.png';
-                        media_file = '<p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: cover;">'+ show_media +'</p>';
+                        media_file = '<p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ show_media +'</p>';
                     } else {
-                        media_file = '<p class="cl-white" style="background-image: url(' + base_path + file_name + '); background-size: cover;">'+ show_media +'</p>';
+                        media_file = '<p class="cl-white" style="background-image: url(' + base_path + file_name + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ show_media +'</p>';
                     }
                     
                     var my_selected = document.getElementById(show_media);

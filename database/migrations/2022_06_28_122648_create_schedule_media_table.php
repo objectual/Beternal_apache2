@@ -20,12 +20,9 @@ return new class extends Migration
             $table->text('message');
             $table->unsignedBigInteger('media_id');
             $table->foreign('media_id')->references('id')->on('media')->onDelete('cascade');
-            $table->unsignedBigInteger('recipient_id');
-            $table->foreign('recipient_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('group_id');
-            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

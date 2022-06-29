@@ -15,6 +15,7 @@ use App\Models\ShareMediaGroup;
 use App\Models\Plan;
 use App\Models\Legacy;
 use App\Models\ScheduleMedia;
+use App\Models\ScheduleMediaRecipient;
 use App\Models\ShareLegacy;
 use App\Models\ShareLegacyGroup;
 use App\Models\UserGroup;
@@ -602,6 +603,21 @@ class MediaController extends Controller
         ->join('media', 'schedule_media.media_id', '=', 'media.id')
         ->get(['schedule_media.id', 'schedule_media.date_time', 'schedule_media.description', 'schedule_media.message', 'schedule_media.media_id', 'media.file_name','media.type']);
 
+        if (!$schedule_media->isEmpty()) {
+            foreach ($schedule_media as $key => $schedule) {
+                $recipients = ScheduleMediaRecipient::where('schedule_media_id', $schedule->id)
+                    ->join('user_recipients', 'schedule_media_recipients.recipient_id', '=', 'user_recipients.recipient_id')
+                    ->get(['name', 'last_name', 'profile_image']);
+
+                if (!$recipients->isEmpty()) {
+                    $schedule->all_recipient = $recipients;
+                }
+                if ($recipients->isEmpty()) {
+                    $schedule->all_recipient = null;
+                }
+            }
+        }
+
         if (!$all_media->isEmpty()) {
             foreach ($all_media as $key => $media) {
                 $recipients = ShareMedia::where('media_id', $media->id)
@@ -663,18 +679,23 @@ class MediaController extends Controller
             $request->message = 'Not Found';
         }
         if ($request->upload_type == "add_event") {
-            if (!(empty($request->recipient_id))) {
-                if (count($request->recipient_id) > 0) {
-                    for ($i = 0; $i < count($request->recipient_id); $i++) {
-                        $media = new ScheduleMedia();
-                        $media->date_time = $date_time;
-                        $media->description = $request->description;
-                        $media->message = $request->message;
-                        $media->media_id = $request->selected_file;
-                        $media->recipient_id = $request->recipient_id[$i];
-                        $media->group_id = 10;
-                        $media->user_id = Auth::user()->id;
-                        $media->save();
+            $media = new ScheduleMedia();
+            $media->date_time = $date_time;
+            $media->description = $request->description;
+            $media->message = $request->message;
+            $media->media_id = $request->selected_file;
+            $media->user_id = Auth::user()->id;
+            $media->save();
+
+            if ($media) {
+                if (!(empty($request->recipient_id))) {
+                    if (count($request->recipient_id) > 0) {
+                        for ($i = 0; $i < count($request->recipient_id); $i++) {
+                            $media_schedule = new ScheduleMediaRecipient();
+                            $media_schedule->schedule_media_id = $media->id;
+                            $media_schedule->recipient_id = $request->recipient_id[$i];
+                            $media_schedule->save();
+                        }
                     }
                 }
             }
@@ -713,5 +734,17 @@ class MediaController extends Controller
     {
         $title = "SCHEDULED DELIVERY";
         return view('frontend.schedule.successSchedule', compact('title'));
+    }
+
+    public function deleteSchedule(Request $request)
+    {
+        $id = $request->id;
+        $with_recipient = ScheduleMediaRecipient::where('schedule_media_id', $id)->delete();
+        $schedule_media = ScheduleMedia::where('id', $id)->delete();
+        if ($with_recipient && $schedule_media) {
+            return redirect()->route('user.delivery')->with('message', 'Deleted successfully');
+        } else {
+            return redirect()->route('user.delivery');
+        }
     }
 }
