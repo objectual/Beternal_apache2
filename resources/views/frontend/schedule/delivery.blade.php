@@ -737,6 +737,8 @@
         var current_month = '<?= $given_month ?>';
         var current_year = '<?= $year ?>';
         var current_day = '<?= $day ?>';
+        var base_path = '<?= $file_path ?>';
+        var base_url = '<?= $base_url ?>';
         var normal_day = 'calendar-td-head weekdays-back';
         var active_day = 'calendar-td-head sunday';
         var class_sunday = normal_day;
@@ -818,6 +820,7 @@
         var week_days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         var first_day = week_days[get_day];
         var first_row = 0;
+        var schedule_dates = JSON.parse('<?php echo json_encode($schedule_dates) ?>');
 
         if (month_31.includes(get_month_name)) {
             days_of_month = 31;
@@ -837,18 +840,86 @@
             if (week_days[i] == first_day) {
                 if (get_month == current_month && get_year == current_year) {
                     if (current_date == 1) {
-                        $('#show_date').append('<td><p class="event-active">&nbsp; &nbsp;1</p></td>');
-                        if (first_row == 7) {
-                            $('#show_date').append('</tr><tr>');
+                        if (schedule_dates.length > 0) {
+                            var set_media = 0;
+                            for (var a = 0; a < schedule_dates.length; a++) {
+                                var schedule_date = parseInt(schedule_dates[a]['date']);
+                                if (schedule_date == current_date) {
+                                    var id = schedule_dates[a]['id'];
+                                    var file = schedule_dates[a]['file'];
+                                    var type = schedule_dates[a]['type'];
+                                    if (type == 'video') {
+                                        var for_video = '/public/assets/images/Exm-Buttons-Play.png';
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a></p></td>'
+                                        );
+                                    } else if (type == 'audio') {
+                                        var file_url = '/public/assets/images/audio-pop.png';
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p></td>'
+                                        );
+                                    } else {
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p></td>'
+                                        );
+                                    }
+                                    set_media++;
+                                    a = schedule_dates.length;
+                                }
+                            }
+                            if (set_media == 0) {
+                                $('#show_date').append(
+                                    '<td id="1" onclick="selectMedia(1)"><p class="event-active">&nbsp; &nbsp;1</p></td>'
+                                );
+                            }
+                        } else {
+                            $('#show_date').append(
+                                '<td id="1" onclick="selectMedia(1)"><p class="event-active">&nbsp; &nbsp;1</p></td>'
+                            );
                         }
-                        break;
                     } else {
-                        $('#show_date').append('<td><p class="">&nbsp; &nbsp;1</p></td>');
-                        if (first_row == 7) {
-                            $('#show_date').append('</tr><tr>');
+                        if (schedule_dates.length > 0) {
+                            var set_media = 0;
+                            for (var b = 0; b < schedule_dates.length; b++) {
+                                var schedule_date = parseInt(schedule_dates[b]['date']);
+                                if (schedule_date == 1) {
+                                    var id = schedule_dates[b]['id'];
+                                    var file = schedule_dates[b]['file'];
+                                    var type = schedule_dates[b]['type'];
+                                    if (type == 'video') {
+                                        var for_video = '/public/assets/images/Exm-Buttons-Play.png';
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a></p></td>'
+                                        );
+                                    } else if (type == 'audio') {
+                                        var file_url = '/public/assets/images/audio-pop.png';
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p></td>'
+                                        );
+                                    } else {
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p></td>'
+                                        );
+                                    }
+                                    set_media++;
+                                    b = schedule_dates.length;
+                                }
+                            }
+                            if(set_media == 0) {
+                                $('#show_date').append(
+                                    '<td id="1"><p class="">&nbsp; &nbsp;1</p></td>'
+                                );
+                            }
+                        } else {
+                            $('#show_date').append(
+                                '<td id="1"><p class="">&nbsp; &nbsp;1</p></td>'
+                            );
                         }
-                        break;
                     }
+                    if (first_row == 7) {
+                        $('#show_date').append('</tr><tr>');
+                    }
+                    break;
                 } else {
                     $('#show_date').append('<td><p class="">&nbsp; &nbsp;1</p></td>');
                     if (first_row == 7) {
@@ -865,9 +936,121 @@
             row_break++;
             if (get_month == current_month && get_year == current_year) {
                 if (current_date == i) {
-                    $('#show_date').append('<td><p class="event-active">&nbsp; &nbsp;' + i + '</p></td>');
+                    if (schedule_dates.length > 0) {
+                        var set_media = 0;
+                        for (var j = 0; j < schedule_dates.length; j++) {
+                            var schedule_date = parseInt(schedule_dates[j]['date']);
+                            if (schedule_date == current_date) {
+                                var id = schedule_dates[j]['id'];
+                                var file = schedule_dates[j]['file'];
+                                var type = schedule_dates[j]['type'];
+                                if (type == 'video') {
+                                    var for_video = '/public/assets/images/Exm-Buttons-Play.png';
+                                    $('#show_date').append(
+                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a></p></td>'
+                                    );
+                                } else if (type == 'audio') {
+                                    var file_url = '/public/assets/images/audio-pop.png';
+                                    $('#show_date').append(
+                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'</p></td>'
+                                    );
+                                } else {
+                                    $('#show_date').append(
+                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'</p></td>'
+                                    );
+                                }
+                                set_media++;
+                                j = schedule_dates.length;
+                            }
+                        }
+                        if (set_media == 0) {
+                            $('#show_date').append(
+                                '<td id="' + i + '" onclick="selectMedia(' + i + ')"><p class="event-active">&nbsp; &nbsp;' + i + '</p></td>'
+                            );
+                        }
+                    } else {
+                        $('#show_date').append(
+                            '<td id="' + i + '" onclick="selectMedia(' + i + ')"><p class="event-active">&nbsp; &nbsp;' + i + '</p></td>'
+                        );
+                    }
                 } else {
-                    $('#show_date').append('<td><p class="">&nbsp; &nbsp;' + i + '</p></td>');
+                    if (i > current_date) {
+                        if (schedule_dates.length > 0) {
+                            var set_media = 0;
+                            for (var k = 0; k < schedule_dates.length; k++) {
+                                var schedule_date = parseInt(schedule_dates[k]['date']);
+                                if (schedule_date == i) {
+                                    var id = schedule_dates[k]['id'];
+                                    var file = schedule_dates[k]['file'];
+                                    var type = schedule_dates[k]['type'];
+                                    if (type == 'video') {
+                                        var for_video = '/public/assets/images/Exm-Buttons-Play.png';
+                                        $('#show_date').append(
+                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a></p></td>'
+                                        );
+                                    } else if (type == 'audio') {
+                                        var file_url = '/public/assets/images/audio-pop.png';
+                                        $('#show_date').append(
+                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'</p></td>'
+                                        );
+                                    } else {
+                                        $('#show_date').append(
+                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'</p></td>'
+                                        );
+                                    }
+                                    set_media++;
+                                    k = schedule_dates.length;
+                                }
+                            }
+                            if (set_media == 0) {
+                                $('#show_date').append(
+                                    '<td id="' + i + '" onclick="selectMedia(' + i + ')"><p class="">&nbsp; &nbsp;' + i + '</p></td>'
+                                );
+                            }
+                        } else {
+                            $('#show_date').append(
+                                '<td id="' + i + '" onclick="selectMedia(' + i + ')"><p class="">&nbsp; &nbsp;' + i + '</p></td>'
+                            );
+                        }
+                    } else {
+                        if (schedule_dates.length > 0) {
+                            var set_media = 0;
+                            for (var n = 0; n < schedule_dates.length; n++) {
+                                var schedule_date = parseInt(schedule_dates[n]['date']);
+                                if (schedule_date == i) {
+                                    var id = schedule_dates[n]['id'];
+                                    var file = schedule_dates[n]['file'];
+                                    var type = schedule_dates[n]['type'];
+                                    if (type == 'video') {
+                                        var for_video = '/public/assets/images/Exm-Buttons-Play.png';
+                                        $('#show_date').append(
+                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a></p></td>'
+                                        );
+                                    } else if (type == 'audio') {
+                                        var file_url = '/public/assets/images/audio-pop.png';
+                                        $('#show_date').append(
+                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'</p></td>'
+                                        );
+                                    } else {
+                                        $('#show_date').append(
+                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'</p></td>'
+                                        );
+                                    }
+                                    set_media++;
+                                    n = schedule_dates.length;
+                                }
+                            }
+                            if (set_media == 0) {
+                                $('#show_date').append(
+                                    '<td id="'+ i +'" onclick="checkDate()"><p class="">&nbsp; &nbsp;' + i + '</p></td>'
+                                );
+                            }
+                        } else {
+                            $('#show_date').append(
+                                '<td id="'+ i +'" onclick="checkDate()"><p class="">&nbsp; &nbsp;' + i + '</p></td>'
+                            );
+                        }
+                    }
                 }
             } else {
                 $('#show_date').append('<td><p class="">&nbsp; &nbsp;' + i + '</p></td>');
@@ -948,7 +1131,7 @@
 
     function actionMedia(current) {
         var base_path = '<?= $file_path ?>';
-        var base_url = '<?= $base_url ?>';delete_media
+        var base_url = '<?= $base_url ?>';
         var schedule_media = JSON.parse('<?php echo json_encode($schedule_media) ?>');
         var delete_media = document.getElementById('delete_media');
         delete_media.value = current;
