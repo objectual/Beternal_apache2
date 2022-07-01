@@ -859,7 +859,7 @@
                 }
             }
         }
-        if (get_year == current_year || get_year < current_year) {
+        if (get_year == current_year) {
             if (get_month < current_month) {
                 if (schedule_media.length > 0) {
                     for (var x = 0; x < schedule_media.length; x++) {
@@ -878,6 +878,28 @@
                             }];
                             future_dates.push(your_schedule);
                         }
+                    }
+                }
+            }
+        }
+        if (get_year < current_year) {
+            alert('testing')
+            if (schedule_media.length > 0) {
+                for (var x = 0; x < schedule_media.length; x++) {
+                    var get_date_time = schedule_media[x].date_time;
+                    var date_time = get_date_time.split(" ");
+                    var month_year = date_time[0].split("-");
+                    var media_year = parseInt(month_year[0]);
+                    var media_month = parseInt(month_year[1]);
+                    var media_date = parseInt(month_year[2]);
+                    if (media_year == get_year && media_month == get_month) {
+                        const your_schedule = [{
+                            'id': schedule_media[x].id,
+                            'file': schedule_media[x].file_name,
+                            'date': media_date,
+                            'type': schedule_media[x].type
+                        }];
+                        future_dates.push(your_schedule);
                     }
                 }
             }
@@ -1013,7 +1035,7 @@
                             $('#show_date').append('</tr><tr>');
                         }
                         break;
-                    } else if (get_year == current_year || get_year < current_year) {
+                    } else if (get_year == current_year) {
                         if (get_month < current_month) {
                             if (future_dates.length > 0) {
                                 var set_media = 0;
@@ -1057,6 +1079,48 @@
                             }
                             break;
                         }
+                    } else if (get_year < current_year) {
+                        if (future_dates.length > 0) {
+                            var set_media = 0;
+                            for (var y = 0; y < future_dates.length; y++) {
+                                var schedule_date = parseInt(future_dates[y][0].date);
+                                if (schedule_date == 1) {
+                                    var id = future_dates[y][0].id;
+                                    var file = future_dates[y][0].file;
+                                    var type = future_dates[y][0].type;
+                                    if (type == 'video') {
+                                        var for_video = '/public/assets/images/Exm-Buttons-Play.png';
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a></p></td>'
+                                        );
+                                    } else if (type == 'audio') {
+                                        var file_url = '/public/assets/images/audio-pop.png';
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p></td>'
+                                        );
+                                    } else {
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p></td>'
+                                        );
+                                    }
+                                    set_media++;
+                                    y = future_dates.length;
+                                }
+                            }
+                            if (set_media == 0) {
+                                $('#show_date').append(
+                                    '<td><p class="">&nbsp; &nbsp;1</p></td>'
+                                );
+                            }
+                        } else {
+                            $('#show_date').append(
+                                '<td><p class="">&nbsp; &nbsp;1</p></td>'
+                            );
+                        }
+                        if (first_row == 7) {
+                            $('#show_date').append('</tr><tr>');
+                        }
+                        break;
                     }
                 }
             } else {
