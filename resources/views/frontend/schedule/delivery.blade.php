@@ -1421,7 +1421,6 @@
                             '<td><p class="">&nbsp; &nbsp;' + i + '</p></td>'
                         );
                     }
-                    // $('#show_date').append('<td><p class="">&nbsp; &nbsp;' + i + '</p></td>');
                 }
             }
             if (row_break == 7 || row_break == 14 || row_break == 21 || row_break == 28 || row_break == 35) {
@@ -1440,6 +1439,21 @@
         var set_year = default_year.value;
         var get_month_name = "January";
         var updated_month = get_month_name.toUpperCase();
+        var current_date = '<?= $date ?>';
+        var current_month = '<?= $given_month ?>';
+        var current_year = '<?= $year ?>';
+        var current_day = '<?= $day ?>';
+        var base_path = '<?= $file_path ?>';
+        var base_url = '<?= $base_url ?>';
+        var normal_day = 'calendar-td-head weekdays-back';
+        var active_day = 'calendar-td-head sunday';
+        var class_sunday = normal_day;
+        var class_monday = normal_day;
+        var class_tuesday = normal_day;
+        var class_wednesday = normal_day;
+        var class_thursday = normal_day;
+        var class_friday = normal_day;
+        var class_saturday = normal_day;
 
         if (current == 'previous') {
             set_year--;
@@ -1456,7 +1470,25 @@
         $('#previous_year_next').empty();
         $('#previous_year_next').append(set_year);
 
-        var days_name = '<td class="calendar-td-head weekdays-back">Sun</td><td class="calendar-td-head weekdays-back">Mon</td><td class="calendar-td-head weekdays-back">Tue</td><td class="calendar-td-head weekdays-back">Wed</td><td class="calendar-td-head weekdays-back">Thu</td><td class="calendar-td-head weekdays-back">Fri</td><td class="calendar-td-head weekdays-back">Sat</td>';
+        if (set_month == current_month && set_year == current_year) {
+            if (current_day == 'Sunday') {
+                class_sunday = active_day;
+            } else if (current_day == 'Monday') {
+                class_monday = active_day;
+            } else if (current_day == 'Tuesday') {
+                class_tuesday = active_day;
+            } else if (current_day == 'Wednesday') {
+                class_wednesday = active_day;
+            } else if (current_day == 'Thursday') {
+                class_thursday = active_day;
+            } else if (current_day == 'Friday') {
+                class_friday = active_day;
+            } else if (current_day == 'Saturday') {
+                class_saturday = active_day;
+            }
+        }
+
+        var days_name = '<td class="' + class_sunday + '">Sun</td><td class="' + class_monday + '">Mon</td><td class="' + class_tuesday + '">Tue</td><td class="' + class_wednesday + '">Wed</td><td class="' + class_thursday + '">Thu</td><td class="' + class_friday + '">Fri</td><td class="' + class_saturday + '">Sat</td>';
 
         $('#days_name').empty();
         $('#days_name').append(days_name);
@@ -1467,18 +1499,249 @@
         var week_days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         var first_day = week_days[get_day];
         var first_row = 0;
+        var schedule_dates = JSON.parse('<?php echo json_encode($schedule_dates) ?>');
+        var schedule_media = JSON.parse('<?php echo json_encode($schedule_media) ?>');
+        const future_dates = [];
 
+        if (set_year > current_year) {
+            if (schedule_media.length > 0) {
+                for (var x = 0; x < schedule_media.length; x++) {
+                    var get_date_time = schedule_media[x].date_time;
+                    var date_time = get_date_time.split(" ");
+                    var month_year = date_time[0].split("-");
+                    var media_year = parseInt(month_year[0]);
+                    var media_month = parseInt(month_year[1]);
+                    var media_date = parseInt(month_year[2]);
+                    if (media_year == set_year && media_month == set_month) {
+                        const your_schedule = [{
+                            'id': schedule_media[x].id,
+                            'file': schedule_media[x].file_name,
+                            'date': media_date,
+                            'type': schedule_media[x].type
+                        }];
+                        future_dates.push(your_schedule);
+                    }
+                }
+            }
+        }
+        if (set_year == current_year) {
+            if (schedule_media.length > 0) {
+                for (var x = 0; x < schedule_media.length; x++) {
+                    var get_date_time = schedule_media[x].date_time;
+                    var date_time = get_date_time.split(" ");
+                    var month_year = date_time[0].split("-");
+                    var media_year = parseInt(month_year[0]);
+                    var media_month = parseInt(month_year[1]);
+                    var media_date = parseInt(month_year[2]);
+                    if (media_year == set_year && media_month == set_month) {
+                        const your_schedule = [{
+                            'id': schedule_media[x].id,
+                            'file': schedule_media[x].file_name,
+                            'date': media_date,
+                            'type': schedule_media[x].type
+                        }];
+                        future_dates.push(your_schedule);
+                    }
+                }
+            }
+        }
+        if (set_year < current_year) {
+            if (schedule_media.length > 0) {
+                for (var x = 0; x < schedule_media.length; x++) {
+                    var get_date_time = schedule_media[x].date_time;
+                    var date_time = get_date_time.split(" ");
+                    var month_year = date_time[0].split("-");
+                    var media_year = parseInt(month_year[0]);
+                    var media_month = parseInt(month_year[1]);
+                    var media_date = parseInt(month_year[2]);
+                    if (media_year == set_year && media_month == set_month) {
+                        const your_schedule = [{
+                            'id': schedule_media[x].id,
+                            'file': schedule_media[x].file_name,
+                            'date': media_date,
+                            'type': schedule_media[x].type
+                        }];
+                        future_dates.push(your_schedule);
+                    }
+                }
+            }
+        }
 
         $('#show_date').empty();
         $('#show_date').append('<tr>');
         for (var i = 0; i < week_days.length; i++) {
             first_row++;
             if (week_days[i] == first_day) {
-                $('#show_date').append('<td><p class="">1</p></td>');
-                if (first_row == 7) {
-                    $('#show_date').append('</tr><tr>');
+                if (set_month == current_month && set_year == current_year) {
+                    if (current_date == 1) {
+                        if (schedule_dates.length > 0) {
+                            var set_media = 0;
+                            for (var a = 0; a < schedule_dates.length; a++) {
+                                var schedule_date = parseInt(schedule_dates[a]['date']);
+                                if (schedule_date == current_date) {
+                                    var id = schedule_dates[a]['id'];
+                                    var file = schedule_dates[a]['file'];
+                                    var type = schedule_dates[a]['type'];
+                                    if (type == 'video') {
+                                        var for_video = '/public/assets/images/Exm-Buttons-Play.png';
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a></p></td>'
+                                        );
+                                    } else if (type == 'audio') {
+                                        var file_url = '/public/assets/images/audio-pop.png';
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p></td>'
+                                        );
+                                    } else {
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p></td>'
+                                        );
+                                    }
+                                    set_media++;
+                                    a = schedule_dates.length;
+                                }
+                            }
+                            if (set_media == 0) {
+                                $('#show_date').append(
+                                    '<td id="1" onclick="selectMedia(1)"><p class="event-active">&nbsp; &nbsp;1</p></td>'
+                                );
+                            }
+                        } else {
+                            $('#show_date').append(
+                                '<td id="1" onclick="selectMedia(1)"><p class="event-active">&nbsp; &nbsp;1</p></td>'
+                            );
+                        }
+                    } else {
+                        if (schedule_dates.length > 0) {
+                            var set_media = 0;
+                            for (var b = 0; b < schedule_dates.length; b++) {
+                                var schedule_date = parseInt(schedule_dates[b]['date']);
+                                if (schedule_date == 1) {
+                                    var id = schedule_dates[b]['id'];
+                                    var file = schedule_dates[b]['file'];
+                                    var type = schedule_dates[b]['type'];
+                                    if (type == 'video') {
+                                        var for_video = '/public/assets/images/Exm-Buttons-Play.png';
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a></p></td>'
+                                        );
+                                    } else if (type == 'audio') {
+                                        var file_url = '/public/assets/images/audio-pop.png';
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p></td>'
+                                        );
+                                    } else {
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p></td>'
+                                        );
+                                    }
+                                    set_media++;
+                                    b = schedule_dates.length;
+                                }
+                            }
+                            if(set_media == 0) {
+                                $('#show_date').append(
+                                    '<td id="1"><p class="">&nbsp; &nbsp;1</p></td>'
+                                );
+                            }
+                        } else {
+                            $('#show_date').append(
+                                '<td id="1"><p class="">&nbsp; &nbsp;1</p></td>'
+                            );
+                        }
+                    }
+                    if (first_row == 7) {
+                        $('#show_date').append('</tr><tr>');
+                    }
+                    break;
+                } else {
+                    if (set_year > current_year) {
+                        if (future_dates.length > 0) {
+                            var set_media = 0;
+                            for (var y = 0; y < future_dates.length; y++) {
+                                var schedule_date = parseInt(future_dates[y][0].date);
+                                if (schedule_date == 1) {
+                                    var id = future_dates[y][0].id;
+                                    var file = future_dates[y][0].file;
+                                    var type = future_dates[y][0].type;
+                                    if (type == 'video') {
+                                        var for_video = '/public/assets/images/Exm-Buttons-Play.png';
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a></p></td>'
+                                        );
+                                    } else if (type == 'audio') {
+                                        var file_url = '/public/assets/images/audio-pop.png';
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p></td>'
+                                        );
+                                    } else {
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p></td>'
+                                        );
+                                    }
+                                    set_media++;
+                                    y = future_dates.length;
+                                }
+                            }
+                            if (set_media == 0) {
+                                $('#show_date').append(
+                                    '<td id="1" onclick="selectMedia(1)"><p class="">&nbsp; &nbsp;1</p></td>'
+                                );
+                            }
+                        } else {
+                            $('#show_date').append(
+                                '<td id="1" onclick="selectMedia(1)"><p class="">&nbsp; &nbsp;1</p></td>'
+                            );
+                        }
+                        if (first_row == 7) {
+                            $('#show_date').append('</tr><tr>');
+                        }
+                        break;
+                    }
+                    if (set_year <= current_year) {
+                        if (future_dates.length > 0) {
+                            var set_media = 0;
+                            for (var y = 0; y < future_dates.length; y++) {
+                                var schedule_date = parseInt(future_dates[y][0].date);
+                                if (schedule_date == 1) {
+                                    var id = future_dates[y][0].id;
+                                    var file = future_dates[y][0].file;
+                                    var type = future_dates[y][0].type;
+                                    if (type == 'video') {
+                                        var for_video = '/public/assets/images/Exm-Buttons-Play.png';
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a></p></td>'
+                                        );
+                                    } else if (type == 'audio') {
+                                        var file_url = '/public/assets/images/audio-pop.png';
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p></td>'
+                                        );
+                                    } else {
+                                        $('#show_date').append(
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1</p></td>'
+                                        );
+                                    }
+                                    set_media++;
+                                    y = future_dates.length;
+                                }
+                            }
+                            if (set_media == 0) {
+                                $('#show_date').append(
+                                    '<td><p class="">&nbsp; &nbsp;1</p></td>'
+                                );
+                            }
+                        } else {
+                            $('#show_date').append(
+                                '<td><p class="">&nbsp; &nbsp;1</p></td>'
+                            );
+                        }
+                        if (first_row == 7) {
+                            $('#show_date').append('</tr><tr>');
+                        }
+                        break;
+                    }
                 }
-                break;
             } else {
                 $('#show_date').append('<td></td>');
             }
@@ -1486,7 +1749,201 @@
         var row_break = first_row;
         for (var i = 2; i <= days_31; i++) {
             row_break++;
-            $('#show_date').append('<td><p class="">' + i + '</p></td>');
+            if (set_month == current_month && set_year == current_year) {
+                if (current_date == i) {
+                    if (schedule_dates.length > 0) {
+                        var set_media = 0;
+                        for (var j = 0; j < schedule_dates.length; j++) {
+                            var schedule_date = parseInt(schedule_dates[j]['date']);
+                            if (schedule_date == current_date) {
+                                var id = schedule_dates[j]['id'];
+                                var file = schedule_dates[j]['file'];
+                                var type = schedule_dates[j]['type'];
+                                if (type == 'video') {
+                                    var for_video = '/public/assets/images/Exm-Buttons-Play.png';
+                                    $('#show_date').append(
+                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a></p></td>'
+                                    );
+                                } else if (type == 'audio') {
+                                    var file_url = '/public/assets/images/audio-pop.png';
+                                    $('#show_date').append(
+                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'</p></td>'
+                                    );
+                                } else {
+                                    $('#show_date').append(
+                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'</p></td>'
+                                    );
+                                }
+                                set_media++;
+                                j = schedule_dates.length;
+                            }
+                        }
+                        if (set_media == 0) {
+                            $('#show_date').append(
+                                '<td id="' + i + '" onclick="selectMedia(' + i + ')"><p class="event-active">&nbsp; &nbsp;' + i + '</p></td>'
+                            );
+                        }
+                    } else {
+                        $('#show_date').append(
+                            '<td id="' + i + '" onclick="selectMedia(' + i + ')"><p class="event-active">&nbsp; &nbsp;' + i + '</p></td>'
+                        );
+                    }
+                } else {
+                    if (i > current_date) {
+                        if (schedule_dates.length > 0) {
+                            var set_media = 0;
+                            for (var k = 0; k < schedule_dates.length; k++) {
+                                var schedule_date = parseInt(schedule_dates[k]['date']);
+                                if (schedule_date == i) {
+                                    var id = schedule_dates[k]['id'];
+                                    var file = schedule_dates[k]['file'];
+                                    var type = schedule_dates[k]['type'];
+                                    if (type == 'video') {
+                                        var for_video = '/public/assets/images/Exm-Buttons-Play.png';
+                                        $('#show_date').append(
+                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a></p></td>'
+                                        );
+                                    } else if (type == 'audio') {
+                                        var file_url = '/public/assets/images/audio-pop.png';
+                                        $('#show_date').append(
+                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'</p></td>'
+                                        );
+                                    } else {
+                                        $('#show_date').append(
+                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'</p></td>'
+                                        );
+                                    }
+                                    set_media++;
+                                    k = schedule_dates.length;
+                                }
+                            }
+                            if (set_media == 0) {
+                                $('#show_date').append(
+                                    '<td id="' + i + '" onclick="selectMedia(' + i + ')"><p class="">&nbsp; &nbsp;' + i + '</p></td>'
+                                );
+                            }
+                        } else {
+                            $('#show_date').append(
+                                '<td id="' + i + '" onclick="selectMedia(' + i + ')"><p class="">&nbsp; &nbsp;' + i + '</p></td>'
+                            );
+                        }
+                    } else {
+                        if (schedule_dates.length > 0) {
+                            var set_media = 0;
+                            for (var n = 0; n < schedule_dates.length; n++) {
+                                var schedule_date = parseInt(schedule_dates[n]['date']);
+                                if (schedule_date == i) {
+                                    var id = schedule_dates[n]['id'];
+                                    var file = schedule_dates[n]['file'];
+                                    var type = schedule_dates[n]['type'];
+                                    if (type == 'video') {
+                                        var for_video = '/public/assets/images/Exm-Buttons-Play.png';
+                                        $('#show_date').append(
+                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a></p></td>'
+                                        );
+                                    } else if (type == 'audio') {
+                                        var file_url = '/public/assets/images/audio-pop.png';
+                                        $('#show_date').append(
+                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'</p></td>'
+                                        );
+                                    } else {
+                                        $('#show_date').append(
+                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'</p></td>'
+                                        );
+                                    }
+                                    set_media++;
+                                    n = schedule_dates.length;
+                                }
+                            }
+                            if (set_media == 0) {
+                                $('#show_date').append(
+                                    '<td id="'+ i +'" onclick="checkDate()"><p class="">&nbsp; &nbsp;' + i + '</p></td>'
+                                );
+                            }
+                        } else {
+                            $('#show_date').append(
+                                '<td id="'+ i +'" onclick="checkDate()"><p class="">&nbsp; &nbsp;' + i + '</p></td>'
+                            );
+                        }
+                    }
+                }
+            } else {
+                if (set_year > current_year) {
+                    if (future_dates.length > 0) {
+                        var set_media = 0;
+                        for (var y = 0; y < future_dates.length; y++) {
+                            if (future_dates[y][0].date == i) {
+                                var id = future_dates[y][0].id;
+                                var file = future_dates[y][0].file;
+                                var type = future_dates[y][0].type;
+                                if (type == 'video') {
+                                    var for_video = '/public/assets/images/Exm-Buttons-Play.png';
+                                    $('#show_date').append(
+                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a></p></td>'
+                                    );
+                                } else if (type == 'audio') {
+                                    var file_url = '/public/assets/images/audio-pop.png';
+                                    $('#show_date').append(
+                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'</p></td>'
+                                    );
+                                } else {
+                                    $('#show_date').append(
+                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'</p></td>'
+                                    );
+                                }
+                                set_media++;
+                                y = future_dates.length;
+                            }
+                        }
+                        if (set_media == 0) {
+                            $('#show_date').append(
+                                '<td id="' + i + '" onclick="selectMedia(' + i + ')"><p class="">&nbsp; &nbsp;' + i + '</p></td>'
+                            );
+                        }
+                    } else {
+                        $('#show_date').append(
+                            '<td id="' + i + '" onclick="selectMedia(' + i + ')"><p class="">&nbsp; &nbsp;' + i + '</p></td>'
+                        );
+                    }
+                } else {
+                    if (future_dates.length > 0) {
+                        var set_media = 0;
+                        for (var y = 0; y < future_dates.length; y++) {
+                            if (future_dates[y][0].date == i) {
+                                var id = future_dates[y][0].id;
+                                var file = future_dates[y][0].file;
+                                var type = future_dates[y][0].type;
+                                if (type == 'video') {
+                                    var for_video = '/public/assets/images/Exm-Buttons-Play.png';
+                                    $('#show_date').append(
+                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a></p></td>'
+                                    );
+                                } else if (type == 'audio') {
+                                    var file_url = '/public/assets/images/audio-pop.png';
+                                    $('#show_date').append(
+                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'</p></td>'
+                                    );
+                                } else {
+                                    $('#show_date').append(
+                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'</p></td>'
+                                    );
+                                }
+                                set_media++;
+                                y = future_dates.length;
+                            }
+                        }
+                        if (set_media == 0) {
+                            $('#show_date').append(
+                                '<td><p class="">&nbsp; &nbsp;' + i + '</p></td>'
+                            );
+                        }
+                    } else {
+                        $('#show_date').append(
+                            '<td><p class="">&nbsp; &nbsp;' + i + '</p></td>'
+                        );
+                    }
+                }
+            }
             if (row_break == 7 || row_break == 14 || row_break == 21 || row_break == 28 || row_break == 35) {
                 $('#show_date').append('</tr><tr>');
             }
