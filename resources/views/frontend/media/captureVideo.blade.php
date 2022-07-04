@@ -3,7 +3,7 @@
 @section("content")
 @php $base_url = url(''); @endphp
 <div class="container-fluid bg-create pb-4 h-auto upgrade-back">
-    <div class="scroll-div">
+    <div class="scroll-div h-auto">
         @if (Session::has('status'))
         <div class="alert alert-success text-center" role="alert">
             {{ Session::get('status') }}
@@ -175,7 +175,7 @@
                 </div>
 
                 <div class="pb-4 mt-2">
-                    <div class="scroll-div">
+                    <div class="scroll-div h-auto">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="mt-2">
