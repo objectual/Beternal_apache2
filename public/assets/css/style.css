@@ -1143,7 +1143,7 @@ textarea {
         width: 65px;
     }
     .modal-dialog {
-        margin: 8.75rem 30px !important;
+        margin: 8.75rem 15px !important;
     }
     .view-gallery-img {
         width: 65px !important; 
@@ -1361,6 +1361,7 @@ textarea {
     display: none;
 }
 @media screen and (min-width: 280px) and (max-width: 991px) { 
+    .h-auto {height: auto !important;}
    .check-ver {
     right: 12px !important;
 }
@@ -3603,7 +3604,6 @@ body {
 
 .notification {
     background-color: rgb(0, 0, 0, 0.3);
-
 }
 
 input:-webkit-autofill,
@@ -3744,8 +3744,6 @@ select option { color: #fff !important; }
     color: #fff;
     border: none;
 }
-
- 
 
   input[type="time"]::-webkit-calendar-picker-indicator {
     background: url(../images/clock.png) no-repeat;
