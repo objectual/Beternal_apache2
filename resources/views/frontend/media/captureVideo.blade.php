@@ -158,19 +158,24 @@
         <div class="modal-content">
             <div class="modal-body">
                 <meta name="csrf-token" content="{{csrf_token()}}">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h2 class="text-white">Recording</h2>
+                <div class="row" id="video_recording">
+                    <div class="col-md-12">
+                        <h2 class="text-white">Recording / Preview</h2>
                         <video id="preview" class="record-video-area" autoplay muted></video><br />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" id="recorded" style="display:none">
+                        <h2 class="text-white">Recording / Preview</h2>
+                        <video id="recording" class="record-video-area" controls></video><br />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="btn-group mt-4">
                             <div id="startButton" class="start-rec-btn"> Start </div>
                             <div id="stopButton" class="stop-btn btn btn-danger" style="display:none; margin-left:5px;"> Stop </div>
                         </div>
-                    </div>
-                    <div class="col-md-6" id="recorded" style="display:none">
-                        <h2>Preview</h2>
-                        <video id="recording" class="record-video-area" controls></video><br />
-                        <a id="downloadLocalButton" class="start-rec-btn mt-4 d-inline-flex">Download</a>
                     </div>
                 </div>
 
@@ -272,7 +277,8 @@
                     let downloadButton = document.getElementById("downloadButton");
                     let logElement = document.getElementById("log");
                     let recorded = document.getElementById("recorded");
-                    let downloadLocalButton = document.getElementById("downloadLocalButton");
+                    // let downloadLocalButton = document.getElementById("downloadLocalButton");
+                    let video_recording = document.getElementById("video_recording");
 
                     let recordingTimeMS = 10000; //video limit 10 sec
                     var localstream;
@@ -316,6 +322,7 @@
                     var formData = new FormData();
                     if (startButton) {
                         startButton.addEventListener("click", function() {
+                            video_recording.style.display = "block";
                             startButton.innerHTML = "recording...";
                             recorded.style.display = "none";
                             stopButton.style.display = "inline-block";
@@ -334,13 +341,14 @@
                                     let recordedBlob = new Blob(recordedChunks, {
                                         type: "video/webm"
                                     });
+                                    video_recording.style.display = "none";
                                     recording.src = URL.createObjectURL(recordedBlob);
 
                                     formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
                                     formData.append('file_name', recordedBlob);
 
-                                    downloadLocalButton.href = recording.src;
-                                    downloadLocalButton.download = "RecordedVideo.webm";
+                                    // downloadLocalButton.href = recording.src;
+                                    // downloadLocalButton.download = "RecordedVideo.webm";
                                     log("Successfully recorded " + recordedBlob.size + " bytes of " +
                                         recordedBlob.type + " media.");
                                     startButton.innerHTML = "Start";
@@ -440,6 +448,7 @@
                     if (stopButton) {
                         stopButton.addEventListener("click", function() {
                             stop(preview.srcObject);
+                            video_recording.style.display = "none";
                             startButton.innerHTML = "Start";
                             stopButton.style.display = "none";
                             recorded.style.display = "block";
