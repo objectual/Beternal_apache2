@@ -112,12 +112,16 @@
             <div class="row" id="video_display">
                 <div class="col-lg-2 mt-3"></div>
                 <div class="col-lg-8 mt-3">
+                    @if($video_count > 0)
                     <div class="" id="current_video">
                         <video id="ban_video" class="tv_video" controls>
                             <source src="{{ asset('/public/assets/images/landing-video.mp4') }}" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
                     </div>
+                    @else
+                    <p class="mb-0 contact-label text-center">Not Found!</p>
+                    @endif
                     <div class="row mt-3 px-2" id="all_videos">
                         @if(isset($all_media))
                         @foreach($all_media as $key => $video)
@@ -162,11 +166,9 @@
             <div class="row" id="photo_display">
                 <div class="col-lg-2 mt-3"></div>
                 <div class="col-lg-8 mt-3">
-                    <!-- <div class="image" id="current_photo">
-                        <picture id="ban_image" class="tv_image">
-                            <img src="{{ asset('/public/assets/images/my-media-default-image.jpg') }}" type="image" height="500" width="720" />
-                        </picture>
-                    </div> -->
+                    @if($photo_count == 0)
+                    <p class="mb-0 contact-label text-center">Not Found!</p>
+                    @endif
                     <div class="row mt-3 px-2" id="all_photos">
                         @if(isset($all_media))
                         @foreach($all_media as $key => $photo)
@@ -213,12 +215,16 @@
             <div class="row pb-5" id="audio_display">
                 <div class="col-lg-2 mt-3"></div>
                 <div class="col-lg-8 text-center mt-3">
+                    @if($audio_count > 0)
                     <div class="audio" id="current_audio">
                         <audio id="ban_audio" class="tv_audio" controls>
                             <source src="{{ asset('/public/assets/images/game_play_music.mp3') }}" type="audio/mp3" />
                             Your browser does not support the video tag.
                         </audio>
                     </div>
+                    @else
+                    <p class="mb-0 contact-label">Not Found!</p>
+                    @endif
                     <div class="row mt-3 px-2" id="all_audios">
                         @if(isset($all_media))
                         @foreach($all_media as $key => $audio)

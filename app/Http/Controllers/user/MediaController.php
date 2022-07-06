@@ -372,6 +372,9 @@ class MediaController extends Controller
         $title = "MY MEDIA";
         $id = Auth::user()->id;
         $all_media = Media::where('user_id', $id)->get(['*']);
+        $video_count =  Media::where(['user_id' => $id, 'type' => 'video'])->count();
+        $audio_count =  Media::where(['user_id' => $id, 'type' => 'audio'])->count();
+        $photo_count =  Media::where(['user_id' => $id, 'type' => 'photo'])->count();
 
         $user_recipents = userRecipients($id);
         $user_groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
@@ -416,6 +419,9 @@ class MediaController extends Controller
         return view('frontend.media.myMedia', compact(
             'title',
             'all_media',
+            'video_count',
+            'audio_count',
+            'photo_count',
             'user_recipents',
             'user_groups',
             'file_path'

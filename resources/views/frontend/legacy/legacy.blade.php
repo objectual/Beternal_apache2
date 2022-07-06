@@ -79,7 +79,9 @@
                         @php $date_time = explode(" ", $video->created_at); @endphp
                         <div class="col-lg-3 px-1 col-6 col-md-4">
                             <a class="example-image-link d-block" id="{{ $video->file_name }}" onclick="selectVideo(this)">
-                                <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
+                                <video class="example-image">
+                                    <source src="{{ asset( $file_path.$video->file_name )}}"type="video/mp4">
+                                </video>
                                 <div class="play-bt-exm-one"></div>
                                 <div class="pt-1 bg-black">
                                     <span class="above-img-span">
@@ -282,21 +284,24 @@
                                 var display_date = year + '-' + month + '-' + date;
                                 if (all_legacy[i].type == 'video') {
                                     var media_function = 'selectVideo(this)';
-                                    var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                                    var file = base_path + file_name;
                                     var media_button = 'play-bt-exm-one';
+                                    var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
                                 }
                                 if (all_legacy[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
                                     var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
                                     var media_button = 'audio-bt-exm-one';
+                                    var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                                 }
                                 if (all_legacy[i].type == 'photo') {
                                     var media_function = '';
                                     var file = base_path + file_name;
                                     var media_button = '';
+                                    var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                                 }
-                                var route_url = 'legacy-details/' + all_legacy[i].id;
-                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + for_group + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="' + route_url + '" class="btn-view-details">View Details </a></div>';
+                                var route_url = 'legacy/legacy-details/' + all_legacy[i].id;
+                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '">' + for_display + '<div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + for_group + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="' + route_url + '" class="btn-view-details">View Details </a></div>';
                                 if (all_legacy[i].type == 'video') {
                                     all_videos.append(media);
                                 }
@@ -338,21 +343,24 @@
                                 var display_date = year + '-' + month + '-' + date;
                                 if (all_legacy[i].type == 'video') {
                                     var media_function = 'selectVideo(this)';
-                                    var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                                    var file = file = base_path + file_name;
                                     var media_button = 'play-bt-exm-one';
+                                    var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
                                 }
                                 if (all_legacy[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
                                     var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
                                     var media_button = 'audio-bt-exm-one';
+                                    var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                                 }
                                 if (all_legacy[i].type == 'photo') {
                                     var media_function = '';
                                     var file = base_path + file_name;
                                     var media_button = '';
+                                    var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                                 }
-                                var route_url = 'legacy-details/' + all_legacy[i].id;
-                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + all_legacy[i].group_title + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="' + route_url + '" class="btn-view-details">View Details </a></div>';
+                                var route_url = 'legacy/legacy-details/' + all_legacy[i].id;
+                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '">' + for_display + '<div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + all_legacy[i].group_title + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="' + route_url + '" class="btn-view-details">View Details </a></div>';
                                 if (all_legacy[i].type == 'video') {
                                     all_videos.append(media);
                                 }
@@ -374,7 +382,7 @@
             all_photos.empty();
             if (all_media_len > 0) {
                 for (var i = 0; i < all_media_len; i++) {
-                    if (all_legacy[i].all_recipient != null) {
+                    if (all_legacy[i].all_group != null) {
                         var all_group_len = all_legacy[i].all_group.length;
                         for (var j = 0; j < all_group_len; j++) {
                             var group = all_legacy[i].all_group[j];
@@ -394,21 +402,24 @@
                                 var display_date = year + '-' + month + '-' + date;
                                 if (all_legacy[i].type == 'video') {
                                     var media_function = 'selectVideo(this)';
-                                    var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                                    var file = base_path + file_name;
                                     var media_button = 'play-bt-exm-one';
+                                    var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
                                 }
                                 if (all_legacy[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
                                     var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
                                     var media_button = 'audio-bt-exm-one';
+                                    var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                                 }
                                 if (all_legacy[i].type == 'photo') {
                                     var media_function = '';
                                     var file = base_path + file_name;
                                     var media_button = '';
+                                    var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                                 }
-                                var route_url = 'legacy-details/' + all_legacy[i].id;
-                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + for_group + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="' + route_url + '" class="btn-view-details">View Details </a></div>';
+                                var route_url = 'legacy/legacy-details/' + all_legacy[i].id;
+                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '">' + for_display + '<div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + for_group + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="' + route_url + '" class="btn-view-details">View Details </a></div>';
                                 if (all_legacy[i].type == 'video') {
                                     all_videos.append(media);
                                 }
@@ -445,21 +456,24 @@
                     var display_date = year + '-' + month + '-' + date;
                     if (all_legacy[i].type == 'video') {
                         var media_function = 'selectVideo(this)';
-                        var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                        var file = base_path + file_name;
                         var media_button = 'play-bt-exm-one';
+                        var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
                     }
                     if (all_legacy[i].type == 'audio') {
                         var media_function = 'selectAudio(this)';
                         var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
                         var media_button = 'audio-bt-exm-one';
+                        var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                     }
                     if (all_legacy[i].type == 'photo') {
                         var media_function = '';
                         var file = base_path + file_name;
                         var media_button = '';
+                        var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                     }
-                    var route_url = 'legacy-details/' + all_legacy[i].id;
-                    var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '"><img class="example-image" src="' + file + '" alt="" /><div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + all_legacy[i].group_title + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="' + route_url + '" class="btn-view-details">View Details </a></div>';
+                    var route_url = 'legacy/legacy-details/' + all_legacy[i].id;
+                    var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '">' + for_display + '<div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + all_legacy[i].group_title + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="' + route_url + '" class="btn-view-details">View Details </a></div>';
                     if (all_legacy[i].type == 'video') {
                         all_videos.append(media);
                     }

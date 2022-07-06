@@ -18,7 +18,7 @@
                         </a>
                     </div>
                     @if($get_media[0]->type == 'video')
-                    <div class="video">
+                    <div class="">
                         <video id="ban_video" class="tv_video" controls>
                             <source src="{{ asset( $file_path.$get_media[0]->file_name )}}" type="video/mp4" />
                             Your browser does not support the video tag.
@@ -43,73 +43,47 @@
             <div class="row mt-1">
                 <div class="col-lg-4 text-start mt-4">
                     <p class="media-head text-white">{{ $get_media[0]->title }}</p>
-                 <p class="media-head text-white">{{ $get_media[0]->description }}</p>
-                 <p class="media-clock-p text-white"><img class="media-clock-img" src="{{ asset('/public/assets/images/clock.png') }}" />&nbsp;{{ $get_media[0]->created_at }}</p>
-
-
-                </div>
-                <div class="col-lg-4 text-white media-head mt-4">
-                <div class=" d-flex">
-                    <div class="text-white details-text">Groups : &nbsp;&nbsp;</div>
-                    <div class="text-white p-0 details-text">
-                    @if($get_media[0]->all_recipient != null)
-                    @foreach($get_media[0]->all_group as $group)
-                        {{ $group->group_title }},
-                    @endforeach
-                    @endif
-                    </div>
-                </div>
+                    <p class="media-head text-white">{{ $get_media[0]->description }}</p>
+                    <p class="media-clock-p text-white">
+                        <img class="media-clock-img" src="{{ asset('/public/assets/images/clock.png') }}" />&nbsp;{{ $get_media[0]->created_at }}
+                    </p>
                 </div>
                 <div class="col-lg-4 text-end mt-4">
-                @if($get_media[0]->all_recipient != null)
-                    @foreach($get_media[0]->all_recipient as $recipient)
-                    <div class="d-flex mb-4"> 
-                    <div><img class="media-recipent" src="{{ asset($recipient->profile_image) }}"></div>
-                    <div class="text-white details-text mx-2">{{ $recipient->name }} {{ $recipient->last_name }},</div>
-                    </div>
-                    
-                    @endforeach
-                    @endif
-                </div>
-            </div>
-
-            <!-- <div class="row mt-1">
-                <div class="row d-flex">
-                    <div class="col-md-1 col-6 text-white details-text">Groups :</div>
-                    <div class="text-white col-md-11 p-0 col-5 details-text">
-                        @if($get_media[0]->all_recipient != null)
+                    @if($get_media[0]->all_group != null)
                         @foreach($get_media[0]->all_group as $group)
-                        {{ $group->group_title }},
+                            <div class="d-flex mb-4">
+                                <div class="text-white details-text mx-2">
+                                    {{ $group->group_title }}
+                                </div>
+                            </div>
                         @endforeach
-                        @endif
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mt-4">
-                <div class="row d-flex">
-                    @if($get_media[0]->all_recipient != null)
-                    @foreach($get_media[0]->all_recipient as $recipient)
-                    <div class="d-flex col-md-3 mb-4"> 
-                    <div><img class="media-recipent" src="{{ asset($recipient->profile_image) }}"></div>
-                    <div class="text-white details-text mx-2">{{ $recipient->name }} {{ $recipient->last_name }},</div>
-                    </div>
-                    
-                    @endforeach
+                    @else
+                        <div class="d-flex mb-4">
+                            <div class="text-white details-text mx-2">
+                                Groups Not Found!
+                            </div>
+                        </div>
                     @endif
                 </div>
-            </div> -->
-
-          
-
-            <!-- <div class="row mt-1">
-                <div class="col-lg-12">
-                    <p class="media-head text-white">{{ $get_media[0]->description }}</p>
+                <div class="col-lg-4 text-end mt-4">
+                    @if($get_media[0]->all_recipient != null)
+                        @foreach($get_media[0]->all_recipient as $recipient)
+                            <div class="d-flex mb-4">
+                                <div><img class="media-recipent" src="{{ asset($recipient->profile_image) }}"></div>
+                                <div class="text-white details-text mx-2">{{ $recipient->name }} {{ $recipient->last_name }}</div>
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="d-flex mb-4">
+                            <div class="text-white details-text mx-2">
+                                Recipients Not Found!
+                            </div>
+                        </div>
+                    @endif
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
-
 </div>
 
 <div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -118,7 +92,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-6 text-center offset-lg-3">
-                        <p class="text-white"> 
+                        <p class="text-white">
                             Are you sure you want to delete media ?
                         </p>
                         <div class="text-center mb-4">
@@ -136,7 +110,7 @@
 <script>
     function deleteMedia(current) {
         var base_url = '<?= $base_url ?>';
-        var set_path = base_url + '/medias/my-media-delete/'+ current.id;
+        var set_path = base_url + '/medias/my-media-delete/' + current.id;
         var element = document.getElementById('delete_media');
         element.href = set_path;
         $("#delete").modal("show");
