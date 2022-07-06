@@ -4,11 +4,6 @@
 @php $base_url = url(''); @endphp
 <div class="container-fluid bg-create pb-4 h-auto upgrade-back">
     <div class="scroll-div h-auto">
-        @if (Session::has('status'))
-        <div class="alert alert-success text-center" role="alert">
-            {{ Session::get('status') }}
-        </div>
-        @endif
         <form method="POST" action="{{ route('user.medias.upload-media') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
             @csrf
             <input type="hidden" id="media_type" name="media_type" value="video">
@@ -157,6 +152,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
+                <button type="button" class="close close-select-media" data-dismiss="myMedia" onclick="closeMedia()">&times;</button>
                 <meta name="csrf-token" content="{{csrf_token()}}">
                 <div class="row" id="video_recording">
                     <div class="col-md-12">
@@ -255,9 +251,14 @@
                                     @endif
                                     <div class="col-12" id="group_msg"></div>
                                 </div>
-                                <div class="row pt-4">
+                                <div class="row pt-4" style="display: none;">
                                     <div class="col-12 ">
                                         <button class="btn upg-add-img-btn w-100" id="downloadButton" data-url="{{route('user.medias.store-media')}}">Save Your Memory</button>
+                                    </div>
+                                </div>
+                                <div class="row pt-4">
+                                    <div class="col-12 ">
+                                        <a class="btn upg-add-img-btn w-100" onclick="uploadTypeRecording(this)">Save Your Memory</a>
                                     </div>
                                 </div>
                                 <div class="row pt-4">
@@ -280,7 +281,7 @@
                     // let downloadLocalButton = document.getElementById("downloadLocalButton");
                     let video_recording = document.getElementById("video_recording");
 
-                    let recordingTimeMS = 10000; //video limit 10 sec
+                    let recordingTimeMS = 60000; //video limit 60 sec
                     var localstream;
 
                     window.log = function(msg) {
@@ -363,6 +364,8 @@
                     if (downloadButton) {
                         downloadButton.addEventListener("click", function() {
                             let media_type = document.getElementById("media_type").value;
+                            let upload_type = document.getElementById('upload_type').value;
+                            let element = document.getElementById('set_redirect');
                             let title = document.getElementById("title_2").value;
                             let description = document.getElementById("description_2").value;
                             let recipient = document.querySelectorAll('.user-recipient-2');
@@ -404,6 +407,7 @@
                                 return false;
                             }
                             formData.append('media_type', media_type);
+                            formData.append('upload_type', upload_type);
                             formData.append('title', title);
                             formData.append('description', description);
                             for (var i = 0; i < recipient.length; i++) {
@@ -418,17 +422,18 @@
                                     selected_group = 1;
                                 }
                             }
-                            if (selected_recipient == 0) {
-                                $('#recipient_msg').empty();
-                                $("#recipient_msg").append(msg_recipient);
-                                return false;
-                            }
-                            if (selected_group == 0) {
-                                $('#recipient_msg').empty();
-                                $('#group_msg').empty();
-                                $("#group_msg").append(msg_group);
-                                return false;
-                            }
+                            // if (selected_recipient == 0) {
+                            //     $('#recipient_msg').empty();
+                            //     $("#recipient_msg").append(msg_recipient);
+                            //     return false;
+                            // }
+                            // if (selected_group == 0) {
+                            //     $('#recipient_msg').empty();
+                            //     $('#group_msg').empty();
+                            //     $("#group_msg").append(msg_group);
+                            //     return false;
+                            // }
+                            $("#loaderUpload").modal("show");
                             $.ajax({
                                 url: this.getAttribute('data-url'),
                                 method: 'POST',
@@ -438,6 +443,8 @@
                                 contentType: false,
                                 success: function(res) {
                                     if (res.success) {
+                                        element.href = res.redirect_url;
+                                        $("#loaderUpload").modal("hide");
                                         $("#redirectModal").modal("show");
                                         // location.reload();
                                     }
@@ -461,6 +468,46 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="selectTypeRecording" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6 text-center offset-lg-3">
+                            <img class="mt-4 mb-3 audio-pop" src="{{ asset('/public/assets/images/audio (2).png') }}" />
+                        </div>
+                    </div>
+                    <div class="row pt-3 pb-5 media-icons">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-3">
+                            <button class="filter-btn btn w-100 text-center py-2" onclick="addMediaRecording('media')">Add To Media</button>
+                        </div>
+                        <div class="col-lg-3">
+                            <button class="filter-btn btn w-100 text-center py-2" onclick="addMediaRecording('legacy')">Add To Legacy</button>
+                        </div>
+                        <div class="col-lg-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="loaderUpload" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog logout-modal">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-10 text-center offset-lg-1">
+                            <img style="height:60px; width:60px;" src="{{ asset('/public/assets/images/loader.gif')}}" /> 
+                            <p class="text-white">Please Wait</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 
@@ -476,7 +523,7 @@
                         <p>Uploaded successfully.</p>
                         <div class="row text-center mb-4 mt-5">
                             <div class="col-lg-6 offset-lg-3">
-                                <a href="{{ route('user.medias.capture-video') }}" class="btn upg-select-del-btn w-100">OK</a>
+                                <a href="" id="set_redirect" class="btn upg-select-del-btn w-100">OK</a>
                             </div>
                         </div>
                     </div>
@@ -543,6 +590,23 @@
         upload_type.value = 'legacy';
         $("#selectType").modal("hide");
         $("#first_form").click()
+    }
+
+    function closeMedia() {
+        $("#captureImage").modal("hide");
+    }
+
+    function uploadTypeRecording() {
+        selectTypeRecording.style.display = "block";
+        $("#selectTypeRecording").modal("show");
+    }
+
+    function addMediaRecording(current) {
+        var selectTypeRecording = document.getElementById('selectTypeRecording');
+        var upload_type = document.getElementById('upload_type');
+        upload_type.value = current;
+        selectTypeRecording.style.display = "none";
+        $("#downloadButton").click()
     }
     
     function recipentByName(current) {

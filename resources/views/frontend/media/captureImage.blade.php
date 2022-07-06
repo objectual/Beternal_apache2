@@ -4,11 +4,6 @@
 @php $base_url = url(''); @endphp
 <div class="container-fluid bg-create pb-4 h-auto upgrade-back">
     <div class="scroll-div h-auto">
-        @if (Session::has('status'))
-        <div class="alert alert-success text-center" role="alert">
-            {{ Session::get('status') }}
-        </div>
-        @endif
         <form method="POST" action="{{ route('user.medias.upload-media') }}" id="main_form" enctype="multipart/form-data" onsubmit="return validateForm(this)">
             @csrf
             <input type="hidden" id="media_type" name="media_type" value="photo">
@@ -159,21 +154,25 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
+                <button type="button" class="close close-select-media" data-dismiss="myMedia" onclick="closeMedia()">&times;</button>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
                 <form method="POST" action="{{ route('user.medias.store-media') }}" id="modal_form" enctype="multipart/form-data" onsubmit="return validateForm(this)">
                     @csrf
                     <input type="hidden" id="media_type" name="media_type" value="photo">
+                    <input type="hidden" id="upload_type_2" name="upload_type_2" value="">
                     <div class="container-fluid pb-4 h-auto upgrade-back mt-2">
                         <div class="scroll-div h-auto">
-                            <div class="row">
-                                <div class="col-md-6 mt-2">
+                            <div class="row" id="open_camera">
+                                <div class="col-md-12 mt-2">
                                     <div id="my_camera"></div>
-                                    <br />
-                                    <input type=button value="Take Snapshot" onClick="take_snapshot()">
+                                    <input type=button value="Take Snapshot" class="mt-2" onClick="take_snapshot()">
                                     <input type="hidden" name="image" class="image-tag">
                                 </div>
-                                <div class="col-md-6 mt-2">
-                                    <div id="results">Your captured image will appear here...</div>
+                            </div>
+                            <div class="row" id="display_photo">
+                                <div class="col-md-12 mt-2">
+                                    <div id="results"></div>
+                                    <input type="button" value="Take New Snapshot" class="mt-2" id="new_photo" onClick="take_new_snapshot()">
                                 </div>
                             </div>
                             <div class="row">
@@ -248,9 +247,14 @@
                                         @endforeach
                                         @endif
                                     </div>
+                                    <div class="row pt-4" style="display: none;">
+                                        <div class="col-12">
+                                            <button class="btn upg-add-img-btn w-100" id="downloadButton" data-url="{{route('user.medias.store-media')}}">Save Your Memory</button>
+                                        </div>
+                                    </div>
                                     <div class="row pt-4">
                                         <div class="col-12 ">
-                                            <button class="btn upg-add-img-btn w-100" id="downloadButton" data-url="{{route('user.medias.store-media')}}">Save Your Memory</button>
+                                            <a class="btn upg-add-img-btn w-100" onclick="uploadTypeRecording(this)">Save Your Memory</a>
                                         </div>
                                     </div>
                                     <div class="row pt-4">
@@ -265,47 +269,74 @@
                 <!-- Configure a few settings and attach camera -->
                 <script language="JavaScript">
                     Webcam.set({
-                        width: 290,
-                        height: 210,
+                        width: 600,
+                        height: 400,
                         image_format: 'jpeg',
                         jpeg_quality: 90
                     });
 
                     Webcam.attach('#my_camera');
 
+                    document.getElementById("new_photo").style.display = "none";
+
                     function take_snapshot() {
                         Webcam.snap(function(data_uri) {
                             $(".image-tag").val(data_uri);
+                            document.getElementById("display_photo").style.display = "block";
+                            document.getElementById("new_photo").style.display = "block";
+                            document.getElementById("open_camera").style.display = "none";
                             document.getElementById('results').innerHTML = '<img src="' + data_uri + '"/>';
                         });
+                    }
+
+                    function take_new_snapshot() {
+                        document.getElementById("display_photo").style.display = "none";
+                        document.getElementById("open_camera").style.display = "block";
                     }
                 </script>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Redirect Modal -->
-<!-- <div class="modal-dialog modal-dialog-centered"> -->
-<div class="modal fade" id="redirectModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-8 text-center offset-lg-2">
-                        <img class="mt-4 mb-3 audio-pop" src="./images/video-pop.png" />
-                        <p>Uploaded successfully.</p>
-                        </p>
-                        <div class="row text-center mb-4 mt-5">
-                            <div class="col-lg-6 offset-lg-3">
-                                <a href="{{ route('user.medias.capture-image') }}" class="btn upg-select-del-btn w-100">OK</a>
-                            </div>
+    <div class="modal fade" id="selectTypeRecording" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6 text-center offset-lg-3">
+                            <img class="mt-4 mb-3 audio-pop" src="{{ asset('/public/assets/images/audio (2).png') }}" />
+                        </div>
+                    </div>
+                    <div class="row pt-3 pb-5 media-icons">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-3">
+                            <button class="filter-btn btn w-100 text-center py-2" onclick="addMediaRecording('media')">Add To Media</button>
+                        </div>
+                        <div class="col-lg-3">
+                            <button class="filter-btn btn w-100 text-center py-2" onclick="addMediaRecording('legacy')">Add To Legacy</button>
+                        </div>
+                        <div class="col-lg-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="loaderUpload" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog logout-modal">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-10 text-center offset-lg-1">
+                            <img style="height:60px; width:60px;" src="{{ asset('/public/assets/images/loader.gif')}}" /> 
+                            <p class="text-white">Please Wait</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
 <div class="modal fade" id="selectType" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -366,6 +397,23 @@
         upload_type.value = 'legacy';
         $("#selectType").modal("hide");
         $("#first_form").click()
+    }
+
+    function closeMedia() {
+        $("#captureImage").modal("hide");
+    }
+
+    function uploadTypeRecording() {
+        selectTypeRecording.style.display = "block";
+        $("#selectTypeRecording").modal("show");
+    }
+
+    function addMediaRecording(current) {
+        var selectTypeRecording = document.getElementById('selectTypeRecording');
+        var upload_type = document.getElementById('upload_type_2');
+        upload_type.value = current;
+        selectTypeRecording.style.display = "none";
+        $("#downloadButton").click()
     }
 
     function recipentByName(current) {
@@ -521,6 +569,7 @@
             var title_msg = $('#show_title_msg');
             var description_msg = $('#show_description_msg');
             var show_msg = $('#show_msg');
+            var upload_loader = $('#loader');
         }
         if (current.id == 'modal_form') {
             var title_id = 'title_2';
@@ -528,6 +577,7 @@
             var title_msg = $('#show_title_msg_2');
             var description_msg = $('#show_description_msg_2');
             var show_msg = $('#show_msg_2');
+            var upload_loader = $('#loaderUpload');
         }
         var title = document.getElementById(title_id).value;
         var description = document.getElementById(description_id).value;
@@ -548,7 +598,7 @@
         //     return false;
         // }
         if (my_media < plan_details[0].photo_limit) {
-            $("#loader").modal("show");
+            upload_loader.modal("show");
             return true;
         } else {
             title_msg.empty();

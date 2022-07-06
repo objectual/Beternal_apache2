@@ -152,20 +152,19 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
+                <button type="button" class="close close-select-media" data-dismiss="myMedia" onclick="closeMedia()">&times;</button>
                 <meta name="csrf-token" content="{{csrf_token()}}">
                 <div class="row">
                     <div class="col-md-6">
-                        <h2 class="text-white">Recording</h2>
-                        <audio id="preview" width="160" height="120" autoplay muted></audio><br /><br />
-                        <div class="btn-group">
+                        <h2 class="text-white">Recording / Preview</h2>
+                        <audio id="preview" width="160" height="120" autoplay muted></audio>
+                        <div class="btn-group mt-4">
                             <div id="startButton" class="start-rec-btn px-3"> Start </div>
                             <div id="stopButton" class="btn btn-danger" style="display:none; margin-left:5px;"> Stop </div>
                         </div>
                     </div>
-                    <div class="col-md-6" id="recorded" style="display:none">
-                        <h2>Preview</h2>
-                        <audio id="recording" width="160" height="120" controls></audio><br /><br />
-                        <a id="downloadLocalButton" class="btn btn-primary">Download</a>
+                    <div class="col-md-6" id="recorded" style="display:none"><br />
+                        <audio id="recording" width="160" height="120" controls></audio>
                     </div>
                 </div>
 
@@ -245,9 +244,14 @@
                                     @endif
                                     <div class="col-12" id="group_msg"></div>
                                 </div>
-                                <div class="row pt-4">
+                                <div class="row pt-4" style="display: none;">
                                     <div class="col-12 ">
                                         <button class="btn upg-add-img-btn w-100" id="downloadButton" data-url="{{route('user.medias.store-media')}}">Save Your Memory</button>
+                                    </div>
+                                </div>
+                                <div class="row pt-4">
+                                    <div class="col-12 ">
+                                        <a class="btn upg-add-img-btn w-100" onclick="uploadTypeRecording(this)">Save Your Memory</a>
                                     </div>
                                 </div>
                                 <div class="row pt-4">
@@ -267,9 +271,9 @@
                     let downloadButton = document.getElementById("downloadButton");
                     let logElement = document.getElementById("log");
                     let recorded = document.getElementById("recorded");
-                    let downloadLocalButton = document.getElementById("downloadLocalButton");
+                    // let downloadLocalButton = document.getElementById("downloadLocalButton");
 
-                    let recordingTimeMS = 10000; //audio limit 10 sec
+                    let recordingTimeMS = 60000; //audio limit 60 sec
                     var localstream;
 
                     window.log = function(msg) {
@@ -334,8 +338,8 @@
                                     formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
                                     formData.append('file_name', recordedBlob);
 
-                                    downloadLocalButton.href = recording.src;
-                                    downloadLocalButton.download = "RecordedAudio.mp3";
+                                    // downloadLocalButton.href = recording.src;
+                                    // downloadLocalButton.download = "RecordedAudio.mp3";
                                     log("Successfully recorded " + recordedBlob.size + " bytes of " +
                                         recordedBlob.type + " media.");
                                     startButton.innerHTML = "Start";
@@ -350,6 +354,8 @@
                     if (downloadButton) {
                         downloadButton.addEventListener("click", function() {
                             let media_type = document.getElementById("media_type").value;
+                            let upload_type = document.getElementById('upload_type').value;
+                            let element = document.getElementById('set_redirect');
                             let title = document.getElementById("title_2").value;
                             let description = document.getElementById("description_2").value;
                             let recipient = document.querySelectorAll('.user-recipient-2');
@@ -391,6 +397,7 @@
                                 return false;
                             }
                             formData.append('media_type', media_type);
+                            formData.append('upload_type', upload_type);
                             formData.append('title', title);
                             formData.append('description', description);
                             for (var i = 0; i < recipient.length; i++) {
@@ -416,6 +423,7 @@
                             //     $("#group_msg").append(msg_group);
                             //     return false;
                             // }
+                            $("#loaderUpload").modal("show");
                             $.ajax({
                                 url: this.getAttribute('data-url'),
                                 method: 'POST',
@@ -425,6 +433,8 @@
                                 contentType: false,
                                 success: function(res) {
                                     if (res.success) {
+                                        element.href = res.redirect_url;
+                                        $("#loaderUpload").modal("hide");
                                         $("#redirectModal").modal("show");
                                         // location.reload();
                                     }
@@ -447,6 +457,46 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="selectTypeRecording" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6 text-center offset-lg-3">
+                            <img class="mt-4 mb-3 audio-pop" src="{{ asset('/public/assets/images/audio (2).png') }}" />
+                        </div>
+                    </div>
+                    <div class="row pt-3 pb-5 media-icons">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-3">
+                            <button class="filter-btn btn w-100 text-center py-2" onclick="addMediaRecording('media')">Add To Media</button>
+                        </div>
+                        <div class="col-lg-3">
+                            <button class="filter-btn btn w-100 text-center py-2" onclick="addMediaRecording('legacy')">Add To Legacy</button>
+                        </div>
+                        <div class="col-lg-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="loaderUpload" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog logout-modal">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-10 text-center offset-lg-1">
+                            <img style="height:60px; width:60px;" src="{{ asset('/public/assets/images/loader.gif')}}" /> 
+                            <p class="text-white">Please Wait</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <!-- Redirect Modal -->
@@ -461,7 +511,7 @@
                         <p>Uploaded successfully.</p>
                         <div class="row text-center mb-4 mt-5">
                             <div class="col-lg-6 offset-lg-3">
-                                <a href="{{ route('user.medias.capture-audio') }}" class="btn upg-select-del-btn w-100">OK</a>
+                                <a href="" id="set_redirect" class="btn upg-select-del-btn w-100">OK</a>
                             </div>
                         </div>
                     </div>
@@ -528,6 +578,23 @@
         upload_type.value = 'legacy';
         $("#selectType").modal("hide");
         $("#first_form").click()
+    }
+
+    function closeMedia() {
+        $("#captureImage").modal("hide");
+    }
+
+    function uploadTypeRecording() {
+        selectTypeRecording.style.display = "block";
+        $("#selectTypeRecording").modal("show");
+    }
+
+    function addMediaRecording(current) {
+        var selectTypeRecording = document.getElementById('selectTypeRecording');
+        var upload_type = document.getElementById('upload_type');
+        upload_type.value = current;
+        selectTypeRecording.style.display = "none";
+        $("#downloadButton").click()
     }
 
     function recipentByName(current) {
