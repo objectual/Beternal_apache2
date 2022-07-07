@@ -52,6 +52,7 @@ Route::get('/term-and-conditions', [HomeController::class, 'termAndConditions'])
 Route::get('/help-and-support', [HomeController::class, 'helpAndSupport'])->name('help-and-support');
 // end footer routes
 
+
 Route::get('/forget-code', [HomeController::class, 'forgetCode'])->name('forget-code');
 Route::get('/survey', [HomeController::class, 'survey'])->name('servey');
 Route::get('/confirmation/{token}', [UserController::class, 'recipientConfirmation'])->name('confirmation');
