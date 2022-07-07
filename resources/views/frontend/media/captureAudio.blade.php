@@ -155,7 +155,7 @@
                 <button type="button" class="close close-select-media" data-dismiss="myMedia" onclick="closeMedia()">&times;</button>
                 <meta name="csrf-token" content="{{csrf_token()}}">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6 mt-5">
                         <h2 class="text-white">Recording / Preview</h2>
                         <audio id="preview" width="160" height="120" autoplay muted></audio>
                         <div class="btn-group mt-4">
@@ -163,7 +163,7 @@
                             <div id="stopButton" class="btn btn-danger" style="display:none; margin-left:5px;"> Stop </div>
                         </div>
                     </div>
-                    <div class="col-md-6" id="recorded" style="display:none"><br />
+                    <div class="col-md-6 mt-5" id="recorded" style="display:none"><br />
                         <audio id="recording" width="160" height="120" controls></audio>
                     </div>
                 </div>

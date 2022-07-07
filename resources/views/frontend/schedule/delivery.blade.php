@@ -175,6 +175,7 @@
                                                                 @if($type == 'video')
                                                                     <td id="1" onclick="actionMedia({{ $id }})">
                                                                         <p class="cl-white">&nbsp; &nbsp;1
+                                                                            
                                                                             <video class="example-image video-calendar">
                                                                                 <source src="{{ asset($file_path.$file) }}" type="video/mp4">
                                                                             </video>
@@ -249,7 +250,10 @@
                                                         @endif
                                                     @else
                                                         <td id="1">
-                                                            <p class="">&nbsp; &nbsp;1</p>
+                                                            <p class="">&nbsp; &nbsp;1
+                                                            <a><img class="multi" src="{{ asset('/public/assets/images/multi.png') }}" /></a>
+                                                                
+                                                            </p>
                                                         </td>
                                                     @endif
                                                 @endif
