@@ -555,12 +555,10 @@ class MediaController extends Controller
 
     public function myMediaEdit(Request $request)
     {
-        $title = "MY MEDIA DETAILS";
+        $title = "MY MEDIA EDIT";
         $id = Auth::user()->id;
-        $my_media = userAudioVideoCount($id);
         $user_recipents = userRecipients($id);
         $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
-        $plan_details =  Plan::where('id', Auth::user()->plan_id)->get(['*']);
         $get_media = Media::where('id', $request->id)->get(['*']);
         if (!$get_media->isEmpty()) {
             $recipients = ShareMedia::where('media_id', $request->id)
@@ -591,10 +589,8 @@ class MediaController extends Controller
 
         return view('frontend.media.myMediaEdit', compact(
             'title',
-            'my_media',
             'user_recipents',
             'groups',
-            'plan_details',
             'get_media',
             'file_path'
         ));
@@ -744,6 +740,84 @@ class MediaController extends Controller
             return redirect()->route('user.legacy')->withSuccess('File was deleted successfully');
         }
         return redirect()->route('user.legacy');
+    }
+
+    public function legacyEdit(Request $request)
+    {
+        $title = "LEGACY EDIT";
+        $id = Auth::user()->id;
+        $user_recipents = userRecipients($id);
+        $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
+        $get_legacy = Legacy::where('id', $request->id)->get(['*']);
+        if (!$get_legacy->isEmpty()) {
+            $recipients = ShareLegacy::where('legacy_id', $request->id)
+                ->join('user_recipients', 'share_legacy.recipient_id', '=', 'user_recipients.recipient_id')
+                ->get(['share_legacy.recipient_id', 'name', 'last_name', 'profile_image']);
+
+            $user_groups = ShareLegacyGroup::where('legacy_id', $request->id)
+                ->join('groups', 'share_legacy_groups.group_id', '=', 'groups.id')
+                ->get(['share_legacy_groups.group_id', 'groups.group_title']);
+
+            if (!$recipients->isEmpty()) {
+                $get_legacy[0]->all_recipient = $recipients;
+            }
+            if ($recipients->isEmpty()) {
+                $get_legacy[0]->all_recipient = null;
+            }
+            if (!$user_groups->isEmpty()) {
+                $get_legacy[0]->all_group = $user_groups;
+            }
+            if ($user_groups->isEmpty()) {
+                $get_legacy[0]->all_group = null;
+            }
+        }
+
+        $full_path = Storage::disk('s3')->url('photo');
+        $get_path = explode('photo', $full_path);
+        $file_path = $get_path[0];
+
+        return view('frontend.legacy.legacyEdit', compact(
+            'title',
+            'user_recipents',
+            'groups',
+            'get_legacy',
+            'file_path'
+        ));
+    }
+
+    public function legacyUpdate(Request $request)
+    {
+        $legacy_id = $request->legacy_id;
+        $update_legacy = Legacy::where('id', $legacy_id)->update([
+            'title' => $request->title,
+            'description' => $request->description,
+        ]);
+
+        if ($update_legacy) {
+            $delete_share_legacy = ShareLegacy::where('legacy_id', $legacy_id)->delete();
+            $delete_share_group = ShareLegacyGroup::where('legacy_id', $legacy_id)->delete();
+            if (!(empty($request->recipient_id))) {
+                if (count($request->recipient_id) > 0) {
+                    for ($i = 0; $i < count($request->recipient_id); $i++) {
+                        $share_legacy = new ShareLegacy();
+                        $share_legacy->legacy_id = $legacy_id;
+                        $share_legacy->recipient_id = $request->recipient_id[$i];
+                        $share_legacy->save();
+                    }
+                }
+            }
+            if (!(empty($request->group_id))) {
+                if (count($request->group_id) > 0) {
+                    for ($i = 0; $i < count($request->group_id); $i++) {
+                        $share_legacy_in_group = new ShareLegacyGroup();
+                        $share_legacy_in_group->legacy_id = $legacy_id;
+                        $share_legacy_in_group->group_id = $request->group_id[$i];
+                        $share_legacy_in_group->save();
+                    }
+                }
+            }
+        }
+        return redirect()->route('user.legacy')->with('message', 'Updated successfully');    
     }
 
     public function successLegacy()

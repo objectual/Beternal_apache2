@@ -52,7 +52,6 @@ Route::get('/term-and-conditions', [HomeController::class, 'termAndConditions'])
 Route::get('/help-and-support', [HomeController::class, 'helpAndSupport'])->name('help-and-support');
 // end footer routes
 
-
 Route::get('/forget-code', [HomeController::class, 'forgetCode'])->name('forget-code');
 Route::get('/survey', [HomeController::class, 'survey'])->name('servey');
 Route::get('/confirmation/{token}', [UserController::class, 'recipientConfirmation'])->name('confirmation');
@@ -104,6 +103,8 @@ Route::middleware('auth', 'user')->group(function () {
         Route::get('/',[MediaController::class,'legacy'])->name('user.legacy');
         Route::get('legacy-details/{id}',[MediaController::class,'myLegacyDetails'])->name('user.legacy-details');
         Route::get('legacy-delete/{id}',[MediaController::class,'legacyDelete'])->name('user.legacy-delete');
+        Route::get('legacy-edit/{id}',[MediaController::class,'legacyEdit'])->name('user.legacy-edit');
+        Route::post('legacy-update',[MediaController::class,'legacyUpdate'])->name('user.legacy-update');
         Route::get('/success-legacy',[MediaController::class,'successLegacy'])->name('user.success-legacy');
     });
     Route::group(['prefix' => 'schedule-media'], function () {

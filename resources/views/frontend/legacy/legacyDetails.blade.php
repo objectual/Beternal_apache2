@@ -8,11 +8,11 @@
             <div class="row">
                 <div class="col-lg-12 mt-3">
                     <div class=" col-md-12 col-12 justify-content-end d-flex ">
-                        <!-- <a href="">
+                        <a href="{{ route('user.legacy-edit', ['id' => $get_legacy[0]->id]) }}" class="d-flex delete-a">
                             <img src="{{ asset('/public/assets/images/edit-icon-media-details.png') }}" class="edit-icon-style mt-1">
                             <p class="px-2 text-white mx-1">Edit</p>
-                        </a> -->
-                        <a id="{{ $get_legacy[0]->id }}" class="d-flex" data-bs-target="#delete" onclick="deleteLegacy(this)">
+                        </a>
+                        <a id="{{ $get_legacy[0]->id }}" class="d-flex delete-a" data-bs-target="#delete" onclick="deleteLegacy(this)">
                             <img src="{{ asset('/public/assets/images/delete-new.png') }}" class="delete-icon-style mt-1">
                             <p class="px-2 text-white mx-1">Delete</p>
                         </a>
@@ -92,9 +92,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-6 text-center offset-lg-3">
-                        <p>
-                            Are you sure you want to delete legacy ?
-                        </p>
+                        <p class="text-white">Are you sure you want to delete legacy ?</p>
                         <div class="text-center mb-4">
                             <a href="" class="mx-1" id="delete_legacy"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
                             <a class="mx-1" data-bs-dismiss="modal" aria-label="Close"><img src="{{ asset('/public/assets/images/no.png') }}" /></a>
