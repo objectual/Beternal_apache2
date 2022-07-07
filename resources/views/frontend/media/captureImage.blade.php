@@ -154,9 +154,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
+                <div>
                 <button type="button" class="close close-select-media" data-dismiss="myMedia" onclick="closeMedia()">&times;</button>
+                </div>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
-                <form method="POST" action="{{ route('user.medias.store-media') }}" id="modal_form" enctype="multipart/form-data" onsubmit="return validateForm(this)">
+                <form class="mt-5" method="POST" action="{{ route('user.medias.store-media') }}" id="modal_form" enctype="multipart/form-data" onsubmit="return validateForm(this)">
                     @csrf
                     <input type="hidden" id="media_type" name="media_type" value="photo">
                     <input type="hidden" id="upload_type_2" name="upload_type_2" value="">

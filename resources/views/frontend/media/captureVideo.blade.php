@@ -155,13 +155,13 @@
                 <button type="button" class="close close-select-media" data-dismiss="myMedia" onclick="closeMedia()">&times;</button>
                 <meta name="csrf-token" content="{{csrf_token()}}">
                 <div class="row" id="video_recording">
-                    <div class="col-md-12">
+                    <div class="col-md-12 mt-5">
                         <h2 class="text-white">Recording / Preview</h2>
                         <video id="preview" class="record-video-area" autoplay muted></video><br />
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12" id="recorded" style="display:none">
+                    <div class="col-md-12 mt-5" id="recorded" style="display:none">
                         <h2 class="text-white">Recording / Preview</h2>
                         <video id="recording" class="record-video-area" controls></video><br />
                     </div>
