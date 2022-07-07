@@ -3795,4 +3795,12 @@ select option { color: #fff !important; }
     background-color: #F7DB02;
     color: #000;
  }
- 
+
+
+ .multi {
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+    width: 34px;
+    cursor: pointer;
+ }
