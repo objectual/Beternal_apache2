@@ -672,7 +672,7 @@
 
 <div class="modal fade" id="myScheduleMedia" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content bg-transparency">
+        <div class="modal-content bg-black">
             <div class="modal-body">
                 <input type="hidden" id="delete_media" value="">
                 <button type="button" class="close close-select-media" data-dismiss="myScheduleMedia" onclick="closeScheduleMedia()">&times;</button>
