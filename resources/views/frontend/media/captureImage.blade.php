@@ -33,16 +33,6 @@
                                 <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Device Gallery</label>
                                 <input type="file" accept="image/*" name="file_name" id="file" style="display: none;" onchange="loadFile(event)">
                             </a>
-
-                            <script>
-                                var loadFile = function(event) {
-                                    var base_url = '<?= $base_url ?>';
-                                    var set_url = base_url+ '/public/assets/images/success-signup.svg';
-                                    var msg = '<p class="text-white">Successfully Attached</p><img src="'+ set_url +'" width="50" />';
-                                    $('#attachment').empty();
-                                    $('#attachment').append(msg);
-                                };
-                            </script>
                         </div>
                         <div class="col-md-4 text-center">
                             <a href="{{ route('user.medias.my-media') }}">
@@ -55,8 +45,23 @@
                     </div>
 
                     <div class="row mt-4">
-                        <div class="col-md-12 text-center" id="attachment"></div>
+                        <div class="col-md-12 text-center" id="attachment">
+                            <label for="file">
+                                <picture class="tv_image">
+                                    <img src="" id="ban_image" type="image" height="500" width="600" />
+                                </picture>
+                            </label>
+                        </div>
                     </div>
+
+                    <script>
+                        document.getElementById("attachment").style.display = "none";
+                        var loadFile = function(event) {
+                            document.getElementById("attachment").style.display = "block";
+                            var image = document.getElementById('ban_image');
+                            image.src = URL.createObjectURL(event.target.files[0]);
+                        };
+                    </script>
                     
                     <div class="mt-5">
                         <div class="mb-3 w-100">

@@ -31,16 +31,6 @@
                                 <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Device Gallery</label>
                                 <input type="file" accept="video/*" name="file_name" id="file" style="display: none;" onchange="loadFile(event)">
                             </a>
-
-                            <script>
-                                var loadFile = function(event) {
-                                    var base_url = '<?= $base_url ?>';
-                                    var set_url = base_url+ '/public/assets/images/success-signup.svg';
-                                    var msg = '<p class="text-white">Successfully Attached</p><img src="'+ set_url +'" width="50" />';
-                                    $('#attachment').empty();
-                                    $('#attachment').append(msg);
-                                };
-                            </script>
                         </div>
                         <div class="col-md-4 text-center">
                             <a href="{{ route('user.medias.my-media') }}">
@@ -53,8 +43,23 @@
                     </div>
 
                     <div class="d-flex justify-content-between mt-4">
-                        <div class="col-md-12 text-center" id="attachment"></div>
+                        <div class="col-md-12 text-center" id="attachment">
+                            <label for="file">
+                                <video id="ban_video" class="tv_video" controls></video>
+                            </label>
+                        </div>
                     </div>
+
+                    <script>
+                        document.getElementById("attachment").style.display = "none";
+                        var loadFile = function(event) {
+                            document.getElementById("attachment").style.display = "block";
+                            var video_url = URL.createObjectURL(event.target.files[0]);
+                            $('#ban_video').append(
+                                '<source src="'+ video_url +'" type="video/mp4" />'
+                            );
+                        };
+                    </script>
 
                     <div class="mt-5">
                         <div class="mb-3 w-100">

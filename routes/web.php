@@ -94,6 +94,8 @@ Route::middleware('auth', 'user')->group(function () {
         Route::get('my-media',[MediaController::class,'myMedia'])->name('user.medias.my-media');
         Route::get('my-media-details/{id}',[MediaController::class,'myMediaDetails'])->name('user.medias.my-media-details');
         Route::get('my-media-delete/{id}',[MediaController::class,'myMediaDelete'])->name('user.medias.my-media-delete');
+        Route::get('my-media-edit/{id}',[MediaController::class,'myMediaEdit'])->name('user.medias.my-media-edit');
+        Route::post('update-media',[MediaController::class,'updateMedia'])->name('user.medias.update-media');
         Route::get('shared-media',[MediaController::class,'sharedMedia'])->name('user.medias.shared-media');
         Route::get('shared-media-recipents',[MediaController::class,'sharedMediaRecipents'])->name('user.medias.shared-media-recipents');
     });

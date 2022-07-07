@@ -8,10 +8,10 @@
             <div class="row">
                 <div class="col-lg-12 mt-3">
                     <div class=" col-md-12 col-12 justify-content-end d-flex ">
-                        <!-- <a href="">
+                        <a href="{{ route('user.medias.my-media-edit', ['id' => $get_media[0]->id]) }}" class="d-flex delete-a">
                             <img src="{{ asset('/public/assets/images/edit-icon-media-details.png') }}" class="edit-icon-style mt-1">
                             <p class="px-2 text-white mx-1">Edit</p>
-                        </a> -->
+                        </a>
                         <a id="{{ $get_media[0]->id }}" class="d-flex delete-a" data-bs-target="#delete" onclick="deleteMedia(this)">
                             <img src="{{ asset('/public/assets/images/delete-new.png') }}" class="delete-icon-style mt-1">
                             <p class="px-2 text-white mx-1">Delete</p>

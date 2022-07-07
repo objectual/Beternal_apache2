@@ -553,6 +553,88 @@ class MediaController extends Controller
         return redirect()->route('user.medias.my-media');
     }
 
+    public function myMediaEdit(Request $request)
+    {
+        $title = "MY MEDIA DETAILS";
+        $id = Auth::user()->id;
+        $my_media = userAudioVideoCount($id);
+        $user_recipents = userRecipients($id);
+        $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
+        $plan_details =  Plan::where('id', Auth::user()->plan_id)->get(['*']);
+        $get_media = Media::where('id', $request->id)->get(['*']);
+        if (!$get_media->isEmpty()) {
+            $recipients = ShareMedia::where('media_id', $request->id)
+                ->join('user_recipients', 'share_media.recipient_id', '=', 'user_recipients.recipient_id')
+                ->get(['share_media.recipient_id', 'name', 'last_name', 'profile_image']);
+
+            $user_groups = ShareMediaGroup::where('media_id', $request->id)
+                ->join('groups', 'share_media_groups.group_id', '=', 'groups.id')
+                ->get(['share_media_groups.group_id', 'groups.group_title']);
+
+            if (!$recipients->isEmpty()) {
+                $get_media[0]->all_recipient = $recipients;
+            }
+            if ($recipients->isEmpty()) {
+                $get_media[0]->all_recipient = null;
+            }
+            if (!$user_groups->isEmpty()) {
+                $get_media[0]->all_group = $user_groups;
+            }
+            if ($user_groups->isEmpty()) {
+                $get_media[0]->all_group = null;
+            }
+        }
+
+        $full_path = Storage::disk('s3')->url('photo');
+        $get_path = explode('photo', $full_path);
+        $file_path = $get_path[0];
+
+        return view('frontend.media.myMediaEdit', compact(
+            'title',
+            'my_media',
+            'user_recipents',
+            'groups',
+            'plan_details',
+            'get_media',
+            'file_path'
+        ));
+    }
+
+    public function updateMedia(Request $request)
+    {
+        $media_id = $request->media_id;
+        $update_media = Media::where('id', $media_id)->update([
+            'title' => $request->title,
+            'description' => $request->description,
+        ]);
+
+        if ($update_media) {
+            $delete_share_media = ShareMedia::where('media_id', $media_id)->delete();
+            $delete_share_group = ShareMediaGroup::where('media_id', $media_id)->delete();
+            if (!(empty($request->recipient_id))) {
+                if (count($request->recipient_id) > 0) {
+                    for ($i = 0; $i < count($request->recipient_id); $i++) {
+                        $share_media = new ShareMedia();
+                        $share_media->media_id = $media_id;
+                        $share_media->recipient_id = $request->recipient_id[$i];
+                        $share_media->save();
+                    }
+                }
+            }
+            if (!(empty($request->group_id))) {
+                if (count($request->group_id) > 0) {
+                    for ($i = 0; $i < count($request->group_id); $i++) {
+                        $share_media_in_group = new ShareMediaGroup();
+                        $share_media_in_group->media_id = $media_id;
+                        $share_media_in_group->group_id = $request->group_id[$i];
+                        $share_media_in_group->save();
+                    }
+                }
+            }
+        }
+        return redirect()->route('user.medias.my-media')->with('message', 'Updated successfully');    
+    }
+
     public function legacy()
     {
         $title = "LEGACY";
