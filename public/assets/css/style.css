@@ -1267,9 +1267,7 @@ textarea {
         padding-top: 0px !important;
         padding-bottom: 20px !important;
     }
-    .recipent-div {
-        max-height: 480px !important;
-    }
+  
     .sel-text {
         margin-top: 5px !important;
         font-size: 17px;
@@ -1361,6 +1359,26 @@ textarea {
     display: none;
 }
 @media screen and (min-width: 280px) and (max-width: 991px) { 
+   
+    .input-group .btn { 
+        z-index: 0 !important;
+    }
+    #previous_month_next {
+        font-size: 23px;
+    }
+    #previous_year_next {
+        font-size: 23px;
+
+    }
+    .img-calendar-play { 
+        margin-left: -10px !important; 
+        width: 15px;
+        height: 15px;
+    }
+    .video-calendar {
+        width: 30px;
+        height: 30px !important;
+    }
     .h-auto {height: auto !important;}
    .check-ver {
     right: 12px !important;
@@ -1765,7 +1783,8 @@ textarea {
         margin-bottom: 0px !important;
     }
     .recipent-back-clr {
-        padding: 0px 30px;
+        padding: 0px 30px 50px 30px;
+
     }
     .upg-heading {
         text-align: center;
@@ -2066,7 +2085,7 @@ textarea {
         font-weight: 600;
     }
     .row-height {
-        height: auto;
+        height: auto !important;
     }
     .input-back {
         background: #fff !important;
@@ -2734,6 +2753,9 @@ ul {
 }
 
 @media screen and (min-width: 280px) and (max-width: 991px) { 
+    #video_heading {
+        margin-top: 15px !important;
+    }
     .upg-add-img-btn {
         font-size: 18px;
     }
@@ -3804,3 +3826,12 @@ select option { color: #fff !important; }
     width: 34px;
     cursor: pointer;
  }
+
+ #ban_image {
+    height: auto;
+    width: 50%;
+ }
+ #ban_video {
+    height: auto;
+    width: 50%;
+}
