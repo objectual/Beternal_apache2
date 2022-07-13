@@ -31,7 +31,7 @@
 </div>
 @else
 <div class="container-fluid bg-create delivery-padding bg-calendar">
-    <div class="scroll-div">
+    <div class="scroll-div row-height">
         <div class="row">
             <div class="col-lg-12 mt-3 p-3 delivery-color">
                 <div class="row px-5 p-0-m mt-5">
