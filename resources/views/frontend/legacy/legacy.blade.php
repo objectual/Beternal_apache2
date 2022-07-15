@@ -22,7 +22,7 @@
 @else
 <div class="container-fluid bg-create pt-2 pb-2 scroll-height-mobile mobile-padding">
     <div class="col-lg-10 offset-lg-1">
-        <div class="scroll-div">
+        <div class="scroll-div row-height">
 
             <div class="row pt-3 pb-5 media-icons">
                 <div class="col-lg-1">

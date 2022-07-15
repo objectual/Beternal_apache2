@@ -19,7 +19,7 @@
 </div>
 @else
 <div class="container-fluid bg-dash add-background">
-    <div class="scroll-div recipent-div">
+    <div class="scroll-div row-height recipent-div">
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
                 <form method="POST" action="{{ route('user.recipents.add-recipent') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
