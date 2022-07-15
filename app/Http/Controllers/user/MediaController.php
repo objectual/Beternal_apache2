@@ -274,7 +274,7 @@ class MediaController extends Controller
                         }
                     }
                 }
-                return redirect()->route('user.legacy')->with('message','Uploaded successfully');
+                return redirect()->route('user.legacy')->with('message', 'Uploaded successfully');
             }
         } else {
             if ($request->hasFile('file_name')) {
@@ -628,7 +628,7 @@ class MediaController extends Controller
                 }
             }
         }
-        return redirect()->route('user.medias.my-media')->with('message', 'Updated successfully');    
+        return redirect()->route('user.medias.my-media')->with('message', 'Updated successfully');
     }
 
     public function legacy()
@@ -817,7 +817,7 @@ class MediaController extends Controller
                 }
             }
         }
-        return redirect()->route('user.legacy')->with('message', 'Updated successfully');    
+        return redirect()->route('user.legacy')->with('message', 'Updated successfully');
     }
 
     public function successLegacy()
@@ -846,8 +846,8 @@ class MediaController extends Controller
         $user_recipents = userRecipients($id);
 
         $schedule_media = ScheduleMedia::where('schedule_media.user_id', $id)
-        ->join('media', 'schedule_media.media_id', '=', 'media.id')
-        ->get(['schedule_media.id', 'schedule_media.date_time', 'schedule_media.description', 'schedule_media.message', 'schedule_media.media_id', 'media.file_name','media.type']);
+            ->join('media', 'schedule_media.media_id', '=', 'media.id')
+            ->get(['schedule_media.id', 'schedule_media.date_time', 'schedule_media.description', 'schedule_media.message', 'schedule_media.media_id', 'schedule_media.date', 'media.file_name', 'media.type']);
 
         if (!$schedule_media->isEmpty()) {
             foreach ($schedule_media as $key => $schedule) {
@@ -860,6 +860,28 @@ class MediaController extends Controller
                 }
                 if ($recipients->isEmpty()) {
                     $schedule->all_recipient = null;
+                }
+
+                $multiple_media = ScheduleMedia::where('date', $schedule->date)
+                    ->join('media', 'schedule_media.media_id', '=', 'media.id')
+                    ->get(['schedule_media.id', 'schedule_media.date_time', 'schedule_media.description', 'schedule_media.message', 'schedule_media.media_id', 'schedule_media.date', 'media.file_name', 'media.type']);
+
+                if (!$multiple_media->isEmpty()) {
+                    $schedule->multiple_media = $multiple_media;
+                    foreach ($multiple_media as $key => $single_date) {
+                        $media_recipients = ScheduleMediaRecipient::where('schedule_media_id', $single_date->id)
+                            ->join('user_recipients', 'schedule_media_recipients.recipient_id', '=', 'user_recipients.recipient_id')
+                            ->get(['name', 'last_name', 'profile_image']);
+
+                        if (!$media_recipients->isEmpty()) {
+                            $single_date->media_recipients = $media_recipients;
+                        }
+                        if ($media_recipients->isEmpty()) {
+                            $single_date->media_recipients = null;
+                        }
+                    }
+                } else {
+                    $schedule->multiple_media = null;
                 }
             }
         }
@@ -916,6 +938,7 @@ class MediaController extends Controller
         $month = $request->default_month;
         $year = $request->default_year;
         $media_time = $request->media_time;
+        $set_date = $year . '-' . $month . '-' . $date;
         $date_time = $year . '-' . $month . '-' . $date . ' ' . $media_time;
 
         if ($request->description == '') {
@@ -931,6 +954,7 @@ class MediaController extends Controller
             $media->message = $request->message;
             $media->media_id = $request->selected_file;
             $media->user_id = Auth::user()->id;
+            $media->date = $set_date;
             $media->save();
 
             if ($media) {
@@ -969,7 +993,7 @@ class MediaController extends Controller
                         }
                     }
                 }
-                return redirect()->route('user.legacy')->with('message','Uploaded successfully');
+                return redirect()->route('user.legacy')->with('message', 'Uploaded successfully');
             } else {
                 return redirect()->route('user.delivery');
             }
