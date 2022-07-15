@@ -42,6 +42,7 @@ Route::get('/cities/{id}', [CityController::class, 'getCities']);
 Route::get('/filter-recipent/{contact_id}', [UserController::class, 'filterRecipent']);
 // end routes for ajax request
 
+
 // start footer routes
 Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('contact-us');
 Route::get('/splash', [HomeController::class, 'splash'])->name('splash');
