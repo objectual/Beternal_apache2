@@ -468,7 +468,7 @@
                             </div>
                             <div class="row mt-3">
                                 <div class="col-lg-12 text-end p-0">
-                                    <div class="d-flex justify-content-end" id="show_recipient">
+                                    <div class="d-flex justify-content-end flex-wrap" id="show_recipient">
                                         @if(isset($user_recipents) && !$user_recipents->isEmpty())
                                         <div class="rec-images text-center px-2">
                                             <img src="{{ asset('public/media/image/all-users.png') }}">
@@ -688,17 +688,26 @@
                 <div class="col-lg-8 offset-lg-2">
                     <div class="row p-0-m">
                         <div class="col-lg-3 text-center">
-                            <span class="carousel-control-prev-icon" aria-hidden="true" onclick="changeMedia('previous')"></span>
                         </div>
                         <div class="col-lg-6"></div>
                         <div class="col-lg-3 text-center">
-                            <span class="carousel-control-next-icon" aria-hidden="true" onclick="changeMedia('next')"></span>
                         </div>
                     </div>
                     <div class="row p-0-m">
+
                         <div class="col-lg-12">
-                            <div class="" id="show_schedule_media"></div>
+                            <div class="slider-arr">
+                        <span class="carousel-control-prev-icon" aria-hidden="true" onclick="changeMedia('previous')"></span>
+                        <span class="carousel-control-next-icon" aria-hidden="true" onclick="changeMedia('next')"></span>
+                                
+                            </div>
+
+                            <div class="" id="show_schedule_media">
+                                
+                            </div>
+
                         </div>
+
                     </div>
                     <div class="row p-0-m">
                         <div class="col-lg-12 mt-4 text-start">
@@ -709,7 +718,7 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col-lg-12 text-end p-0">
-                            <div class="d-flex justify-content-end" id="schedule_recipient"></div>
+                            <div class="d-flex justify-content-end flex-wrap" id="schedule_recipient"></div>
                         </div>
                     </div>
                     <div class="col-md-12 mt-4 delivery-form">
@@ -2195,7 +2204,7 @@
                         media_file = '<p class="cl-white">&nbsp; &nbsp;'+ show_media +'<video class="example-image video-calendar"><source src="' + base_path + file_name + '" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a></p>';
                     } else if (type == 'audio') {
                         var file_url = '/public/assets/images/audio-pop.png';
-                        media_file = '<p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ show_media +'</p>';
+                        media_file = '<p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ show_media +'</p>';
                     } else {
                         media_file = '<p class="cl-white" style="background-image: url(' + base_path + file_name + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ show_media +'</p>';
                     }
