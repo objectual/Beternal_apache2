@@ -353,6 +353,8 @@
                                     formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
                                     formData.append('file_name', recordedBlob);
 
+                                    $("#loaderVideo").modal("hide");
+
                                     // downloadLocalButton.href = recording.src;
                                     // downloadLocalButton.download = "RecordedVideo.webm";
                                     log("Successfully recorded " + recordedBlob.size + " bytes of " +
@@ -459,6 +461,7 @@
                     }
                     if (stopButton) {
                         stopButton.addEventListener("click", function() {
+                            $("#loaderVideo").modal("show");
                             stop(preview.srcObject);
                             video_recording.style.display = "none";
                             startButton.innerHTML = "Start";
@@ -506,6 +509,21 @@
                         <div class="col-lg-10 text-center offset-lg-1">
                             <img style="height:60px; width:60px;" src="{{ asset('/public/assets/images/loader.gif')}}" /> 
                             <p class="text-white">Please Wait</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="loaderVideo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog logout-modal">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-10 text-center offset-lg-1">
+                            <img style="height:60px; width:60px;" src="{{ asset('/public/assets/images/loader.gif')}}" /> 
+                            <p class="text-white">Loading Video Please Wait</p>
                         </div>
                     </div>
                 </div>
