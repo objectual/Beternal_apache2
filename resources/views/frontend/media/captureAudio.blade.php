@@ -138,12 +138,12 @@
                             <button class="btn upg-add-img-btn w-100" id="first_form">Save Your Memory</button>
                         </div>
                     </div>
-                    <div class="row pt-4">
+                    <div class="row pt-4 mb-4">
                         <div class="col-12 ">
                             <a class="btn upg-add-img-btn w-100" onclick="uploadType(this)">Save Your Memory</a>
                         </div>
                     </div>
-                    <div class="row pt-4">
+                    <div class="row pt-4 mb-4">
                         <div class="col-12" id="show_msg"></div>
                     </div>
                 </div>
@@ -477,10 +477,10 @@
                     <div class="row pt-3 pb-5 media-icons">
                         <div class="col-lg-3"></div>
                         <div class="col-lg-3">
-                            <button class="filter-btn btn w-100 text-center py-2" onclick="addMediaRecording('media')">Add To Media</button>
+                            <button class="filter-btn btn w-100 text-center py-2 mb-3" onclick="addMediaRecording('media')">Add To Media</button>
                         </div>
                         <div class="col-lg-3">
-                            <button class="filter-btn btn w-100 text-center py-2" onclick="addMediaRecording('legacy')">Add To Legacy</button>
+                            <button class="filter-btn btn w-100 text-center py-2 mb-3" onclick="addMediaRecording('legacy')">Add To Legacy</button>
                         </div>
                         <div class="col-lg-3"></div>
                     </div>
@@ -540,10 +540,10 @@
                 <div class="row pt-3 pb-5 media-icons">
                     <div class="col-lg-3"></div>
                     <div class="col-lg-3">
-                        <button class="filter-btn btn w-100 text-center py-2" onclick="addToMedia(this)">Add To Media</button>
+                        <button class="filter-btn btn w-100 text-center py-2 mb-3" onclick="addToMedia(this)">Add To Media</button>
                     </div>
                     <div class="col-lg-3">
-                        <button class="filter-btn btn w-100 text-center py-2" onclick="addToLegacy(this)">Add To Legacy</button>
+                        <button class="filter-btn btn w-100 text-center py-2 mb-3" onclick="addToLegacy(this)">Add To Legacy</button>
                     </div>
                     <div class="col-lg-3"></div>
                 </div>

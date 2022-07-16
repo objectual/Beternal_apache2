@@ -1405,9 +1405,9 @@ textarea {
     .account-back .scroll-div {
         height: auto !important;
     }
-    .dashboard-back .scroll-div {
+    /* .dashboard-back .scroll-div {
         overflow-y: hidden !important;
-    }
+    } */
     .bg-add .input-group-text {
         width: auto !important;
     }
@@ -1683,16 +1683,15 @@ textarea {
         display: block !important;
     }
     .delivey-images {
-        width: 65px !important;
-        height: 65px !important;
+        width: 55px !important;
+        height: 55px !important;
     }
     .delivery-form {
         margin-left: 0px !important;
     }
     .delivery-form input,
     textarea {
-        width: 100%;
-        background-color: #fff;
+        width: 100%; 
     }
     .delivery-form input::-webkit-input-placeholder {
         color: #000;
@@ -1728,9 +1727,7 @@ textarea {
         margin-right: 0px;
     }
     .create-acc-btn {
-        background: #000;
         width: 100%;
-        color: #fff;
     }
     .REMEMBER-me {
         display: block !important;
@@ -2753,6 +2750,9 @@ ul {
 }
 
 @media screen and (min-width: 280px) and (max-width: 991px) { 
+    .top-nav {
+        z-index: 999;
+    }
     #video_heading {
         margin-top: 15px !important;
     }
@@ -2818,7 +2818,7 @@ ul {
         top: 20px;
         z-index: 999;
         left: 10px;
-        width: 100%;
+        width: 70%;
     }
     .nav-header {
         background-color: transparent !important;
@@ -2833,6 +2833,10 @@ ul {
         background: #000;
         padding: 10px 0px;
         margin-top: 35px;
+        width: 150%;
+        position: absolute;
+        top: 27px;
+        z-index: 999;
     }
 }
 
@@ -3834,4 +3838,28 @@ select option { color: #fff !important; }
  #ban_video {
     height: auto;
     width: 50%;
+}
+
+#show_schedule_media #ban_video {
+    height: auto;
+    width: 100%;
+}
+
+.slider-arr .carousel-control-prev-icon {
+    position: absolute;
+    top: 25%;
+    left: 50px;
+    cursor: pointer;
+}
+
+.slider-arr .carousel-control-next-icon {
+    position: absolute;
+    top: 25%;
+    right: 50px;
+    cursor: pointer;
+
+}
+
+#myScheduleMedia {
+    overflow-y: scroll;
 }
