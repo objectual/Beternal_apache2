@@ -3863,3 +3863,18 @@ select option { color: #fff !important; }
 #myScheduleMedia {
     overflow-y: scroll;
 }
+
+#captureImage {
+    overflow-y: scroll;
+
+}
+
+.record-modal {
+    overflow-y: scroll;
+
+}
+
+#myMedia {
+    overflow-y: scroll;
+
+}
