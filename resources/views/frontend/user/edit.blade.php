@@ -41,7 +41,7 @@
                                     };
                                 </script>
                                 @if($errors->has('image'))
-                                <div class="error">{{ $errors->first('image') }}</div>
+                                <div class="error text-white">{{ $errors->first('image') }}</div>
                                 @endif
                             </div>
                         </div>

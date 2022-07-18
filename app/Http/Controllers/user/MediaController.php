@@ -964,6 +964,7 @@ class MediaController extends Controller
                             $media_schedule = new ScheduleMediaRecipient();
                             $media_schedule->schedule_media_id = $media->id;
                             $media_schedule->recipient_id = $request->recipient_id[$i];
+                            $media_schedule->user_id = Auth::user()->id;
                             $media_schedule->save();
                         }
                     }

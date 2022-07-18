@@ -25,6 +25,7 @@ use App\Models\ShareLegacy;
 use App\Models\ShareLegacyGroup;
 use App\Models\Media;
 use App\Models\ScheduleMedia;
+use App\Models\ScheduleMediaRecipient;
 use App\Models\ShareMedia;
 use App\Models\ShareMediaGroup;
 use App\helpers;
@@ -957,7 +958,7 @@ class UserController extends Controller
 
         $delete_from_group = UserGroup::where(['recipient_id' => $request->id, 'user_id' => $id])->delete();
 
-        $delete_from_schedule_media = ScheduleMedia::where(['recipient_id' => $request->id, 'user_id' => $id])->delete();
+        $delete_from_schedule_media = ScheduleMediaRecipient::where(['recipient_id' => $request->id, 'user_id' => $id])->delete();
 
         $delete_from_share_media = ShareMedia::where('recipient_id', $request->id)->delete();
 
