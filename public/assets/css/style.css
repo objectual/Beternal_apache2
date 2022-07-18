@@ -3503,7 +3503,7 @@ body {
 }
 
 #ban_image img {
-    height: 500px;
+    height: 400px;
     object-fit: contain;
     width: 100%;
 }
@@ -3841,7 +3841,7 @@ select option { color: #fff !important; }
 }
 
 #show_schedule_media #ban_video {
-    height: auto;
+    height: 400px;
     width: 100%;
 }
 
@@ -3876,5 +3876,12 @@ select option { color: #fff !important; }
 
 #myMedia {
     overflow-y: scroll;
+
+}
+
+#ban_audio {
+    height: 200px;
+    
+    margin-bottom: 40px;
 
 }

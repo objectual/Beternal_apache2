@@ -857,7 +857,7 @@
 
                 <input type="hidden" id="temp_media_id" value="">
                 <input type="hidden" id="temp_date" value="">
-                <div class="row pt-3 pb-5 media-icons">
+                <div class="row pt-3 pb-4 mt-5 media-icons">
                     <div class="col-lg-3"></div>
                     <div class="col-lg-3">
                         <button class="filter-btn btn w-100 text-center py-2" onclick="yourSchedule('add_new')">Add New</button>
