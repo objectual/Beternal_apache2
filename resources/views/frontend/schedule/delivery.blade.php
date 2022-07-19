@@ -96,7 +96,8 @@
                                     'id' => $media->id,
                                     'file' => $media->file_name,
                                     'date' => $month_year[2],
-                                    'type' => $media->type
+                                    'type' => $media->type,
+                                    'total_count' => count($media->multiple_media)
                                 );
                                 array_push($schedule_dates, $your_schedule);
                             @endphp
@@ -174,6 +175,7 @@
                                                                     $id = $schedule_dates[$a]['id'];
                                                                     $file = $schedule_dates[$a]['file'];
                                                                     $type = $schedule_dates[$a]['type'];
+                                                                    $total_count = $schedule_dates[$a]['total_count'];
                                                                 @endphp
                                                                 @if($type == 'video')
                                                                     <td id="1" onclick="mediaOption({{ $id }}, 1)">
@@ -182,20 +184,26 @@
                                                                                 <source src="{{ asset($file_path.$file) }}" type="video/mp4">
                                                                             </video>
                                                                             <a><img class="img-calendar-play" src="{{ asset('/public/assets/images/Exm-Buttons-Play.png') }}" /></a>
+                                                                            @if($total_count > 1)
                                                                             <a><img class="multi" src="{{ asset('/public/assets/images/multi.png') }}" /></a>
+                                                                            @endif
                                                                         </p>
                                                                     </td>
                                                                 @elseif($type == 'audio')
                                                                     @php $audio_file = '/public/assets/images/audio-pop.png'; @endphp
                                                                     <td id="1" onclick="mediaOption({{ $id }}, 1)">
                                                                         <p class="cl-white" style="background-image: url('{{ asset($audio_file) }}'); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1
+                                                                            @if($total_count > 1)
                                                                             <a><img class="multi" src="{{ asset('/public/assets/images/multi.png') }}" /></a>
+                                                                            @endif
                                                                         </p>
                                                                     </td>
                                                                 @else
                                                                     <td id="1" onclick="mediaOption({{ $id }}, 1)">
                                                                         <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1
+                                                                            @if($total_count > 1)
                                                                             <a><img class="multi" src="{{ asset('/public/assets/images/multi.png') }}" /></a>
+                                                                            @endif
                                                                         </p>
                                                                     </td>
                                                                 @endif
@@ -224,6 +232,7 @@
                                                                     $id = $schedule_dates[$b]['id'];
                                                                     $file = $schedule_dates[$b]['file'];
                                                                     $type = $schedule_dates[$b]['type'];
+                                                                    $total_count = $schedule_dates[$b]['total_count'];
                                                                 @endphp
                                                                 @if($type == 'video')
                                                                     <td id="1" onclick="actionMedia({{ $id }})">
@@ -232,20 +241,26 @@
                                                                                 <source src="{{ asset($file_path.$file) }}" type="video/mp4">
                                                                             </video>
                                                                             <a><img class="img-calendar-play" src="{{ asset('/public/assets/images/Exm-Buttons-Play.png') }}" /></a>
+                                                                            @if($total_count > 1)
                                                                             <a><img class="multi" src="{{ asset('/public/assets/images/multi.png') }}" /></a>
+                                                                            @endif
                                                                         </p>
                                                                     </td>
                                                                 @elseif($type == 'audio')
                                                                     @php $audio_file = '/public/assets/images/audio-pop.png'; @endphp
                                                                     <td id="1" onclick="actionMedia({{ $id }})">
                                                                         <p class="cl-white" style="background-image: url('{{ asset($audio_file) }}'); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1
+                                                                            @if($total_count > 1)
                                                                             <a><img class="multi" src="{{ asset('/public/assets/images/multi.png') }}" /></a>
+                                                                            @endif
                                                                         </p>
                                                                     </td>
                                                                 @else
                                                                     <td id="1" onclick="actionMedia({{ $id }})">
                                                                         <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1
+                                                                            @if($total_count > 1)
                                                                             <a><img class="multi" src="{{ asset('/public/assets/images/multi.png') }}" /></a>
+                                                                            @endif
                                                                         </p>
                                                                     </td>
                                                                 @endif
@@ -290,6 +305,7 @@
                                                                 $id = $schedule_dates[$j]['id'];
                                                                 $file = $schedule_dates[$j]['file'];
                                                                 $type = $schedule_dates[$j]['type'];
+                                                                $total_count = $schedule_dates[$j]['total_count'];
                                                             @endphp
                                                             @if($type == 'video')
                                                                 <td id="{{ $i }}" onclick="mediaOption({{ $id }}, {{ $i }})">
@@ -298,20 +314,26 @@
                                                                             <source src="{{ asset($file_path.$file) }}" type="video/mp4">
                                                                         </video>
                                                                         <a><img class="img-calendar-play" src="{{ asset('/public/assets/images/Exm-Buttons-Play.png') }}" /></a>
+                                                                        @if($total_count > 1)
                                                                         <a><img class="multi" src="{{ asset('/public/assets/images/multi.png') }}" /></a>
+                                                                        @endif
                                                                     </p>
                                                                 </td>
                                                             @elseif($type == 'audio')
                                                                 @php $audio_file = '/public/assets/images/audio-pop.png'; @endphp
                                                                 <td id="{{ $i }}" onclick="mediaOption({{ $id }}, {{ $i }})">
                                                                     <p class="cl-white" style="background-image: url('{{ asset($audio_file) }}'); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;{{ $i }}
+                                                                        @if($total_count > 1)
                                                                         <a><img class="multi" src="{{ asset('/public/assets/images/multi.png') }}" /></a>
+                                                                        @endif
                                                                     </p>
                                                                 </td>
                                                             @else
                                                                 <td id="{{ $i }}" onclick="mediaOption({{ $id }}, {{ $i }})">
                                                                     <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;{{ $i }}
+                                                                        @if($total_count > 1)
                                                                         <a><img class="multi" src="{{ asset('/public/assets/images/multi.png') }}" /></a>
+                                                                        @endif
                                                                     </p>
                                                                 </td>
                                                             @endif
@@ -341,6 +363,7 @@
                                                                     $id = $schedule_dates[$k]['id'];
                                                                     $file = $schedule_dates[$k]['file'];
                                                                     $type = $schedule_dates[$k]['type'];
+                                                                    $total_count = $schedule_dates[$k]['total_count'];
                                                                 @endphp
                                                                 @if($type == 'video')
                                                                     <td id="{{ $i }}" onclick="mediaOption({{ $id }}, {{ $i }})">
@@ -349,20 +372,26 @@
                                                                                 <source src="{{ asset($file_path.$file) }}" type="video/mp4">
                                                                             </video>
                                                                             <a><img class="img-calendar-play" src="{{ asset('/public/assets/images/Exm-Buttons-Play.png') }}" /></a>
+                                                                            @if($total_count > 1)
                                                                             <a><img class="multi" src="{{ asset('/public/assets/images/multi.png') }}" /></a>
+                                                                            @endif
                                                                         </p>
                                                                     </td>
                                                                 @elseif($type == 'audio')
                                                                     @php $audio_file = '/public/assets/images/audio-pop.png'; @endphp
                                                                     <td id="{{ $i }}" onclick="mediaOption({{ $id }}, {{ $i }})">
                                                                         <p class="cl-white" style="background-image: url('{{ asset($audio_file) }}'); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;{{ $i }}
+                                                                            @if($total_count > 1)
                                                                             <a><img class="multi" src="{{ asset('/public/assets/images/multi.png') }}" /></a>
+                                                                            @endif
                                                                         </p>
                                                                     </td>
                                                                 @else
                                                                     <td id="{{ $i }}" onclick="mediaOption({{ $id }}, {{ $i }})">
                                                                         <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;{{ $i }}
+                                                                            @if($total_count > 1)
                                                                             <a><img class="multi" src="{{ asset('/public/assets/images/multi.png') }}" /></a>
+                                                                            @endif
                                                                         </p>
                                                                     </td>
                                                                 @endif
@@ -391,6 +420,7 @@
                                                                     $id = $schedule_dates[$n]['id'];
                                                                     $file = $schedule_dates[$n]['file'];
                                                                     $type = $schedule_dates[$n]['type'];
+                                                                    $total_count = $schedule_dates[$n]['total_count'];
                                                                 @endphp
                                                                 @if($type == 'video')
                                                                     <td id="{{ $i }}" onclick="actionMedia({{ $id }})">
@@ -399,20 +429,26 @@
                                                                                 <source src="{{ asset($file_path.$file) }}" type="video/mp4">
                                                                             </video>
                                                                             <a><img class="img-calendar-play" src="{{ asset('/public/assets/images/Exm-Buttons-Play.png') }}" /></a>
+                                                                            @if($total_count > 1)
                                                                             <a><img class="multi" src="{{ asset('/public/assets/images/multi.png') }}" /></a>
+                                                                            @endif
                                                                         </p>
                                                                     </td>
                                                                 @elseif($type == 'audio')
                                                                     @php $audio_file = '/public/assets/images/audio-pop.png'; @endphp
                                                                     <td id="{{ $i }}" onclick="actionMedia({{ $id }})">
                                                                         <p class="cl-white" style="background-image: url('{{ asset($audio_file) }}'); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;{{ $i }}
+                                                                            @if($total_count > 1)
                                                                             <a><img class="multi" src="{{ asset('/public/assets/images/multi.png') }}" /></a>
+                                                                            @endif
                                                                         </p>
                                                                     </td>
                                                                 @else
                                                                     <td id="{{ $i }}" onclick="actionMedia({{ $id }})">
                                                                         <p class="cl-white" style="background-image: url('{{ asset($file_path.$file) }}'); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;{{ $i }}
+                                                                            @if($total_count > 1)
                                                                             <a><img class="multi" src="{{ asset('/public/assets/images/multi.png') }}" /></a>
+                                                                            @endif
                                                                         </p>
                                                                     </td>
                                                                 @endif
@@ -995,7 +1031,8 @@
                             'id': schedule_media[x].id,
                             'file': schedule_media[x].file_name,
                             'date': media_date,
-                            'type': schedule_media[x].type
+                            'type': schedule_media[x].type,
+                            'total_count': schedule_media[x].multiple_media.length
                         }];
                         future_dates.push(your_schedule);
                     }
@@ -1017,7 +1054,8 @@
                                 'id': schedule_media[x].id,
                                 'file': schedule_media[x].file_name,
                                 'date': media_date,
-                                'type': schedule_media[x].type
+                                'type': schedule_media[x].type,
+                                'total_count': schedule_media[x].multiple_media.length
                             }];
                             future_dates.push(your_schedule);
                         }
@@ -1038,7 +1076,8 @@
                                 'id': schedule_media[x].id,
                                 'file': schedule_media[x].file_name,
                                 'date': media_date,
-                                'type': schedule_media[x].type
+                                'type': schedule_media[x].type,
+                                'total_count': schedule_media[x].multiple_media.length
                             }];
                             future_dates.push(your_schedule);
                         }
@@ -1060,7 +1099,8 @@
                             'id': schedule_media[x].id,
                             'file': schedule_media[x].file_name,
                             'date': media_date,
-                            'type': schedule_media[x].type
+                            'type': schedule_media[x].type,
+                            'total_count': schedule_media[x].multiple_media.length
                         }];
                         future_dates.push(your_schedule);
                     }
@@ -1083,20 +1123,25 @@
                                     var id = schedule_dates[a]['id'];
                                     var file = schedule_dates[a]['file'];
                                     var type = schedule_dates[a]['type'];
+                                    var total_count = schedule_dates[a]['total_count'];
                                     var for_multi = '/public/assets/images/multi.png';
+                                    var multi_file_icon = '';
+                                    if (total_count > 1) {
+                                        multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                    }
                                     if (type == 'video') {
                                         var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                         $('#show_date').append(
-                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                         );
                                     } else if (type == 'audio') {
                                         var file_url = '/public/assets/images/audio-pop.png';
                                         $('#show_date').append(
-                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a>'+ multi_file_icon +'</p></td>'
                                         );
                                     } else {
                                         $('#show_date').append(
-                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1'+ multi_file_icon +'</p></td>'
                                         );
                                     }
                                     set_media++;
@@ -1122,20 +1167,25 @@
                                     var id = schedule_dates[b]['id'];
                                     var file = schedule_dates[b]['file'];
                                     var type = schedule_dates[b]['type'];
+                                    var total_count = schedule_dates[b]['total_count'];
                                     var for_multi = '/public/assets/images/multi.png';
+                                    var multi_file_icon = '';
+                                    if (total_count > 1) {
+                                        multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                    }
                                     if (type == 'video') {
                                         var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                         $('#show_date').append(
-                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                         );
                                     } else if (type == 'audio') {
                                         var file_url = '/public/assets/images/audio-pop.png';
                                         $('#show_date').append(
-                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1'+ multi_file_icon +'</p></td>'
                                         );
                                     } else {
                                         $('#show_date').append(
-                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1'+ multi_file_icon +'</p></td>'
                                         );
                                     }
                                     set_media++;
@@ -1167,20 +1217,25 @@
                                     var id = future_dates[y][0].id;
                                     var file = future_dates[y][0].file;
                                     var type = future_dates[y][0].type;
+                                    var total_count = future_dates[y][0].total_count;
                                     var for_multi = '/public/assets/images/multi.png';
+                                    var multi_file_icon = '';
+                                    if (total_count > 1) {
+                                        multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                    }
                                     if (type == 'video') {
                                         var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                         $('#show_date').append(
-                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                         );
                                     } else if (type == 'audio') {
                                         var file_url = '/public/assets/images/audio-pop.png';
                                         $('#show_date').append(
-                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1'+ multi_file_icon +'</p></td>'
                                         );
                                     } else {
                                         $('#show_date').append(
-                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1'+ multi_file_icon +'</p></td>'
                                         );
                                     }
                                     set_media++;

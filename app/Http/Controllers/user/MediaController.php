@@ -826,11 +826,11 @@ class MediaController extends Controller
         return view('frontend.legacy.successLegacy', compact('title'));
     }
 
-    public function detailsSchedule()
-    {
-        $title = "DETAILS SCHEDULE";
-        return view('frontend.schedule.scheduleDetails', compact('title'));
-    }
+    // public function detailsSchedule()
+    // {
+    //     $title = "DETAILS SCHEDULE";
+    //     return view('frontend.schedule.scheduleDetails', compact('title'));
+    // }
 
     public function scheduleMedia()
     {

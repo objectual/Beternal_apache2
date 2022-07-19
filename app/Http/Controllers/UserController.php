@@ -993,6 +993,7 @@ class UserController extends Controller
 
         $delete_from_contact = UserContact::where('user_id', $request->id)->delete();
         $delete_from_group = UserGroup::where('user_id', $request->id)->delete();
+        $delete_from_schedule_media_recipient = ScheduleMediaRecipient::where('user_id', $request->id)->delete();
         $delete_from_schedule_media = ScheduleMedia::where('user_id', $request->id)->delete();
         $delete_from_group = Group::where('user_id', $request->id)->delete();
         $delete_from_legacy = Legacy::where('user_id', $request->id)->delete();
