@@ -954,11 +954,23 @@ class UserController extends Controller
     public function deleteRecipent(Request $request)
     {
         $id = Auth::user()->id;
+        $schedule_id = 0;
+        $get_schedule_media = ScheduleMediaRecipient::where(['recipient_id' => $request->id, 'user_id' => $id])->first();
+
+        if ($get_schedule_media != null) {
+            $schedule_id = $get_schedule_media->schedule_media_id;
+        }
+
         $delete_from_contact = UserContact::where(['contact_id' => $request->id, 'user_id' => $id])->delete();
 
         $delete_from_group = UserGroup::where(['recipient_id' => $request->id, 'user_id' => $id])->delete();
 
         $delete_from_schedule_media = ScheduleMediaRecipient::where(['recipient_id' => $request->id, 'user_id' => $id])->delete();
+
+        $check_schedule_media = ScheduleMediaRecipient::where('schedule_media_id', $schedule_id)->first();
+        if ($check_schedule_media == null) {
+            $delete_from_schedule = ScheduleMedia::where('id', $schedule_id)->delete();
+        }
 
         $delete_from_share_media = ShareMedia::where('recipient_id', $request->id)->delete();
 

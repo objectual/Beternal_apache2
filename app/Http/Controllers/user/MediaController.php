@@ -862,7 +862,7 @@ class MediaController extends Controller
                     $schedule->all_recipient = null;
                 }
 
-                $multiple_media = ScheduleMedia::where('date', $schedule->date)
+                $multiple_media = ScheduleMedia::where(['date' => $schedule->date, 'schedule_media.user_id' => $id])
                     ->join('media', 'schedule_media.media_id', '=', 'media.id')
                     ->get(['schedule_media.id', 'schedule_media.date_time', 'schedule_media.description', 'schedule_media.message', 'schedule_media.media_id', 'schedule_media.date', 'media.file_name', 'media.type']);
 

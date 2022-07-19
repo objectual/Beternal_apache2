@@ -1266,20 +1266,25 @@
                                         var id = future_dates[y][0].id;
                                         var file = future_dates[y][0].file;
                                         var type = future_dates[y][0].type;
+                                        var total_count = future_dates[y][0].total_count;
                                         var for_multi = '/public/assets/images/multi.png';
+                                        var multi_file_icon = '';
+                                        if (total_count > 1) {
+                                            multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                        }
                                         if (type == 'video') {
                                             var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                             $('#show_date').append(
-                                                '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                                '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                             );
                                         } else if (type == 'audio') {
                                             var file_url = '/public/assets/images/audio-pop.png';
                                             $('#show_date').append(
-                                                '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                                '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1'+ multi_file_icon +'</p></td>'
                                             );
                                         } else {
                                             $('#show_date').append(
-                                                '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                                '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1'+ multi_file_icon +'</p></td>'
                                             );
                                         }
                                         set_media++;
@@ -1310,20 +1315,25 @@
                                         var id = future_dates[y][0].id;
                                         var file = future_dates[y][0].file;
                                         var type = future_dates[y][0].type;
+                                        var total_count = future_dates[y][0].total_count;
                                         var for_multi = '/public/assets/images/multi.png';
+                                        var multi_file_icon = '';
+                                        if (total_count > 1) {
+                                            multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                        }
                                         if (type == 'video') {
                                             var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                             $('#show_date').append(
-                                                '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                                '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                             );
                                         } else if (type == 'audio') {
                                             var file_url = '/public/assets/images/audio-pop.png';
                                             $('#show_date').append(
-                                                '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                                '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1'+ multi_file_icon +'</p></td>'
                                             );
                                         } else {
                                             $('#show_date').append(
-                                                '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                                '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1'+ multi_file_icon +'</p></td>'
                                             );
                                         }
                                         set_media++;
@@ -1354,20 +1364,25 @@
                                     var id = future_dates[y][0].id;
                                     var file = future_dates[y][0].file;
                                     var type = future_dates[y][0].type;
+                                    var total_count = future_dates[y][0].total_count;
                                     var for_multi = '/public/assets/images/multi.png';
+                                    var multi_file_icon = '';
+                                    if (total_count > 1) {
+                                        multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                    }
                                     if (type == 'video') {
                                         var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                         $('#show_date').append(
-                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                         );
                                     } else if (type == 'audio') {
                                         var file_url = '/public/assets/images/audio-pop.png';
                                         $('#show_date').append(
-                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1'+ multi_file_icon +'</p></td>'
                                         );
                                     } else {
                                         $('#show_date').append(
-                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1'+ multi_file_icon +'</p></td>'
                                         );
                                     }
                                     set_media++;
@@ -1407,20 +1422,25 @@
                                 var id = schedule_dates[j]['id'];
                                 var file = schedule_dates[j]['file'];
                                 var type = schedule_dates[j]['type'];
+                                var total_count = schedule_dates[j]['total_count'];
                                 var for_multi = '/public/assets/images/multi.png';
+                                var multi_file_icon = '';
+                                if (total_count > 1) {
+                                    multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                }
                                 if (type == 'video') {
                                     var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                     );
                                 } else if (type == 'audio') {
                                     var file_url = '/public/assets/images/audio-pop.png';
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                     );
                                 } else {
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                     );
                                 }
                                 set_media++;
@@ -1447,20 +1467,25 @@
                                     var id = schedule_dates[k]['id'];
                                     var file = schedule_dates[k]['file'];
                                     var type = schedule_dates[k]['type'];
+                                    var total_count = schedule_dates[k]['total_count'];
                                     var for_multi = '/public/assets/images/multi.png';
+                                    var multi_file_icon = '';
+                                    if (total_count > 1) {
+                                        multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                    }
                                     if (type == 'video') {
                                         var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                         $('#show_date').append(
-                                            '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                         );
                                     } else if (type == 'audio') {
                                         var file_url = '/public/assets/images/audio-pop.png';
                                         $('#show_date').append(
-                                            '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                         );
                                     } else {
                                         $('#show_date').append(
-                                            '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                         );
                                     }
                                     set_media++;
@@ -1486,20 +1511,25 @@
                                     var id = schedule_dates[n]['id'];
                                     var file = schedule_dates[n]['file'];
                                     var type = schedule_dates[n]['type'];
+                                    var total_count = schedule_dates[n]['total_count'];
                                     var for_multi = '/public/assets/images/multi.png';
+                                    var multi_file_icon = '';
+                                    if (total_count > 1) {
+                                        multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                    }
                                     if (type == 'video') {
                                         var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                         $('#show_date').append(
-                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                         );
                                     } else if (type == 'audio') {
                                         var file_url = '/public/assets/images/audio-pop.png';
                                         $('#show_date').append(
-                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                         );
                                     } else {
                                         $('#show_date').append(
-                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                         );
                                     }
                                     set_media++;
@@ -1527,20 +1557,25 @@
                                 var id = future_dates[y][0].id;
                                 var file = future_dates[y][0].file;
                                 var type = future_dates[y][0].type;
+                                var total_count = future_dates[y][0].total_count;
                                 var for_multi = '/public/assets/images/multi.png';
+                                var multi_file_icon = '';
+                                if (total_count > 1) {
+                                    multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                }
                                 if (type == 'video') {
                                     var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                     );
                                 } else if (type == 'audio') {
                                     var file_url = '/public/assets/images/audio-pop.png';
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                     );
                                 } else {
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                     );
                                 }
                                 set_media++;
@@ -1565,20 +1600,25 @@
                                 var id = future_dates[y][0].id;
                                 var file = future_dates[y][0].file;
                                 var type = future_dates[y][0].type;
+                                var total_count = future_dates[y][0].total_count;
                                 var for_multi = '/public/assets/images/multi.png';
+                                var multi_file_icon = '';
+                                if (total_count > 1) {
+                                    multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                }
                                 if (type == 'video') {
                                     var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                     );
                                 } else if (type == 'audio') {
                                     var file_url = '/public/assets/images/audio-pop.png';
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                     );
                                 } else {
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                     );
                                 }
                                 set_media++;
@@ -1603,20 +1643,25 @@
                                 var id = future_dates[y][0].id;
                                 var file = future_dates[y][0].file;
                                 var type = future_dates[y][0].type;
+                                var total_count = future_dates[y][0].total_count;
                                 var for_multi = '/public/assets/images/multi.png';
+                                var multi_file_icon = '';
+                                if (total_count > 1) {
+                                    multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                }
                                 if (type == 'video') {
                                     var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                     );
                                 } else if (type == 'audio') {
                                     var file_url = '/public/assets/images/audio-pop.png';
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                     );
                                 } else {
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                     );
                                 }
                                 set_media++;
@@ -1794,20 +1839,25 @@
                                     var id = schedule_dates[a]['id'];
                                     var file = schedule_dates[a]['file'];
                                     var type = schedule_dates[a]['type'];
+                                    var total_count = schedule_dates[a]['total_count'];
                                     var for_multi = '/public/assets/images/multi.png';
+                                    var multi_file_icon = '';
+                                    if (total_count > 1) {
+                                        multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                    }
                                     if (type == 'video') {
                                         var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                         $('#show_date').append(
-                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                         );
                                     } else if (type == 'audio') {
                                         var file_url = '/public/assets/images/audio-pop.png';
                                         $('#show_date').append(
-                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1'+ multi_file_icon +'</p></td>'
                                         );
                                     } else {
                                         $('#show_date').append(
-                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1'+ multi_file_icon +'</p></td>'
                                         );
                                     }
                                     set_media++;
@@ -1833,20 +1883,25 @@
                                     var id = schedule_dates[b]['id'];
                                     var file = schedule_dates[b]['file'];
                                     var type = schedule_dates[b]['type'];
+                                    var total_count = schedule_dates[b]['total_count'];
                                     var for_multi = '/public/assets/images/multi.png';
+                                    var multi_file_icon = '';
+                                    if (total_count > 1) {
+                                        multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                    }
                                     if (type == 'video') {
                                         var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                         $('#show_date').append(
-                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                         );
                                     } else if (type == 'audio') {
                                         var file_url = '/public/assets/images/audio-pop.png';
                                         $('#show_date').append(
-                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1'+ multi_file_icon +'</p></td>'
                                         );
                                     } else {
                                         $('#show_date').append(
-                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1'+ multi_file_icon +'</p></td>'
                                         );
                                     }
                                     set_media++;
@@ -1878,20 +1933,25 @@
                                     var id = future_dates[y][0].id;
                                     var file = future_dates[y][0].file;
                                     var type = future_dates[y][0].type;
+                                    var total_count = future_dates[y][0].total_count;
                                     var for_multi = '/public/assets/images/multi.png';
+                                    var multi_file_icon = '';
+                                    if (total_count > 1) {
+                                        multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                    }
                                     if (type == 'video') {
                                         var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                         $('#show_date').append(
-                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                         );
                                     } else if (type == 'audio') {
                                         var file_url = '/public/assets/images/audio-pop.png';
                                         $('#show_date').append(
-                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1'+ multi_file_icon +'</p></td>'
                                         );
                                     } else {
                                         $('#show_date').append(
-                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="mediaOption('+ id +', 1)"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1'+ multi_file_icon +'</p></td>'
                                         );
                                     }
                                     set_media++;
@@ -1922,20 +1982,25 @@
                                     var id = future_dates[y][0].id;
                                     var file = future_dates[y][0].file;
                                     var type = future_dates[y][0].type;
+                                    var total_count = future_dates[y][0].total_count;
                                     var for_multi = '/public/assets/images/multi.png';
+                                    var multi_file_icon = '';
+                                    if (total_count > 1) {
+                                        multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                    }
                                     if (type == 'video') {
                                         var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                         $('#show_date').append(
-                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;1<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                         );
                                     } else if (type == 'audio') {
                                         var file_url = '/public/assets/images/audio-pop.png';
                                         $('#show_date').append(
-                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1'+ multi_file_icon +'</p></td>'
                                         );
                                     } else {
                                         $('#show_date').append(
-                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="1" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;1'+ multi_file_icon +'</p></td>'
                                         );
                                     }
                                     set_media++;
@@ -1975,20 +2040,25 @@
                                 var id = schedule_dates[j]['id'];
                                 var file = schedule_dates[j]['file'];
                                 var type = schedule_dates[j]['type'];
+                                var total_count = schedule_dates[j]['total_count'];
                                 var for_multi = '/public/assets/images/multi.png';
+                                var multi_file_icon = '';
+                                if (total_count > 1) {
+                                    multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                }
                                 if (type == 'video') {
                                     var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                     );
                                 } else if (type == 'audio') {
                                     var file_url = '/public/assets/images/audio-pop.png';
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                     );
                                 } else {
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                     );
                                 }
                                 set_media++;
@@ -2015,20 +2085,25 @@
                                     var id = schedule_dates[k]['id'];
                                     var file = schedule_dates[k]['file'];
                                     var type = schedule_dates[k]['type'];
+                                    var total_count = schedule_dates[k]['total_count'];
                                     var for_multi = '/public/assets/images/multi.png';
+                                    var multi_file_icon = '';
+                                    if (total_count > 1) {
+                                        multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                    }
                                     if (type == 'video') {
                                         var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                         $('#show_date').append(
-                                            '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                         );
                                     } else if (type == 'audio') {
                                         var file_url = '/public/assets/images/audio-pop.png';
                                         $('#show_date').append(
-                                            '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                         );
                                     } else {
                                         $('#show_date').append(
-                                            '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                         );
                                     }
                                     set_media++;
@@ -2054,20 +2129,25 @@
                                     var id = schedule_dates[n]['id'];
                                     var file = schedule_dates[n]['file'];
                                     var type = schedule_dates[n]['type'];
+                                    var total_count = schedule_dates[n]['total_count'];
                                     var for_multi = '/public/assets/images/multi.png';
+                                    var multi_file_icon = '';
+                                    if (total_count > 1) {
+                                        multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                    }
                                     if (type == 'video') {
                                         var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                         $('#show_date').append(
-                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                         );
                                     } else if (type == 'audio') {
                                         var file_url = '/public/assets/images/audio-pop.png';
                                         $('#show_date').append(
-                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                         );
                                     } else {
                                         $('#show_date').append(
-                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                            '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                         );
                                     }
                                     set_media++;
@@ -2095,20 +2175,25 @@
                                 var id = future_dates[y][0].id;
                                 var file = future_dates[y][0].file;
                                 var type = future_dates[y][0].type;
+                                var total_count = future_dates[y][0].total_count;
                                 var for_multi = '/public/assets/images/multi.png';
+                                var multi_file_icon = '';
+                                if (total_count > 1) {
+                                    multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                }
                                 if (type == 'video') {
                                     var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                     );
                                 } else if (type == 'audio') {
                                     var file_url = '/public/assets/images/audio-pop.png';
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                     );
                                 } else {
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="mediaOption('+ id +', '+ i +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                     );
                                 }
                                 set_media++;
@@ -2133,20 +2218,25 @@
                                 var id = future_dates[y][0].id;
                                 var file = future_dates[y][0].file;
                                 var type = future_dates[y][0].type;
+                                var total_count = future_dates[y][0].total_count;
                                 var for_multi = '/public/assets/images/multi.png';
+                                var multi_file_icon = '';
+                                if (total_count > 1) {
+                                    multi_file_icon = '<a><img class="multi" src="'+ base_url + for_multi +'" /></a>';
+                                }
                                 if (type == 'video') {
                                     var for_video = '/public/assets/images/Exm-Buttons-Play.png';
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white">&nbsp; &nbsp;'+ i +'<video class="example-image video-calendar"><source src="'+ base_path + file +'" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a>'+ multi_file_icon +'</p></td>'
                                     );
                                 } else if (type == 'audio') {
                                     var file_url = '/public/assets/images/audio-pop.png';
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                     );
                                 } else {
                                     $('#show_date').append(
-                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p></td>'
+                                        '<td id="'+ i +'" onclick="actionMedia('+ id +')"><p class="cl-white" style="background-image: url(' + base_path + file + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ i +''+ multi_file_icon +'</p></td>'
                                     );
                                 }
                                 set_media++;
@@ -2404,12 +2494,12 @@
 
                     if (type == 'video') {
                         var for_video = '/public/assets/images/Exm-Buttons-Play.png';
-                        media_file = '<p class="cl-white">&nbsp; &nbsp;'+ show_media +'<video class="example-image video-calendar"><source src="' + base_path + file_name + '" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a><a><img class="multi" src="'+ base_url + for_multi +'" /></a></p>';
+                        media_file = '<p class="cl-white">&nbsp; &nbsp;'+ show_media +'<video class="example-image video-calendar"><source src="' + base_path + file_name + '" type="video/mp4"></video><a><img class="img-calendar-play" src="'+ base_url + for_video +'" /></a></p>';
                     } else if (type == 'audio') {
                         var file_url = '/public/assets/images/audio-pop.png';
-                        media_file = '<p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ show_media +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p>';
+                        media_file = '<p class="cl-white" style="background-image: url(' + base_url + file_url + '); background-size: 40px; cursor:pointer; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ show_media +'</p>';
                     } else {
-                        media_file = '<p class="cl-white" style="background-image: url(' + base_path + file_name + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ show_media +'<a><img class="multi" src="'+ base_url + for_multi +'" /></a></p>';
+                        media_file = '<p class="cl-white" style="background-image: url(' + base_path + file_name + '); background-size: cover; background-repeat: no-repeat;  background-position: center;">&nbsp; &nbsp;'+ show_media +'</p>';
                     }
                     
                     var my_selected = document.getElementById(show_media);
