@@ -1360,6 +1360,9 @@ textarea {
 }
 @media screen and (min-width: 280px) and (max-width: 991px) { 
    
+    .multi {
+        width: 15px !important;
+    }
     .input-group .btn { 
         z-index: 0 !important;
     }
