@@ -382,8 +382,7 @@ body {
     text-transform: uppercase;
     height: 45px;
 }
-.delivery-calendar tbody td {
-}
+
 
 .delivery-calendar tbody p { 
     border: 1px solid #b5b7b3;
@@ -1245,7 +1244,9 @@ textarea {
         border: none;
         color: #fff;
         margin: 2px 2px;
+        height: 38px;
         text-align: center;
+        width:34px;
     }
     .delivery-calendar thead tr {
         background: transparent;
@@ -1359,9 +1360,18 @@ textarea {
     display: none;
 }
 @media screen and (min-width: 280px) and (max-width: 991px) { 
+    .delivery-calendar tbody td {
+        width: 34px;
+    }
+    textarea::placeholder {
+        color: white !important; 
+      }
    
     .multi {
         width: 15px !important;
+        top: 2px !important;
+        right: 1px !important;  
+        BOTTOM: auto !important;
     }
     .input-group .btn { 
         z-index: 0 !important;
