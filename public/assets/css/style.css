@@ -1245,6 +1245,7 @@ textarea {
         border: none;
         color: #fff;
         margin: 2px 2px;
+        height: 38px;
         text-align: center;
     }
     .delivery-calendar thead tr {
@@ -1359,6 +1360,9 @@ textarea {
     display: none;
 }
 @media screen and (min-width: 280px) and (max-width: 991px) { 
+    textarea::placeholder {
+        color: white !important; 
+      }
    
     .multi {
         width: 15px !important;
