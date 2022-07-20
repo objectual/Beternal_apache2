@@ -1018,4 +1018,8 @@ class MediaController extends Controller
             return redirect()->route('user.delivery');
         }
     }
+
+    function displayEventMedia() {
+        dd('In Progress');
+    }
 }

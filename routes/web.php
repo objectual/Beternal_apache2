@@ -61,6 +61,7 @@ Route::get('/deny/{token}', [UserController::class, 'recipientDeny'])->name('den
 Route::get('/confirmation-contact/{token}', [UserController::class, 'contactConfirmation'])->name('confirmation-contact');
 Route::get('/contact-success/{token}', [UserController::class, 'updateContactConfirmation'])->name('contact-success');
 Route::get('/deny-contact/{token}', [UserController::class, 'contactDeny'])->name('deny-contact');
+Route::get('/media-url/{token}', [MediaController::class, 'displayEventMedia'])->name('received');
 
 // Route::get('/dashboard', function () {
 //     return view('frontend.dashboard');
