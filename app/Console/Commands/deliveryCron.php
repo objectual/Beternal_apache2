@@ -42,7 +42,6 @@ class deliveryCron extends Command
      */
     public function handle()
     {
-        date_default_timezone_set('Asia/Karachi');
         $current_date = getdate(date("U"));
         $minutes = "$current_date[minutes]";
         $hours = "$current_date[hours]";
@@ -51,7 +50,7 @@ class deliveryCron extends Command
         $year = "$current_date[year]";
         $set_date = $year . '-' . $month . '-' . $date;
         $set_time = $hours . ':' . $minutes;
-        $base_url = url('');
+        $base_url = url('https://www.beternal.life/');
 
         $schedule_media = ScheduleMedia::where(['date' => $set_date, 'status' => 0])->get('*');
         $for_schedule = array();
@@ -71,7 +70,7 @@ class deliveryCron extends Command
                 $user = User::where('id',$for_schedule[$i]->user_id)->get(['name','last_name']);
                 $for_schedule[$i]->user_details = $user;
 
-                $media_recipients = ScheduleMediaRecipient::where('schedule_media_id', $for_schedule[$i]->id)
+                $media_recipients = ScheduleMediaRecipient::where(['schedule_media_id' => $for_schedule[$i]->id, 'user_recipients.user_id' => $for_schedule[$i]->user_id])
                     ->join('user_recipients', 'schedule_media_recipients.recipient_id', '=', 'user_recipients.recipient_id')
                     ->get(['name', 'last_name', 'email']);
 
