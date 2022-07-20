@@ -896,10 +896,10 @@
                 <div class="row pt-3 pb-4 mt-5 media-icons">
                     <div class="col-lg-3"></div>
                     <div class="col-lg-3">
-                        <button class="filter-btn btn w-100 text-center py-2" onclick="yourSchedule('add_new')">Add New</button>
+                        <button class="filter-btn btn w-100 text-center py-2 mb-2" onclick="yourSchedule('add_new')">Add New</button>
                     </div>
                     <div class="col-lg-3">
-                        <button class="filter-btn btn w-100 text-center py-2" onclick="yourSchedule('view_details')">View Details</button>
+                        <button class="filter-btn btn w-100 text-center py-2 mb-2" onclick="yourSchedule('view_details')">View Details</button>
                     </div>
                     <div class="col-lg-3"></div>
                 </div>
