@@ -101,7 +101,7 @@ class deliveryCron extends Command
                         $last_name = $for_schedule[$j]->media_recipients[$k]->last_name;
 
                         session()->put(['email' => $email, 'name' => $name]);
-                        $media_url = $base_url . '/media-url/' . $schedule_delivery->token;
+                        $media_url = $base_url . 'media-url/' . $schedule_delivery->token;
                         $data = array(
                             'user_first_name' => $user_name,
                             'user_last_name' => $user_last_name,
