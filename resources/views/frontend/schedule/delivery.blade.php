@@ -549,12 +549,14 @@
                                 <div class="col-12" id="show_recipient_msg" style="text-align: right;"></div>
                             </div>
                             <div class="col-md-12 mt-4 delivery-form">
+                                <label class="text-white">Description</label>
                                 <div class="mb-3">
-                                    <textarea class="Description-form text-white" id="description" name="description" rows="3" placeholder="Description"></textarea>
+                                    <textarea class="Description-form text-white" id="description" name="description" rows="3" placeholder="Type Here Description"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-12 delivery-form">
-                                <textarea class="Description-form text-white" id="message" name="message" rows="3" placeholder="Personal Message"></textarea>
+                                <label class="text-white">Personal Message</label>
+                                <textarea class="Description-form text-white" id="message" name="message" rows="3" placeholder="Type Here Personal Message"></textarea>
                             </div>
                             <div class="row" style="display: none;">
                                 <div class="col-lg-6 text-center add-legacy mt-4">
@@ -852,11 +854,13 @@
                         </div>
                     </div>
                     <div class="col-md-12 mt-4 delivery-form">
+                        <label class="text-white">Description</label>
                         <div class="mb-3">
                             <textarea class="Description-form text-white" id="media_description" rows="3" readonly></textarea>
                         </div>
                     </div>
                     <div class="col-md-12 delivery-form">
+                        <label class="text-white">Personal Message</label>
                         <textarea class="Description-form text-white" id="media_personal_message" rows="3" readonly></textarea>
                     </div>            
                 </div>
@@ -2336,6 +2340,13 @@
                 }
                 $('#show_schedule_media').append('</div>');
 
+                if (description == 'Not Found') {
+                    description = '';
+                }
+                if (personal_message == 'Not Found') {
+                    personal_message = '';
+                }
+
                 $('#media_date_time').empty();
                 $('#media_date_time').append(date_time);
                 $('#media_description').empty();
@@ -2422,6 +2433,13 @@
                         }
                     }
                     $('#show_schedule_media').append('</div>');
+
+                    if (description == 'Not Found') {
+                        description = '';
+                    }
+                    if (personal_message == 'Not Found') {
+                        personal_message = '';
+                    }
 
                     $('#media_date_time').empty();
                     $('#media_date_time').append(date_time);
