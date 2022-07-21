@@ -497,23 +497,60 @@
                         <div class="col-lg-8 offset-lg-2">
                             <div class="row p-0-m">
                                 <div class="col-lg-5">
-                                    <!-- <p class="text-white">Select Time Format</p>
+                                    <p class="text-white">Select Time Format</p>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                        <label class="form-check-label text-white" for="inlineRadio1">12 HOURS</label>
+                                        <input class="form-check-input" type="radio" name="time_format" id="format_12" value="12" onchange="timeFormat(this)" checked>
+                                        <label class="form-check-label text-white" for="time_format">12 HOURS</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                        <label class="form-check-label text-white" for="inlineRadio2">24 HOURS</label>
-                                    </div> -->
+                                        <input class="form-check-input" type="radio" name="time_format" id="format_24" value="24" onchange="timeFormat(this)">
+                                        <label class="form-check-label text-white" for="time_format">24 HOURS</label>
+                                    </div>
                                 </div>
-                                <div class="col-lg-7 mt-4 text-start">
+                                <!-- <div class="col-lg-7 mt-4 text-start">
                                     <div class="time-bg">
                                         <span class="time mt-3">Time</span>
                                         <input type="time" id="media_time" name="media_time" class="time-bg" required>
                                     </div>
+                                </div> -->
+                                <div class="col-lg-2">
+                                    <select id="pick_hours" name="pick_hours" class="form-select filter-select sch-media-form" aria-label="Default select example" required>
+                                        <option selected value="">Hours</option>
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                    </select>
                                 </div>
-                                <div class="col-12" id="show_time_msg" style="text-align: right;"></div>
+                                <div class="col-lg-2">
+                                    <select id="pick_minutes" name="pick_minutes" class="form-select filter-select sch-media-form" aria-label="Default select example" required>
+                                        <option selected value="">Minutes</option>
+                                        @for($i = 1; $i <= 60; $i++)
+                                            @if($i < 10)
+                                                @php $pick_minute = 0 . $i; @endphp
+                                            @else
+                                                @php $pick_minute = $i; @endphp
+                                            @endif
+                                            <option value="{{ $pick_minute }}">{{ $pick_minute }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <select id="day_night" name="day_night" class="form-select filter-select sch-media-form" aria-label="Default select example">
+                                        <option value="AM">AM</option>
+                                        <option value="PM">PM</option>
+                                    </select>
+                                </div>
+                                <div class="col-5""></div>
+                                <div class="col-7" id="show_time_msg"></div>
                             </div>
                             <div class="col-md-12 mt-4 delivery-form">
                                 <div class="input-group py-3">
@@ -2565,6 +2602,36 @@
         }
     }
 
+    function timeFormat(current) {
+        if (current.value == 24) {
+            $('#day_night').hide();
+            $('#pick_hours').empty();
+            var o = new Option("Hours", "");
+            $("#pick_hours").append(o);
+            for (var i = 1; i <= 24; i++) {
+                var pick_hour = i;
+                if (i < 10) {
+                    pick_hour = '0' + i;
+                }
+                var o = new Option(pick_hour, pick_hour);
+                $("#pick_hours").append(o);
+            }
+        } else {
+            $('#day_night').show();
+            $('#pick_hours').empty();
+            var o = new Option("Hours", "");
+            $("#pick_hours").append(o);
+            for (var i = 1; i <= 12; i++) {
+                var pick_hour = i;
+                if (i < 10) {
+                    pick_hour = '0' + i;
+                }
+                var o = new Option(pick_hour, pick_hour);
+                $("#pick_hours").append(o);
+            }
+        }
+    }
+
     function recipentByName() {
         var obj = JSON.parse('<?php echo json_encode($user_recipents) ?>');
         var base_path = '<?= $base_url ?>';
@@ -2644,16 +2711,28 @@
         var time_msg = '<span class="cl-white">Please select greater then current time!</span>';
         var hours = '<?= $hours ?>';
         var minutes = '<?= $minutes ?>';
-        var media_time = document.getElementById('media_time').value;
-        var selected_time = media_time.split(":");
+        // var media_time = document.getElementById('media_time').value;
+        // var selected_time = media_time.split(":");format_12
+        var format_12 = document.getElementById('format_12');
+        var format_24 = document.getElementById('format_24');
+        var pick_hours = document.getElementById('pick_hours').value;
+        var pick_minutes = document.getElementById('pick_minutes').value;
+
+        if (format_12.checked == true) {
+            var day_night = document.getElementById('day_night').value;
+            var set_pick_hour = parseInt(pick_hours);
+            if (day_night == 'PM') {
+                pick_hours = set_pick_hour + 12;
+            }
+        }
         
-        if (selected_time[0] < hours) {
+        if (pick_hours < hours) {
             $('#show_time_msg').empty();
             $("#show_time_msg").append(time_msg);
             return false;
         }
-        if (selected_time[0] == hours) {
-            if (selected_time[1] <= minutes) {
+        if (pick_hours == hours) {
+            if (pick_minutes <= minutes) {
                 $('#show_time_msg').empty();
                 $("#show_time_msg").append(time_msg);
                 return false;

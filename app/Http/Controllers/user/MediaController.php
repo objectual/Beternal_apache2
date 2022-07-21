@@ -938,7 +938,17 @@ class MediaController extends Controller
         $date = $request->media_date;
         $month = $request->default_month;
         $year = $request->default_year;
-        $media_time = $request->media_time;
+        // $media_time = $request->media_time;
+        $time_format = $request->time_format;
+        $pick_hours = $request->pick_hours;
+        $pick_minutes = $request->pick_minutes;
+        $day_night = $request->day_night;
+        if ($time_format == 12) {
+            if ($day_night == 'PM') {
+                $pick_hours = $pick_hours + 12;
+            }
+        }
+        $media_time = $pick_hours . ':' . $pick_minutes;
         $set_date = $year . '-' . $month . '-' . $date;
         $date_time = $year . '-' . $month . '-' . $date . ' ' . $media_time;
 
