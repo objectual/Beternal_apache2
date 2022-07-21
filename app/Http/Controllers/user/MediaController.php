@@ -16,6 +16,7 @@ use App\Models\Plan;
 use App\Models\Legacy;
 use App\Models\ScheduleMedia;
 use App\Models\ScheduleMediaRecipient;
+use App\Models\ScheduleDelivery;
 use App\Models\ShareLegacy;
 use App\Models\ShareLegacyGroup;
 use App\Models\UserGroup;
@@ -1019,7 +1020,33 @@ class MediaController extends Controller
         }
     }
 
-    function displayEventMedia() {
-        dd('In Progress');
+    function displayEventMedia(Request $request)
+    {
+        $title = "SHARED MEDIA";
+        $check_token = ScheduleDelivery::where('token', $request->token)
+        ->first('schedule_media_id');
+
+        if ($check_token == null) {
+            $message = "Not found any media!";
+        } else {
+            $schedule_media = ScheduleMedia::where('schedule_media.id', $check_token->schedule_media_id)
+            ->join('media', 'schedule_media.media_id', '=', 'media.id')
+            ->get(['schedule_media.description', 'message', 'file_name', 'type']);
+
+            if (!$schedule_media->isEmpty()) {
+                $full_path = Storage::disk('s3')->url('photo');
+                $get_path = explode('photo', $full_path);
+                $file_path = $get_path[0];
+
+                return view('frontend.displayMedia', compact(
+                    'title',
+                    'file_path',
+                    'schedule_media'
+                ));
+            } else {
+                $message = "Not found any media!";
+            }
+        }
+        return view('frontend.displayMedia', compact('title', 'message'));
     }
 }
