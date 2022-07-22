@@ -2717,31 +2717,31 @@
         var pick_hours = document.getElementById('pick_hours').value;
         var pick_minutes = document.getElementById('pick_minutes').value;
 
-        if (date == media_date) {
-            if (format_12.checked == true) {
-                var day_night = document.getElementById('day_night').value;
-                var set_pick_hour = parseInt(pick_hours);
-                if (day_night == 'PM') {
-                    pick_hours = set_pick_hour + 12;
-                }
-            }
-            if (format_24.checked == true) {
-                var pick_hours = parseInt(pick_hours);
-            }
-            if (pick_hours < hours) {
-                $('#show_time_msg').empty();
-                $("#show_time_msg").append(time_msg);
-                return false;
-            }
-            if (pick_hours == hours) {
-                if (pick_minutes <= minutes) {
-                    $('#show_time_msg').empty();
-                    $("#show_time_msg").append(time_msg);
-                    return false;
-                }
-            }
-        }
-        $('#show_time_msg').empty();
+        // if (date == media_date) {
+        //     if (format_12.checked == true) {
+        //         var day_night = document.getElementById('day_night').value;
+        //         var set_pick_hour = parseInt(pick_hours);
+        //         if (day_night == 'PM') {
+        //             pick_hours = set_pick_hour + 12;
+        //         }
+        //     }
+        //     if (format_24.checked == true) {
+        //         var pick_hours = parseInt(pick_hours);
+        //     }
+        //     if (pick_hours < hours) {
+        //         $('#show_time_msg').empty();
+        //         $("#show_time_msg").append(time_msg);
+        //         return false;
+        //     }
+        //     if (pick_hours == hours) {
+        //         if (pick_minutes <= minutes) {
+        //             $('#show_time_msg').empty();
+        //             $("#show_time_msg").append(time_msg);
+        //             return false;
+        //         }
+        //     }
+        // }
+        // $('#show_time_msg').empty();
 
         for (var i = 0; i < inputs.length; i++) {
             if (inputs[i].checked == true) {
