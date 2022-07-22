@@ -2,7 +2,6 @@
 @section("title","Delivery")
 @section("content")
 @php
-    date_default_timezone_set('Asia/Karachi');
     $mydate = getdate(date("U"));
     $minutes = "$mydate[minutes]";
     $hours = "$mydate[hours]";
@@ -533,7 +532,7 @@
                                 <div class="col-lg-2">
                                     <select id="pick_minutes" name="pick_minutes" class="form-select filter-select sch-media-form" aria-label="Default select example" required>
                                         <option selected value="">Minutes</option>
-                                        @for($i = 1; $i <= 60; $i++)
+                                        @for($i = 0; $i <= 60; $i++)
                                             @if($i < 10)
                                                 @php $pick_minute = 0 . $i; @endphp
                                             @else
@@ -2711,31 +2710,39 @@
         var time_msg = '<span class="cl-white">Please select greater then current time!</span>';
         var hours = '<?= $hours ?>';
         var minutes = '<?= $minutes ?>';
+        var date = '<?= $date ?>';
+        var media_date = document.getElementById('media_date').value;
         // var media_time = document.getElementById('media_time').value;
         // var selected_time = media_time.split(":");format_12
         var format_12 = document.getElementById('format_12');
         var format_24 = document.getElementById('format_24');
         var pick_hours = document.getElementById('pick_hours').value;
         var pick_minutes = document.getElementById('pick_minutes').value;
+        alert(hours)
+        alert(pick_hours)
 
-        if (format_12.checked == true) {
-            var day_night = document.getElementById('day_night').value;
-            var set_pick_hour = parseInt(pick_hours);
-            if (day_night == 'PM') {
-                pick_hours = set_pick_hour + 12;
+        if (date == media_date) {
+            if (format_12.checked == true) {
+                var day_night = document.getElementById('day_night').value;
+                var set_pick_hour = parseInt(pick_hours);
+                if (day_night == 'PM') {
+                    pick_hours = set_pick_hour + 12;
+                }
             }
-        }
-        
-        if (pick_hours < hours) {
-            $('#show_time_msg').empty();
-            $("#show_time_msg").append(time_msg);
-            return false;
-        }
-        if (pick_hours == hours) {
-            if (pick_minutes <= minutes) {
+            if (format_24.checked == true) {
+                var pick_hours = parseInt(pick_hours);
+            }
+            if (pick_hours < hours) {
                 $('#show_time_msg').empty();
                 $("#show_time_msg").append(time_msg);
                 return false;
+            }
+            if (pick_hours == hours) {
+                if (pick_minutes <= minutes) {
+                    $('#show_time_msg').empty();
+                    $("#show_time_msg").append(time_msg);
+                    return false;
+                }
             }
         }
         $('#show_time_msg').empty();
