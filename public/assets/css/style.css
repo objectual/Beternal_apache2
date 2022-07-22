@@ -2333,6 +2333,9 @@ textarea {
     }
 }
 @media screen and (min-width: 992px) and (max-width: 5000px) {
+    .timer-top {
+        margin-top: 40px !important;
+    }
     .future-date-modal{ 
     margin-top: 25% !important;
     }
@@ -3899,6 +3902,21 @@ select option { color: #fff !important; }
 
 }
 
+<<<<<<< HEAD
 .email-video {
     width: 100% !important;
+=======
+.min {
+    width: 100px; 
+    margin-right: 10px;
+}
+
+.am {
+    width: 100px;
+}
+
+.hr {
+    width: 100px;
+    margin-right: 10px;
+>>>>>>> a9122179f3cb946e852362214e9998569fc9677d
 }

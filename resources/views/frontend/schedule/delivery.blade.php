@@ -512,8 +512,10 @@
                                         <input type="time" id="media_time" name="media_time" class="time-bg" required>
                                     </div>
                                 </div> -->
-                                <div class="col-lg-2">
-                                    <select id="pick_hours" name="pick_hours" class="form-select filter-select sch-media-form" aria-label="Default select example" required>
+
+                                <div class="col-lg-1"></div>
+                                <div class="col-lg-6 d-flex timer-top ">
+                                <select id="pick_hours" name="pick_hours" class="form-select filter-select sch-media-form hr" aria-label="Default select example" required>
                                         <option selected value="">Hours</option>
                                         <option value="01">01</option>
                                         <option value="02">02</option>
@@ -528,9 +530,7 @@
                                         <option value="11">11</option>
                                         <option value="12">12</option>
                                     </select>
-                                </div>
-                                <div class="col-lg-2">
-                                    <select id="pick_minutes" name="pick_minutes" class="form-select filter-select sch-media-form" aria-label="Default select example" required>
+                                    <select id="pick_minutes" name="pick_minutes" class="form-select filter-select sch-media-form min" aria-label="Default select example" required>
                                         <option selected value="">Minutes</option>
                                         @for($i = 0; $i < 60; $i++)
                                             @if($i < 10)
@@ -541,14 +541,12 @@
                                             <option value="{{ $pick_minute }}">{{ $pick_minute }}</option>
                                         @endfor
                                     </select>
-                                </div>
-                                <div class="col-lg-2">
-                                    <select id="day_night" name="day_night" class="form-select filter-select sch-media-form" aria-label="Default select example">
+                                    <select id="day_night" name="day_night" class="form-select filter-select sch-media-form am" aria-label="Default select example">
                                         <option value="AM">AM</option>
                                         <option value="PM">PM</option>
                                     </select>
-                                </div>
-                                <div class="col-5""></div>
+                                </div> 
+                                <div class="col-5"></div>
                                 <div class="col-7" id="show_time_msg"></div>
                             </div>
                             <div class="col-md-12 mt-4 delivery-form">
