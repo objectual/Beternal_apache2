@@ -532,7 +532,7 @@
                                 <div class="col-lg-2">
                                     <select id="pick_minutes" name="pick_minutes" class="form-select filter-select sch-media-form" aria-label="Default select example" required>
                                         <option selected value="">Minutes</option>
-                                        @for($i = 0; $i <= 60; $i++)
+                                        @for($i = 0; $i < 60; $i++)
                                             @if($i < 10)
                                                 @php $pick_minute = 0 . $i; @endphp
                                             @else
@@ -2718,8 +2718,6 @@
         var format_24 = document.getElementById('format_24');
         var pick_hours = document.getElementById('pick_hours').value;
         var pick_minutes = document.getElementById('pick_minutes').value;
-        alert(hours)
-        alert(pick_hours)
 
         if (date == media_date) {
             if (format_12.checked == true) {
