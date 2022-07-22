@@ -3898,3 +3898,7 @@ select option { color: #fff !important; }
     margin-bottom: 40px;
 
 }
+
+.email-video {
+    width: 100% !important;
+}

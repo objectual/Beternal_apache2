@@ -28,7 +28,7 @@
                 <div class="col-lg-6 mt-3">
                     @if($schedule_media[0]->type == 'video')
                     <div class="">
-                        <video id="ban_video" class="tv_video" controls>
+                        <video id="ban_video" class="tv_video email-video" controls>
                             <source src="{{ asset( $file_path.$schedule_media[0]->file_name )}}" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
