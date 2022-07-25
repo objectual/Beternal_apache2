@@ -8,7 +8,8 @@
 <body>
     <p>Dear {{ $first_name }} {{ $last_name }}</p>
 
-    <p>You have received media from {{ $user_first_name }} {{ $user_last_name }}, In order to view the media please click on the following Link.</p>
+    <p>You have received media from {{ $user_first_name }} {{ $user_last_name }}.</p>
+    <p>In order to view the media please click on the following Link.</p>
 
     <div style="display:flex;">
         <div class="">

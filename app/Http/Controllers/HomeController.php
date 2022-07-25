@@ -200,4 +200,15 @@ class HomeController extends Controller
         $title = "HOW ARE WE DOING?";
         return view('frontend.survey', compact('title'));
     }
+
+    public function setTimezone($user_timezone)
+    {
+        $timezone_offset_minutes = $user_timezone;
+
+        // Convert minutes to seconds
+        $timezone_name = timezone_name_from_abbr("", $timezone_offset_minutes*60, false);
+        session()->put(['user_timezone' => $timezone_name]);
+
+        return 'success';
+    }
 }
