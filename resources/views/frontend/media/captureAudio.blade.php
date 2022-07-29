@@ -280,7 +280,7 @@
                     let recorded = document.getElementById("recorded");
                     // let downloadLocalButton = document.getElementById("downloadLocalButton");
 
-                    let recordingTimeMS = 60000; //audio limit 60 sec
+                    let recordingTimeMS = 15000; //audio limit 15 sec
                     var localstream;
 
                     window.log = function(msg) {

@@ -286,7 +286,7 @@
                     // let downloadLocalButton = document.getElementById("downloadLocalButton");
                     let video_recording = document.getElementById("video_recording");
 
-                    let recordingTimeMS = 60000; //video limit 60 sec
+                    let recordingTimeMS = 15000; //video limit 15 sec
                     var localstream;
 
                     window.log = function(msg) {
