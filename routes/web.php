@@ -108,6 +108,7 @@ Route::middleware('auth', 'user')->group(function () {
         Route::get('legacy-delete/{id}',[MediaController::class,'legacyDelete'])->name('user.legacy-delete');
         Route::get('legacy-edit/{id}',[MediaController::class,'legacyEdit'])->name('user.legacy-edit');
         Route::post('legacy-update',[MediaController::class,'legacyUpdate'])->name('user.legacy-update');
+        Route::get('legacy-add/{id}',[MediaController::class,'legacyAdd'])->name('user.legacy-add');
         Route::get('/success-legacy',[MediaController::class,'successLegacy'])->name('user.success-legacy');
     });
     Route::group(['prefix' => 'schedule-media'], function () {

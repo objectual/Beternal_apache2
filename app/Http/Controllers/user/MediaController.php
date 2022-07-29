@@ -827,6 +827,50 @@ class MediaController extends Controller
         return view('frontend.legacy.successLegacy', compact('title'));
     }
 
+    public function legacyAdd(Request $request)
+    {
+        $media = Media::where('id', $request->id)->first(['*']);
+        dd($media);
+        // if ($request->upload_type == "legacy") {
+        //     $legacy = new Legacy();
+        //     $legacy->title = $request->title;
+        //     $legacy->description = $request->description;
+        //     if ($request->hasFile('file_name')) {
+        //         $path = $request->file('file_name')->store($folder, 's3');
+        //         $legacy->file_name = $path;
+        //     }
+        //     $legacy->type = $request->media_type;
+        //     $legacy->user_id = Auth::user()->id;
+        //     $legacy->save();
+
+        //     if ($legacy) {
+        //         if (!(empty($request->recipient_id))) {
+        //             if (count($request->recipient_id) > 0) {
+        //                 for ($i = 0; $i < count($request->recipient_id); $i++) {
+        //                     $share_media = new ShareLegacy();
+        //                     $share_media->legacy_id = $legacy->id;
+        //                     $share_media->recipient_id = $request->recipient_id[$i];
+        //                     $share_media->save();
+        //                 }
+        //             }
+        //         }
+        //         if (!(empty($request->group_id))) {
+        //             if (count($request->group_id) > 0) {
+        //                 for ($i = 0; $i < count($request->group_id); $i++) {
+        //                     $share_media_in_group = new ShareLegacyGroup();
+        //                     $share_media_in_group->legacy_id = $legacy->id;
+        //                     $share_media_in_group->group_id = $request->group_id[$i];
+        //                     $share_media_in_group->save();
+        //                 }
+        //             }
+        //         }
+        //         return redirect()->route('user.legacy')->with('message', 'Uploaded successfully');
+        //     } else {
+        //         return redirect()->route($route);
+        //     }
+        // }
+    }
+
     // public function detailsSchedule()
     // {
     //     $title = "DETAILS SCHEDULE";

@@ -135,12 +135,12 @@
                     </div>
                     <div class="row pt-4" id="submit_button" style="display: none;">
                         <div class="col-12 ">
-                            <button class="btn upg-add-img-btn w-100" id="first_form">Save Your Memory</button>
+                            <button class="btn upg-add-img-btn w-100" id="first_form">Add To My Media</button>
                         </div>
                     </div>
                     <div class="row pt-4 mb-4">
                         <div class="col-12 ">
-                            <a class="btn upg-add-img-btn w-100" onclick="uploadType(this)">Save Your Memory</a>
+                            <a class="btn upg-add-img-btn w-100" onclick="uploadType(this)">Add To My Media</a>
                         </div>
                     </div>
                     <div class="row pt-4 mb-4">
@@ -256,12 +256,12 @@
                                     </div>
                                     <div class="row pt-4" style="display: none;">
                                         <div class="col-12">
-                                            <button class="btn upg-add-img-btn w-100" id="downloadButton" data-url="{{route('user.medias.store-media')}}">Save Your Memory</button>
+                                            <button class="btn upg-add-img-btn w-100" id="downloadButton" data-url="{{route('user.medias.store-media')}}">Add To My Media</button>
                                         </div>
                                     </div>
                                     <div class="row pt-4">
                                         <div class="col-12 ">
-                                            <a class="btn upg-add-img-btn w-100" onclick="uploadTypeRecording(this)">Save Your Memory</a>
+                                            <a class="btn upg-add-img-btn w-100" onclick="uploadTypeRecording(this)">Add To My Media</a>
                                         </div>
                                     </div>
                                     <div class="row pt-4">

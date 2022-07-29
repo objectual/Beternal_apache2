@@ -114,10 +114,10 @@
                 <div class="col-lg-8 mt-3">
                     @if($video_count > 0)
                     <div class="" id="current_video">
-                        <video id="ban_video" class="tv_video" controls>
+                        <!-- <video id="ban_video" class="tv_video" controls>
                             <source src="{{ asset('/public/assets/images/landing-video.mp4') }}" type="video/mp4" />
                             Your browser does not support the video tag.
-                        </video>
+                        </video> -->
                     </div>
                     @else
                     <p class="mb-0 contact-label text-center">Not Found!</p>
@@ -217,10 +217,10 @@
                 <div class="col-lg-8 text-center mt-3">
                     @if($audio_count > 0)
                     <div class="audio" id="current_audio">
-                        <audio id="ban_audio" class="tv_audio" controls>
+                        <!-- <audio id="ban_audio" class="tv_audio" controls>
                             <source src="{{ asset('/public/assets/images/game_play_music.mp3') }}" type="audio/mp3" />
                             Your browser does not support the video tag.
-                        </audio>
+                        </audio> -->
                     </div>
                     @else
                     <p class="mb-0 contact-label">Not Found!</p>
