@@ -279,7 +279,7 @@
     function selectVideo(current) {
         var base_path = '<?= $file_path ?>';
         // var base_path = base_url + '/public/';
-        var select_for_play = '<video id="ban_video" class="tv_video" controls><source src="' + base_path + current.id + '" />Your browser does not support the video tag.</video>';
+        var select_for_play = '<video id="mymedia_video" class="tv_video" controls><source src="' + base_path + current.id + '" />Your browser does not support the video tag.</video>';
         $('#current_video').empty();
         $("#current_video").append(select_for_play);
     }
@@ -287,7 +287,7 @@
     function selectAudio(current) {
         var base_path = '<?= $file_path ?>';
         // var base_path = base_url + '/public/';
-        var select_for_play = '<audio id="ban_audio" class="tv_audio" controls><source src="' + base_path + current.id + '" />Your browser does not support the video tag.</audio>';
+        var select_for_play = '<audio class="tv_audio" controls><source src="' + base_path + current.id + '" />Your browser does not support the video tag.</audio>';
         $('#current_audio').empty();
         $("#current_audio").append(select_for_play);
     }

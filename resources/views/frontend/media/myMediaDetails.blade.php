@@ -9,7 +9,7 @@
                 <div class="col-lg-12 mt-3">
                     <div class=" col-md-12 col-12 justify-content-end d-flex ">
                         <a href="{{ route('user.legacy-add', ['id' => $get_media[0]->id]) }}" class="d-flex delete-a">
-                            <img src="{{ asset('/public/assets/images/add.png') }}" class="edit-icon-style mt-1">
+                            <img src="{{ asset('/public/assets/images/plus.png') }}" class="add_plus mt-1">
                             <p class="px-2 text-white mx-1">Add To Legacy</p>
                         </a>
                         <a href="{{ route('user.medias.my-media-edit', ['id' => $get_media[0]->id]) }}" class="d-flex delete-a">
@@ -23,7 +23,7 @@
                     </div>
                     @if($get_media[0]->type == 'video')
                     <div class="">
-                        <video id="ban_video" class="tv_video" controls>
+                        <video id="mymedia_video" class="tv_video" controls>
                             <source src="{{ asset( $file_path.$get_media[0]->file_name )}}" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
