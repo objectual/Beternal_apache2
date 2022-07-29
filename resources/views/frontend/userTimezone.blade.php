@@ -7,7 +7,7 @@
         <div class="modal-body">
             <div class="row">
                 <div class="col-lg-10 text-center offset-lg-1">
-                    <p class="text-white">We set your timezone</p>
+                    <p class="text-white">We have set your TimeZone</p>
                 </div>
             </div>
             <div class="row pt-4 mb-4">

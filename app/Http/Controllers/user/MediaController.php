@@ -506,6 +506,7 @@ class MediaController extends Controller
         $title = "MY MEDIA DETAILS";
         $get_media = Media::where('id', $request->id)->get(['*']);
         if (!$get_media->isEmpty()) {
+            $get_legacy = Legacy::where('file_name', $get_media[0]->file_name)->get(['id']);
             $recipients = ShareMedia::where('media_id', $request->id)
                 ->join('user_recipients', 'share_media.recipient_id', '=', 'user_recipients.recipient_id')
                 ->get(['share_media.recipient_id', 'name', 'last_name', 'profile_image']);
@@ -514,6 +515,12 @@ class MediaController extends Controller
                 ->join('groups', 'share_media_groups.group_id', '=', 'groups.id')
                 ->get(['share_media_groups.group_id', 'groups.group_title']);
 
+            if (!$get_legacy->isEmpty()) {
+                $get_media[0]->is_legacy = $get_legacy;
+            }
+            if ($get_legacy->isEmpty()) {
+                $get_media[0]->is_legacy = null;
+            }
             if (!$recipients->isEmpty()) {
                 $get_media[0]->all_recipient = $recipients;
             }
@@ -830,45 +837,42 @@ class MediaController extends Controller
     public function legacyAdd(Request $request)
     {
         $media = Media::where('id', $request->id)->first(['*']);
-        dd($media);
-        // if ($request->upload_type == "legacy") {
-        //     $legacy = new Legacy();
-        //     $legacy->title = $request->title;
-        //     $legacy->description = $request->description;
-        //     if ($request->hasFile('file_name')) {
-        //         $path = $request->file('file_name')->store($folder, 's3');
-        //         $legacy->file_name = $path;
-        //     }
-        //     $legacy->type = $request->media_type;
-        //     $legacy->user_id = Auth::user()->id;
-        //     $legacy->save();
+        if ($media != null) {
+            $share_media = ShareMedia::where('media_id', $media->id)->get();
+            $share_media_group = ShareMediaGroup::where('media_id', $media->id)->get();
+            
+            $legacy = new Legacy();
+            $legacy->title = $media->title;
+            $legacy->description = $media->description;
+            $legacy->file_name = $media->file_name;
+            $legacy->type = $media->type;
+            $legacy->user_id = Auth::user()->id;
+            $legacy->save();
 
-        //     if ($legacy) {
-        //         if (!(empty($request->recipient_id))) {
-        //             if (count($request->recipient_id) > 0) {
-        //                 for ($i = 0; $i < count($request->recipient_id); $i++) {
-        //                     $share_media = new ShareLegacy();
-        //                     $share_media->legacy_id = $legacy->id;
-        //                     $share_media->recipient_id = $request->recipient_id[$i];
-        //                     $share_media->save();
-        //                 }
-        //             }
-        //         }
-        //         if (!(empty($request->group_id))) {
-        //             if (count($request->group_id) > 0) {
-        //                 for ($i = 0; $i < count($request->group_id); $i++) {
-        //                     $share_media_in_group = new ShareLegacyGroup();
-        //                     $share_media_in_group->legacy_id = $legacy->id;
-        //                     $share_media_in_group->group_id = $request->group_id[$i];
-        //                     $share_media_in_group->save();
-        //                 }
-        //             }
-        //         }
-        //         return redirect()->route('user.legacy')->with('message', 'Uploaded successfully');
-        //     } else {
-        //         return redirect()->route($route);
-        //     }
-        // }
+            if ($legacy) {
+                if (!$share_media->isEmpty()) {
+                    foreach ($share_media as $key => $share) {
+                        $share_legacy = new ShareLegacy();
+                        $share_legacy->legacy_id = $legacy->id;
+                        $share_legacy->recipient_id = $share->recipient_id;
+                        $share_legacy->save();
+                    }
+                }
+                if (!$share_media_group->isEmpty()) {
+                    foreach ($share_media_group as $key => $group) {
+                        $share_legacy_group = new ShareLegacyGroup();
+                        $share_legacy_group->legacy_id = $legacy->id;
+                        $share_legacy_group->group_id = $group->group_id;
+                        $share_legacy_group->save();
+                    }
+                }
+                return redirect()->route('user.legacy')->with('message', 'Add in legacy successfully');
+            } else {
+                return redirect()->route('user.medias.my-media');
+            }
+        } else {
+            return redirect()->route('user.medias.my-media');
+        }
     }
 
     // public function detailsSchedule()
