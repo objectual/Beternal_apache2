@@ -2333,6 +2333,12 @@ textarea {
     }
 }
 @media screen and (min-width: 992px) and (max-width: 5000px) {
+    #mymedia_video {
+        width: 65%;
+        margin: auto;
+        display: block;
+        height: auto;
+    }
     .timer-top {
         margin-top: 40px !important;
     }
@@ -3902,10 +3908,9 @@ select option { color: #fff !important; }
 
 }
 
-<<<<<<< HEAD
 .email-video {
     width: 100% !important;
-=======
+}
 .min {
     width: 100px; 
     margin-right: 10px;
@@ -3918,11 +3923,16 @@ select option { color: #fff !important; }
 .hr {
     width: 100px;
     margin-right: 10px;
->>>>>>> a9122179f3cb946e852362214e9998569fc9677d
 }
 
 
 .email-video {
     width: 100% !important;
     height: auto !important;
+}
+
+.add_plus {
+    width: 32px;
+    height: 32px;
+    margin: 0px !important;
 }
