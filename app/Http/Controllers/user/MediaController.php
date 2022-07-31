@@ -550,12 +550,14 @@ class MediaController extends Controller
     {
         $get_media = Media::where('id', $request->id)->get(['file_name']);
         if (!$get_media->isEmpty()) {
-            // $delete_legacy = Legacy::where('media_id', $request->id)->delete();
+            $get_legacy = Legacy::where('file_name', $get_media[0]->file_name)->first();
             $delete_schedule_media = ScheduleMedia::where('media_id', $request->id)->delete();
             $delete_share_media = ShareMedia::where('media_id', $request->id)->delete();
             $delete_share_media_groups = ShareMediaGroup::where('media_id', $request->id)->delete();
             $delete_media = Media::where('id', $request->id)->delete();
-            Storage::disk('s3')->delete($get_media[0]->file_name);
+            if ($get_legacy == null) {
+                Storage::disk('s3')->delete($get_media[0]->file_name);
+            }
             return redirect()->route('user.medias.my-media')->withSuccess('File was deleted successfully');
         }
         return redirect()->route('user.medias.my-media');
@@ -741,10 +743,13 @@ class MediaController extends Controller
     {
         $get_legacy = Legacy::where('id', $request->id)->get(['file_name']);
         if (!$get_legacy->isEmpty()) {
+            $get_media = Media::where('file_name', $get_legacy[0]->file_name)->first();
             $delete_share_legacy = ShareLegacy::where('legacy_id', $request->id)->delete();
             $delete_share_legacy_groups = ShareLegacyGroup::where('legacy_id', $request->id)->delete();
             $delete_legacy = Legacy::where('id', $request->id)->delete();
-            Storage::disk('s3')->delete($get_legacy[0]->file_name);
+            if ($get_media == null) {
+                Storage::disk('s3')->delete($get_legacy[0]->file_name);
+            }
             return redirect()->route('user.legacy')->withSuccess('File was deleted successfully');
         }
         return redirect()->route('user.legacy');
