@@ -12,8 +12,13 @@ use App\Models\User;
 class dashboardController extends Controller
 {
     public function dashboard(){
-        $title = "DASHBOARD";
-        return view('frontend.dashboard', compact('title'));
+        if (session()->get('user_timezone') == null) {
+            $title = "TIMEZONE";
+            return view('frontend.userTimezone', compact('title'));
+        } else {
+            $title = "DASHBOARD";
+            return view('frontend.dashboard', compact('title'));
+        }
     }
 
 }

@@ -86,6 +86,7 @@ class MediaController extends Controller
 
     public function uploadMedia(Request $request)
     {
+        date_default_timezone_set(session()->get('user_timezone'));
         if ($request->media_type == 'video') {
             $this->validate($request, [
                 'file_name' => 'required|file|mimetypes:video/mp4,video/avi,video/mpeg,video/quicktime',
@@ -192,6 +193,7 @@ class MediaController extends Controller
 
     public function store(Request $request)
     {
+        date_default_timezone_set(session()->get('user_timezone'));
         $media_type = $request->input('media_type');
         $upload_type = $request->input('upload_type');
         $base_url = url('');
@@ -845,7 +847,7 @@ class MediaController extends Controller
         if ($media != null) {
             $share_media = ShareMedia::where('media_id', $media->id)->get();
             $share_media_group = ShareMediaGroup::where('media_id', $media->id)->get();
-            
+
             $legacy = new Legacy();
             $legacy->title = $media->title;
             $legacy->description = $media->description;
@@ -892,130 +894,146 @@ class MediaController extends Controller
         return view('frontend.schedule.scheduleMedia', compact('title'));
     }
 
+    public function scheduleTimezone($timezone, $state)
+    {
+        $set_timezone = $timezone . '/' . $state;
+        date_default_timezone_set($set_timezone);
+        $mydate = getdate(date("U"));
+        $minutes = "$mydate[minutes]";
+        $hours = "$mydate[hours]";
+        $date = "$mydate[mday]";
+        $month = "$mydate[mon]";
+        $year = "$mydate[year]";
+
+        $timezone_details = array(
+            'message' => 'success', 'minutes' => $minutes, 'hours' => $hours, 'date' => $date, 'month' => $month, 'year' => $year
+        );
+        return $timezone_details;
+    }
+
     public function deliveryMedia()
     {
-        if (session()->get('user_timezone') == null) {
-            $title = "TIMEZONE";
-            return view('frontend.userTimezone', compact('title'));
-        } else {
-            $title = "DELIVERY";
-            $id = Auth::user()->id;
-            $all_media = Media::where('user_id', $id)->get(['*']);
-            $user_recipents = userRecipients($id);
+        $title = "DELIVERY";
+        $id = Auth::user()->id;
+        $all_media = Media::where('user_id', $id)->get(['*']);
+        $user_recipents = userRecipients($id);
 
-            $schedule_media = ScheduleMedia::where('schedule_media.user_id', $id)
-                ->join('media', 'schedule_media.media_id', '=', 'media.id')
-                ->get(['schedule_media.id', 'schedule_media.date_time', 'schedule_media.description', 'schedule_media.message', 'schedule_media.media_id', 'schedule_media.date', 'media.file_name', 'media.type']);
+        $schedule_media = ScheduleMedia::where('schedule_media.user_id', $id)
+            ->join('media', 'schedule_media.media_id', '=', 'media.id')
+            ->get(['schedule_media.id', 'schedule_media.date_time', 'schedule_media.description', 'schedule_media.message', 'schedule_media.media_id', 'schedule_media.date', 'schedule_media.date_time_for_user', 'media.file_name', 'media.type']);
 
-            if (!$schedule_media->isEmpty()) {
-                foreach ($schedule_media as $key => $schedule) {
-                    $recipients = ScheduleMediaRecipient::where('schedule_media_id', $schedule->id)
-                        ->join('user_recipients', 'schedule_media_recipients.recipient_id', '=', 'user_recipients.recipient_id')
-                        ->get(['name', 'last_name', 'profile_image']);
+        if (!$schedule_media->isEmpty()) {
+            foreach ($schedule_media as $key => $schedule) {
+                $recipients = ScheduleMediaRecipient::where('schedule_media_id', $schedule->id)
+                    ->join('user_recipients', 'schedule_media_recipients.recipient_id', '=', 'user_recipients.recipient_id')
+                    ->get(['name', 'last_name', 'profile_image']);
 
-                    if (!$recipients->isEmpty()) {
-                        $schedule->all_recipient = $recipients;
-                    }
-                    if ($recipients->isEmpty()) {
-                        $schedule->all_recipient = null;
-                    }
+                if (!$recipients->isEmpty()) {
+                    $schedule->all_recipient = $recipients;
+                }
+                if ($recipients->isEmpty()) {
+                    $schedule->all_recipient = null;
+                }
 
-                    $multiple_media = ScheduleMedia::where(['date' => $schedule->date, 'schedule_media.user_id' => $id])
-                        ->join('media', 'schedule_media.media_id', '=', 'media.id')
-                        ->get(['schedule_media.id', 'schedule_media.date_time', 'schedule_media.description', 'schedule_media.message', 'schedule_media.media_id', 'schedule_media.date', 'media.file_name', 'media.type']);
+                $multiple_media = ScheduleMedia::where(['date' => $schedule->date, 'schedule_media.user_id' => $id])
+                    ->join('media', 'schedule_media.media_id', '=', 'media.id')
+                    ->get(['schedule_media.id', 'schedule_media.date_time', 'schedule_media.description', 'schedule_media.message', 'schedule_media.media_id', 'schedule_media.date', 'schedule_media.date_time_for_user', 'media.file_name', 'media.type']);
 
-                    if (!$multiple_media->isEmpty()) {
-                        $schedule->multiple_media = $multiple_media;
-                        foreach ($multiple_media as $key => $single_date) {
-                            $media_recipients = ScheduleMediaRecipient::where('schedule_media_id', $single_date->id)
-                                ->join('user_recipients', 'schedule_media_recipients.recipient_id', '=', 'user_recipients.recipient_id')
-                                ->get(['name', 'last_name', 'profile_image']);
+                if (!$multiple_media->isEmpty()) {
+                    $schedule->multiple_media = $multiple_media;
+                    foreach ($multiple_media as $key => $single_date) {
+                        $media_recipients = ScheduleMediaRecipient::where('schedule_media_id', $single_date->id)
+                            ->join('user_recipients', 'schedule_media_recipients.recipient_id', '=', 'user_recipients.recipient_id')
+                            ->get(['name', 'last_name', 'profile_image']);
 
-                            if (!$media_recipients->isEmpty()) {
-                                $single_date->media_recipients = $media_recipients;
-                            }
-                            if ($media_recipients->isEmpty()) {
-                                $single_date->media_recipients = null;
-                            }
+                        if (!$media_recipients->isEmpty()) {
+                            $single_date->media_recipients = $media_recipients;
                         }
-                    } else {
-                        $schedule->multiple_media = null;
+                        if ($media_recipients->isEmpty()) {
+                            $single_date->media_recipients = null;
+                        }
                     }
+                } else {
+                    $schedule->multiple_media = null;
                 }
             }
-
-            if (!$all_media->isEmpty()) {
-                foreach ($all_media as $key => $media) {
-                    $recipients = ShareMedia::where('media_id', $media->id)
-                        ->join('user_recipients', 'share_media.recipient_id', '=', 'user_recipients.recipient_id')
-                        ->get(['share_media.recipient_id', 'name', 'last_name']);
-
-                    $groups = ShareMediaGroup::where('media_id', $media->id)
-                        ->join('groups', 'share_media_groups.group_id', '=', 'groups.id')
-                        ->get(['share_media_groups.group_id', 'groups.group_title']);
-
-                    if (!$recipients->isEmpty()) {
-                        $media->recipient_id = $recipients[0]->recipient_id;
-                        $media->recipient_first_name = $recipients[0]->name;
-                        $media->recipient_last_name = $recipients[0]->last_name;
-                        $media->all_recipient = $recipients;
-                    }
-                    if ($recipients->isEmpty()) {
-                        $media->recipient_id = 0;
-                        $media->recipient_first_name = 'N/A';
-                        $media->recipient_last_name = '';
-                        $media->all_recipient = null;
-                    }
-                    if (!$groups->isEmpty()) {
-                        $media->group_title = $groups[0]->group_title;
-                        $media->all_group = $groups;
-                    }
-                    if ($groups->isEmpty()) {
-                        $media->group_title = '';
-                        $media->all_group = null;
-                    }
-                }
-            }
-
-            $full_path = Storage::disk('s3')->url('photo');
-            $get_path = explode('photo', $full_path);
-            $file_path = $get_path[0];
-
-            return view('frontend.schedule.delivery', compact(
-                'title',
-                'all_media',
-                'user_recipents',
-                'file_path',
-                'schedule_media'
-            ));
         }
+
+        if (!$all_media->isEmpty()) {
+            foreach ($all_media as $key => $media) {
+                $recipients = ShareMedia::where('media_id', $media->id)
+                    ->join('user_recipients', 'share_media.recipient_id', '=', 'user_recipients.recipient_id')
+                    ->get(['share_media.recipient_id', 'name', 'last_name']);
+
+                $groups = ShareMediaGroup::where('media_id', $media->id)
+                    ->join('groups', 'share_media_groups.group_id', '=', 'groups.id')
+                    ->get(['share_media_groups.group_id', 'groups.group_title']);
+
+                if (!$recipients->isEmpty()) {
+                    $media->recipient_id = $recipients[0]->recipient_id;
+                    $media->recipient_first_name = $recipients[0]->name;
+                    $media->recipient_last_name = $recipients[0]->last_name;
+                    $media->all_recipient = $recipients;
+                }
+                if ($recipients->isEmpty()) {
+                    $media->recipient_id = 0;
+                    $media->recipient_first_name = 'N/A';
+                    $media->recipient_last_name = '';
+                    $media->all_recipient = null;
+                }
+                if (!$groups->isEmpty()) {
+                    $media->group_title = $groups[0]->group_title;
+                    $media->all_group = $groups;
+                }
+                if ($groups->isEmpty()) {
+                    $media->group_title = '';
+                    $media->all_group = null;
+                }
+            }
+        }
+
+        $full_path = Storage::disk('s3')->url('photo');
+        $get_path = explode('photo', $full_path);
+        $file_path = $get_path[0];
+
+        return view('frontend.schedule.delivery', compact(
+            'title',
+            'all_media',
+            'user_recipents',
+            'file_path',
+            'schedule_media'
+        ));
     }
 
     public function scheduleDeliveryMedia(Request $request)
     {
         $before_user_timezone = getdate(date("U"));
         $hours = "$before_user_timezone[hours]";
-        date_default_timezone_set(session()->get('user_timezone'));
-        $user_timezone = getdate(date("U"));
-        $user_hours = "$user_timezone[hours]";
-        $hours_diff = $user_hours - $hours;
+        // date_default_timezone_set(session()->get('user_timezone'));
+        // $user_timezone = getdate(date("U"));
+        // $user_hours = "$user_timezone[hours]";
+        // $hours_diff = $user_hours - $hours;
         $date = $request->media_date;
         $month = $request->default_month;
         $year = $request->default_year;
-        // $media_time = $request->media_time;
         $time_format = $request->time_format;
         $pick_hours = $request->pick_hours;
         $pick_minutes = $request->pick_minutes;
         $day_night = $request->day_night;
+
         if ($time_format == 12) {
             if ($day_night == 'PM') {
                 $pick_hours = $pick_hours + 12;
             }
         }
+
+        $display_time = $pick_hours . ':' . $pick_minutes;
+        $hours_diff = $request->timezone_hours - $hours;
         $pick_hours = $pick_hours - $hours_diff;
         $media_time = $pick_hours . ':' . $pick_minutes;
         $set_date = $year . '-' . $month . '-' . $date;
-        $date_time = $year . '-' . $month . '-' . $date . ' ' . $media_time;
+        $date_time = $set_date . ' ' . $media_time;
+        $display_date_time = $set_date . ' ' . $display_time;
 
         if ($request->description == '') {
             $request->description = 'Not Found';
@@ -1031,6 +1049,7 @@ class MediaController extends Controller
             $media->media_id = $request->selected_file;
             $media->user_id = Auth::user()->id;
             $media->date = $set_date;
+            $media->date_time_for_user = $display_date_time;
             $media->save();
 
             if ($media) {
@@ -1046,7 +1065,7 @@ class MediaController extends Controller
                     }
                 }
             }
-            return redirect()->route('user.success-schedule')->with('message', $date_time);
+            return redirect()->route('user.success-schedule')->with('message', $display_date_time);
         }
         if ($request->upload_type == "add_legacy") {
             $get_media = Media::where('id', $request->selected_file)->first('*');
@@ -1099,14 +1118,14 @@ class MediaController extends Controller
     {
         $title = "SHARED MEDIA";
         $check_token = ScheduleDelivery::where('token', $request->token)
-        ->first('schedule_media_id');
+            ->first('schedule_media_id');
 
         if ($check_token == null) {
             $message = "Not found any media!";
         } else {
             $schedule_media = ScheduleMedia::where('schedule_media.id', $check_token->schedule_media_id)
-            ->join('media', 'schedule_media.media_id', '=', 'media.id')
-            ->get(['schedule_media.description', 'message', 'file_name', 'type']);
+                ->join('media', 'schedule_media.media_id', '=', 'media.id')
+                ->get(['schedule_media.description', 'message', 'file_name', 'type']);
 
             if (!$schedule_media->isEmpty()) {
                 $full_path = Storage::disk('s3')->url('photo');

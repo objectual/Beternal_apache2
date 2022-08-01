@@ -41,6 +41,7 @@ Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvince
 Route::get('/cities/{id}', [CityController::class, 'getCities']);
 Route::get('/filter-recipent/{contact_id}', [UserController::class, 'filterRecipent']);
 Route::get('/set-timezone/{user_timezone}', [HomeController::class, 'setTimezone']);
+Route::get('/schedule-timezone/{timezone}/{state}', [MediaController::class, 'scheduleTimezone']);
 // end routes for ajax request
 
 

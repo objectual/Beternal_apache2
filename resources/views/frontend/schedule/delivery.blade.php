@@ -2,7 +2,6 @@
 @section("title","Delivery")
 @section("content")
 @php
-    date_default_timezone_set(session()->get('user_timezone'));
     $mydate = getdate(date("U"));
     $minutes = "$mydate[minutes]";
     $hours = "$mydate[hours]";
@@ -15,6 +14,7 @@
     $for_current_month = getdate(mktime(1, 1, 1, $given_month, 1, $year));
     $first_day = "$for_current_month[weekday]";
     $base_url = url('');
+    $options_timezone = timezone_identifiers_list();
 @endphp
 @if(session()->has('message'))
 @php $schedule_dates = ''; @endphp
@@ -493,8 +493,28 @@
                         <input type="hidden" id="upload_type" name="upload_type" value="">
                         <input type="hidden" id="show_media" value="">
                         <input type="hidden" id="last_selected_media" value="">
+                        <input type="hidden" id="timezone_minutes" value="">
+                        <input type="hidden" id="timezone_hours" name="timezone_hours" value="">
+                        <input type="hidden" id="timezone_date" value="">
+                        <input type="hidden" id="timezone_month" value="">
+                        <input type="hidden" id="timezone_year" value="">
 
                         <div class="col-lg-8 offset-lg-2">
+                            <div class="row p-0-m">
+                            <div class="col-lg-6"></div>
+                                <div class="col-lg-5">
+                                    <p class="text-white">Select Time Zone</p>
+                                    <select id="pick_timezone" name="pick_timezone" class="form-select" aria-label="Default select example" onChange="selectTimezone()" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required>
+                                        <option selected value="">Time Zone</option>
+                                        @for($i = 0; $i < count($options_timezone); $i++)
+                                            <option value="{{ $options_timezone[$i] }}">
+                                                {{ $options_timezone[$i] }}
+                                            </option>
+                                        @endfor
+                                    </select>
+                                </div>
+                                <div class="col-lg-1"></div>
+                            </div>
                             <div class="row p-0-m">
                                 <div class="col-lg-5">
                                     <p class="text-white">Select Time Format</p>
@@ -507,12 +527,6 @@
                                         <label class="form-check-label text-white" for="time_format">24 HOURS</label>
                                     </div>
                                 </div>
-                                <!-- <div class="col-lg-7 mt-4 text-start">
-                                    <div class="time-bg">
-                                        <span class="time mt-3">Time</span>
-                                        <input type="time" id="media_time" name="media_time" class="time-bg" required>
-                                    </div>
-                                </div> -->
 
                                 <div class="col-lg-1"></div>
                                 <div class="col-lg-6 d-flex timer-top ">
@@ -547,8 +561,8 @@
                                         <option value="PM">PM</option>
                                     </select>
                                 </div> 
-                                <div class="col-5"></div>
-                                <div class="col-7" id="show_time_msg"></div>
+                                <div class="col-6"></div>
+                                <div class="col-6" id="show_time_msg"></div>
                             </div>
                             <div class="col-md-12 mt-4 delivery-form">
                                 <div class="input-group py-3">
@@ -2343,7 +2357,7 @@
                 var description = schedule_media[i].description;
                 var personal_message = schedule_media[i].message;
                 var media_recipients = schedule_media[i].all_recipient;
-                var date_time = 'Delivery Date & Time : '+ schedule_media[i].date_time;
+                var date_time = 'Delivery Date & Time : '+ schedule_media[i].date_time_for_user;
                 var date_media = document.getElementById('date_media');
                 var media_index = document.getElementById('media_index');
                 date_media.value = schedule_media[i].date;
@@ -2439,7 +2453,7 @@
                     var description = total_media[current_index].description;
                     var personal_message = total_media[current_index].message;
                     var media_recipients = total_media[current_index].media_recipients;
-                    var date_time = 'Delivery Date & Time : '+ total_media[current_index].date_time;
+                    var date_time = 'Delivery Date & Time : '+ total_media[current_index].date_time_for_user;
                     var delete_media = document.getElementById('delete_media');
                     delete_media.value = id;
 
@@ -2700,6 +2714,33 @@
         $("#first_form").click()
     }
 
+    function selectTimezone() {
+        var select = document.getElementById('pick_timezone');
+        var option = select.options[select.selectedIndex];
+        var selected_timezone = option.value;
+        var timezone = selected_timezone.split("/");
+        var base_url = '<?= $base_url ?>';
+
+        $.ajax({
+            url: base_url + '/schedule-timezone/' + selected_timezone,
+            type: 'get',
+            success: function(response) {
+                if (response.message == 'success') {
+                    var timezone_minutes = document.getElementById('timezone_minutes');
+                    var timezone_hours = document.getElementById('timezone_hours');
+                    var timezone_date = document.getElementById('timezone_date');
+                    var timezone_month = document.getElementById('timezone_month');
+                    var timezone_year = document.getElementById('timezone_year');
+                    timezone_minutes.value = response.minutes;
+                    timezone_hours.value = response.hours;
+                    timezone_date.value = response.date;
+                    timezone_month.value = response.month;
+                    timezone_year.value = response.year;
+                }
+            }
+        });
+    }
+
     function validateForm() {
         var selected_file = document.getElementById('selected_file').value;
         var inputs = document.querySelectorAll('.user-recipient');
@@ -2707,12 +2748,13 @@
         var recipient_msg = '<span class="cl-white">Please select atleast one recipient!</span>';
         var media_msg = '<span class="cl-white">Please select media from given calendar!</span>';
         var time_msg = '<span class="cl-white">Please select greater then current time!</span>';
-        var hours = '<?= $hours ?>';
-        var minutes = '<?= $minutes ?>';
-        var date = '<?= $date ?>';
+        var timezone_date = document.getElementById('timezone_date').value;
+        var timezone_hours = document.getElementById('timezone_hours').value;
+        var timezone_minutes = document.getElementById('timezone_minutes').value;
+        var date = timezone_date;
+        var hours = timezone_hours;
+        var minutes = timezone_minutes;
         var media_date = document.getElementById('media_date').value;
-        // var media_time = document.getElementById('media_time').value;
-        // var selected_time = media_time.split(":");format_12
         var format_12 = document.getElementById('format_12');
         var format_24 = document.getElementById('format_24');
         var pick_hours = document.getElementById('pick_hours').value;
