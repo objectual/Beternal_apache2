@@ -32,7 +32,7 @@
               >
             </li>
             <li class="nav-item px-2">
-              <a class="nav-link active" aria-current="page" href="{{ route('user.medias') }}"
+              <a class="nav-link active" aria-current="page" href="{{ route('user.media') }}"
                 >
                 <!-- <span class="icon-add-data header-icons"></span> -->
                 <span class="header-span">Add Media</span></a>

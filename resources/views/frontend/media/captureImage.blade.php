@@ -4,7 +4,7 @@
 @php $base_url = url(''); @endphp
 <div class="container-fluid bg-create pb-4 h-auto upgrade-back">
     <div class="scroll-div h-auto">
-        <form method="POST" action="{{ route('user.medias.upload-media') }}" id="main_form" enctype="multipart/form-data" onsubmit="return validateForm(this)">
+        <form method="POST" action="{{ route('user.media.upload-media') }}" id="main_form" enctype="multipart/form-data" onsubmit="return validateForm(this)">
             @csrf
             <input type="hidden" id="media_type" name="media_type" value="photo">
             <input type="hidden" id="upload_type" name="upload_type" value="">
@@ -35,7 +35,7 @@
                             </a>
                         </div>
                         <div class="col-md-4 text-center">
-                            <a href="{{ route('user.medias.my-media') }}">
+                            <a href="{{ route('user.media.my-media') }}">
                                 <div class="pb-3 media-icon-height">
                                     <img src="{{ asset('/public/assets/images/view-gallery.png') }}" class="view-gallery-img">
                                 </div>
@@ -163,7 +163,7 @@
                 <button type="button" class="close close-select-media" data-dismiss="myMedia" onclick="closeMedia()">&times;</button>
                 </div>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
-                <form class="mt-5" method="POST" action="{{ route('user.medias.store-media') }}" id="modal_form" enctype="multipart/form-data" onsubmit="return validateForm(this)">
+                <form class="mt-5" method="POST" action="{{ route('user.media.store-media') }}" id="modal_form" enctype="multipart/form-data" onsubmit="return validateForm(this)">
                     @csrf
                     <input type="hidden" id="media_type" name="media_type" value="photo">
                     <input type="hidden" id="upload_type_2" name="upload_type_2" value="">
@@ -256,7 +256,7 @@
                                     </div>
                                     <div class="row pt-4" style="display: none;">
                                         <div class="col-12">
-                                            <button class="btn upg-add-img-btn w-100" id="downloadButton" data-url="{{route('user.medias.store-media')}}">Add To My Media</button>
+                                            <button class="btn upg-add-img-btn w-100" id="downloadButton" data-url="{{route('user.media.store-media')}}">Add To My Media</button>
                                         </div>
                                     </div>
                                     <div class="row pt-4">

@@ -11,7 +11,7 @@
                 <div class="col-lg-10 text-center offset-lg-1">
                     <p class="text-white">{{ session()->get('message') }}</p>
                     <div class="text-center mb-4">
-                        <a href="{{ route('user.medias.my-media') }}" class="mx-1"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
+                        <a href="{{ route('user.media.my-media') }}" class="mx-1"><img src="{{ asset('/public/assets/images/yes.png') }}" /></a>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
 
             <div class="d-flex icons-clr-chnage">
                 <div class="col text-center mob-view">
-                    <a href="{{ route('user.medias.capture-video') }}" class="">
+                    <a href="{{ route('user.media.capture-video') }}" class="">
                         <img src="{{ asset('/public/assets/images/video-circle.png') }}" class="shared-video-circle" />
 
                         <p class="arial-bold text-white mt-2">UPLOAD VIDEO</p>
@@ -83,14 +83,14 @@
                     </a>
                 </div>
                 <div class="col text-center mob-view">
-                    <a href="{{ route('user.medias.capture-audio') }}" class="">
+                    <a href="{{ route('user.media.capture-audio') }}" class="">
                         <img src="{{ asset('/public/assets/images/audio-circle.png') }}" class="shared-audio-circle" />
 
                         <p class="arial-bold text-white mt-2">UPLOAD AUDIO</p>
                     </a>
                 </div>
                 <div class="col text-center mob-view">
-                    <a href="{{ route('user.medias.capture-image') }}" class="">
+                    <a href="{{ route('user.media.capture-image') }}" class="">
                         <img src="{{ asset('/public/assets/images/gallery-circle.png') }}" class="shared-gallery-circle" />
 
                         <p class="arial-bold text-white mt-2">UPLOAD PHOTO</p>
@@ -145,7 +145,7 @@
                                     {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
                                 </span>
                             </a>
-                            <a href="{{ route('user.medias.my-media-details', ['id' => $video->id]) }}" class="btn-view-details">
+                            <a href="{{ route('user.media.my-media-details', ['id' => $video->id]) }}" class="btn-view-details">
                                View Details 
                             </a>
                         </div>
@@ -193,7 +193,7 @@
                                     </span>
                                 </div>
                             </a>
-                            <a href="{{ route('user.medias.my-media-details', ['id' => $photo->id]) }}" class="btn-view-details">
+                            <a href="{{ route('user.media.my-media-details', ['id' => $photo->id]) }}" class="btn-view-details">
                                View Details 
                             </a>
                         </div>
@@ -246,7 +246,7 @@
                                 </div>
 
                             </a>
-                            <a href="{{ route('user.medias.my-media-details', ['id' => $audio->id]) }}" class="btn-view-details">
+                            <a href="{{ route('user.media.my-media-details', ['id' => $audio->id]) }}" class="btn-view-details">
                                View Details 
                             </a> 
                         </div>

@@ -8,21 +8,21 @@
             <div class="col-lg-8">
                 <div class="d-flex home">
                     <div class="col text-center mob-view">
-                        <a href="{{ route('user.medias.capture-video') }}" class="">
+                        <a href="{{ route('user.media.capture-video') }}" class="">
                             <img src="{{ asset('/public/assets/images/video-circle.png') }}" class="video-circle" /> 
                             <p class="arial-bold mt-2">VIDEO</p>
                             <!-- <input type="file" accept="image/*;capture=camera"> -->
                         </a>
                     </div>
                     <div class="col text-center mob-view">
-                        <a href="{{ route('user.medias.capture-audio') }}" class="">
+                        <a href="{{ route('user.media.capture-audio') }}" class="">
                         <img src="{{ asset('/public/assets/images/audio-circle.png') }}" class="audio-circle" /> 
                             
                             <p class="arial-bold mt-2">AUDIO</p>
                         </a>
                     </div>
                     <div class="col text-center mob-view">
-                        <a href="{{ route('user.medias.capture-image') }}" class="">
+                        <a href="{{ route('user.media.capture-image') }}" class="">
                             <img src="{{ asset('/public/assets/images/gallery-circle.png') }}" class="gallery-circle" /> 
                             
                             <p class="arial-bold mt-2">PHOTO</p>

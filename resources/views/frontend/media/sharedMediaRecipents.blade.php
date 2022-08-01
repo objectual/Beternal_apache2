@@ -76,7 +76,7 @@
                                     {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
                                 </span>
                             </a>
-                            <a href="{{ route('user.medias.my-media-details', ['id' => $video->id]) }}" class="btn-view-details">
+                            <a href="{{ route('user.media.my-media-details', ['id' => $video->id]) }}" class="btn-view-details">
                                 View Details
                             </a>
                         </div>
@@ -121,7 +121,7 @@
                                     </span>
                                 </div>
                             </a>
-                            <a href="{{ route('user.medias.my-media-details', ['id' => $photo->id]) }}" class="btn-view-details">
+                            <a href="{{ route('user.media.my-media-details', ['id' => $photo->id]) }}" class="btn-view-details">
                                 View Details
                             </a>
                         </div>
@@ -175,7 +175,7 @@
                                 </div>
 
                             </a>
-                            <a href="{{ route('user.medias.my-media-details', ['id' => $audio->id]) }}" class="btn-view-details">
+                            <a href="{{ route('user.media.my-media-details', ['id' => $audio->id]) }}" class="btn-view-details">
                                 View Details
                             </a>
                         </div>

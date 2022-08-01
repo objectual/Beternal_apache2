@@ -14,7 +14,7 @@
                             <p class="px-2 text-white mx-1">Add To Legacy</p>
                         </a>
                         @endif
-                        <a href="{{ route('user.medias.my-media-edit', ['id' => $get_media[0]->id]) }}" class="d-flex delete-a">
+                        <a href="{{ route('user.media.my-media-edit', ['id' => $get_media[0]->id]) }}" class="d-flex delete-a">
                             <img src="{{ asset('/public/assets/images/edit-icon-media-details.png') }}" class="edit-icon-style mt-1">
                             <p class="px-2 text-white mx-1">Edit</p>
                         </a>
@@ -116,7 +116,7 @@
 <script>
     function deleteMedia(current) {
         var base_url = '<?= $base_url ?>';
-        var set_path = base_url + '/medias/my-media-delete/' + current.id;
+        var set_path = base_url + '/media/my-media-delete/' + current.id;
         var element = document.getElementById('delete_media');
         element.href = set_path;
         $("#delete").modal("show");

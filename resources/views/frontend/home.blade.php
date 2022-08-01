@@ -5,7 +5,7 @@
 <div class="container-fluid bg index-back">
     <div class="d-flex pt-5">
         <div class="col text-center">
-            <a href="{{ route('user.medias') }}">
+            <a href="{{ route('user.media') }}">
                 <div class="row">
                     <div class="col-lg-3"></div>
                     <div class="col-lg-6 p-0-m">
@@ -21,7 +21,7 @@
     </div>
     <div class="row">
         <div class="col-lg-2 offset-lg-5 text-center">
-            <a href="{{ route('user.medias') }}" class="btn btn-primary arial-bold btn-get">
+            <a href="{{ route('user.media') }}" class="btn btn-primary arial-bold btn-get">
                 GET STARTED
             </a>
         </div>

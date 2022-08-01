@@ -92,21 +92,21 @@ class MediaController extends Controller
                 'file_name' => 'required|file|mimetypes:video/mp4,video/avi,video/mpeg,video/quicktime',
             ]);
             $folder = 'videos';
-            $route = 'user.medias.capture-video';
+            $route = 'user.media.capture-video';
         }
         if ($request->media_type == 'audio') {
             $this->validate($request, [
                 'file_name' => 'required|file|mimetypes:audio/mpeg,mpga,mp3,mp4,wav',
             ]);
             $folder = 'audios';
-            $route = 'user.medias.capture-audio';
+            $route = 'user.media.capture-audio';
         }
         if ($request->media_type == 'photo') {
             $this->validate($request, [
                 'file_name' => 'required|image|mimes:jpeg,png,jpg,svg,bmp',
             ]);
             $folder = 'photo';
-            $route = 'user.medias.capture-image';
+            $route = 'user.media.capture-image';
         }
 
         if ($request->upload_type == "media") {
@@ -146,7 +146,7 @@ class MediaController extends Controller
                         }
                     }
                 }
-                return redirect()->route('user.medias.my-media')->with('message', 'Uploaded successfully');
+                return redirect()->route('user.media.my-media')->with('message', 'Uploaded successfully');
             } else {
                 return redirect()->route($route);
             }
@@ -242,7 +242,7 @@ class MediaController extends Controller
                         }
                     }
                 }
-                return redirect()->route('user.medias.my-media')->with('message', 'Uploaded successfully');
+                return redirect()->route('user.media.my-media')->with('message', 'Uploaded successfully');
             }
             if ($upload_type == 'legacy') {
                 $legacy = new Legacy();
@@ -326,7 +326,7 @@ class MediaController extends Controller
                         }
                     }
 
-                    $redirect_url =  $base_url . '/medias/my-media';
+                    $redirect_url =  $base_url . '/media/my-media';
                     return  response()->json(['success' => ($media) ? 1 : 0, 'message' => ($media) ? 'Uploaded successfully.' : "Some thing went wrong. Try again !.", 'redirect_url' => ($media) ? $redirect_url : "Some thing went wrong. Try again !."]);
                 }
                 if ($upload_type == 'legacy') {
@@ -560,9 +560,9 @@ class MediaController extends Controller
             if ($get_legacy == null) {
                 Storage::disk('s3')->delete($get_media[0]->file_name);
             }
-            return redirect()->route('user.medias.my-media')->withSuccess('File was deleted successfully');
+            return redirect()->route('user.media.my-media')->withSuccess('File was deleted successfully');
         }
-        return redirect()->route('user.medias.my-media');
+        return redirect()->route('user.media.my-media');
     }
 
     public function myMediaEdit(Request $request)
@@ -640,7 +640,7 @@ class MediaController extends Controller
                 }
             }
         }
-        return redirect()->route('user.medias.my-media')->with('message', 'Updated successfully');
+        return redirect()->route('user.media.my-media')->with('message', 'Updated successfully');
     }
 
     public function legacy()
@@ -875,10 +875,10 @@ class MediaController extends Controller
                 }
                 return redirect()->route('user.legacy')->with('message', 'Add in legacy successfully');
             } else {
-                return redirect()->route('user.medias.my-media');
+                return redirect()->route('user.media.my-media');
             }
         } else {
-            return redirect()->route('user.medias.my-media');
+            return redirect()->route('user.media.my-media');
         }
     }
 

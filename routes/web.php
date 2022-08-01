@@ -88,20 +88,20 @@ Route::middleware('auth', 'user')->group(function () {
         Route::get('/cities/{id}', [CityController::class, 'getCities']);
         Route::get('/add-group/{group_title}', [UserController::class, 'addGroup']);
     });
-    Route::group(['prefix' => 'medias'], function () {
-        Route::get('/',[MediaController::class,'media'])->name('user.medias');
-        Route::get('capture-video',[MediaController::class,'captureVideo'])->name('user.medias.capture-video');
-        Route::get('capture-audio',[MediaController::class,'captureAudio'])->name('user.medias.capture-audio');
-        Route::get('capture-image',[MediaController::class,'captureImage'])->name('user.medias.capture-image');
-        Route::post('upload-media',[MediaController::class,'uploadMedia'])->name('user.medias.upload-media');
-        Route::post('store-media', [MediaController::class,'store'])->name('user.medias.store-media');
-        Route::get('my-media',[MediaController::class,'myMedia'])->name('user.medias.my-media');
-        Route::get('my-media-details/{id}',[MediaController::class,'myMediaDetails'])->name('user.medias.my-media-details');
-        Route::get('my-media-delete/{id}',[MediaController::class,'myMediaDelete'])->name('user.medias.my-media-delete');
-        Route::get('my-media-edit/{id}',[MediaController::class,'myMediaEdit'])->name('user.medias.my-media-edit');
-        Route::post('update-media',[MediaController::class,'updateMedia'])->name('user.medias.update-media');
-        Route::get('shared-media',[MediaController::class,'sharedMedia'])->name('user.medias.shared-media');
-        Route::get('shared-media-recipents',[MediaController::class,'sharedMediaRecipents'])->name('user.medias.shared-media-recipents');
+    Route::group(['prefix' => 'media'], function () {
+        Route::get('/',[MediaController::class,'media'])->name('user.media');
+        Route::get('capture-video',[MediaController::class,'captureVideo'])->name('user.media.capture-video');
+        Route::get('capture-audio',[MediaController::class,'captureAudio'])->name('user.media.capture-audio');
+        Route::get('capture-image',[MediaController::class,'captureImage'])->name('user.media.capture-image');
+        Route::post('upload-media',[MediaController::class,'uploadMedia'])->name('user.media.upload-media');
+        Route::post('store-media', [MediaController::class,'store'])->name('user.media.store-media');
+        Route::get('my-media',[MediaController::class,'myMedia'])->name('user.media.my-media');
+        Route::get('my-media-details/{id}',[MediaController::class,'myMediaDetails'])->name('user.media.my-media-details');
+        Route::get('my-media-delete/{id}',[MediaController::class,'myMediaDelete'])->name('user.media.my-media-delete');
+        Route::get('my-media-edit/{id}',[MediaController::class,'myMediaEdit'])->name('user.media.my-media-edit');
+        Route::post('update-media',[MediaController::class,'updateMedia'])->name('user.media.update-media');
+        Route::get('shared-media',[MediaController::class,'sharedMedia'])->name('user.media.shared-media');
+        Route::get('shared-media-recipents',[MediaController::class,'sharedMediaRecipents'])->name('user.media.shared-media-recipents');
     });
     Route::group(['prefix' => 'legacy'], function () {
         Route::get('/',[MediaController::class,'legacy'])->name('user.legacy');

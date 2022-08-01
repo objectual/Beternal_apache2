@@ -17,7 +17,7 @@
 <div class="container-fluid bg-create pb-4 h-auto upgrade-back">
     <div class="scroll-div h-auto">
         @if(!$get_media->isEmpty())
-        <form method="POST" action="{{ route('user.medias.update-media') }}" enctype="multipart/form-data" onsubmit="return validateForm(this)">
+        <form method="POST" action="{{ route('user.media.update-media') }}" enctype="multipart/form-data" onsubmit="return validateForm(this)">
             @csrf
             <input type="hidden" name="media_id" value="{{ $get_media[0]->id }}">
             <div class="row">
