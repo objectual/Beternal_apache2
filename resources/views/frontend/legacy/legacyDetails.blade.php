@@ -19,7 +19,7 @@
                     </div>
                     @if($get_legacy[0]->type == 'video')
                     <div class="">
-                        <video id="ban_video" class="tv_video" controls>
+                        <video id="mymedia_video" class="tv_video" controls>
                             <source src="{{ asset( $file_path.$get_legacy[0]->file_name )}}" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
