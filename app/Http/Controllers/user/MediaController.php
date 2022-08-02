@@ -1009,10 +1009,6 @@ class MediaController extends Controller
     {
         $before_user_timezone = getdate(date("U"));
         $hours = "$before_user_timezone[hours]";
-        // date_default_timezone_set(session()->get('user_timezone'));
-        // $user_timezone = getdate(date("U"));
-        // $user_hours = "$user_timezone[hours]";
-        // $hours_diff = $user_hours - $hours;
         $date = $request->media_date;
         $month = $request->default_month;
         $year = $request->default_year;
@@ -1028,7 +1024,14 @@ class MediaController extends Controller
         }
 
         $display_time = $pick_hours . ':' . $pick_minutes;
-        $hours_diff = $request->timezone_hours - $hours;
+        if ($request->timezone_hours == null) {
+            date_default_timezone_set(session()->get('user_timezone'));
+            $user_timezone = getdate(date("U"));
+            $user_hours = "$user_timezone[hours]";
+            $hours_diff = $user_hours - $hours;
+        } else {
+            $hours_diff = $request->timezone_hours - $hours;
+        }
         $pick_hours = $pick_hours - $hours_diff;
         $media_time = $pick_hours . ':' . $pick_minutes;
         $set_date = $year . '-' . $month . '-' . $date;

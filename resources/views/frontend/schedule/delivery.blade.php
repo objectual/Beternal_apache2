@@ -2,6 +2,7 @@
 @section("title","Delivery")
 @section("content")
 @php
+    date_default_timezone_set(session()->get('user_timezone'));
     $mydate = getdate(date("U"));
     $minutes = "$mydate[minutes]";
     $hours = "$mydate[hours]";
@@ -504,7 +505,7 @@
                             <div class="col-lg-6"></div>
                                 <div class="col-lg-5">
                                     <p class="text-white">Select Time Zone</p>
-                                    <select id="pick_timezone" name="pick_timezone" class="form-select" aria-label="Default select example" onChange="selectTimezone()" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')" required>
+                                    <select id="pick_timezone" name="pick_timezone" class="form-select" aria-label="Default select example" onChange="selectTimezone()" oninvalid="this.setCustomValidity('Required Field')" oninput="setCustomValidity('')">
                                         <option selected value="">Time Zone</option>
                                         @for($i = 0; $i < count($options_timezone); $i++)
                                             <option value="{{ $options_timezone[$i] }}">
@@ -2751,14 +2752,21 @@
         var timezone_date = document.getElementById('timezone_date').value;
         var timezone_hours = document.getElementById('timezone_hours').value;
         var timezone_minutes = document.getElementById('timezone_minutes').value;
-        var date = timezone_date;
-        var hours = timezone_hours;
-        var minutes = timezone_minutes;
         var media_date = document.getElementById('media_date').value;
         var format_12 = document.getElementById('format_12');
         var format_24 = document.getElementById('format_24');
         var pick_hours = document.getElementById('pick_hours').value;
         var pick_minutes = document.getElementById('pick_minutes').value;
+
+        if (timezone_date == '') {
+            var date = '<?= $date ?>';
+            var hours = '<?= $hours ?>';
+            var minutes = '<?= $minutes ?>';
+        } else {
+            var date = timezone_date;
+            var hours = timezone_hours;
+            var minutes = timezone_minutes;
+        }
 
         if (date == media_date) {
             if (format_12.checked == true) {
