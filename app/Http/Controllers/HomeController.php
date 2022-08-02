@@ -211,4 +211,10 @@ class HomeController extends Controller
 
         return 'success';
     }
+
+    public function testCamera()
+    {
+        $title = "TEST CAMERA";
+        return view('frontend.testCamera', compact('title'));
+    }
 }
