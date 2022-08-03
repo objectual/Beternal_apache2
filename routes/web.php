@@ -64,11 +64,11 @@ Route::get('/confirmation-contact/{token}', [UserController::class, 'contactConf
 Route::get('/contact-success/{token}', [UserController::class, 'updateContactConfirmation'])->name('contact-success');
 Route::get('/deny-contact/{token}', [UserController::class, 'contactDeny'])->name('deny-contact');
 Route::get('/media-url/{token}', [MediaController::class, 'displayEventMedia'])->name('received');
-Route::get('/test-camera', [HomeController::class, 'testCamera'])->name('test-camera');
+Route::get('/device-testing', [HomeController::class, 'deviceTesting'])->name('device-testing');
 
-// Route::get('/dashboard', function () {
-//     return view('frontend.dashboard');
-// })->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('frontend.dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 Route::middleware('auth', 'user')->group(function () {

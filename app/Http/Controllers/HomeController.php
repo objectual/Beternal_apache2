@@ -212,9 +212,14 @@ class HomeController extends Controller
         return 'success';
     }
 
-    public function testCamera()
+    public function deviceTesting()
     {
-        $title = "TEST CAMERA";
-        return view('frontend.testCamera', compact('title'));
+        $agent = new \Jenssegers\Agent\Agent;
+   
+        // $result = $agent->isMobile();
+        // $result = $agent->isDesktop();
+        $result = $agent->isTablet();
+    
+        dd($result);
     }
 }
