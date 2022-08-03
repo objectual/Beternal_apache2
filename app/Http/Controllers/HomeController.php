@@ -219,6 +219,11 @@ class HomeController extends Controller
         // $result = $agent->isMobile();
         // $result = $agent->isDesktop();
         $result = $agent->isTablet();
+        dd($agent->isiOS());
+
+        // if( $detect->isiOS() ){
+ 
+        // }
     
         dd($result);
     }

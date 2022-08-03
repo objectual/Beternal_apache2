@@ -12,29 +12,7 @@
                 <div class="col-lg-3"></div>
                 <div class="col-lg-6 mt-4">
                     <div class="d-flex justify-content-between mt-4">
-                        @if((new \Jenssegers\Agent\Agent())->isDesktop())
-                        <div class="col-md-4 text-center">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#captureImage">
-                                <div class="pb-3">
-                                    <img src="{{ asset('/public/assets/images/video.png') }}" class="record-video">
-                                </div>
-                                <span class="d-block record-images" style="color: #F7DB02;">&nbsp;&nbsp;Record Video</span>
-                            </a>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <a>
-                                <div class="pb-3">
-                                    <label class="record-images" style="color: #F7DB02;" for="file"><img src="{{ asset('/public/assets/images/device-gallery.png') }}" class="gallery-img"></label>
-                                </div>
-                                @if($errors->has('file_name'))
-                                <div class="error">{{ $errors->first('file_name') }}</div>
-                                @endif
-                                <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Device Gallery</label>
-                                <input type="file" accept="video/*" name="file_name" id="file" style="display: none;" onchange="loadFile(event)">
-                            </a>
-                        </div>
-                        @endif
-                        @if((new \Jenssegers\Agent\Agent())->isMobile())
+                        @if((new \Jenssegers\Agent\Agent())->isiOS())
                         <div class="col-md-4 text-center">
                             <a>
                                 <div class="pb-3">
@@ -56,7 +34,28 @@
                                 <div class="error">{{ $errors->first('file_name') }}</div>
                                 @endif
                                 <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Device Gallery</label>
-                                <input type="file" accept="video/*" name="file_name" id="file" capture="disabled" style="display: none;" onchange="loadFile(event)">
+                                <input type="file" accept="video/*" name="file_name" id="file" style="display: none;" onchange="loadFile(event)">
+                            </a>
+                        </div>
+                        @else
+                        <div class="col-md-4 text-center">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#captureImage">
+                                <div class="pb-3">
+                                    <img src="{{ asset('/public/assets/images/video.png') }}" class="record-video">
+                                </div>
+                                <span class="d-block record-images" style="color: #F7DB02;">&nbsp;&nbsp;Record Video</span>
+                            </a>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <a>
+                                <div class="pb-3">
+                                    <label class="record-images" style="color: #F7DB02;" for="file"><img src="{{ asset('/public/assets/images/device-gallery.png') }}" class="gallery-img"></label>
+                                </div>
+                                @if($errors->has('file_name'))
+                                <div class="error">{{ $errors->first('file_name') }}</div>
+                                @endif
+                                <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Device Gallery</label>
+                                <input type="file" accept="video/*" name="file_name" id="file" style="display: none;" onchange="loadFile(event)">
                             </a>
                         </div>
                         @endif
