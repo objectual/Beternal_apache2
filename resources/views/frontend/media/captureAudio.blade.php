@@ -60,9 +60,7 @@
                     <div class="d-flex justify-content-between mt-4">
                         <div class="col-md-12 text-center" id="attachment">
                             <label for="file">
-                                <audio class="tv_audio mt-4" controls>
-                                    <source src="" type="audio/mp3" />
-                                </audio>
+                                <audio class="tv_audio mt-4" controls></audio>
                             </label>
                         </div>
                     </div>
