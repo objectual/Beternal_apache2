@@ -32,6 +32,11 @@
                                 <input type="file" accept="video/*" name="file_name" id="file" style="display: none;" onchange="loadFile(event)" />
                             </a>
                         </div>
+
+                        <script>
+                            document.getElementById("file").capture = false;
+                        </script>
+
                         <div class="col-md-4 text-center">
                             <a href="{{ route('user.media.my-media') }}">
                                 <div class="pb-3">
