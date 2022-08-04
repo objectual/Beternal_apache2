@@ -25,9 +25,6 @@
                                 <input type="file" accept="audio/*" name="file_name" id="file" style="display: none;" onchange="loadFile(event)" capture />
                             </a>
                         </div>
-                        <script>
-                            navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-                        </script>
                         @else
                         <div class="col-md-4 text-center">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#captureImage">
