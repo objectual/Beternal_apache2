@@ -86,7 +86,20 @@ class MediaController extends Controller
 
     public function uploadVideoFromMobile(Request $request)
     {
-        dd('for upload video from mobile');
+        $title = "UPLOAD VIDEO";
+        $id = Auth::user()->id;
+        $user_recipents = userRecipients($id);
+        $groups =  Group::where('user_id', $id)->get(['id', 'group_title']);
+        $plan_details = Plan::where('id', Auth::user()->plan_id)->get(['*']);
+        $my_media = userAudioVideoCount($id);
+
+        return view('frontend.media.uploadVideoFromMobile', compact(
+            'title',
+            'user_recipents',
+            'groups',
+            'plan_details',
+            'my_media'
+        ));
     }
 
     public function uploadMedia(Request $request)
