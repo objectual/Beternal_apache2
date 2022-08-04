@@ -22,7 +22,7 @@
                                 <div class="error">{{ $errors->first('file_name') }}</div>
                                 @endif
                                 <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Record Audio</label>
-                                <input type="file" accept="audio/*" name="file_name" id="file" style="display: none;" onchange="loadFile(event)" capture="user" />
+                                <input type="file" accept="audio/*" name="file_name" id="file" style="display: none;" onchange="loadFile(event)" record="" />
                             </a>
                         </div>
                         @else
