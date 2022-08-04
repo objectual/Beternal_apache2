@@ -12,20 +12,6 @@
                 <div class="col-lg-3"></div>
                 <div class="col-lg-6 mt-4">
                     <div class="d-flex justify-content-between mt-4">
-                        @if((new \Jenssegers\Agent\Agent())->isMobile())
-                        <div class="col-md-4 text-center">
-                            <a>
-                                <div class="pb-3">
-                                    <label class="record-images" style="color: #F7DB02;" for="file"><img src="{{ asset('/public/assets/images/video.png') }}" class="record-video"></label>
-                                </div>
-                                @if($errors->has('file_name_mobile'))
-                                <div class="error">{{ $errors->first('file_name_mobile') }}</div>
-                                @endif
-                                <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Record Video</label>
-                                <input type="file" accept="video/*" name="file_name_mobile" id="file_mobile" capture="user" style="display: none;" onchange="loadFileMobile(event)">
-                            </a>
-                        </div>
-                        @else
                         <div class="col-md-4 text-center">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#captureImage">
                                 <div class="pb-3">
@@ -34,7 +20,6 @@
                                 <span class="d-block record-images" style="color: #F7DB02;">&nbsp;&nbsp;Record Video</span>
                             </a>
                         </div>
-                        @endif
                         <div class="col-md-4 text-center">
                             <a>
                                 <div class="pb-3">
@@ -44,7 +29,7 @@
                                 <div class="error">{{ $errors->first('file_name') }}</div>
                                 @endif
                                 <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Device Gallery</label>
-                                <input type="file" accept="video/*" name="file_name" id="file" style="display: none;" onchange="loadFile(event)">
+                                <input type="file" accept="video/*" name="file_name" id="file" capture="user" style="display: none;" onchange="loadFile(event)">
                             </a>
                         </div>
                         <div class="col-md-4 text-center">
@@ -68,13 +53,6 @@
                     <script>
                         document.getElementById("attachment").style.display = "none";
                         var loadFile = function(event) {
-                            document.getElementById("attachment").style.display = "block";
-                            var video_url = URL.createObjectURL(event.target.files[0]);
-                            $('#ban_video').append(
-                                '<source src="'+ video_url +'" type="video/mp4" />'
-                            );
-                        };
-                        var loadFileMobile = function(event) {
                             document.getElementById("attachment").style.display = "block";
                             var video_url = URL.createObjectURL(event.target.files[0]);
                             $('#ban_video').append(
