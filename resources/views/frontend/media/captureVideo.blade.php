@@ -50,7 +50,7 @@
                                 @if($errors->has('file_name'))
                                 <div class="error">{{ $errors->first('file_name') }}</div>
                                 @endif
-                                <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Record / Upload Video</label>
+                                <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Record / Device Gallery</label>
                                 <input type="file" accept="video/*" name="file_name" id="file" style="display: none;" onchange="loadFile(event)">
                             </a>
                         </div>
