@@ -60,7 +60,7 @@
                     <div class="d-flex justify-content-between mt-4">
                         <div class="col-md-12 text-center" id="attachment">
                             <label for="file">
-                                <audio class="tv_audio mt-4" id="display_audio" controls></audio>
+                                <audio class="" id="ban_audio" controls></audio>
                             </label>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                         var loadFile = function(event) {
                             document.getElementById("attachment").style.display = "block";
                             var audio_url = URL.createObjectURL(event.target.files[0]);
-                            $('#display_audio').append(
+                            $('#ban_audio').append(
                                 '<source src="'+ audio_url +'" type="audio/mp3" />'
                             );
                         };
