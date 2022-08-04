@@ -12,20 +12,6 @@
                 <div class="col-lg-3"></div>
                 <div class="col-lg-6 mt-4">
                     <div class="d-flex justify-content-between mt-4">
-                        @if((new \Jenssegers\Agent\Agent())->isMobile())
-                        <div class="col-md-4 text-center">
-                            <a>
-                                <div class="pb-3 media-icon-height">
-                                    <label class="record-images" style="color: #F7DB02;" for="file"><img src="{{ asset('/public/assets/images/audio.png') }}" class="record-img"></label>
-                                </div>
-                                @if($errors->has('file_name'))
-                                <div class="error">{{ $errors->first('file_name') }}</div>
-                                @endif
-                                <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Record Audio</label>
-                                <input type="file" accept="audio/*" name="file_name" id="file" style="display: none;" onchange="loadFile(event)" capture="user" />
-                            </a>
-                        </div>
-                        @else
                         <div class="col-md-4 text-center">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#captureImage">
                                 <div class="pb-3 media-icon-height">
@@ -46,7 +32,6 @@
                                 <input type="file" accept="audio/*" name="file_name" id="file" style="display: none;" onchange="loadFile(event)">
                             </a>
                         </div>
-                        @endif
                         <div class="col-md-4 text-center">
                             <a href="{{ route('user.media.my-media') }}">
                                 <div class="pb-3 media-icon-height">
@@ -60,7 +45,9 @@
                     <div class="d-flex justify-content-between mt-4">
                         <div class="col-md-12 text-center" id="attachment">
                             <label for="file">
-                                <audio class="" id="ban_audio" controls></audio>
+                                <audio class="tv_audio mt-4" controls>
+                                    <source src="" type="audio/mp3" />
+                                </audio>
                             </label>
                         </div>
                     </div>
