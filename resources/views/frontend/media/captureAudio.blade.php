@@ -71,7 +71,7 @@
                             document.getElementById("attachment").style.display = "block";
                             var audio_url = URL.createObjectURL(event.target.files[0]);
                             $('#display_audio').append(
-                                '<source src="'+ audio_url +'" />'
+                                '<source src="'+ audio_url +'" type="audio/mp3" />'
                             );
                         };
                     </script>
