@@ -34,7 +34,7 @@
                         </div>
 
                         <script>
-                            document.getElementById("file").capture = false;
+                            document.getElementById("file").capture = "none";
                         </script>
 
                         <div class="col-md-4 text-center">
