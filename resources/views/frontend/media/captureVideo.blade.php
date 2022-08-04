@@ -28,9 +28,9 @@
                         <div class="col-md-4 text-center">
                             <a href="{{ route('user.media.upload-video') }}">
                                 <div class="pb-3">
-                                    <label class="record-images" style="color: #F7DB02;" for="file"><img src="{{ asset('/public/assets/images/device-gallery.png') }}" class="gallery-img"></label>
+                                    <img src="{{ asset('/public/assets/images/device-gallery.png') }}" class="gallery-img">
                                 </div>
-                                <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Device Gallery</label>
+                                <span class="record-images" style="color: #F7DB02;">&nbsp;&nbsp;Device Gallery</span>
                             </a>
                         </div>
                         @else
