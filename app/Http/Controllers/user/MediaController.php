@@ -84,6 +84,11 @@ class MediaController extends Controller
         ));
     }
 
+    public function uploadVideoFromMobile(Request $request)
+    {
+        dd('for upload video from mobile');
+    }
+
     public function uploadMedia(Request $request)
     {
         date_default_timezone_set(session()->get('user_timezone'));

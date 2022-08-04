@@ -12,6 +12,28 @@
                 <div class="col-lg-3"></div>
                 <div class="col-lg-6 mt-4">
                     <div class="d-flex justify-content-between mt-4">
+                        @if((new \Jenssegers\Agent\Agent())->isMobile())
+                        <div class="col-md-4 text-center">
+                            <a>
+                                <div class="pb-3">
+                                    <label class="record-images" style="color: #F7DB02;" for="file"><img src="{{ asset('/public/assets/images/video.png') }}" class="record-video"></label>
+                                </div>
+                                @if($errors->has('file_name'))
+                                <div class="error">{{ $errors->first('file_name') }}</div>
+                                @endif
+                                <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Record Video</label>
+                                <input type="file" accept="video/*" name="file_name" id="file" style="display: none;" onchange="loadFile(event)" capture="user" />
+                            </a>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <a href="{{ route('user.media.upload-video') }}">
+                                <div class="pb-3">
+                                    <label class="record-images" style="color: #F7DB02;" for="file"><img src="{{ asset('/public/assets/images/device-gallery.png') }}" class="gallery-img"></label>
+                                </div>
+                                <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Device Gallery</label>
+                            </a>
+                        </div>
+                        @else
                         <div class="col-md-4 text-center">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#captureImage">
                                 <div class="pb-3">
@@ -32,11 +54,7 @@
                                 <input type="file" accept="video/*" name="file_name" id="file" style="display: none;" onchange="loadFile(event)" />
                             </a>
                         </div>
-
-                        <script>
-                            document.getElementById("file").capture = "none";
-                        </script>
-
+                        @endif
                         <div class="col-md-4 text-center">
                             <a href="{{ route('user.media.my-media') }}">
                                 <div class="pb-3">
@@ -164,22 +182,6 @@
             <div class="modal-body">
                 <button type="button" class="close close-select-media" data-dismiss="myMedia" onclick="closeMedia()">&times;</button>
                 <meta name="csrf-token" content="{{csrf_token()}}">
-                @if((new \Jenssegers\Agent\Agent())->isMobile())
-                <div class="row" id="video_recording">
-                    <div class="col-md-4 text-center">
-                        <a>
-                            <div class="pb-3">
-                                <label class="record-images" style="color: #F7DB02;" for="file"><img src="{{ asset('/public/assets/images/video.png') }}" class="record-video"></label>
-                            </div>
-                            @if($errors->has('file_name_mobile'))
-                            <div class="error">{{ $errors->first('file_name_mobile') }}</div>
-                            @endif
-                            <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Record Video</label>
-                            <input type="file" accept="video/*" name="file_name_mobile" id="file_mobile" style="display: none;" onchange="loadFile(event)" capture="user" />
-                        </a>
-                    </div>
-                </div>
-                @else
                 <div class="row" id="video_recording">
                     <div class="col-md-12 mt-5">
                         <h2 class="text-white">Recording / Preview</h2>
@@ -200,7 +202,6 @@
                         </div>
                     </div>
                 </div>
-                @endif
 
                 <div class="pb-4 mt-2">
                     <div class="scroll-div h-auto">

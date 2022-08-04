@@ -92,6 +92,7 @@ Route::middleware('auth', 'user')->group(function () {
     Route::group(['prefix' => 'media'], function () {
         Route::get('/add-media',[MediaController::class,'media'])->name('user.media');
         Route::get('capture-video',[MediaController::class,'captureVideo'])->name('user.media.capture-video');
+        Route::get('upload-video',[MediaController::class,'uploadVideoFromMobile'])->name('user.media.upload-video');
         Route::get('capture-audio',[MediaController::class,'captureAudio'])->name('user.media.capture-audio');
         Route::get('capture-image',[MediaController::class,'captureImage'])->name('user.media.capture-image');
         Route::post('upload-media',[MediaController::class,'uploadMedia'])->name('user.media.upload-media');
