@@ -18,8 +18,8 @@
                                 <div class="pb-3">
                                     <label class="record-images" style="color: #F7DB02;" for="file"><img src="{{ asset('/public/assets/images/video.png') }}" class="record-video"></label>
                                 </div>
-                                @if($errors->has('file_name'))
-                                <div class="error">{{ $errors->first('file_name') }}</div>
+                                @if($errors->has('file_name_mobile'))
+                                <div class="error">{{ $errors->first('file_name_mobile') }}</div>
                                 @endif
                                 <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Record Video</label>
                                 <input type="file" accept="video/*" name="file_name_mobile" id="file_mobile" capture="user" style="display: none;" onchange="loadFileMobile(event)">
