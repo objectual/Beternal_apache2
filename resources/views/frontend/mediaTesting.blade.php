@@ -1,54 +1,26 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-    <title>Recorder App</title>
+    <title>Beternal</title>
 </head>
-<h2>Recorder App</h2>
-<p>
-    <button type="button" id="record">Record</button>
-    <button type="button" id="stopRecord" disabled>Stop</button>
-</p>
-<p>
-    <audio id=recordedAudio></audio>
-</p>
-<script>
-    navigator.mediaDevices.getUserMedia({
-            audio: true
-        })
-        .then(stream => {
-            handlerFunction(stream)
-        })
 
-    function handlerFunction(stream) {
-        rec = new MediaRecorder(stream);
-        rec.ondataavailable = e => {
-            audioChunks.push(e.data);
-            if (rec.state == "inactive") {
-                let blob = new Blob(audioChunks, {
-                    type: 'audio/mp3'
-                });
-                recordedAudio.src = URL.createObjectURL(blob);
-                recordedAudio.controls = true;
-                recordedAudio.autoplay = true;
-                sendData(blob)
-            }
-        }
-    }
+<body>
+    <div style="display:flex;">
+        <p>
+            <label for="soundFile">What does your voice sound like?:</label>
+            <input type="file" id="soundFile" capture="user" accept="audio/*">
+        </p>
+        <p>
+            <label for="videoFile">Upload a video:</label>
+            <input type="file" id="videoFile" capture="environment" accept="video/*">
+        </p>
+        <p>
+            <label for="imageFile">Upload a photo of yourself:</label>
+            <input type="file" id="imageFile" capture="user" accept="image/*">
+        </p>
 
-    function sendData(data) {}
-    record.onclick = e => {
-        record.disabled = true;
-        record.style.backgroundColor = "blue"
-        stopRecord.disabled = false;
-        audioChunks = [];
-        rec.start();
-    }
-    stopRecord.onclick = e => {
-        record.disabled = false;
-        stop.disabled = true;
-        record.style.backgroundColor = "red"
-        rec.stop();
-    }
-</script>
+    </div>
+</body>
 
 </html>
