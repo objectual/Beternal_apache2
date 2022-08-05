@@ -124,8 +124,12 @@
                         @php
                             $date_time = explode(" ", $video->created_at);
                             $format = explode(".", $video->file_name);
-                            $set_format = 'video/'.$format[1];
                             $ios = '#t=0.001';
+                            if ($format[1] == 'mov') {
+                                $set_format = 'video/mp4';
+                            } else {
+                                $set_format = 'video/'.$format[1];
+                            }
                         @endphp
                         <div class="col-lg-3 px-1 col-6 col-md-4">
                             <a class="example-image-link d-block" id="{{ $video->file_name }}"  onclick="selectVideo(this)">
