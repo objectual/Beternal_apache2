@@ -125,7 +125,7 @@
                         <div class="col-lg-3 px-1 col-6 col-md-4">
                             <a class="example-image-link d-block" id="{{ $video->file_name }}"  onclick="selectVideo(this)">
                                 <video class="example-image">
-                                    <source src="{{ asset( $file_path.$video->file_name )}}"type="video/mp4">
+                                    <source src="{{ asset( $file_path.$video->file_name )}}"type="">
                                 </video>
                                 <div class="play-bt-exm-one"></div>
                                 <div class="pt-1 bg-black">
@@ -386,7 +386,7 @@
                                     var media_function = 'selectVideo(this)';
                                     var file = base_path + file_name;
                                     var media_button = 'play-bt-exm-one';
-                                    var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
+                                    var for_display = '<video class="example-image"><source src="' + file + '" type=""></video>';
                                 }
                                 if (all_media[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
@@ -445,7 +445,7 @@
                                     var media_function = 'selectVideo(this)';
                                     var file = base_path + file_name;
                                     var media_button = 'play-bt-exm-one';
-                                    var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
+                                    var for_display = '<video class="example-image"><source src="' + file + '" type=""></video>';
                                 }
                                 if (all_media[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
@@ -504,7 +504,7 @@
                                     var media_function = 'selectVideo(this)';
                                     var file = base_path + file_name;
                                     var media_button = 'play-bt-exm-one';
-                                    var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
+                                    var for_display = '<video class="example-image"><source src="' + file + '" type=""></video>';
                                 }
                                 if (all_media[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
@@ -558,7 +558,7 @@
                         var media_function = 'selectVideo(this)';
                         var file = base_path + file_name;
                         var media_button = 'play-bt-exm-one';
-                        var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
+                        var for_display = '<video class="example-image"><source src="' + file + '" type=""></video>';
                     }
                     if (all_media[i].type == 'audio') {
                         var media_function = 'selectAudio(this)';

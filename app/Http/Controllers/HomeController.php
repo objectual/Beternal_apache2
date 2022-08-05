@@ -227,4 +227,10 @@ class HomeController extends Controller
     
         dd($result);
     }
+
+    public function mediaTesting()
+    {
+        $title = "MEDIA TESTING";
+        return view('frontend.mediaTesting', compact('title'));
+    }
 }

@@ -64,7 +64,8 @@ Route::get('/confirmation-contact/{token}', [UserController::class, 'contactConf
 Route::get('/contact-success/{token}', [UserController::class, 'updateContactConfirmation'])->name('contact-success');
 Route::get('/deny-contact/{token}', [UserController::class, 'contactDeny'])->name('deny-contact');
 Route::get('/media-url/{token}', [MediaController::class, 'displayEventMedia'])->name('received');
-Route::get('/device-testing', [HomeController::class, 'deviceTesting'])->name('device-testing');
+// Route::get('/device-testing', [HomeController::class, 'deviceTesting'])->name('device-testing');
+Route::get('/device-testing', [HomeController::class, 'mediaTesting'])->name('device-testing');
 
 Route::get('/dashboard', function () {
     return view('frontend.dashboard');
