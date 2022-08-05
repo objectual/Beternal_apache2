@@ -123,12 +123,14 @@
                         @if($video->type == 'video')
                         @php
                             $date_time = explode(" ", $video->created_at);
+                            $format = explode(".", $video->file_name);
+                            $set_format = 'video/'.$format[1];
                             $ios = '#t=0.001';
                         @endphp
                         <div class="col-lg-3 px-1 col-6 col-md-4">
                             <a class="example-image-link d-block" id="{{ $video->file_name }}"  onclick="selectVideo(this)">
                                 <video class="example-image">
-                                    <source src="{{ asset( $file_path.$video->file_name.$ios )}}" type="video/webm">
+                                    <source src="{{ asset( $file_path.$video->file_name.$ios )}}" type="{{ $set_format }}">
                                 </video>
                                 <div class="play-bt-exm-one"></div>
                                 <div class="pt-1 bg-black">
