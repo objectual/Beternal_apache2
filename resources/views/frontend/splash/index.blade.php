@@ -39,6 +39,7 @@
                                     <source src="{{ asset('/public/assets/images/solution.mp4') }}" type="video/mp4" />
                                     Your browser does not support the video tag.
                                 </video>
+                                <iframe width="420" height="315" src="{{ asset('/public/assets/images/solution.mp4') }}"></iframe>
                             </div>
                         </div>
                         <p class="sp-head-2">
