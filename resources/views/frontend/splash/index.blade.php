@@ -41,11 +41,6 @@
                                 </video>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12 p-0-m">
-                                <iframe class="landing_video" width="420" height="315" src="{{ asset('/public/assets/images/solution.mp4') }}"></iframe>
-                            </div>
-                        </div>
                         <p class="sp-head-2">
                             Through interactive prompts, we help you tell your life story and
                             share it with only those you choose.
