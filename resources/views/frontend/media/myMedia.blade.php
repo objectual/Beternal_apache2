@@ -128,7 +128,7 @@
                         <div class="col-lg-3 px-1 col-6 col-md-4">
                             <a class="example-image-link d-block" id="{{ $video->file_name }}"  onclick="selectVideo(this)">
                                 <video class="example-image">
-                                    <source src="{{ asset( $file_path.$video->file_name.$ios )}}" type="video/mp4/webm">
+                                    <source src="{{ asset( $file_path.$video->file_name.$ios )}}" type="video/mp4">
                                 </video>
                                 <div class="play-bt-exm-one"></div>
                                 <div class="pt-1 bg-black">
@@ -273,7 +273,7 @@
         var base_path = '<?= $file_path ?>';
         var for_device = '#t=0.001';
         // var base_path = base_url + '/public/';
-        var select_for_play = '<video id="mymedia_video" class="tv_video" controls><source src="' + base_path + current.id + for_device + '" type="video/mp4/webm" />Your browser does not support the video tag.</video>';
+        var select_for_play = '<video id="mymedia_video" class="tv_video" controls><source src="' + base_path + current.id + for_device + '" type="video/mp4" />Your browser does not support the video tag.</video>';
         $('#current_video').empty();
         $("#current_video").append(select_for_play);
     }
@@ -390,7 +390,7 @@
                                     var media_function = 'selectVideo(this)';
                                     var file = base_path + file_name + '#t=0.001';
                                     var media_button = 'play-bt-exm-one';
-                                    var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4/webm"></video>';
+                                    var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
                                 }
                                 if (all_media[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
@@ -449,7 +449,7 @@
                                     var media_function = 'selectVideo(this)';
                                     var file = base_path + file_name + '#t=0.001';
                                     var media_button = 'play-bt-exm-one';
-                                    var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4/webm"></video>';
+                                    var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
                                 }
                                 if (all_media[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
@@ -508,7 +508,7 @@
                                     var media_function = 'selectVideo(this)';
                                     var file = base_path + file_name + '#t=0.001';
                                     var media_button = 'play-bt-exm-one';
-                                    var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4/webm"></video>';
+                                    var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
                                 }
                                 if (all_media[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
@@ -562,7 +562,7 @@
                         var media_function = 'selectVideo(this)';
                         var file = base_path + file_name + '#t=0.001';
                         var media_button = 'play-bt-exm-one';
-                        var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4/webm"></video>';
+                        var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
                     }
                     if (all_media[i].type == 'audio') {
                         var media_function = 'selectAudio(this)';
