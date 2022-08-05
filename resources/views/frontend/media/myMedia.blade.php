@@ -121,11 +121,14 @@
                         @if(isset($all_media))
                         @foreach($all_media as $key => $video)
                         @if($video->type == 'video')
-                        @php $date_time = explode(" ", $video->created_at); @endphp
+                        @php
+                            $date_time = explode(" ", $video->created_at);
+                            $ios = '#t=0.001';
+                        @endphp
                         <div class="col-lg-3 px-1 col-6 col-md-4">
                             <a class="example-image-link d-block" id="{{ $video->file_name }}"  onclick="selectVideo(this)">
                                 <video class="example-image">
-                                    <source src="{{ asset( $file_path.$video->file_name )}}"type="video/mp4">
+                                    <source src="{{ asset( $file_path.$video->file_name.$ios )}}" type="video/mp4">
                                 </video>
                                 <div class="play-bt-exm-one"></div>
                                 <div class="pt-1 bg-black">
@@ -268,8 +271,9 @@
 <script type="text/javascript">
     function selectVideo(current) {
         var base_path = '<?= $file_path ?>';
+        var for_device = '#t=0.001';
         // var base_path = base_url + '/public/';
-        var select_for_play = '<video id="mymedia_video" class="tv_video" controls><source src="' + base_path + current.id + '" />Your browser does not support the video tag.</video>';
+        var select_for_play = '<video id="mymedia_video" class="tv_video" controls><source src="' + base_path + current.id + for_device + '" />Your browser does not support the video tag.</video>';
         $('#current_video').empty();
         $("#current_video").append(select_for_play);
     }
@@ -384,7 +388,7 @@
                                 var display_date = year + '-' + month + '-' + date;
                                 if (all_media[i].type == 'video') {
                                     var media_function = 'selectVideo(this)';
-                                    var file = base_path + file_name;
+                                    var file = base_path + file_name + '#t=0.001';
                                     var media_button = 'play-bt-exm-one';
                                     var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
                                 }
@@ -443,7 +447,7 @@
                                 var display_date = year + '-' + month + '-' + date;
                                 if (all_media[i].type == 'video') {
                                     var media_function = 'selectVideo(this)';
-                                    var file = base_path + file_name;
+                                    var file = base_path + file_name + '#t=0.001';
                                     var media_button = 'play-bt-exm-one';
                                     var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
                                 }
@@ -502,7 +506,7 @@
                                 var display_date = year + '-' + month + '-' + date;
                                 if (all_media[i].type == 'video') {
                                     var media_function = 'selectVideo(this)';
-                                    var file = base_path + file_name;
+                                    var file = base_path + file_name + '#t=0.001';
                                     var media_button = 'play-bt-exm-one';
                                     var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
                                 }
@@ -556,7 +560,7 @@
                     var display_date = year + '-' + month + '-' + date;
                     if (all_media[i].type == 'video') {
                         var media_function = 'selectVideo(this)';
-                        var file = base_path + file_name;
+                        var file = base_path + file_name + '#t=0.001';
                         var media_button = 'play-bt-exm-one';
                         var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
                     }
