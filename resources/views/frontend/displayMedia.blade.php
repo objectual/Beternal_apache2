@@ -23,7 +23,7 @@
 @else
 <div class="container-fluid shared-back-light pt-5 pb-3  bg-calendar">
     <div class="col-lg-10 offset-lg-1 my-media-detail-padding">
-        <div class="scroll-div">
+        <div class="scroll-div row-height">
             <div class="row">
                 <div class="col-lg-6 mt-3">
                     @if($schedule_media[0]->type == 'video')
