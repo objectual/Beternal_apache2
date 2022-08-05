@@ -186,48 +186,6 @@
                     </div>
                 </div>
 
-                <script>
-                    navigator.mediaDevices.getUserMedia({
-                            audio: true
-                        })
-                        .then(stream => {
-                            handlerFunction(stream)
-                        })
-
-                    function handlerFunction(stream) {
-                        rec = new MediaRecorder(stream);
-                        rec.ondataavailable = e => {
-                            audioChunks.push(e.data);
-                            if (rec.state == "inactive") {
-                                let blob = new Blob(audioChunks, {
-                                    type: 'audio/mp3'
-                                });
-                                recordedAudio.src = URL.createObjectURL(blob);
-                                recordedAudio.controls = true;
-                                recordedAudio.autoplay = true;
-                                sendData(blob)
-                            }
-                        }
-                    }
-
-                    function sendData(data) {
-                        console.log(data)
-                    }
-                    record.onclick = e => {
-                        record.disabled = true;
-                        record.style.backgroundColor = "blue"
-                        stopRecord.disabled = false;
-                        audioChunks = [];
-                        rec.start();
-                    }
-                    stopRecord.onclick = e => {
-                        record.disabled = false;
-                        stop.disabled = true;
-                        record.style.backgroundColor = "red"
-                        rec.stop();
-                    }
-                </script>
-
                 <div class=" pb-4 mt-2">
                     <div class="scroll-div h-auto">
                         <div class="row">
@@ -322,97 +280,52 @@
                     </div>
                 </div>
 
-                <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
                 <script>
-                    let preview = document.getElementById("preview");
-                    let recording = document.getElementById("recording");
-                    let startButton = document.getElementById("startButton");
-                    let stopButton = document.getElementById("stopButton");
+                    navigator.mediaDevices.getUserMedia({
+                            audio: true
+                        })
+                        .then(stream => {
+                            handlerFunction(stream)
+                        })
+
                     let downloadButton = document.getElementById("downloadButton");
-                    let logElement = document.getElementById("log");
-                    let recorded = document.getElementById("recorded");
-                    // let downloadLocalButton = document.getElementById("downloadLocalButton");
-
-                    let recordingTimeMS = 15000; //audio limit 15 sec
-                    var localstream;
-
-                    window.log = function(msg) {
-                        //logElement.innerHTML += msg + "\n";
-                        console.log(msg);
-                    }
-
-                    window.wait = function(delayInMS) {
-                        return new Promise(resolve => setTimeout(resolve, delayInMS));
-                    }
-
-                    window.startRecording = function(stream, lengthInMS) {
-                        let recorder = new MediaRecorder(stream);
-                        let data = [];
-
-                        recorder.ondataavailable = event => data.push(event.data);
-                        recorder.start();
-                        log(recorder.state + " for " + (lengthInMS / 1000) + " seconds...");
-
-                        let stopped = new Promise((resolve, reject) => {
-                            recorder.onstop = resolve;
-                            recorder.onerror = event => reject(event.name);
-                        });
-
-                        let recorded = wait(lengthInMS).then(
-                            () => recorder.state == "recording" && recorder.stop()
-                        );
-
-                        return Promise.all([
-                                stopped,
-                                recorded
-                            ])
-                            .then(() => data);
-                    }
-
-                    window.stop = function(stream) {
-                        stream.getTracks().forEach(track => track.stop());
-                    }
                     var formData = new FormData();
-                    if (startButton) {
-                        startButton.addEventListener("click", function() {
-                            startButton.innerHTML = "recording...";
-                            recorded.style.display = "none";
-                            stopButton.style.display = "inline-block";
-                            downloadButton.innerHTML = "rendering..";
-                            navigator.mediaDevices.getUserMedia({
-                                    video: false,
-                                    audio: true
-                                }).then(stream => {
-                                    preview.srcObject = stream;
-                                    localstream = stream;
-                                    //downloadButton.href = stream;
-                                    preview.captureStream = preview.captureStream || preview.mozCaptureStream;
-                                    return new Promise(resolve => preview.onplaying = resolve);
-                                }).then(() => startRecording(preview.captureStream(), recordingTimeMS))
-                                .then(recordedChunks => {
-                                    let recordedBlob = new Blob(recordedChunks, {
-                                        type: "audio/mp3"
-                                    });
-                                    recording.src = URL.createObjectURL(recordedBlob);
 
-                                    formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
-                                    formData.append('file_name', recordedBlob);
-
-                                    $("#loaderAudio").modal("hide");
-
-                                    // downloadLocalButton.href = recording.src;
-                                    // downloadLocalButton.download = "RecordedAudio.mp3";
-                                    log("Successfully recorded " + recordedBlob.size + " bytes of " +
-                                        recordedBlob.type + " media.");
-                                    startButton.innerHTML = "Start";
-                                    stopButton.style.display = "none";
-                                    recorded.style.display = "block";
-                                    downloadButton.innerHTML = "Add To My Media";
-                                    localstream.getTracks()[0].stop();
-                                })
-                                .catch(log);
-                        }, false);
+                    function handlerFunction(stream) {
+                        rec = new MediaRecorder(stream);
+                        rec.ondataavailable = e => {
+                            audioChunks.push(e.data);
+                            if (rec.state == "inactive") {
+                                let blob = new Blob(audioChunks, {
+                                    type: 'audio/mp3'
+                                });
+                                recordedAudio.src = URL.createObjectURL(blob);
+                                recordedAudio.controls = true;
+                                recordedAudio.autoplay = true;
+                                sendData(blob)
+                            }
+                        }
                     }
+
+                    function sendData(data) {
+                        formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+                        formData.append('file_name', data);
+                    }
+
+                    record.onclick = e => {
+                        record.disabled = true;
+                        record.innerHTML = "recording...";
+                        stopRecord.disabled = false;
+                        audioChunks = [];
+                        rec.start();
+                    }
+                    stopRecord.onclick = e => {
+                        record.disabled = false;
+                        stop.disabled = true;
+                        record.innerHTML = "Start Record";
+                        rec.stop();
+                    }
+
                     if (downloadButton) {
                         downloadButton.addEventListener("click", function() {
                             let media_type = document.getElementById("media_type").value;
@@ -440,17 +353,6 @@
                                 $("#show_description_msg_2").append(msg_2);
                                 return false;
                             }
-                            // if (format.test(title)) {
-                            //     $('#show_title_msg_2').empty();
-                            //     $("#show_title_msg_2").append(msg);
-                            //     return false;
-                            // }
-                            // if (format.test(description)) {
-                            //     $('#show_title_msg_2').empty();
-                            //     $('#show_description_msg_2').empty();
-                            //     $("#show_description_msg_2").append(msg);
-                            //     return false;
-                            // }
                             if (my_media >= plan_details[0].video_audio_limit) {
                                 $('#show_title_msg_2').empty();
                                 $('#show_description_msg_2').empty();
@@ -474,17 +376,6 @@
                                     selected_group = 1;
                                 }
                             }
-                            // if (selected_recipient == 0) {
-                            //     $('#recipient_msg').empty();
-                            //     $("#recipient_msg").append(msg_recipient);
-                            //     return false;
-                            // }
-                            // if (selected_group == 0) {
-                            //     $('#recipient_msg').empty();
-                            //     $('#group_msg').empty();
-                            //     $("#group_msg").append(msg_group);
-                            //     return false;
-                            // }
                             $("#loaderUpload").modal("show");
                             $.ajax({
                                 url: this.getAttribute('data-url'),
@@ -502,17 +393,6 @@
                                     }
                                 }
                             });
-                        }, false);
-                    }
-                    if (stopButton) {
-                        stopButton.addEventListener("click", function() {
-                            $("#loaderAudio").modal("show");
-                            stop(preview.srcObject);
-                            startButton.innerHTML = "Start";
-                            stopButton.style.display = "none";
-                            recorded.style.display = "block";
-                            downloadButton.innerHTML = "Save";
-                            localstream.getTracks()[0].stop();
                         }, false);
                     }
                 </script>

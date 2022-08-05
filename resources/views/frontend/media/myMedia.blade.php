@@ -128,7 +128,7 @@
                         <div class="col-lg-3 px-1 col-6 col-md-4">
                             <a class="example-image-link d-block" id="{{ $video->file_name }}"  onclick="selectVideo(this)">
                                 <video class="example-image">
-                                    <source src="{{ asset( $file_path.$video->file_name.$ios )}}" type="video/mp4">
+                                    <source src="{{ asset( $file_path.$video->file_name.$ios )}}" type="">
                                 </video>
                                 <div class="play-bt-exm-one"></div>
                                 <div class="pt-1 bg-black">
