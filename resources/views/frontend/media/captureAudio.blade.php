@@ -58,7 +58,7 @@
                             document.getElementById("attachment").style.display = "block";
                             var audio_url = URL.createObjectURL(event.target.files[0]);
                             $('#ban_audio').append(
-                                '<source src="'+ audio_url +'" type="audio/mp3" />'
+                                '<source src="' + audio_url + '" type="audio/mp3" />'
                             );
                         };
                     </script>
@@ -161,7 +161,7 @@
             <div class="modal-body">
                 <button type="button" class="close close-select-media" data-dismiss="myMedia" onclick="closeMedia()">&times;</button>
                 <meta name="csrf-token" content="{{csrf_token()}}">
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-md-6 mt-5">
                         <h2 class="text-white">Recording / Preview</h2>
                         <audio id="preview" width="160" height="120" autoplay muted></audio>
@@ -173,7 +173,60 @@
                     <div class="col-md-6 mt-5" id="recorded" style="display:none"><br />
                         <audio id="recording" width="160" height="120" controls></audio>
                     </div>
+                </div> -->
+
+                <div class="row">
+                    <div class="col-md-6 mt-5">
+                        <h2 class="text-white">Recording / Preview</h2>
+                        <button type="button" class="start-rec-btn px-3" id="record">Start Record</button>
+                        <button type="button" class="start-rec-btn px-3" id="stopRecord" disabled>Stop</button>
+                    </div>
+                    <div class="col-md-6 mt-5" id="recorded"><br />
+                        <audio id=recordedAudio></audio>
+                    </div>
                 </div>
+
+                <script>
+                    navigator.mediaDevices.getUserMedia({
+                            audio: true
+                        })
+                        .then(stream => {
+                            handlerFunction(stream)
+                        })
+
+                    function handlerFunction(stream) {
+                        rec = new MediaRecorder(stream);
+                        rec.ondataavailable = e => {
+                            audioChunks.push(e.data);
+                            if (rec.state == "inactive") {
+                                let blob = new Blob(audioChunks, {
+                                    type: 'audio/mp3'
+                                });
+                                recordedAudio.src = URL.createObjectURL(blob);
+                                recordedAudio.controls = true;
+                                recordedAudio.autoplay = true;
+                                sendData(blob)
+                            }
+                        }
+                    }
+
+                    function sendData(data) {
+                        console.log(data)
+                    }
+                    record.onclick = e => {
+                        record.disabled = true;
+                        record.style.backgroundColor = "blue"
+                        stopRecord.disabled = false;
+                        audioChunks = [];
+                        rec.start();
+                    }
+                    stopRecord.onclick = e => {
+                        record.disabled = false;
+                        stop.disabled = true;
+                        record.style.backgroundColor = "red"
+                        rec.stop();
+                    }
+                </script>
 
                 <div class=" pb-4 mt-2">
                     <div class="scroll-div h-auto">
@@ -498,7 +551,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-10 text-center offset-lg-1">
-                            <img style="height:60px; width:60px;" src="{{ asset('/public/assets/images/loader.gif')}}" /> 
+                            <img style="height:60px; width:60px;" src="{{ asset('/public/assets/images/loader.gif')}}" />
                             <p class="text-white">Please Wait</p>
                         </div>
                     </div>
@@ -513,7 +566,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-10 text-center offset-lg-1">
-                            <img style="height:60px; width:60px;" src="{{ asset('/public/assets/images/loader.gif')}}" /> 
+                            <img style="height:60px; width:60px;" src="{{ asset('/public/assets/images/loader.gif')}}" />
                             <p class="text-white">Loading Audio Please Wait</p>
                         </div>
                     </div>
