@@ -27,9 +27,18 @@
             <div class="row">
                 <div class="col-lg-6 mt-3">
                     @if($schedule_media[0]->type == 'video')
+                    @php
+                        $format = explode(".", $schedule_media[0]->file_name);
+                        $ios = '#t=0.001';
+                        if ($format[1] == 'mov') {
+                            $set_format = 'video/mp4';
+                        } else {
+                            $set_format = 'video/'.$format[1];
+                        }
+                    @endphp
                     <div class="">
                         <video id="ban_video" class="tv_video email-video" controls>
-                            <source src="{{ asset( $file_path.$schedule_media[0]->file_name )}}" type="video/mp4" />
+                            <source src="{{ asset( $file_path.$schedule_media[0]->file_name.$ios )}}" type="{{ $set_format }}" />
                             Your browser does not support the video tag.
                         </video>
                     </div>

@@ -203,7 +203,11 @@ class HomeController extends Controller
 
     public function setTimezone($user_timezone)
     {
-        $timezone_offset_minutes = $user_timezone;
+        if ($user_timezone < 0) {
+            $timezone_offset_minutes = $user_timezone - 60;
+        } else {
+            $timezone_offset_minutes = $user_timezone;
+        }
 
         // Convert minutes to seconds
         $timezone_name = timezone_name_from_abbr("", $timezone_offset_minutes*60, false);
