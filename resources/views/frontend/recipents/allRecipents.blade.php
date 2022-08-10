@@ -4,7 +4,7 @@
 
 <div class="container-fluid bg-create scroll-height-mobile mobile-padding recipent-padding-bottom recip-bg">
     <div class="col-md-10 m-auto">
-        <div class="scroll-div">
+        <div class="scroll-div row-height">
             <div class="row">
                 <div class="row p-3 col-12 padding-recipent">
                     <div class="col-md-2">
