@@ -122,17 +122,17 @@
                         @foreach($all_media as $key => $video)
                         @if($video->type == 'video')
                         @php
-                            $date_time = explode(" ", $video->created_at);
-                            $format = explode(".", $video->file_name);
-                            $ios = '#t=0.001';
-                            if ($format[1] == 'mov') {
-                                $set_format = 'video/mp4';
-                            } else {
-                                $set_format = 'video/'.$format[1];
-                            }
+                        $date_time = explode(" ", $video->created_at);
+                        $format = explode(".", $video->file_name);
+                        $ios = '#t=0.001';
+                        if ($format[1] == 'mov') {
+                        $set_format = 'video/mp4';
+                        } else {
+                        $set_format = 'video/'.$format[1];
+                        }
                         @endphp
                         <div class="col-lg-3 px-1 col-6 col-md-4">
-                            <a class="example-image-link d-block" id="{{ $video->file_name }}"  onclick="selectVideo(this)">
+                            <a class="example-image-link d-block" id="{{ $video->file_name }}" onclick="selectVideo(this)">
                                 <video class="example-image">
                                     <source src="{{ asset( $file_path.$video->file_name.$ios )}}" type="{{ $set_format }}">
                                 </video>
@@ -155,7 +155,7 @@
                                 </span>
                             </a>
                             <a href="{{ route('user.media.my-media-details', ['id' => $video->id]) }}" class="btn-view-details">
-                               View Details 
+                                View Details
                             </a>
                         </div>
                         @endif
@@ -203,7 +203,7 @@
                                 </div>
                             </a>
                             <a href="{{ route('user.media.my-media-details', ['id' => $photo->id]) }}" class="btn-view-details">
-                               View Details 
+                                View Details
                             </a>
                         </div>
                         @endif
@@ -256,8 +256,8 @@
 
                             </a>
                             <a href="{{ route('user.media.my-media-details', ['id' => $audio->id]) }}" class="btn-view-details">
-                               View Details 
-                            </a> 
+                                View Details
+                            </a>
                         </div>
                         @endif
                         @endforeach
@@ -278,8 +278,15 @@
     function selectVideo(current) {
         var base_path = '<?= $file_path ?>';
         var for_device = '#t=0.001';
+        var my_file = current.id.split(".");
+        var set_format = '';
+        if (my_file[1] == 'mov') {
+            set_format = 'video/mp4';
+        } else {
+            set_format = 'video/' + my_file[1];
+        }
         // var base_path = base_url + '/public/';
-        var select_for_play = '<video id="mymedia_video" class="tv_video" controls><source src="' + base_path + current.id + for_device + '" type="video/mp4" />Your browser does not support the video tag.</video>';
+        var select_for_play = '<video id="mymedia_video" class="tv_video" controls><source src="' + base_path + current.id + for_device + '" type="' + set_format + '" />Your browser does not support the video tag.</video>';
         $('#current_video').empty();
         $("#current_video").append(select_for_play);
     }
@@ -393,10 +400,17 @@
                                 var display_time = hour + ':' + minute + ':' + second;
                                 var display_date = year + '-' + month + '-' + date;
                                 if (all_media[i].type == 'video') {
+                                    var my_file = file_name.split(".");
+                                    var set_format = '';
+                                    if (my_file[1] == 'mov') {
+                                        set_format = 'video/mp4';
+                                    } else {
+                                        set_format = 'video/' + my_file[1];
+                                    }
                                     var media_function = 'selectVideo(this)';
                                     var file = base_path + file_name + '#t=0.001';
                                     var media_button = 'play-bt-exm-one';
-                                    var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
+                                    var for_display = '<video class="example-image"><source src="' + file + '" type="' + set_format + '"></video>';
                                 }
                                 if (all_media[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
@@ -410,8 +424,8 @@
                                     var media_button = '';
                                     var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                                 }
-                                var route_url = 'my-media-details/'+ all_media[i].id;
-                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '">' + for_display + '<div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + for_group + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="'+ route_url +'" class="btn-view-details">View Details </a></div>';
+                                var route_url = 'my-media-details/' + all_media[i].id;
+                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '">' + for_display + '<div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + for_group + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="' + route_url + '" class="btn-view-details">View Details </a></div>';
                                 if (all_media[i].type == 'video') {
                                     all_videos.append(media);
                                 }
@@ -452,10 +466,17 @@
                                 var display_time = hour + ':' + minute + ':' + second;
                                 var display_date = year + '-' + month + '-' + date;
                                 if (all_media[i].type == 'video') {
+                                    var my_file = file_name.split(".");
+                                    var set_format = '';
+                                    if (my_file[1] == 'mov') {
+                                        set_format = 'video/mp4';
+                                    } else {
+                                        set_format = 'video/' + my_file[1];
+                                    }
                                     var media_function = 'selectVideo(this)';
                                     var file = base_path + file_name + '#t=0.001';
                                     var media_button = 'play-bt-exm-one';
-                                    var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
+                                    var for_display = '<video class="example-image"><source src="' + file + '" type="' + set_format + '"></video>';
                                 }
                                 if (all_media[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
@@ -469,8 +490,8 @@
                                     var media_button = '';
                                     var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                                 }
-                                var route_url = 'my-media-details/'+ all_media[i].id;
-                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '">' + for_display + '<div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + all_media[i].group_title + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="'+ route_url +'" class="btn-view-details">View Details </a></div>';
+                                var route_url = 'my-media-details/' + all_media[i].id;
+                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '">' + for_display + '<div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + all_media[i].group_title + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="' + route_url + '" class="btn-view-details">View Details </a></div>';
                                 if (all_media[i].type == 'video') {
                                     all_videos.append(media);
                                 }
@@ -511,10 +532,17 @@
                                 var display_time = hour + ':' + minute + ':' + second;
                                 var display_date = year + '-' + month + '-' + date;
                                 if (all_media[i].type == 'video') {
+                                    var my_file = file_name.split(".");
+                                    var set_format = '';
+                                    if (my_file[1] == 'mov') {
+                                        set_format = 'video/mp4';
+                                    } else {
+                                        set_format = 'video/' + my_file[1];
+                                    }
                                     var media_function = 'selectVideo(this)';
                                     var file = base_path + file_name + '#t=0.001';
                                     var media_button = 'play-bt-exm-one';
-                                    var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
+                                    var for_display = '<video class="example-image"><source src="' + file + '" type="' + set_format + '"></video>';
                                 }
                                 if (all_media[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
@@ -528,8 +556,8 @@
                                     var media_button = '';
                                     var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                                 }
-                                var route_url = 'my-media-details/'+ all_media[i].id;
-                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '">' + for_display + '<div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + for_group + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="'+ route_url +'" class="btn-view-details">View Details </a></div>';
+                                var route_url = 'my-media-details/' + all_media[i].id;
+                                var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '">' + for_display + '<div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + for_group + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="' + route_url + '" class="btn-view-details">View Details </a></div>';
                                 if (all_media[i].type == 'video') {
                                     all_videos.append(media);
                                 }
@@ -565,10 +593,17 @@
                     var display_time = hour + ':' + minute + ':' + second;
                     var display_date = year + '-' + month + '-' + date;
                     if (all_media[i].type == 'video') {
+                        var my_file = file_name.split(".");
+                        var set_format = '';
+                        if (my_file[1] == 'mov') {
+                            set_format = 'video/mp4';
+                        } else {
+                            set_format = 'video/' + my_file[1];
+                        }
                         var media_function = 'selectVideo(this)';
                         var file = base_path + file_name + '#t=0.001';
                         var media_button = 'play-bt-exm-one';
-                        var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
+                        var for_display = '<video class="example-image"><source src="' + file + '" type="'+ set_format +'"></video>';
                     }
                     if (all_media[i].type == 'audio') {
                         var media_function = 'selectAudio(this)';
@@ -582,8 +617,8 @@
                         var media_button = '';
                         var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                     }
-                    var route_url = 'my-media-details/'+ all_media[i].id;
-                    var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '">' + for_display + '<div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + all_media[i].group_title + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="'+ route_url +'" class="btn-view-details">View Details </a></div>';
+                    var route_url = 'my-media-details/' + all_media[i].id;
+                    var media = '<div class="col-lg-3 px-1 col-6 col-md-4"><a class="example-image-link d-block" id="' + file_name + '" data-lightbox="example-set" data-title="Click the right half of the image to move forward." onclick="' + media_function + '">' + for_display + '<div class="' + media_button + '"></div><div class="d-flex pt-1 bg-black"><span class="above-img-span">' + media_title + '</span><span class="group-color">Group : ' + all_media[i].group_title + '</span></div><span class="ab-img-span">' + name + ' ' + last_name + '</span><span class="date-time pb-2">' + display_date + ' &nbsp; ' + display_time + '</span></a><a href="' + route_url + '" class="btn-view-details">View Details </a></div>';
                     if (all_media[i].type == 'video') {
                         all_videos.append(media);
                     }

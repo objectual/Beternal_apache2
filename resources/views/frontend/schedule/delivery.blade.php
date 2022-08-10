@@ -179,10 +179,19 @@
                                                                     $total_count = $schedule_dates[$a]['total_count'];
                                                                 @endphp
                                                                 @if($type == 'video')
+                                                                    @php
+                                                                        $format = explode(".", $file);
+                                                                        $ios = '#t=0.001';
+                                                                        if ($format[1] == 'mov') {
+                                                                            $set_format = 'video/mp4';
+                                                                        } else {
+                                                                            $set_format = 'video/'.$format[1];
+                                                                        }
+                                                                    @endphp
                                                                     <td id="1" onclick="mediaOption({{ $id }}, 1)">
                                                                         <p class="cl-white">&nbsp; &nbsp;1
                                                                             <video class="example-image video-calendar">
-                                                                                <source src="{{ asset($file_path.$file) }}" type="video/mp4">
+                                                                                <source src="{{ asset($file_path.$file.$ios) }}" type="{{ $set_format }}">
                                                                             </video>
                                                                             <a><img class="img-calendar-play" src="{{ asset('/public/assets/images/Exm-Buttons-Play.png') }}" /></a>
                                                                             @if($total_count > 1)
@@ -236,10 +245,19 @@
                                                                     $total_count = $schedule_dates[$b]['total_count'];
                                                                 @endphp
                                                                 @if($type == 'video')
+                                                                    @php
+                                                                        $format = explode(".", $file);
+                                                                        $ios = '#t=0.001';
+                                                                        if ($format[1] == 'mov') {
+                                                                            $set_format = 'video/mp4';
+                                                                        } else {
+                                                                            $set_format = 'video/'.$format[1];
+                                                                        }
+                                                                    @endphp
                                                                     <td id="1" onclick="actionMedia({{ $id }})">
                                                                         <p class="cl-white">&nbsp; &nbsp;1
                                                                             <video class="example-image video-calendar">
-                                                                                <source src="{{ asset($file_path.$file) }}" type="video/mp4">
+                                                                                <source src="{{ asset($file_path.$file.$ios) }}" type="{{ $set_format }}">
                                                                             </video>
                                                                             <a><img class="img-calendar-play" src="{{ asset('/public/assets/images/Exm-Buttons-Play.png') }}" /></a>
                                                                             @if($total_count > 1)
@@ -309,10 +327,19 @@
                                                                 $total_count = $schedule_dates[$j]['total_count'];
                                                             @endphp
                                                             @if($type == 'video')
+                                                                @php
+                                                                    $format = explode(".", $file);
+                                                                    $ios = '#t=0.001';
+                                                                    if ($format[1] == 'mov') {
+                                                                        $set_format = 'video/mp4';
+                                                                    } else {
+                                                                        $set_format = 'video/'.$format[1];
+                                                                    }
+                                                                @endphp
                                                                 <td id="{{ $i }}" onclick="mediaOption({{ $id }}, {{ $i }})">
                                                                     <p class="cl-white">&nbsp; &nbsp;{{ $i }}
                                                                         <video class="example-image video-calendar">
-                                                                            <source src="{{ asset($file_path.$file) }}" type="video/mp4">
+                                                                            <source src="{{ asset($file_path.$file.$ios) }}" type="{{ $set_format }}">
                                                                         </video>
                                                                         <a><img class="img-calendar-play" src="{{ asset('/public/assets/images/Exm-Buttons-Play.png') }}" /></a>
                                                                         @if($total_count > 1)
@@ -367,10 +394,19 @@
                                                                     $total_count = $schedule_dates[$k]['total_count'];
                                                                 @endphp
                                                                 @if($type == 'video')
+                                                                    @php
+                                                                        $format = explode(".", $file);
+                                                                        $ios = '#t=0.001';
+                                                                        if ($format[1] == 'mov') {
+                                                                            $set_format = 'video/mp4';
+                                                                        } else {
+                                                                            $set_format = 'video/'.$format[1];
+                                                                        }
+                                                                    @endphp
                                                                     <td id="{{ $i }}" onclick="mediaOption({{ $id }}, {{ $i }})">
                                                                         <p class="cl-white">&nbsp; &nbsp;{{ $i }}
                                                                             <video class="example-image video-calendar">
-                                                                                <source src="{{ asset($file_path.$file) }}" type="video/mp4">
+                                                                                <source src="{{ asset($file_path.$file.$ios) }}" type="{{ $set_format }}">
                                                                             </video>
                                                                             <a><img class="img-calendar-play" src="{{ asset('/public/assets/images/Exm-Buttons-Play.png') }}" /></a>
                                                                             @if($total_count > 1)
@@ -424,10 +460,19 @@
                                                                     $total_count = $schedule_dates[$n]['total_count'];
                                                                 @endphp
                                                                 @if($type == 'video')
+                                                                    @php
+                                                                        $format = explode(".", $file);
+                                                                        $ios = '#t=0.001';
+                                                                        if ($format[1] == 'mov') {
+                                                                            $set_format = 'video/mp4';
+                                                                        } else {
+                                                                            $set_format = 'video/'.$format[1];
+                                                                        }
+                                                                    @endphp
                                                                     <td id="{{ $i }}" onclick="actionMedia({{ $id }})">
                                                                         <p class="cl-white">&nbsp; &nbsp;{{ $i }}
                                                                             <video class="example-image video-calendar">
-                                                                                <source src="{{ asset($file_path.$file) }}" type="video/mp4">
+                                                                                <source src="{{ asset($file_path.$file.$ios) }}" type="{{ $set_format }}">
                                                                             </video>
                                                                             <a><img class="img-calendar-play" src="{{ asset('/public/assets/images/Exm-Buttons-Play.png') }}" /></a>
                                                                             @if($total_count > 1)
@@ -646,36 +691,45 @@
                     <div class="col-lg-12 mt-3">
                         <div class="row mt-3 px-2" id="all_videos">
                             @if(isset($all_media))
-                            @foreach($all_media as $key => $video)
-                            @if($video->type == 'video')
-                            @php $date_time = explode(" ", $video->created_at); @endphp
-                            <div class="col-lg-3 px-1 col-6 col-md-4">
-                                <a class="example-image-link d-block">
-                                    <video class="example-image">
-                                        <source src="{{ asset( $file_path.$video->file_name )}}"type="video/mp4">
-                                    </video>
-                                    <div class="play-bt-exm-one"></div>
-                                    <div class="pt-1 bg-black">
-                                        <span class="above-img-span">
-                                            {{ $video->title }}
-                                        </span>
+                                @foreach($all_media as $key => $video)
+                                    @if($video->type == 'video')
+                                        @php
+                                            $date_time = explode(" ", $video->created_at);
+                                            $format = explode(".", $file);
+                                            $ios = '#t=0.001';
+                                            if ($format[1] == 'mov') {
+                                                $set_format = 'video/mp4';
+                                            } else {
+                                                $set_format = 'video/'.$format[1];
+                                            }
+                                        @endphp
+                                        <div class="col-lg-3 px-1 col-6 col-md-4">
+                                            <a class="example-image-link d-block">
+                                                <video class="example-image">
+                                                    <source src="{{ asset( $file_path.$video->file_name.$ios )}}"type="{{ $set_format }}">
+                                                </video>
+                                                <div class="play-bt-exm-one"></div>
+                                                <div class="pt-1 bg-black">
+                                                    <span class="above-img-span">
+                                                        {{ $video->title }}
+                                                    </span>
 
-                                        <span class="group-color">
-                                            Group : {{ $video->group_title }}
-                                        </span>
-                                    </div>
-                                    <span class="ab-img-span">
-                                        {{ $video->recipient_first_name }} {{ $video->recipient_last_name }}
-                                    </span>
+                                                    <span class="group-color">
+                                                        Group : {{ $video->group_title }}
+                                                    </span>
+                                                </div>
+                                                <span class="ab-img-span">
+                                                    {{ $video->recipient_first_name }} {{ $video->recipient_last_name }}
+                                                </span>
 
-                                    <span class="date-time pb-2">
-                                        {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
-                                    </span>
-                                </a>
-                                <button class="btn-view-details" onclick="mediaSelect({{ $video->id }})">Select</button>
-                            </div>
-                            @endif
-                            @endforeach
+                                                <span class="date-time pb-2">
+                                                    {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
+                                                </span>
+                                            </a>
+                                            <button class="btn-view-details" onclick="mediaSelect({{ $video->id }})">Select</button>
+                                        </div>
+                                    @endif
+                                @endforeach
                             @endif
                         </div>
                     </div>

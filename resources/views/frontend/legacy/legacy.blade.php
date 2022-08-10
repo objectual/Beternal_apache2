@@ -71,11 +71,20 @@
                         @if(isset($all_legacy))
                         @foreach($all_legacy as $key => $video)
                         @if($video->type == 'video')
-                        @php $date_time = explode(" ", $video->created_at); @endphp
+                        @php
+                        $date_time = explode(" ", $video->created_at);
+                        $format = explode(".", $video->file_name);
+                        $ios = '#t=0.001';
+                        if ($format[1] == 'mov') {
+                        $set_format = 'video/mp4';
+                        } else {
+                        $set_format = 'video/'.$format[1];
+                        }
+                        @endphp
                         <div class="col-lg-3 px-1 col-6 col-md-4">
                             <a class="example-image-link d-block" id="{{ $video->file_name }}" onclick="selectVideo(this)">
                                 <video class="example-image">
-                                    <source src="{{ asset( $file_path.$video->file_name )}}"type="video/mp4">
+                                    <source src="{{ asset( $file_path.$video->file_name.$ios )}}" type="{{ $set_format }}">
                                 </video>
                                 <div class="play-bt-exm-one"></div>
                                 <div class="pt-1 bg-black">
@@ -220,7 +229,15 @@
 <script type="text/javascript">
     function selectVideo(current) {
         var base_path = '<?= $file_path ?>';
-        var select_for_play = '<video id="mymedia_video" class="tv_video" controls><source src="' + base_path + current.id + '" />Your browser does not support the video tag.</video>';
+        var my_file = current.id.split(".");
+        var set_format = '';
+        var ios = '#t=0.001';
+        if (my_file[1] == 'mov') {
+            set_format = 'video/mp4';
+        } else {
+            set_format = 'video/' + my_file[1];
+        }
+        var select_for_play = '<video id="mymedia_video" class="tv_video" controls><source src="' + base_path + current.id + ios + '" type="' + set_format + '" />Your browser does not support the video tag.</video>';
         $('#current_video').empty();
         $("#current_video").append(select_for_play);
     }
@@ -273,10 +290,18 @@
                                 var display_time = hour + ':' + minute + ':' + second;
                                 var display_date = year + '-' + month + '-' + date;
                                 if (all_legacy[i].type == 'video') {
+                                    var my_file = file_name.split(".");
+                                    var set_format = '';
+                                    var ios = '#t=0.001';
+                                    if (my_file[1] == 'mov') {
+                                        set_format = 'video/mp4';
+                                    } else {
+                                        set_format = 'video/' + my_file[1];
+                                    }
                                     var media_function = 'selectVideo(this)';
-                                    var file = base_path + file_name;
+                                    var file = base_path + file_name + ios;
                                     var media_button = 'play-bt-exm-one';
-                                    var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
+                                    var for_display = '<video class="example-image"><source src="' + file + '" type="' + set_format + '"></video>';
                                 }
                                 if (all_legacy[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
@@ -332,10 +357,19 @@
                                 var display_time = hour + ':' + minute + ':' + second;
                                 var display_date = year + '-' + month + '-' + date;
                                 if (all_legacy[i].type == 'video') {
+                                    var my_file = file_name.split(".");
+                                    var set_format = '';
+                                    var ios = '#t=0.001';
+                                    if (my_file[1] == 'mov') {
+                                        set_format = 'video/mp4';
+                                    } else {
+                                        set_format = 'video/' + my_file[1];
+                                    }
                                     var media_function = 'selectVideo(this)';
-                                    var file = file = base_path + file_name;
+                                    var file = file = base_path + file_name + ios;
                                     var media_button = 'play-bt-exm-one';
-                                    var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
+                                    var set_format = '';
+                                    var for_display = '<video class="example-image"><source src="' + file + '" type="' + set_format + '"></video>';
                                 }
                                 if (all_legacy[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
@@ -391,10 +425,18 @@
                                 var display_time = hour + ':' + minute + ':' + second;
                                 var display_date = year + '-' + month + '-' + date;
                                 if (all_legacy[i].type == 'video') {
+                                    var my_file = file_name.split(".");
+                                    var set_format = '';
+                                    var ios = '#t=0.001';
+                                    if (my_file[1] == 'mov') {
+                                        set_format = 'video/mp4';
+                                    } else {
+                                        set_format = 'video/' + my_file[1];
+                                    }
                                     var media_function = 'selectVideo(this)';
-                                    var file = base_path + file_name;
+                                    var file = base_path + file_name + ios;
                                     var media_button = 'play-bt-exm-one';
-                                    var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
+                                    var for_display = '<video class="example-image"><source src="' + file + '" type="' + set_format + '"></video>';
                                 }
                                 if (all_legacy[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
@@ -445,10 +487,18 @@
                     var display_time = hour + ':' + minute + ':' + second;
                     var display_date = year + '-' + month + '-' + date;
                     if (all_legacy[i].type == 'video') {
+                        var my_file = file_name.split(".");
+                        var set_format = '';
+                        var ios = '#t=0.001';
+                        if (my_file[1] == 'mov') {
+                            set_format = 'video/mp4';
+                        } else {
+                            set_format = 'video/' + my_file[1];
+                        }
                         var media_function = 'selectVideo(this)';
-                        var file = base_path + file_name;
+                        var file = base_path + file_name + ios;
                         var media_button = 'play-bt-exm-one';
-                        var for_display = '<video class="example-image"><source src="' + file + '" type="video/mp4"></video>';
+                        var for_display = '<video class="example-image"><source src="' + file + '" type="'+ set_format +'"></video>';
                     }
                     if (all_legacy[i].type == 'audio') {
                         var media_function = 'selectAudio(this)';

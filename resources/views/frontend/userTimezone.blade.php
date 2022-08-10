@@ -2,6 +2,7 @@
 @section("title","Timezone")
 @section("content")
 @php $base_url = url(''); @endphp
+<body onload="setTimezone(this)"></body>
 <div class="modal-dialog logout-modal">
     <div class="modal-content">
         <div class="modal-body">
@@ -10,11 +11,11 @@
                     <p class="text-white">We have set your TimeZone</p>
                 </div>
             </div>
-            <div class="row pt-4 mb-4">
+            <!-- <div class="row pt-4 mb-4">
                 <div class="col-12 ">
                     <a class="btn upg-add-img-btn w-100" onclick="setTimezone(this)">Continue</a>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

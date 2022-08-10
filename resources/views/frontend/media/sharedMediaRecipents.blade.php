@@ -45,7 +45,7 @@
                 <div class="col-lg-8 mt-3">
                     <div class="" id="current_video">
                         <video id="ban_video" class="tv_video" controls>
-                            <source src="{{ asset('/public/assets/images/landing-video.mp4') }}" type="video/mp4" />
+                            <source src="{{ asset('/public/assets/images/landing-video.mp4#t=0.001') }}" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
                     </div>
@@ -196,7 +196,15 @@
 <script type="text/javascript">
     function selectVideo(current) {
         var base_path = '<?= $file_path ?>';
-        var select_for_play = '<video id="ban_video" class="tv_video" controls><source src="' + base_path + current.id + '" />Your browser does not support the video tag.</video>';
+        var for_device = '#t=0.001';
+        var my_file = current.id.split(".");
+        var set_format = '';
+        if (my_file[1] == 'mov') {
+            set_format = 'video/mp4';
+        } else {
+            set_format = 'video/' + my_file[1];
+        }
+        var select_for_play = '<video id="ban_video" class="tv_video" controls><source src="' + base_path + current.id + for_device + '" type="' + set_format + '" />Your browser does not support the video tag.</video>';
         $('#current_video').empty();
         $("#current_video").append(select_for_play);
     }

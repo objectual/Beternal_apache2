@@ -28,7 +28,16 @@
                             @if($get_legacy[0]->type == 'photo')
                                 <picture id="ban_image" class="tv_image"><img src="{{ asset( $file_path.$get_legacy[0]->file_name )}}" type="image" height="500" width="720" /></picture>
                             @elseif($get_legacy[0]->type == 'video')
-                                <video id="ban_video" class="tv_video" controls><source src="{{ asset( $file_path.$get_legacy[0]->file_name )}}" type="video/mp4" /></video>
+                                @php
+                                    $format = explode(".", $get_legacy[0]->file_name);
+                                    $ios = '#t=0.001';
+                                    if ($format[1] == 'mov') {
+                                        $set_format = 'video/mp4';
+                                    } else {
+                                        $set_format = 'video/'.$format[1];
+                                    }
+                                @endphp
+                                <video id="" class="tv_video" controls><source src="{{ asset( $file_path.$get_legacy[0]->file_name.$ios )}}" type="{{ $set_format }}" /></video>
                             @elseif($get_legacy[0]->type == 'audio')
                                 <audio id="ban_audio" class="tv_audio mt-4" controls><source src="{{ asset( $file_path.$get_legacy[0]->file_name )}}" type="audio/mp3" /></audio>
                             @endif

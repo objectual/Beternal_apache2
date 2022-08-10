@@ -78,8 +78,9 @@
                         var loadFile = function(event) {
                             document.getElementById("attachment").style.display = "block";
                             var video_url = URL.createObjectURL(event.target.files[0]);
+                            var ios = '#t=0.001';
                             $('#ban_video').append(
-                                '<source src="'+ video_url +'" type="video/mp4" />'
+                                '<source src="'+ video_url + ios +'" type="video/mp4" />'
                             );
                         };
                     </script>

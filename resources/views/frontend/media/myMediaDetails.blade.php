@@ -24,9 +24,18 @@
                         </a>
                     </div>
                     @if($get_media[0]->type == 'video')
+                    @php
+                        $format = explode(".", $get_media[0]->file_name);
+                        $ios = '#t=0.001';
+                        if ($format[1] == 'mov') {
+                            $set_format = 'video/mp4';
+                        } else {
+                            $set_format = 'video/'.$format[1];
+                        }
+                    @endphp
                     <div class="">
                         <video id="mymedia_video" class="tv_video" controls>
-                            <source src="{{ asset( $file_path.$get_media[0]->file_name )}}" type="video/mp4" />
+                            <source src="{{ asset( $file_path.$get_media[0]->file_name.$ios )}}" type="{{ $set_format }}" />
                             Your browser does not support the video tag.
                         </video>
                     </div>
