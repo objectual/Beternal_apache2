@@ -1019,14 +1019,14 @@ class UserController extends Controller
 
     public function updateDeviceToken($token)
     {
-        // Auth::user()->device_token =  $request->token;
+        // Auth::user()->device_token =  $token;
 
         // Auth::user()->save();
 
         // return response()->json(['Token successfully stored.']);
 
-        $store_token = DB::table('users')->where('id', 2)->update(['device_token' => $token]);
-
+        $id = Auth::user()->id;
+        $store_token = DB::table('users')->where('id', $id)->update(['device_token' => $token]);
         return 'success';
     }
 
