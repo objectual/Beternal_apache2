@@ -32,6 +32,7 @@ class User extends Authenticatable
         'state_province_id',
         'city_id',
         'zip_postal_code',
+        'device_token',
     ];
 
     /**

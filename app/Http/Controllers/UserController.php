@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use App\Models\User;
@@ -1014,5 +1015,62 @@ class UserController extends Controller
         $delete_from_user = User::where('id', $request->id)->delete();
 
         return redirect()->route('admin.users')->with('message', 'Deleted successfully');
+    }
+
+    public function updateDeviceToken($token)
+    {
+        // Auth::user()->device_token =  $request->token;
+
+        // Auth::user()->save();
+
+        // return response()->json(['Token successfully stored.']);
+
+        $store_token = DB::table('users')->where('id', 2)->update(['device_token' => $token]);
+
+        return 'success';
+    }
+
+    public function sendNotification(Request $request)
+    {
+        $url = 'https://fcm.googleapis.com/fcm/send';
+
+        $FcmToken = User::whereNotNull('device_token')->pluck('device_token')->all();
+            
+        $serverKey = 'AAAARZ9ZIBY:APA91bFwplB8ZL0lRXgW9dwRsVw3D8fsqvIhgNDKyOC708uZJ3qv1FiMBY2NksuyYKnKr5OgiYoqb0JLeS9YxqPVQgUa27sKLXzyV3Va47QRWiAJA-4LV19knVR60Uv67ZD9i5YJNZTk'; // ADD SERVER KEY HERE PROVIDED BY FCM
+    
+        $data = [
+            "registration_ids" => $FcmToken,
+            "notification" => [
+                "title" => $request->title,
+                "body" => $request->body,  
+            ]
+        ];
+        $encodedData = json_encode($data);
+    
+        $headers = [
+            'Authorization:key=' . $serverKey,
+            'Content-Type: application/json',
+        ];
+    
+        $ch = curl_init();
+        
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+        // Disabling SSL Certificate support temporarly
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $encodedData);
+        // Execute post
+        $result = curl_exec($ch);
+        if ($result === FALSE) {
+            die('Curl failed: ' . curl_error($ch));
+        }        
+        // Close connection
+        curl_close($ch);
+        // FCM response
+        dd($result);
     }
 }

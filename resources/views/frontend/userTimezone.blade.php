@@ -2,6 +2,25 @@
 @section("title","Timezone")
 @section("content")
 @php $base_url = url(''); @endphp
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
+<script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyDmlagHFn1yw5KcbXHuIfuuWsw2EcXTmwE",
+        authDomain: "notification-test-a3f05.firebaseapp.com",
+        databaseURL: 'db-url',
+        projectId: "notification-test-a3f05",
+        storageBucket: "notification-test-a3f05.appspot.com",
+        messagingSenderId: "299026161686",
+        appId: "1:299026161686:web:53bf04a964fb438be01537",
+        measurementId: "G-RT6CHXQZTF"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const messaging = firebase.messaging();
+</script>
+
 <body onload="setTimezone(this)"></body>
 <div class="modal-dialog logout-modal">
     <div class="modal-content">
@@ -33,7 +52,33 @@
             type: 'get',
             success: function(response) {
                 if (response == 'success') {
+                    // location.reload();
+                    messaging
+                        .requestPermission()
+                        .then(function() {
+                            return messaging.getToken()
+                        })
+                        .then(function(response) {
+                            userDevice(response);
+                        }).catch(function(error) {
+                            alert(error);
+                        });
+                }
+            }
+        });
+    }
+
+    function userDevice(device_token) {
+        var base_url = '<?= $base_url ?>';
+        $.ajax({
+            url: base_url + '/device-token/' + device_token,
+            type: 'get',
+            success: function(response) {
+                if (response == 'success') {
+                    // alert('success');
                     location.reload();
+                } else {
+                    alert('issue');
                 }
             }
         });

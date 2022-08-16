@@ -31,6 +31,18 @@ use App\Http\Controllers\SubscriptionController;
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 
+Route::get('/user-device', function () {
+    return view('userDevice');
+});
+
+Route::get('/device-token/{toke}', [UserController::class, 'updateDeviceToken']);
+
+Route::get('/test-notification', function () {
+    return view('testNotification');
+});
+
+Route::post('/send-web-notification', [UserController::class, 'sendNotification'])->name('send.web-notification');
+
 // Route::get('/set-countries', [HomeController::class, 'setCountries'])->name('set-countries');
 // Route::get('/set-states', [HomeController::class, 'setStates'])->name('set-states');
 // Route::get('/set-cities', [HomeController::class, 'setCities'])->name('set-cities');
