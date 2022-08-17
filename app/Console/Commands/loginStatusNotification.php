@@ -84,7 +84,7 @@ class loginStatusNotification extends Command
                             "notification" => [
                                 "title" => 'Login Notification',
                                 "body" => 'Login Notification',
-                                "action" => 'View app', 'https://www.beternal.life/',
+                                "action" => 'https://www.beternal.life/',
                             ]
                         ];
                         $encodedData = json_encode($data);
