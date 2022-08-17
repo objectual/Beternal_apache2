@@ -29,6 +29,8 @@ use App\Models\ScheduleMedia;
 use App\Models\ScheduleMediaRecipient;
 use App\Models\ShareMedia;
 use App\Models\ShareMediaGroup;
+use App\Models\LoginHistory;
+use App\Models\PushNotification;
 use App\helpers;
 
 class UserController extends Controller
@@ -1019,12 +1021,6 @@ class UserController extends Controller
 
     public function updateDeviceToken($token)
     {
-        // Auth::user()->device_token =  $token;
-
-        // Auth::user()->save();
-
-        // return response()->json(['Token successfully stored.']);
-
         $id = Auth::user()->id;
         $store_token = DB::table('users')->where('id', $id)->update(['device_token' => $token]);
         return 'success';
@@ -1033,16 +1029,54 @@ class UserController extends Controller
     public function sendNotification(Request $request)
     {
         $url = 'https://fcm.googleapis.com/fcm/send';
+        $current_date = getdate(date("U"));
+        $minutes = "$current_date[minutes]";
+        $hours = "$current_date[hours]";
+        $month = "$current_date[mon]";
+        $date = "$current_date[mday]";
+        $year = "$current_date[year]";
+        $set_date = $year . '-' . $month . '-' . $date;
+        $set_time = $hours . ':' . $minutes . ':' . 0 . 0;
+        $date_time = $set_date . ' ' . $set_time;
+        $base_url = url('https://www.beternal.life/');
 
-        $FcmToken = User::whereNotNull('device_token')->pluck('device_token')->all();
+        $logout_users = LoginHistory::where('login_history.status', 0)
+        ->join('users', 'login_history.user_id', '=', 'users.id')
+        ->get(['login_history.id', 'last_logout', 'user_id', 'push_notification', 'users.name', 'users.last_name']);
+
+        if (!$logout_users->isEmpty()) {
+            foreach ($logout_users as $key => $user) {
+                $date1 = $user->last_logout;
+                $date2 = $date_time;
+                $timestamp1 = strtotime($date1);
+                $timestamp2 = strtotime($date2);
+                $hours_diff = abs($timestamp2 - $timestamp1)/(60*60);
+                $token = rand() . 'fhhfvhf' . rand() . time() . rand() . 'hfvhfhvf' . rand();
+                if ($user->push_notification == 0) {
+                    if ($hours_diff > 24) {
+                        $notification = new PushNotification();
+                        $notification->type = 'not active';
+                        $notification->token = $token;
+                        $notification->user_id = $user->user_id;
+                        $notification->save();
+
+                        $update = LoginHistory::findOrFail($user->id);
+                        $update->push_notification = 1;
+                        $update->save();
+                    }
+                }
+            }
+        }
+
+        $FcmToken = User::where('id', 2)->pluck('device_token')->all();
             
         $serverKey = 'AAAARZ9ZIBY:APA91bFwplB8ZL0lRXgW9dwRsVw3D8fsqvIhgNDKyOC708uZJ3qv1FiMBY2NksuyYKnKr5OgiYoqb0JLeS9YxqPVQgUa27sKLXzyV3Va47QRWiAJA-4LV19knVR60Uv67ZD9i5YJNZTk'; // ADD SERVER KEY HERE PROVIDED BY FCM
     
         $data = [
             "registration_ids" => $FcmToken,
             "notification" => [
-                "title" => $request->title,
-                "body" => $request->body,  
+                "title" => 'Login Notification',
+                "body" => $base_url,  
             ]
         ];
         $encodedData = json_encode($data);
@@ -1071,6 +1105,5 @@ class UserController extends Controller
         // Close connection
         curl_close($ch);
         // FCM response
-        dd($result);
     }
 }

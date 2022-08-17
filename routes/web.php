@@ -29,13 +29,12 @@ use App\Http\Controllers\SubscriptionController;
 //     return view('frontend.home');
 // });
 
+// Route::get('/set-countries', [HomeController::class, 'setCountries'])->name('set-countries');
+// Route::get('/set-states', [HomeController::class, 'setStates'])->name('set-states');
+// Route::get('/set-cities', [HomeController::class, 'setCities'])->name('set-cities');
+// Route::get('/cities-data/{id}', [HomeController::class, 'citiesData'])->name('cities-data');
+
 Route::get('/', [HomeController::class, 'index'])->name('index');
-
-Route::get('/user-device', function () {
-    return view('userDevice');
-});
-
-Route::get('/device-token/{toke}', [UserController::class, 'updateDeviceToken']);
 
 Route::get('/test-notification', function () {
     return view('testNotification');
@@ -43,17 +42,13 @@ Route::get('/test-notification', function () {
 
 Route::post('/send-web-notification', [UserController::class, 'sendNotification'])->name('send.web-notification');
 
-// Route::get('/set-countries', [HomeController::class, 'setCountries'])->name('set-countries');
-// Route::get('/set-states', [HomeController::class, 'setStates'])->name('set-states');
-// Route::get('/set-cities', [HomeController::class, 'setCities'])->name('set-cities');
-// Route::get('/cities-data/{id}', [HomeController::class, 'citiesData'])->name('cities-data');
-
 // start routes for ajax request
 Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
 Route::get('/cities/{id}', [CityController::class, 'getCities']);
 Route::get('/filter-recipent/{contact_id}', [UserController::class, 'filterRecipent']);
 Route::get('/set-timezone/{user_timezone}', [HomeController::class, 'setTimezone']);
 Route::get('/schedule-timezone/{timezone}/{state}', [MediaController::class, 'scheduleTimezone']);
+Route::get('/device-token/{toke}', [UserController::class, 'updateDeviceToken']);
 // end routes for ajax request
 
 
