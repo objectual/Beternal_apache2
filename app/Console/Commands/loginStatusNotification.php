@@ -79,12 +79,12 @@ class loginStatusNotification extends Command
                         $FcmToken = User::where('id', $user->user_id)->pluck('device_token')->all();
 
                         $serverKey = 'AAAARZ9ZIBY:APA91bFwplB8ZL0lRXgW9dwRsVw3D8fsqvIhgNDKyOC708uZJ3qv1FiMBY2NksuyYKnKr5OgiYoqb0JLeS9YxqPVQgUa27sKLXzyV3Va47QRWiAJA-4LV19knVR60Uv67ZD9i5YJNZTk'; // ADD SERVER KEY HERE PROVIDED BY FCM
-
                         $data = [
                             "registration_ids" => $FcmToken,
                             "notification" => [
                                 "title" => 'Login Notification',
-                                "body" => $base_url,
+                                "body" => 'Login Notification',
+                                "action" => 'View app', 'https://www.beternal.life/',
                             ]
                         ];
                         $encodedData = json_encode($data);
