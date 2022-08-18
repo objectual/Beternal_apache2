@@ -36,12 +36,6 @@ use App\Http\Controllers\SubscriptionController;
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 
-Route::get('/test-notification', function () {
-    return view('testNotification');
-});
-
-Route::post('/send-web-notification', [UserController::class, 'sendNotification'])->name('send.web-notification');
-
 // start routes for ajax request
 Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
 Route::get('/cities/{id}', [CityController::class, 'getCities']);
@@ -70,9 +64,9 @@ Route::get('/deny/{token}', [UserController::class, 'recipientDeny'])->name('den
 Route::get('/confirmation-contact/{token}', [UserController::class, 'contactConfirmation'])->name('confirmation-contact');
 Route::get('/contact-success/{token}', [UserController::class, 'updateContactConfirmation'])->name('contact-success');
 Route::get('/deny-contact/{token}', [UserController::class, 'contactDeny'])->name('deny-contact');
+Route::get('/user-status/{token}', [UserController::class, 'userStatus'])->name('user-status');
 Route::get('/media-url/{token}', [MediaController::class, 'displayEventMedia'])->name('received');
-// Route::get('/device-testing', [HomeController::class, 'deviceTesting'])->name('device-testing');
-Route::get('/device-testing', [HomeController::class, 'mediaTesting'])->name('device-testing');
+Route::get('/device-testing', [HomeController::class, 'deviceTesting'])->name('device-testing');
 
 Route::get('/dashboard', function () {
     return view('frontend.dashboard');

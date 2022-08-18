@@ -54,7 +54,7 @@ class loginStatusNotification extends Command
 
         $logout_users = LoginHistory::where('login_history.status', 0)
             ->join('users', 'login_history.user_id', '=', 'users.id')
-            ->get(['login_history.id', 'last_logout', 'user_id', 'push_notification', 'users.name', 'users.last_name']);
+            ->get(['login_history.id', 'last_logout', 'user_id', 'push_notification', 'users.name']);
 
         if (!$logout_users->isEmpty()) {
             foreach ($logout_users as $key => $user) {
@@ -76,15 +76,16 @@ class loginStatusNotification extends Command
                         $update->push_notification = 1;
                         $update->save();
 
+                        $user_name = strtoupper($user->name);
                         $FcmToken = User::where('id', $user->user_id)->pluck('device_token')->all();
 
                         $serverKey = 'AAAARZ9ZIBY:APA91bFwplB8ZL0lRXgW9dwRsVw3D8fsqvIhgNDKyOC708uZJ3qv1FiMBY2NksuyYKnKr5OgiYoqb0JLeS9YxqPVQgUa27sKLXzyV3Va47QRWiAJA-4LV19knVR60Uv67ZD9i5YJNZTk'; // ADD SERVER KEY HERE PROVIDED BY FCM
                         $data = [
                             "registration_ids" => $FcmToken,
                             "notification" => [
-                                "title" => 'Login Notification',
-                                "body" => 'Login Notification',
-                                "click_action" => 'https://www.beternal.life/',
+                                "title" => 'bETERNAL Notification',
+                                "body" => $user_name . ', are you ok?  We have not heard from you today?',
+                                "click_action" => 'https://www.beternal.life/user-status/'.$token,
                             ]
                         ];
                         $encodedData = json_encode($data);
