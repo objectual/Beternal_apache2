@@ -2,7 +2,7 @@
 @section("title","Contact Us")
 @section("content")
 <div class="container-fluid bg-create forget-back contact-back">
-  <div class="scroll-div">
+  <div class="scroll-div row-height">
     <div class="row">
       <div class="col-lg-6 offset-lg-3">
         <div class="login contact-us">
