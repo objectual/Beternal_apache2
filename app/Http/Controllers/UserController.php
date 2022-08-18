@@ -1028,6 +1028,7 @@ class UserController extends Controller
 
     public function userStatus($token)
     {
+        echo 'Working';
         dd('testing');
     }
 }
