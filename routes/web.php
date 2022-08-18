@@ -65,6 +65,7 @@ Route::get('/confirmation-contact/{token}', [UserController::class, 'contactConf
 Route::get('/contact-success/{token}', [UserController::class, 'updateContactConfirmation'])->name('contact-success');
 Route::get('/deny-contact/{token}', [UserController::class, 'contactDeny'])->name('deny-contact');
 Route::get('/user-status/{token}', [UserController::class, 'userStatus'])->name('user-status');
+Route::get('/status-success/{token}', [UserController::class, 'updateUserStatus'])->name('status-success');
 Route::get('/media-url/{token}', [MediaController::class, 'displayEventMedia'])->name('received');
 Route::get('/device-testing', [HomeController::class, 'deviceTesting'])->name('device-testing');
 

@@ -1026,9 +1026,45 @@ class UserController extends Controller
         return 'success';
     }
 
-    public function userStatus($token)
+    public function userStatus(Request $request)
     {
-        echo 'Working';
-        dd('testing');
+        $title = "USER STATUS";
+        $token = $request->token;
+        $check_notification = PushNotification::where('token', $token)->first('status');
+        if ($check_notification) {
+            if ($check_notification->status == 0) {
+                return view('frontend.userStatus', compact('title', 'token'));
+            } else if ($check_notification->status == 1) {
+                $message = "We already received your response";
+            }
+        } else {
+            $message = "Not found any request!";
+        }
+        return view('frontend.userStatus', compact('title', 'message'));
+    }
+
+    public function updateUserStatus(Request $request)
+    {
+        $title = "USER STATUS SUCCESS";
+        $notification = PushNotification::where('token', $request->token)
+        ->first('user_id');
+
+        if ($notification != null) {
+            $update_notification = PushNotification::where('token', $request->token)
+            ->update(['status' => 1]);
+
+            if ($update_notification) {
+                $update_status = LoginHistory::where('user_id', $notification->user_id)
+                ->update(['push_notification' => 2]);
+
+                $message = "We have received your response, thank you";
+            } else {
+                $message = "Not found any request!";
+            }
+        } else {
+            $message = "Not found any request!";
+        }
+
+        return view('frontend.confirmation', compact('title', 'message'));
     }
 }
