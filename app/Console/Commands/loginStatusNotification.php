@@ -50,7 +50,6 @@ class loginStatusNotification extends Command
         $set_date = $year . '-' . $month . '-' . $date;
         $set_time = $hours . ':' . $minutes . ':' . 0 . 0;
         $date_time = $set_date . ' ' . $set_time;
-        $base_url = url('https://www.beternal.life/');
 
         $logout_users = LoginHistory::where('login_history.status', 0)
             ->join('users', 'login_history.user_id', '=', 'users.id')

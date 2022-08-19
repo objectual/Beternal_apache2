@@ -66,8 +66,10 @@ Route::get('/contact-success/{token}', [UserController::class, 'updateContactCon
 Route::get('/deny-contact/{token}', [UserController::class, 'contactDeny'])->name('deny-contact');
 Route::get('/user-status/{token}', [UserController::class, 'userStatus'])->name('user-status');
 Route::get('/status-success/{token}', [UserController::class, 'updateUserStatus'])->name('status-success');
+Route::get('/email-status/{type}/{token}', [UserController::class, 'updateEmailStatus'])->name('email-status');
 Route::get('/media-url/{token}', [MediaController::class, 'displayEventMedia'])->name('received');
 Route::get('/device-testing', [HomeController::class, 'deviceTesting'])->name('device-testing');
+Route::get('/notification-test', [UserController::class, 'notificationTest'])->name('notification-test');
 
 Route::get('/dashboard', function () {
     return view('frontend.dashboard');
