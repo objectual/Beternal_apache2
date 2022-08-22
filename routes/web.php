@@ -67,6 +67,7 @@ Route::get('/deny-contact/{token}', [UserController::class, 'contactDeny'])->nam
 Route::get('/user-status/{token}', [UserController::class, 'userStatus'])->name('user-status');
 Route::get('/status-success/{token}', [UserController::class, 'updateUserStatus'])->name('status-success');
 Route::get('/email-status/{type}/{token}', [UserController::class, 'updateEmailStatus'])->name('email-status');
+Route::get('/distribution/{type}/{token}', [UserController::class, 'distributionStatus'])->name('distribution');
 Route::get('/media-url/{token}', [MediaController::class, 'displayEventMedia'])->name('received');
 Route::get('/device-testing', [HomeController::class, 'deviceTesting'])->name('device-testing');
 Route::get('/notification-test', [UserController::class, 'notificationTest'])->name('notification-test');
