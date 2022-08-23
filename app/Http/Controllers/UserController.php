@@ -1082,12 +1082,12 @@ class UserController extends Controller
         $date_time = $set_date . ' ' . $set_time;
 
         $notification = PushNotification::where('token', $request->token)
-        ->first(['status', 'user_id']);
+            ->first(['status', 'user_id']);
 
         if ($notification != null) {
             if ($request->type == 'first-email') {
                 $chech_email = LoginHistory::where('user_id', $notification->user_id)
-                ->first(['first_email_date']);
+                    ->first(['first_email_date']);
 
                 $date1 = $chech_email->first_email_date;
                 $date2 = $date_time;
@@ -1097,8 +1097,8 @@ class UserController extends Controller
                 if ($hours_diff <= 24) {
                     if ($notification->status == 0) {
                         $update_notification = PushNotification::where('token', $request->token)
-                        ->update(['status' => 1]);
-        
+                            ->update(['status' => 1]);
+
                         if ($update_notification) {
                             $update_status = LoginHistory::where('user_id', $notification->user_id)->update(['user_first_email' => 2]);
 
@@ -1114,7 +1114,7 @@ class UserController extends Controller
                 }
             } else if ($request->type == 'second-email') {
                 $chech_email = LoginHistory::where('user_id', $notification->user_id)
-                ->first(['second_email_date']);
+                    ->first(['second_email_date']);
 
                 $date1 = $chech_email->second_email_date;
                 $date2 = $date_time;
@@ -1125,7 +1125,7 @@ class UserController extends Controller
                 if ($hours_diff <= 24) {
                     if ($notification->status == 0) {
                         $update_notification = PushNotification::where('token', $request->token)
-                        ->update(['status' => 1]);
+                            ->update(['status' => 1]);
 
                         if ($update_notification) {
                             $update_status = LoginHistory::where('user_id', $notification->user_id)->update(['user_second_email' => 2]);
@@ -1142,7 +1142,7 @@ class UserController extends Controller
                 }
             } else if ($request->type == 'first-contact') {
                 $chech_email = LoginHistory::where('user_id', $notification->user_id)
-                ->first(['first_contact_date']);
+                    ->first(['first_contact_date']);
 
                 $date1 = $chech_email->first_contact_date;
                 $date2 = $date_time;
@@ -1153,7 +1153,7 @@ class UserController extends Controller
                 if ($hours_diff <= 24) {
                     if ($notification->status == 0) {
                         $update_notification = PushNotification::where('token', $request->token)
-                        ->update(['status' => 1]);
+                            ->update(['status' => 1]);
 
                         if ($update_notification) {
                             $update_status = LoginHistory::where('user_id', $notification->user_id)->update(['first_contact_email' => 2]);
@@ -1170,7 +1170,7 @@ class UserController extends Controller
                 }
             } else if ($request->type == 'first-contact-2') {
                 $chech_email = LoginHistory::where('user_id', $notification->user_id)
-                ->first(['first_contact_date_2']);
+                    ->first(['first_contact_date_2']);
 
                 $date1 = $chech_email->first_contact_date_2;
                 $date2 = $date_time;
@@ -1181,7 +1181,7 @@ class UserController extends Controller
                 if ($hours_diff <= 24) {
                     if ($notification->status == 0) {
                         $update_notification = PushNotification::where('token', $request->token)
-                        ->update(['status' => 1]);
+                            ->update(['status' => 1]);
 
                         if ($update_notification) {
                             $update_status = LoginHistory::where('user_id', $notification->user_id)->update(['first_contact_email_2' => 2]);
@@ -1198,7 +1198,7 @@ class UserController extends Controller
                 }
             } else if ($request->type == 'second-contact') {
                 $chech_email = LoginHistory::where('user_id', $notification->user_id)
-                ->first(['second_contact_date']);
+                    ->first(['second_contact_date']);
 
                 $date1 = $chech_email->second_contact_date;
                 $date2 = $date_time;
@@ -1209,7 +1209,7 @@ class UserController extends Controller
                 if ($hours_diff <= 24) {
                     if ($notification->status == 0) {
                         $update_notification = PushNotification::where('token', $request->token)
-                        ->update(['status' => 1]);
+                            ->update(['status' => 1]);
 
                         if ($update_notification) {
                             $update_status = LoginHistory::where('user_id', $notification->user_id)->update(['second_contact_email' => 2]);
@@ -1226,7 +1226,7 @@ class UserController extends Controller
                 }
             } else if ($request->type == 'second-contact-2') {
                 $chech_email = LoginHistory::where('user_id', $notification->user_id)
-                ->first(['second_contact_date_2']);
+                    ->first(['second_contact_date_2']);
 
                 $date1 = $chech_email->second_contact_date_2;
                 $date2 = $date_time;
@@ -1237,7 +1237,7 @@ class UserController extends Controller
                 if ($hours_diff <= 24) {
                     if ($notification->status == 0) {
                         $update_notification = PushNotification::where('token', $request->token)
-                        ->update(['status' => 1]);
+                            ->update(['status' => 1]);
 
                         if ($update_notification) {
                             $update_status = LoginHistory::where('user_id', $notification->user_id)->update(['second_contact_email_2' => 2]);
@@ -1254,7 +1254,7 @@ class UserController extends Controller
                 }
             } else if ($request->type == 'third-contact') {
                 $chech_email = LoginHistory::where('user_id', $notification->user_id)
-                ->first(['third_contact_date']);
+                    ->first(['third_contact_date']);
 
                 $date1 = $chech_email->third_contact_date;
                 $date2 = $date_time;
@@ -1265,7 +1265,7 @@ class UserController extends Controller
                 if ($hours_diff <= 24) {
                     if ($notification->status == 0) {
                         $update_notification = PushNotification::where('token', $request->token)
-                        ->update(['status' => 1]);
+                            ->update(['status' => 1]);
 
                         if ($update_notification) {
                             $update_status = LoginHistory::where('user_id', $notification->user_id)->update(['third_contact_email' => 2]);
@@ -1282,7 +1282,7 @@ class UserController extends Controller
                 }
             } else if ($request->type == 'third-contact-2') {
                 $chech_email = LoginHistory::where('user_id', $notification->user_id)
-                ->first(['third_contact_date_2']);
+                    ->first(['third_contact_date_2']);
 
                 $date1 = $chech_email->third_contact_date_2;
                 $date2 = $date_time;
@@ -1293,7 +1293,7 @@ class UserController extends Controller
                 if ($hours_diff <= 24) {
                     if ($notification->status == 0) {
                         $update_notification = PushNotification::where('token', $request->token)
-                        ->update(['status' => 1]);
+                            ->update(['status' => 1]);
 
                         if ($update_notification) {
                             $update_status = LoginHistory::where('user_id', $notification->user_id)->update(['third_contact_email_2' => 2]);
@@ -1362,7 +1362,7 @@ class UserController extends Controller
                             $user_name = strtoupper($chech_email->name);
                             $contact_name = strtoupper($user_contact->name);
                             $email = $user_contact->email;
-                            $url = $base_url . 'legacy-confirmation/third-contact-2/' . $token;
+                            $url = $base_url . 'legacy-confirmation/first-contact/' . $token;
                             session()->put(['email' => $email, 'name' => $contact_name]);
                             $data = array(
                                 'user_name' => $user_name,
@@ -1385,7 +1385,12 @@ class UserController extends Controller
                 }
             } else if ($request->type == 'first-contact-2') {
                 $chech_email = LoginHistory::where('user_id', $notification->user_id)
-                ->first(['first_contact_date_2']);
+                ->join('users', 'login_history.user_id', '=', 'users.id')
+                ->first(['first_contact_date_2', 'name']);
+
+                $user_contact = UserContact::where(['contact_status_id' => 1, 'user_contacts.user_id' => $notification->user_id])
+                ->join('user_recipients', 'user_contacts.contact_id', '=', 'user_recipients.recipient_id')
+                ->first(['name', 'email']);
 
                 $date1 = $chech_email->first_contact_date_2;
                 $date2 = $date_time;
@@ -1402,6 +1407,22 @@ class UserController extends Controller
                             $update_status = LoginHistory::where('user_id', $notification->user_id)->update(['first_contact_email_2' => 2]);
 
                             $message = "We have received your response, thank you";
+                            $token = $request->token;
+                            $user_name = strtoupper($chech_email->name);
+                            $contact_name = strtoupper($user_contact->name);
+                            $email = $user_contact->email;
+                            $url = $base_url . 'legacy-confirmation/first-contact-2/' . $token;
+                            session()->put(['email' => $email, 'name' => $contact_name]);
+                            $data = array(
+                                'user_name' => $user_name,
+                                'contact_name' => $contact_name,
+                                'url' => $url
+                            );
+
+                            Mail::send('emails.legacyConfirmationEmail', $data, function ($message) {
+                                $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
+                                $message->from('team@beternal.life', 'bETERNAL Team');
+                            });
                         } else {
                             $message = "Not found any request!";
                         }
@@ -1413,7 +1434,12 @@ class UserController extends Controller
                 }
             } else if ($request->type == 'second-contact') {
                 $chech_email = LoginHistory::where('user_id', $notification->user_id)
-                ->first(['second_contact_date']);
+                ->join('users', 'login_history.user_id', '=', 'users.id')
+                ->first(['second_contact_date', 'name']);
+                
+                $user_contact = UserContact::where(['contact_status_id' => 2, 'user_contacts.user_id' => $notification->user_id])
+                ->join('user_recipients', 'user_contacts.contact_id', '=', 'user_recipients.recipient_id')
+                ->first(['name', 'email']);
 
                 $date1 = $chech_email->second_contact_date;
                 $date2 = $date_time;
@@ -1430,6 +1456,22 @@ class UserController extends Controller
                             $update_status = LoginHistory::where('user_id', $notification->user_id)->update(['second_contact_email' => 2]);
 
                             $message = "We have received your response, thank you";
+                            $token = $request->token;
+                            $user_name = strtoupper($chech_email->name);
+                            $contact_name = strtoupper($user_contact->name);
+                            $email = $user_contact->email;
+                            $url = $base_url . 'legacy-confirmation/second-contact/' . $token;
+                            session()->put(['email' => $email, 'name' => $contact_name]);
+                            $data = array(
+                                'user_name' => $user_name,
+                                'contact_name' => $contact_name,
+                                'url' => $url
+                            );
+
+                            Mail::send('emails.legacyConfirmationEmail', $data, function ($message) {
+                                $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
+                                $message->from('team@beternal.life', 'bETERNAL Team');
+                            });
                         } else {
                             $message = "Not found any request!";
                         }
@@ -1441,7 +1483,7 @@ class UserController extends Controller
                 }
             } else if ($request->type == 'second-contact-2') {
                 $chech_email = LoginHistory::where('user_id', $notification->user_id)
-                ->first(['second_contact_date_2']);
+                    ->first(['second_contact_date_2']);
 
                 $date1 = $chech_email->second_contact_date_2;
                 $date2 = $date_time;
@@ -1452,7 +1494,7 @@ class UserController extends Controller
                 if ($hours_diff <= 24) {
                     if ($notification->status == 0) {
                         $update_notification = PushNotification::where('token', $request->token)
-                        ->update(['status' => 1]);
+                            ->update(['status' => 1]);
 
                         if ($update_notification) {
                             $update_status = LoginHistory::where('user_id', $notification->user_id)->update(['second_contact_email_2' => 2]);
@@ -1469,7 +1511,7 @@ class UserController extends Controller
                 }
             } else if ($request->type == 'third-contact') {
                 $chech_email = LoginHistory::where('user_id', $notification->user_id)
-                ->first(['third_contact_date']);
+                    ->first(['third_contact_date']);
 
                 $date1 = $chech_email->third_contact_date;
                 $date2 = $date_time;
@@ -1480,7 +1522,7 @@ class UserController extends Controller
                 if ($hours_diff <= 24) {
                     if ($notification->status == 0) {
                         $update_notification = PushNotification::where('token', $request->token)
-                        ->update(['status' => 1]);
+                            ->update(['status' => 1]);
 
                         if ($update_notification) {
                             $update_status = LoginHistory::where('user_id', $notification->user_id)->update(['third_contact_email' => 2]);
@@ -1497,7 +1539,7 @@ class UserController extends Controller
                 }
             } else if ($request->type == 'third-contact-2') {
                 $chech_email = LoginHistory::where('user_id', $notification->user_id)
-                ->first(['third_contact_date_2']);
+                    ->first(['third_contact_date_2']);
 
                 $date1 = $chech_email->third_contact_date_2;
                 $date2 = $date_time;
@@ -1508,7 +1550,7 @@ class UserController extends Controller
                 if ($hours_diff <= 24) {
                     if ($notification->status == 0) {
                         $update_notification = PushNotification::where('token', $request->token)
-                        ->update(['status' => 1]);
+                            ->update(['status' => 1]);
 
                         if ($update_notification) {
                             $update_status = LoginHistory::where('user_id', $notification->user_id)->update(['third_contact_email_2' => 2]);
