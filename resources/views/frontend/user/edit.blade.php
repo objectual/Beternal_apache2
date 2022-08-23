@@ -3,6 +3,24 @@
 @section("title","My Profile Edit")
 @section("content")
 
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
+<script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyDmlagHFn1yw5KcbXHuIfuuWsw2EcXTmwE",
+        authDomain: "notification-test-a3f05.firebaseapp.com",
+        databaseURL: 'db-url',
+        projectId: "notification-test-a3f05",
+        storageBucket: "notification-test-a3f05.appspot.com",
+        messagingSenderId: "299026161686",
+        appId: "1:299026161686:web:53bf04a964fb438be01537",
+        measurementId: "G-RT6CHXQZTF"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const messaging = firebase.messaging();
+</script>
+
 <div class="container-fluid payment-back-mob accont-padding-top edit-register">
     <div class="scroll-div">
         <div class="row">
@@ -570,10 +588,11 @@
         // …
     } else if (Notification.permission !== "denied") {
         // We need to ask the user for permission
-        Notification.requestPermission().then((permission) => {
+        messaging.requestPermission().then((permission) => {
         // If the user accepts, let's create a notification
         if (permission === "granted") {
-            const notification = new Notification("Hi there!");
+            alert(messaging.getToken())
+            const notification = new Notification("Hi test!");
             // …
         }
         });
