@@ -27,7 +27,7 @@
         <div class="modal-body">
             <div class="row">
                 <div class="col-lg-10 text-center offset-lg-1">
-                    <p class="text-white">Pleas Wait..</p>
+                    <p class="text-white">Please Wait..</p>
                 </div>
             </div>
             <!-- <div class="row pt-4 mb-4">

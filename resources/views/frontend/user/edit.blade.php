@@ -3,24 +3,6 @@
 @section("title","My Profile Edit")
 @section("content")
 
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
-<script>
-    var firebaseConfig = {
-        apiKey: "AIzaSyDmlagHFn1yw5KcbXHuIfuuWsw2EcXTmwE",
-        authDomain: "notification-test-a3f05.firebaseapp.com",
-        databaseURL: 'db-url',
-        projectId: "notification-test-a3f05",
-        storageBucket: "notification-test-a3f05.appspot.com",
-        messagingSenderId: "299026161686",
-        appId: "1:299026161686:web:53bf04a964fb438be01537",
-        measurementId: "G-RT6CHXQZTF"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const messaging = firebase.messaging();
-</script>
-
 <div class="container-fluid payment-back-mob accont-padding-top edit-register">
     <div class="scroll-div">
         <div class="row">
@@ -260,8 +242,6 @@
         </div>
     </div>
 </div>
-
-<button class="btn btn-primary p-1" onclick="notifyMe()">Check Device</button>
 
 <script src="{!! asset('/public/build/js/intlTelInput.js') !!}"></script>
 <script>
@@ -577,28 +557,4 @@
         return true;
     }
 
-    function notifyMe() {
-    if (!("Notification" in window)) {
-        // Check if the browser supports notifications
-        alert("This browser does not support desktop notification");
-    } else if (Notification.permission === "granted") {
-        // Check whether notification permissions have already been granted;
-        // if so, create a notification
-        const notification = new Notification("Hi there!");
-        // …
-    } else if (Notification.permission !== "denied") {
-        // We need to ask the user for permission
-        messaging.requestPermission().then((permission) => {
-        // If the user accepts, let's create a notification
-        if (permission === "granted") {
-            alert(messaging.getToken())
-            const notification = new Notification("Hi test!");
-            // …
-        }
-        });
-    }
-
-    // At last, if the user has denied notifications, and you
-    // want to be respectful there is no need to bother them anymore.
-    }
 </script>
