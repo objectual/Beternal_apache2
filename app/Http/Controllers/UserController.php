@@ -1483,7 +1483,12 @@ class UserController extends Controller
                 }
             } else if ($request->type == 'second-contact-2') {
                 $chech_email = LoginHistory::where('user_id', $notification->user_id)
-                    ->first(['second_contact_date_2']);
+                ->join('users', 'login_history.user_id', '=', 'users.id')
+                ->first(['second_contact_date_2', 'name']);
+
+                $user_contact = UserContact::where(['contact_status_id' => 2, 'user_contacts.user_id' => $notification->user_id])
+                ->join('user_recipients', 'user_contacts.contact_id', '=', 'user_recipients.recipient_id')
+                ->first(['name', 'email']);
 
                 $date1 = $chech_email->second_contact_date_2;
                 $date2 = $date_time;
@@ -1494,12 +1499,28 @@ class UserController extends Controller
                 if ($hours_diff <= 24) {
                     if ($notification->status == 0) {
                         $update_notification = PushNotification::where('token', $request->token)
-                            ->update(['status' => 1]);
+                        ->update(['status' => 1]);
 
                         if ($update_notification) {
                             $update_status = LoginHistory::where('user_id', $notification->user_id)->update(['second_contact_email_2' => 2]);
 
                             $message = "We have received your response, thank you";
+                            $token = $request->token;
+                            $user_name = strtoupper($chech_email->name);
+                            $contact_name = strtoupper($user_contact->name);
+                            $email = $user_contact->email;
+                            $url = $base_url . 'legacy-confirmation/second-contact-2/' . $token;
+                            session()->put(['email' => $email, 'name' => $contact_name]);
+                            $data = array(
+                                'user_name' => $user_name,
+                                'contact_name' => $contact_name,
+                                'url' => $url
+                            );
+
+                            Mail::send('emails.legacyConfirmationEmail', $data, function ($message) {
+                                $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
+                                $message->from('team@beternal.life', 'bETERNAL Team');
+                            });
                         } else {
                             $message = "Not found any request!";
                         }
@@ -1511,7 +1532,12 @@ class UserController extends Controller
                 }
             } else if ($request->type == 'third-contact') {
                 $chech_email = LoginHistory::where('user_id', $notification->user_id)
-                    ->first(['third_contact_date']);
+                ->join('users', 'login_history.user_id', '=', 'users.id')
+                ->first(['third_contact_date', 'name']);
+
+                $user_contact = UserContact::where(['contact_status_id' => 3, 'user_contacts.user_id' => $notification->user_id])
+                ->join('user_recipients', 'user_contacts.contact_id', '=', 'user_recipients.recipient_id')
+                ->first(['name', 'email']);
 
                 $date1 = $chech_email->third_contact_date;
                 $date2 = $date_time;
@@ -1522,12 +1548,28 @@ class UserController extends Controller
                 if ($hours_diff <= 24) {
                     if ($notification->status == 0) {
                         $update_notification = PushNotification::where('token', $request->token)
-                            ->update(['status' => 1]);
+                        ->update(['status' => 1]);
 
                         if ($update_notification) {
                             $update_status = LoginHistory::where('user_id', $notification->user_id)->update(['third_contact_email' => 2]);
 
                             $message = "We have received your response, thank you";
+                            $token = $request->token;
+                            $user_name = strtoupper($chech_email->name);
+                            $contact_name = strtoupper($user_contact->name);
+                            $email = $user_contact->email;
+                            $url = $base_url . 'legacy-confirmation/third-contact/' . $token;
+                            session()->put(['email' => $email, 'name' => $contact_name]);
+                            $data = array(
+                                'user_name' => $user_name,
+                                'contact_name' => $contact_name,
+                                'url' => $url
+                            );
+
+                            Mail::send('emails.legacyConfirmationEmail', $data, function ($message) {
+                                $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
+                                $message->from('team@beternal.life', 'bETERNAL Team');
+                            });
                         } else {
                             $message = "Not found any request!";
                         }
@@ -1539,7 +1581,12 @@ class UserController extends Controller
                 }
             } else if ($request->type == 'third-contact-2') {
                 $chech_email = LoginHistory::where('user_id', $notification->user_id)
-                    ->first(['third_contact_date_2']);
+                ->join('users', 'login_history.user_id', '=', 'users.id')
+                ->first(['third_contact_date_2', 'name']);
+
+                $user_contact = UserContact::where(['contact_status_id' => 3, 'user_contacts.user_id' => $notification->user_id])
+                ->join('user_recipients', 'user_contacts.contact_id', '=', 'user_recipients.recipient_id')
+                ->first(['name', 'email']);
 
                 $date1 = $chech_email->third_contact_date_2;
                 $date2 = $date_time;
@@ -1550,12 +1597,28 @@ class UserController extends Controller
                 if ($hours_diff <= 24) {
                     if ($notification->status == 0) {
                         $update_notification = PushNotification::where('token', $request->token)
-                            ->update(['status' => 1]);
+                        ->update(['status' => 1]);
 
                         if ($update_notification) {
                             $update_status = LoginHistory::where('user_id', $notification->user_id)->update(['third_contact_email_2' => 2]);
 
                             $message = "We have received your response, thank you";
+                            $token = $request->token;
+                            $user_name = strtoupper($chech_email->name);
+                            $contact_name = strtoupper($user_contact->name);
+                            $email = $user_contact->email;
+                            $url = $base_url . 'legacy-confirmation/third-contact-2/' . $token;
+                            session()->put(['email' => $email, 'name' => $contact_name]);
+                            $data = array(
+                                'user_name' => $user_name,
+                                'contact_name' => $contact_name,
+                                'url' => $url
+                            );
+
+                            Mail::send('emails.legacyConfirmationEmail', $data, function ($message) {
+                                $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
+                                $message->from('team@beternal.life', 'bETERNAL Team');
+                            });
                         } else {
                             $message = "Not found any request!";
                         }
@@ -1571,6 +1634,22 @@ class UserController extends Controller
         }
 
         return view('frontend.confirmation', compact('title', 'message'));
+    }
+
+    public function legacyConfirmation(Request $request)
+    {
+        dd('testing');
+        $title = "SUCCESS";
+        $current_date = getdate(date("U"));
+        $minutes = "$current_date[minutes]";
+        $hours = "$current_date[hours]";
+        $month = "$current_date[mon]";
+        $date = "$current_date[mday]";
+        $year = "$current_date[year]";
+        $set_date = $year . '-' . $month . '-' . $date;
+        $set_time = $hours . ':' . $minutes . ':' . 0 . 0;
+        $date_time = $set_date . ' ' . $set_time;
+        $base_url = url('https://www.beternal.life/');
     }
 
     public function notificationTest(Request $request)
