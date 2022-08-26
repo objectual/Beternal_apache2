@@ -164,7 +164,7 @@ class MediaController extends Controller
                         }
                     }
                 }
-                return redirect()->route('user.media.my-media')->with('message', 'Uploaded successfully');
+                return redirect()->route('user.delivery')->with('message', 'Uploaded successfully');
             } else {
                 return redirect()->route($route);
             }
@@ -260,7 +260,7 @@ class MediaController extends Controller
                         }
                     }
                 }
-                return redirect()->route('user.media.my-media')->with('message', 'Uploaded successfully');
+                return redirect()->route('user.delivery')->with('message', 'Uploaded successfully');
             }
             if ($upload_type == 'legacy') {
                 $legacy = new Legacy();

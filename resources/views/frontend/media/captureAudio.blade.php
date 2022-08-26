@@ -45,9 +45,7 @@
                     <div class="d-flex justify-content-between mt-4">
                         <div class="col-md-12 text-center" id="attachment">
                             <label for="file">
-                                <audio class="tv_audio mt-4" controls>
-                                    <source src="" type="audio/mp3" />
-                                </audio>
+                                <audio class="tv_audio mt-4" controls></audio>
                             </label>
                         </div>
                     </div>
@@ -57,7 +55,7 @@
                         var loadFile = function(event) {
                             document.getElementById("attachment").style.display = "block";
                             var audio_url = URL.createObjectURL(event.target.files[0]);
-                            $('#ban_audio').append(
+                            $('.tv_audio').append(
                                 '<source src="' + audio_url + '" type="audio/mp3" />'
                             );
                         };
@@ -413,7 +411,7 @@
                     <div class="row pt-3 pb-5 media-icons">
                         <div class="col-lg-3"></div>
                         <div class="col-lg-3">
-                            <button class="filter-btn btn w-100 text-center py-2 mb-3" onclick="addMediaRecording('media')">Add To Media</button>
+                            <button class="filter-btn btn w-100 text-center py-2 mb-3" onclick="addMediaRecording('media')">Add To Schedule</button>
                         </div>
                         <div class="col-lg-3">
                             <button class="filter-btn btn w-100 text-center py-2 mb-3" onclick="addMediaRecording('legacy')">Add To Legacy</button>
@@ -491,7 +489,7 @@
                 <div class="row pt-3 pb-5 media-icons">
                     <div class="col-lg-3"></div>
                     <div class="col-lg-3">
-                        <button class="filter-btn btn w-100 text-center py-2 mb-3" onclick="addToMedia(this)">Add To Media</button>
+                        <button class="filter-btn btn w-100 text-center py-2 mb-3" onclick="addToMedia(this)">Add To Schedule</button>
                     </div>
                     <div class="col-lg-3">
                         <button class="filter-btn btn w-100 text-center py-2 mb-3" onclick="addToLegacy(this)">Add To Legacy</button>

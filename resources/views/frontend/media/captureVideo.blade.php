@@ -513,7 +513,7 @@
                     <div class="row pt-3 pb-5 media-icons">
                         <div class="col-lg-3"></div>
                         <div class="col-lg-3">
-                            <button class="filter-btn btn w-100 text-center py-2 mb-3" onclick="addMediaRecording('media')">Add To Media</button>
+                            <button class="filter-btn btn w-100 text-center py-2 mb-3" onclick="addMediaRecording('media')">Add To Schedule</button>
                         </div>
                         <div class="col-lg-3">
                             <button class="filter-btn btn w-100 text-center py-2 mb-3" onclick="addMediaRecording('legacy')">Add To Legacy</button>
@@ -592,7 +592,7 @@
                 <div class="row pt-3 pb-5 media-icons">
                     <div class="col-lg-3"></div>
                     <div class="col-lg-3">
-                        <button class="filter-btn btn w-100 text-center py-2 mb-3" onclick="addToMedia(this)">Add To Media</button>
+                        <button class="filter-btn btn w-100 text-center py-2 mb-3" onclick="addToMedia(this)">Add To Schedule</button>
                     </div>
                     <div class="col-lg-3">
                         <button class="filter-btn btn w-100 text-center py-2 mb-3" onclick="addToLegacy(this)">Add To Legacy</button>
