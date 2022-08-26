@@ -31,6 +31,7 @@ use App\Models\ShareMedia;
 use App\Models\ShareMediaGroup;
 use App\Models\LoginHistory;
 use App\Models\PushNotification;
+use App\Models\LegacyDistribution;
 use App\helpers;
 
 class UserController extends Controller
@@ -1638,7 +1639,6 @@ class UserController extends Controller
 
     public function legacyConfirmation(Request $request)
     {
-        dd('testing');
         $title = "SUCCESS";
         $current_date = getdate(date("U"));
         $minutes = "$current_date[minutes]";
@@ -1650,6 +1650,134 @@ class UserController extends Controller
         $set_time = $hours . ':' . $minutes . ':' . 0 . 0;
         $date_time = $set_date . ' ' . $set_time;
         $base_url = url('https://www.beternal.life/');
+        $first_contact = array('first-contact', 'first-contact-2');
+        $second_contact = array('second-contact', 'second-contact-2');
+        $third_contact = array('third-contact', 'third-contact-2');
+        $message = 'something went wrong!';
+
+        $notification = PushNotification::where('token', $request->token)->first(['user_id']);
+        if ($notification != null) {
+            $user_id = $notification->user_id;
+            if (in_array($request->type, $first_contact)) {
+                $user = User::where('id', $user_id)->first(['name']);
+                $legacy = LegacyDistribution::where('user_id', $user_id)->first();
+                if ($legacy == null) {
+                    $user_contact = UserContact::where(['contact_status_id' => 1, 'user_contacts.user_id' => $user_id])
+                    ->join('user_recipients', 'user_contacts.contact_id', '=', 'user_recipients.recipient_id')
+                    ->first(['user_contacts.id', 'name', 'email']);
+
+                    if ($user_contact != null) {
+                        $legacy_distribution = new LegacyDistribution();
+                        $legacy_distribution->user_id = $user_id;
+                        $legacy_distribution->authorized_id = $user_contact->id;
+                        $legacy_distribution->save();
+
+                        if ($legacy_distribution) {
+                            $message = "Thank you";
+                            $user_name = strtoupper($user->name);
+                            $contact_name = strtoupper($user_contact->name);
+                            $email = $user_contact->email;
+                            session()->put(['email' => $email, 'name' => $contact_name]);
+                            $data = array(
+                                'user_name' => $user_name,
+                                'contact_name' => $contact_name
+                            );
+
+                            Mail::send('emails.legacyDistributionSuccess', $data, function ($message) {
+                                $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
+                                $message->from('team@beternal.life', 'bETERNAL Team');
+                            });
+                        } else {
+                            $message = "Not found any request!";
+                        }
+                    } else {
+                        $message = "Not found any request!";
+                    }
+                } else {
+                    $message = "Legacy has been already distributed, thank you.";
+                }
+            } else if (in_array($request->type, $second_contact)) {
+                $user = User::where('id', $user_id)->first(['name']);
+                $legacy = LegacyDistribution::where('user_id', $user_id)->first();
+                if ($legacy == null) {
+                    $user_contact = UserContact::where(['contact_status_id' => 2, 'user_contacts.user_id' => $user_id])
+                    ->join('user_recipients', 'user_contacts.contact_id', '=', 'user_recipients.recipient_id')
+                    ->first(['user_contacts.id', 'name', 'email']);
+
+                    if ($user_contact != null) {
+                        $legacy_distribution = new LegacyDistribution();
+                        $legacy_distribution->user_id = $user_id;
+                        $legacy_distribution->authorized_id = $user_contact->id;
+                        $legacy_distribution->save();
+
+                        if ($legacy_distribution) {
+                            $message = "Thank you";
+                            $user_name = strtoupper($user->name);
+                            $contact_name = strtoupper($user_contact->name);
+                            $email = $user_contact->email;
+                            session()->put(['email' => $email, 'name' => $contact_name]);
+                            $data = array(
+                                'user_name' => $user_name,
+                                'contact_name' => $contact_name
+                            );
+
+                            Mail::send('emails.legacyDistributionSuccess', $data, function ($message) {
+                                $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
+                                $message->from('team@beternal.life', 'bETERNAL Team');
+                            });
+                        } else {
+                            $message = "Not found any request!";
+                        }
+                    } else {
+                        $message = "Not found any request!";
+                    }
+                } else {
+                    $message = "Legacy has been already distributed, thank you.";
+                }
+            } else if (in_array($request->type, $third_contact)) {
+                $user = User::where('id', $user_id)->first(['name']);
+                $legacy = LegacyDistribution::where('user_id', $user_id)->first();
+                if ($legacy == null) {
+                    $user_contact = UserContact::where(['contact_status_id' => 3, 'user_contacts.user_id' => $user_id])
+                    ->join('user_recipients', 'user_contacts.contact_id', '=', 'user_recipients.recipient_id')
+                    ->first(['user_contacts.id', 'name', 'email']);
+
+                    if ($user_contact != null) {
+                        $legacy_distribution = new LegacyDistribution();
+                        $legacy_distribution->user_id = $user_id;
+                        $legacy_distribution->authorized_id = $user_contact->id;
+                        $legacy_distribution->save();
+
+                        if ($legacy_distribution) {
+                            $message = "Thank you";
+                            $user_name = strtoupper($user->name);
+                            $contact_name = strtoupper($user_contact->name);
+                            $email = $user_contact->email;
+                            session()->put(['email' => $email, 'name' => $contact_name]);
+                            $data = array(
+                                'user_name' => $user_name,
+                                'contact_name' => $contact_name
+                            );
+
+                            Mail::send('emails.legacyDistributionSuccess', $data, function ($message) {
+                                $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
+                                $message->from('team@beternal.life', 'bETERNAL Team');
+                            });
+                        } else {
+                            $message = "Not found any request!";
+                        }
+                    } else {
+                        $message = "Not found any request!";
+                    }
+                } else {
+                    $message = "Legacy has been already distributed, thank you.";
+                }
+            }
+        } else {
+            $message = "Not found any request!";
+        }
+
+        return view('frontend.confirmation', compact('title', 'message'));
     }
 
     public function notificationTest(Request $request)

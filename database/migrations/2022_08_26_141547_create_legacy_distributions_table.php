@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('legacy_distributions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('authorized_id');
+            $table->foreign('authorized_id')->references('id')->on('user_contacts')->onDelete('cascade');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }
