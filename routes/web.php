@@ -77,10 +77,6 @@ Route::get('/media-url/{token}', [MediaController::class, 'displayEventMedia'])-
 Route::get('/device-testing', [HomeController::class, 'deviceTesting'])->name('device-testing');
 Route::get('/notification-test', [UserController::class, 'notificationTest'])->name('notification-test');
 
-Route::get('/dashboard', function () {
-    return view('frontend.dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 require __DIR__.'/auth.php';
 Route::middleware('auth', 'user')->group(function () {
     Route::get('/dashboard',[dashboardController::class, 'dashboard'])->name('dashboard');

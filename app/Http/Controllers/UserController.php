@@ -1793,6 +1793,21 @@ class UserController extends Controller
         $date_time = $set_date . ' ' . $set_time;
         $base_url = url('https://www.beternal.life/');
 
-        dd('testing');
+        $legacy_distribution = LegacyDistribution::where('status', 0)->get(['user_id']);
+        if (!$legacy_distribution->isEmpty()) {
+            foreach ($legacy_distribution as $distribution) {
+                $legacy_ids = array();
+                $recipient_ids = array();
+                $user_legacy = Legacy::where('user_id', $distribution->user_id)->get(['id']);
+                if (!$user_legacy->isEmpty()) {
+                    foreach ($user_legacy as $legacy) {
+                        array_push($legacy_ids, $legacy->id);
+                    }
+                }
+                $share_legacy = ShareLegacy::whereIn('legacy_id', $legacy_ids)->get(['id']);
+                dd($share_legacy);
+            }
+            dd('found');
+        }
     }
 }
