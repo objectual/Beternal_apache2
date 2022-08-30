@@ -695,12 +695,16 @@
                                     @if($video->type == 'video')
                                         @php
                                             $date_time = explode(" ", $video->created_at);
-                                            $format = explode(".", $file);
                                             $ios = '#t=0.001';
-                                            if ($format[1] == 'mov') {
-                                                $set_format = 'video/mp4';
+                                            if (isset($file)) {
+                                                $format = explode(".", $file);
+                                                if ($format[1] == 'mov') {
+                                                    $set_format = 'video/mp4';
+                                                } else {
+                                                    $set_format = 'video/'.$format[1];
+                                                }
                                             } else {
-                                                $set_format = 'video/'.$format[1];
+                                                $set_format = 'video/mp4';
                                             }
                                         @endphp
                                         <div class="col-lg-3 px-1 col-6 col-md-4">

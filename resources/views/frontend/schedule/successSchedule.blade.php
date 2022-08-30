@@ -6,7 +6,7 @@
         <div class="col-lg-6 offset-lg-3 text-center success-img-bg">
             <div class="row">
                 <div class="col-lg-6 text-center offset-lg-3">
-                    <h1 class="mt-4 text-white">Congratulation</h1>
+                    <h1 class="mt-4 text-white">Congratulations</h1>
                     <img class="signup-success" src="{{ asset('/public/assets/images/success-signup.svg') }}" />
 
                     @if(session()->has('message'))

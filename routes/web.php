@@ -74,8 +74,7 @@ Route::get('/email-status/{type}/{token}', [UserController::class, 'updateEmailS
 Route::get('/distribution/{type}/{token}', [UserController::class, 'distributionStatus'])->name('distribution');
 Route::get('/legacy-confirmation/{type}/{token}', [UserController::class, 'legacyConfirmation'])->name('legacy-confirmation');
 Route::get('/media-url/{token}', [MediaController::class, 'displayEventMedia'])->name('received');
-Route::get('/device-testing', [HomeController::class, 'deviceTesting'])->name('device-testing');
-Route::get('/notification-test', [UserController::class, 'notificationTest'])->name('notification-test');
+Route::get('/dev-testing', [HomeController::class, 'devloperTesting'])->name('dev-testing');
 
 require __DIR__.'/auth.php';
 Route::middleware('auth', 'user')->group(function () {
