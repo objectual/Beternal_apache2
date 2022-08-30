@@ -216,7 +216,7 @@ class HomeController extends Controller
         return 'success';
     }
 
-    public function deviceTesting()
+    public function devloperTesting()
     {
         $agent = new \Jenssegers\Agent\Agent;
    

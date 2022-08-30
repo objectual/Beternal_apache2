@@ -188,6 +188,7 @@ class MediaController extends Controller
                             $share_media = new ShareLegacy();
                             $share_media->legacy_id = $legacy->id;
                             $share_media->recipient_id = $request->recipient_id[$i];
+                            $share_media->user_id = Auth::user()->id;
                             $share_media->save();
                         }
                     }
@@ -280,6 +281,7 @@ class MediaController extends Controller
                                 $share_media = new ShareLegacy();
                                 $share_media->legacy_id = $legacy->id;
                                 $share_media->recipient_id = $recipient[$i];
+                                $share_media->user_id = Auth::user()->id;
                                 $share_media->save();
                             }
                         }
@@ -365,6 +367,7 @@ class MediaController extends Controller
                                     $share_media = new ShareLegacy();
                                     $share_media->legacy_id = $legacy->id;
                                     $share_media->recipient_id = $recipient[$i];
+                                    $share_media->user_id = Auth::user()->id;
                                     $share_media->save();
                                 }
                             }
