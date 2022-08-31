@@ -5,12 +5,13 @@
 
 @if(session()->has('message'))
 <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content bg-black">
         <div class="modal-body">
-            <button type="button" class="close close-select-media" data-dismiss="myMedia" onclick="closeOption()">&times;</button>
+            <button type="button" class="close close-select-media" data-dismiss="mediaOption" onclick="closeOption()">&times;</button>
             <div class="row">
                 <div class="col-lg-6 text-center offset-lg-3">
-                    <p>Uploaded successfully</p>
+                    <img class="mt-4 mb-3 audio-pop" src="{{ asset('/public/assets/images/audio (1).png') }}" />
+                    <p class="text-white">Uploaded successfully</p>
                 </div>
             </div>
             <div class="row pt-3 pb-5 media-icons">
@@ -561,25 +562,32 @@
 <!-- <div class="modal-dialog modal-dialog-centered"> -->
 <div class="modal fade" id="redirectModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content bg-black">
             <div class="modal-body">
+                <button type="button" class="close close-select-media" data-dismiss="myOption" onclick="closeOption()">&times;</button>
                 <div class="row">
                     <div class="col-lg-8 text-center offset-lg-2">
                         <img class="mt-4 mb-3 audio-pop" src="{{ asset('/public/assets/images/video-pop.png') }}" />
-                        <p>Uploaded successfully.</p>
+                        <p class="text-white">Uploaded successfully.</p>
                     </div>
                 </div>
                 <div class="row text-center mb-4 mt-5">
-                    <div class="col-lg-6 offset-lg-3">
-                        <a href="https://www.beternal.life/schedule-media/delivery" class="btn upg-select-del-btn w-100">
-                            Add To Schedule
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-3">
+                        <a href="https://www.beternal.life/schedule-media/delivery">
+                            <button class="filter-btn btn w-100 text-center py-2 mb-3">
+                                Add To Schedule
+                            </button>
                         </a>
                     </div>
-                    <div class="col-lg-6 offset-lg-3">
-                        <a href="" id="set_redirect" class="btn upg-select-del-btn w-100">
-                            Add To Legacy
+                    <div class="col-lg-3">
+                        <a href="" id="set_redirect">
+                            <button class="filter-btn btn w-100 text-center py-2 mb-3">
+                                Add To Legacy
+                            </button>
                         </a>
                     </div>
+                    <div class="col-lg-3"></div>
                 </div>
             </div>
         </div>
@@ -606,6 +614,10 @@
 <script type="text/javascript">
     function closeMedia() {
         $("#captureImage").modal("hide");
+    }
+
+    function closeOption() {
+        location.reload();
     }
     
     function recipentByName(current) {

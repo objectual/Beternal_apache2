@@ -7,6 +7,7 @@ use App\Models\Country;
 use App\Models\StateProvince;
 use App\Models\City;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -222,13 +223,23 @@ class HomeController extends Controller
    
         // $result = $agent->isMobile();
         // $result = $agent->isDesktop();
-        $result = $agent->isTablet();
-        dd($agent->isiOS());
+        // $result = $agent->isTablet();
+        // $result = $agent->isiOS();
 
-        // if( $detect->isiOS() ){
- 
-        // }
-    
-        dd($result);
+        $data = array(
+            'user_name' => 'Love',
+            'user_last_name' => 'Kumar'
+        );
+
+        Mail::send('emails.testEmail', $data, function ($message) {
+            $message->to('kumarkhatriosl2@gmail.com', 'Kumar')->subject('Test Notifications');
+            $message->from('team@beternal.life', 'bETERNAL Team');
+        });
+
+        dd('success');
+
+        if($agent->isDesktop()) {
+            dd('Yes desktop');
+        }
     }
 }

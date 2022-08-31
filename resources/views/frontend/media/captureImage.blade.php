@@ -5,12 +5,13 @@
 
 @if(session()->has('message'))
 <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content bg-black">
         <div class="modal-body">
-            <button type="button" class="close close-select-media" data-dismiss="myMedia" onclick="closeOption()">&times;</button>
+            <button type="button" class="close close-select-media" data-dismiss="myOption" onclick="closeOption()">&times;</button>
             <div class="row">
                 <div class="col-lg-6 text-center offset-lg-3">
-                    <p>Uploaded successfully</p>
+                    <img class="mt-4 mb-3 audio-pop" src="{{ asset('/public/assets/images/audio (1).png') }}" />
+                    <p class="text-white">Uploaded successfully</p>
                 </div>
             </div>
             <div class="row pt-3 pb-5 media-icons">
@@ -365,6 +366,10 @@
 <script type="text/javascript">
     function closeMedia() {
         $("#captureImage").modal("hide");
+    }
+
+    function closeOption() {
+        location.reload();
     }
 
     function recipentByName(current) {
