@@ -364,7 +364,8 @@
         var for_group = document.getElementById('group_title').value;
         var all_media = JSON.parse('<?php echo json_encode($all_media) ?>');
         var base_path = '<?= $file_path ?>';
-        // var base_path = base_url + '/public/';
+        var default_path = '<?= $base_url ?>';
+        var audio_image = default_path + '/public/assets/images/audio-thumb.jpg';
         var all_videos = $('#all_videos');
         var all_audios = $('#all_audios');
         var all_photos = $('#all_photos');
@@ -414,7 +415,7 @@
                                 }
                                 if (all_media[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
-                                    var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                                    var file = audio_image;
                                     var media_button = 'audio-bt-exm-one';
                                     var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                                 }
@@ -480,7 +481,7 @@
                                 }
                                 if (all_media[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
-                                    var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                                    var file = audio_image;
                                     var media_button = 'audio-bt-exm-one';
                                     var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                                 }
@@ -546,7 +547,7 @@
                                 }
                                 if (all_media[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
-                                    var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                                    var file = audio_image;
                                     var media_button = 'audio-bt-exm-one';
                                     var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                                 }
@@ -607,7 +608,7 @@
                     }
                     if (all_media[i].type == 'audio') {
                         var media_function = 'selectAudio(this)';
-                        var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                        var file = audio_image;
                         var media_button = 'audio-bt-exm-one';
                         var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                     }

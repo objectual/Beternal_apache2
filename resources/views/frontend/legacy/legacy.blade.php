@@ -182,7 +182,7 @@
                         @php $date_time = explode(" ", $audio->created_at); @endphp
                         <div class="col-lg-3 px-1 col-md-4 col-6">
                             <a class="example-image-link d-block" id="{{ $audio->file_name }}" onclick="selectAudio(this)">
-                                <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
+                                <img class="example-image" src="{{ asset('/public/assets/images/audio-thumb.jpg') }}" alt="" />
                                 <div class="audio-bt-exm-one"></div>
 
                                 <div class="bg-black p-1">
@@ -254,7 +254,8 @@
         var for_group = document.getElementById('group_title').value;
         var all_legacy = JSON.parse('<?php echo json_encode($all_legacy) ?>');
         var base_path = '<?= $file_path ?>';
-        // var base_path = base_url + '/public/';
+        var default_path = '<?= $base_url ?>';
+        var audio_image = default_path + '/public/assets/images/audio-thumb.jpg';
         var all_videos = $('#all_videos');
         var all_audios = $('#all_audios');
         var all_photos = $('#all_photos');
@@ -305,7 +306,7 @@
                                 }
                                 if (all_legacy[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
-                                    var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                                    var file = audio_image;
                                     var media_button = 'audio-bt-exm-one';
                                     var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                                 }
@@ -373,7 +374,7 @@
                                 }
                                 if (all_legacy[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
-                                    var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                                    var file = audio_image;
                                     var media_button = 'audio-bt-exm-one';
                                     var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                                 }
@@ -440,7 +441,7 @@
                                 }
                                 if (all_legacy[i].type == 'audio') {
                                     var media_function = 'selectAudio(this)';
-                                    var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                                    var file = audio_image;
                                     var media_button = 'audio-bt-exm-one';
                                     var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                                 }
@@ -502,7 +503,7 @@
                     }
                     if (all_legacy[i].type == 'audio') {
                         var media_function = 'selectAudio(this)';
-                        var file = 'http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg';
+                        var file = audio_image;
                         var media_button = 'audio-bt-exm-one';
                         var for_display = '<img class="example-image" src="' + file + '" alt="" />';
                     }
