@@ -127,86 +127,43 @@ class MediaController extends Controller
             $route = 'user.media.capture-image';
         }
 
-        if ($request->upload_type == "media") {
-            $media = new Media();
-            $media->title = $request->title;
-            $media->description = $request->description;
-            $media->path = '/';
-            if ($request->hasFile('file_name')) {
-                // $path = $request->file('file_name')->store($folder, ['disk' => 'my_files']);
-                $path = $request->file('file_name')->store($folder, 's3');
-                $media->file_name = $path;
-            }
-            $media->type = $request->media_type;
-            $media->user_id = Auth::user()->id;
-            $media->save();
-
-            if ($media) {
-                if ($request->upload_type == "media") {
-                    if (!(empty($request->recipient_id))) {
-                        if (count($request->recipient_id) > 0) {
-                            for ($i = 0; $i < count($request->recipient_id); $i++) {
-                                $share_media = new ShareMedia();
-                                $share_media->media_id = $media->id;
-                                $share_media->recipient_id = $request->recipient_id[$i];
-                                $share_media->save();
-                            }
-                        }
-                    }
-                    if (!(empty($request->group_id))) {
-                        if (count($request->group_id) > 0) {
-                            for ($i = 0; $i < count($request->group_id); $i++) {
-                                $share_media_in_group = new ShareMediaGroup();
-                                $share_media_in_group->media_id = $media->id;
-                                $share_media_in_group->group_id = $request->group_id[$i];
-                                $share_media_in_group->save();
-                            }
-                        }
-                    }
-                }
-                return redirect()->route('user.delivery')->with('message', 'Uploaded successfully');
-            } else {
-                return redirect()->route($route);
-            }
+        $media = new Media();
+        $media->title = $request->title;
+        $media->description = $request->description;
+        $media->path = '/';
+        if ($request->hasFile('file_name')) {
+            // $path = $request->file('file_name')->store($folder, ['disk' => 'my_files']);
+            $path = $request->file('file_name')->store($folder, 's3');
+            $media->file_name = $path;
         }
-        if ($request->upload_type == "legacy") {
-            $legacy = new Legacy();
-            $legacy->title = $request->title;
-            $legacy->description = $request->description;
-            if ($request->hasFile('file_name')) {
-                $path = $request->file('file_name')->store($folder, 's3');
-                $legacy->file_name = $path;
-            }
-            $legacy->type = $request->media_type;
-            $legacy->user_id = Auth::user()->id;
-            $legacy->save();
+        $media->type = $request->media_type;
+        $media->user_id = Auth::user()->id;
+        $media->save();
 
-            if ($legacy) {
-                if (!(empty($request->recipient_id))) {
-                    if (count($request->recipient_id) > 0) {
-                        for ($i = 0; $i < count($request->recipient_id); $i++) {
-                            $share_media = new ShareLegacy();
-                            $share_media->legacy_id = $legacy->id;
-                            $share_media->recipient_id = $request->recipient_id[$i];
-                            $share_media->user_id = Auth::user()->id;
-                            $share_media->save();
-                        }
+        if ($media) {
+            if (!(empty($request->recipient_id))) {
+                if (count($request->recipient_id) > 0) {
+                    for ($i = 0; $i < count($request->recipient_id); $i++) {
+                        $share_media = new ShareMedia();
+                        $share_media->media_id = $media->id;
+                        $share_media->recipient_id = $request->recipient_id[$i];
+                        $share_media->save();
                     }
                 }
                 if (!(empty($request->group_id))) {
                     if (count($request->group_id) > 0) {
                         for ($i = 0; $i < count($request->group_id); $i++) {
-                            $share_media_in_group = new ShareLegacyGroup();
-                            $share_media_in_group->legacy_id = $legacy->id;
+                            $share_media_in_group = new ShareMediaGroup();
+                            $share_media_in_group->media_id = $media->id;
                             $share_media_in_group->group_id = $request->group_id[$i];
                             $share_media_in_group->save();
                         }
                     }
                 }
-                return redirect()->route('user.legacy')->with('message', 'Uploaded successfully');
-            } else {
-                return redirect()->route($route);
             }
+            return redirect()->route($route)->with('message',  $media->id);
+        } else {
+            return redirect()->route($route);
         }
     }
 
@@ -214,23 +171,68 @@ class MediaController extends Controller
     {
         date_default_timezone_set(session()->get('user_timezone'));
         $media_type = $request->input('media_type');
-        $upload_type = $request->input('upload_type');
         $base_url = url('');
         if ($media_type == 'photo') {
-            $upload_type = $request->input('upload_type_2');
             $folder = 'photo/';
             $image = $request->input('image');  // your base64 encoded
             $image = str_replace('data:image/jpeg;base64,', '', $image);
             $image = str_replace(' ', '+', $image);
             $imageName = uniqid() . '.' . 'png';
             $file_name = $folder . $imageName;
-            // File::put(public_path('photo') . '/' . $imageName, base64_decode($image));
+
             Storage::disk('s3')->put(('photo') . '/' . $imageName, base64_decode($image));
 
-            if ($upload_type == 'media') {
+            $media = new Media();
+            $media->title = $request->input('title_2');
+            $media->description = $request->input('description_2');
+            $media->path = '/';
+            $media->file_name = $file_name;
+            $media->type = $media_type;
+            $media->user_id = Auth::user()->id;
+            $media->save();
+
+            if ($media) {
+                $recipient = $request->input('recipient_id_2');
+                $group = $request->input('group_id_2');
+                if ($recipient != null) {
+                    if (count($recipient) > 0) {
+                        for ($i = 0; $i < count($recipient); $i++) {
+                            $share_video = new ShareMedia();
+                            $share_video->media_id = $media->id;
+                            $share_video->recipient_id = $recipient[$i];
+                            $share_video->save();
+                        }
+                    }
+                }
+                if ($group != null) {
+                    if (count($group) > 0) {
+                        for ($i = 0; $i < count($group); $i++) {
+                            $share_video_in_group = new ShareMediaGroup();
+                            $share_video_in_group->media_id = $media->id;
+                            $share_video_in_group->group_id = $group[$i];
+                            $share_video_in_group->save();
+                        }
+                    }
+                }
+
+                $route = 'user.media.capture-image';
+                return redirect()->route($route)->with('message',  $media->id);
+            }
+        } else {
+            if ($request->hasFile('file_name')) {
+                if ($media_type == 'video') {
+                    $folder = 'videos';
+                }
+                if ($media_type == 'audio') {
+                    $folder = 'audios';
+                }
+
+                $file_name = $request->file('file_name')->store($folder, 's3');
+                $redirect_url = '';
+
                 $media = new Media();
-                $media->title = $request->input('title_2');
-                $media->description = $request->input('description_2');
+                $media->title = $request->input('title');
+                $media->description = $request->input('description');
                 $media->path = '/';
                 $media->file_name = $file_name;
                 $media->type = $media_type;
@@ -238,8 +240,8 @@ class MediaController extends Controller
                 $media->save();
 
                 if ($media) {
-                    $recipient = $request->input('recipient_id_2');
-                    $group = $request->input('group_id_2');
+                    $recipient = $request->input('recipient_id');
+                    $group = $request->input('group_id');
                     if ($recipient != null) {
                         if (count($recipient) > 0) {
                             for ($i = 0; $i < count($recipient); $i++) {
@@ -260,132 +262,13 @@ class MediaController extends Controller
                             }
                         }
                     }
-                }
-                return redirect()->route('user.delivery')->with('message', 'Uploaded successfully');
-            }
-            if ($upload_type == 'legacy') {
-                $legacy = new Legacy();
-                $legacy->title = $request->input('title_2');
-                $legacy->description = $request->input('description_2');
-                $legacy->file_name = $file_name;
-                $legacy->type = $media_type;
-                $legacy->user_id = Auth::user()->id;
-                $legacy->save();
 
-                $recipient = $request->input('recipient_id_2');
-                $group = $request->input('group_id_2');
-                if ($legacy) {
-                    if ($recipient != null) {
-                        if (count($recipient) > 0) {
-                            for ($i = 0; $i < count($recipient); $i++) {
-                                $share_media = new ShareLegacy();
-                                $share_media->legacy_id = $legacy->id;
-                                $share_media->recipient_id = $recipient[$i];
-                                $share_media->user_id = Auth::user()->id;
-                                $share_media->save();
-                            }
-                        }
-                    }
-                    if ($group != null) {
-                        if (count($group) > 0) {
-                            for ($i = 0; $i < count($group); $i++) {
-                                $share_media_in_group = new ShareLegacyGroup();
-                                $share_media_in_group->legacy_id = $legacy->id;
-                                $share_media_in_group->group_id = $group[$i];
-                                $share_media_in_group->save();
-                            }
-                        }
-                    }
-                }
-                return redirect()->route('user.legacy')->with('message', 'Uploaded successfully');
-            }
-        } else {
-            if ($request->hasFile('file_name')) {
-                if ($media_type == 'video') {
-                    $folder = 'videos';
-                }
-                if ($media_type == 'audio') {
-                    $folder = 'audios';
-                }
-
-                $file_name = $request->file('file_name')->store($folder, 's3');
-                $redirect_url = '';
-
-                if ($upload_type == 'media') {
-                    $media = new Media();
-                    $media->title = $request->input('title');
-                    $media->description = $request->input('description');
-                    $media->path = '/';
-                    $media->file_name = $file_name;
-                    $media->type = $media_type;
-                    $media->user_id = Auth::user()->id;
-                    $media->save();
-
-                    if ($media) {
-                        $recipient = $request->input('recipient_id');
-                        $group = $request->input('group_id');
-                        if ($recipient != null) {
-                            if (count($recipient) > 0) {
-                                for ($i = 0; $i < count($recipient); $i++) {
-                                    $share_video = new ShareMedia();
-                                    $share_video->media_id = $media->id;
-                                    $share_video->recipient_id = $recipient[$i];
-                                    $share_video->save();
-                                }
-                            }
-                        }
-                        if ($group != null) {
-                            if (count($group) > 0) {
-                                for ($i = 0; $i < count($group); $i++) {
-                                    $share_video_in_group = new ShareMediaGroup();
-                                    $share_video_in_group->media_id = $media->id;
-                                    $share_video_in_group->group_id = $group[$i];
-                                    $share_video_in_group->save();
-                                }
-                            }
-                        }
-                    }
-
-                    $redirect_url =  $base_url . '/media/my-media';
-                    return  response()->json(['success' => ($media) ? 1 : 0, 'message' => ($media) ? 'Uploaded successfully.' : "Some thing went wrong. Try again !.", 'redirect_url' => ($media) ? $redirect_url : "Some thing went wrong. Try again !."]);
-                }
-                if ($upload_type == 'legacy') {
-                    $legacy = new Legacy();
-                    $legacy->title = $request->input('title');
-                    $legacy->description = $request->input('description');
-                    $legacy->file_name = $file_name;
-                    $legacy->type = $media_type;
-                    $legacy->user_id = Auth::user()->id;
-                    $legacy->save();
-
-                    $recipient = $request->input('recipient_id');
-                    $group = $request->input('group_id');
-                    if ($legacy) {
-                        if ($recipient != null) {
-                            if (count($recipient) > 0) {
-                                for ($i = 0; $i < count($recipient); $i++) {
-                                    $share_media = new ShareLegacy();
-                                    $share_media->legacy_id = $legacy->id;
-                                    $share_media->recipient_id = $recipient[$i];
-                                    $share_media->user_id = Auth::user()->id;
-                                    $share_media->save();
-                                }
-                            }
-                        }
-                        if ($group != null) {
-                            if (count($group) > 0) {
-                                for ($i = 0; $i < count($group); $i++) {
-                                    $share_media_in_group = new ShareLegacyGroup();
-                                    $share_media_in_group->legacy_id = $legacy->id;
-                                    $share_media_in_group->group_id = $group[$i];
-                                    $share_media_in_group->save();
-                                }
-                            }
-                        }
-                    }
-
-                    $redirect_url = $base_url . '/legacy';
-                    return  response()->json(['success' => ($legacy) ? 1 : 0, 'message' => ($legacy) ? 'Uploaded successfully.' : "Some thing went wrong. Try again !.", 'redirect_url' => ($legacy) ? $redirect_url : "Some thing went wrong. Try again !."]);
+                    $redirect_url =  $base_url . '/legacy/legacy-add/' . $media->id;
+                    return  response()->json([
+                        'success' => ($media) ? 1 : 0,
+                        'message' => ($media) ? 'Uploaded successfully.' : "Some thing went wrong. Try again !.",
+                        'redirect_url' => ($media) ? $redirect_url : 0
+                    ]);
                 }
             }
         }
@@ -883,6 +766,7 @@ class MediaController extends Controller
                         $share_legacy = new ShareLegacy();
                         $share_legacy->legacy_id = $legacy->id;
                         $share_legacy->recipient_id = $share->recipient_id;
+                        $share_legacy->user_id = Auth::user()->id;
                         $share_legacy->save();
                     }
                 }
