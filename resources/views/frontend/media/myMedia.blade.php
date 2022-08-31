@@ -231,7 +231,7 @@
                         @php $date_time = explode(" ", $audio->created_at); @endphp
                         <div class="col-lg-3 px-1 col-md-4 col-6">
                             <a class="example-image-link d-block" id="{{ $audio->file_name }}" onclick="selectAudio(this)">
-                                <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt="" />
+                                <img class="example-image" src="{{ asset('/public/assets/images/audio-thumb.jpg') }}" alt="" />
                                 <div class="audio-bt-exm-one"></div>
 
                                 <div class="bg-black p-1">
