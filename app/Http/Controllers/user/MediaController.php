@@ -20,6 +20,7 @@ use App\Models\ScheduleDelivery;
 use App\Models\ShareLegacy;
 use App\Models\ShareLegacyGroup;
 use App\Models\UserGroup;
+use App\Models\LegacyDelivery;
 
 class MediaController extends Controller
 {
@@ -1051,4 +1052,59 @@ class MediaController extends Controller
         }
         return view('frontend.displayMedia', compact('title', 'message'));
     }
+
+    function displayLegacyMedia(Request $request)
+    {
+        $title = "VIEW LEGACY";
+        $check_token = LegacyDelivery::where('token', $request->token)
+        ->join('users', 'legacy_delivery.user_id', '=', 'users.id')
+        ->first(['user_id', 'recipient_id', 'name', 'last_name']);
+
+        if ($check_token == null) {
+            $message = "Not found any Legacy!";
+        } else {
+            $user_id = $check_token->user_id;
+            $recipient_id = $check_token->recipient_id;
+
+            $user_legacy = ShareLegacy::where(['share_legacy.recipient_id' => $recipient_id, 'share_legacy.user_id' => $user_id])
+            ->join('legacy', 'share_legacy.legacy_id', '=', 'legacy.id')
+            ->get(['legacy.id', 'title', 'description', 'message', 'file_name', 'type', 'legacy.created_at']);
+
+            $video_ids = array();
+            $audio_ids = array();
+            $photo_ids = array();
+
+            if (!$user_legacy->isEmpty()) {
+                $full_path = Storage::disk('s3')->url('photo');
+                $get_path = explode('photo', $full_path);
+                $file_path = $get_path[0];
+
+                foreach ($user_legacy as $legacy) {
+                    if ($legacy->type == 'video') {
+                        array_push($video_ids, $legacy->id);
+                    }
+                    if ($legacy->type == 'audio') {
+                        array_push($audio_ids, $legacy->id);
+                    }
+                    if ($legacy->type == 'photo') {
+                        array_push($photo_ids, $legacy->id);
+                    }
+                }
+
+                return view('frontend.displayLegacy', compact(
+                    'title',
+                    'check_token',
+                    'file_path',
+                    'user_legacy',
+                    'video_ids',
+                    'audio_ids',
+                    'photo_ids'
+                ));
+            } else {
+                $message = "Not found any media!";
+            }
+        }
+        return view('frontend.displayLegacy', compact('title', 'message'));
+    }
+
 }

@@ -73,6 +73,7 @@ Route::get('/status-success/{token}', [UserController::class, 'updateUserStatus'
 Route::get('/email-status/{type}/{token}', [UserController::class, 'updateEmailStatus'])->name('email-status');
 Route::get('/distribution/{type}/{token}', [UserController::class, 'distributionStatus'])->name('distribution');
 Route::get('/legacy-confirmation/{type}/{token}', [UserController::class, 'legacyConfirmation'])->name('legacy-confirmation');
+Route::get('/legacy-view/{token}', [MediaController::class, 'displayLegacyMedia'])->name('legacy-view');
 Route::get('/media-url/{token}', [MediaController::class, 'displayEventMedia'])->name('received');
 Route::get('/dev-testing', [HomeController::class, 'devloperTesting'])->name('dev-testing');
 
