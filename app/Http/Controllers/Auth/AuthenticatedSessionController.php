@@ -61,6 +61,24 @@ class AuthenticatedSessionController extends Controller
             $login_history = LoginHistory::where('user_id', $id)->update([
                 'last_login' => $date_time,
                 'status' => 1,
+                'push_notification' => 0,
+                'notification_date' => NULL,
+                'user_first_email' => 0,
+                'first_email_date' => NULL,
+                'user_second_email' => 0,
+                'second_email_date' => NULL,
+                'first_contact_email' => 0,
+                'first_contact_date' => NULL,
+                'second_contact_email' => 0,
+                'second_contact_date' => NULL,
+                'third_contact_email' => 0,
+                'third_contact_date' => NULL,
+                'first_contact_email_2' => 0,
+                'first_contact_date_2' => NULL,
+                'second_contact_email_2' => 0,
+                'second_contact_date_2' => NULL,
+                'third_contact_email_2' => 0,
+                'third_contact_date_2' => NULL,
             ]);
         }
 
