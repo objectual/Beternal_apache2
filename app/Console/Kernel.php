@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('delivery:cron')->everyFiveMinutes();
         $schedule->command('loginstatus:cron')->everyFiveMinutes();
-        // $schedule->command('userstatus:cron')->hourly();
+        $schedule->command('userstatus:cron')->hourly();
         // $schedule->command('firstcontact:email')->hourly();
         // $schedule->command('secondcontact:email')->hourly();
         // $schedule->command('thirdcontact:email')->hourly();
