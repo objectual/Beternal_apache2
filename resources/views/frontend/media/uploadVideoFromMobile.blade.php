@@ -2,12 +2,46 @@
 @section("title","Capture Video")
 @section("content")
 @php $base_url = url(''); @endphp
+
+@if(session()->has('message'))
+<div class="modal-dialog">
+    <div class="modal-content bg-black">
+        <div class="modal-body">
+            <button type="button" class="close close-select-media" data-dismiss="mediaOption" onclick="closeOption()">&times;</button>
+            <div class="row">
+                <div class="col-lg-6 text-center offset-lg-3">
+                    <img class="mt-4 mb-3 audio-pop" src="{{ asset('/public/assets/images/audio (1).png') }}" />
+                    <p class="text-white">Uploaded successfully</p>
+                </div>
+            </div>
+            <div class="row pt-3 pb-5 media-icons">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-3">
+                    <a href="{{ route('user.delivery') }}">
+                        <button class="filter-btn btn w-100 text-center py-2 mb-3">
+                            Add To Schedule
+                        </button>
+                    </a>
+                </div>
+                <div class="col-lg-3">
+                    <a href="{{ route('user.legacy-add', ['id' => session()->get('message')]) }}">
+                        <button class="filter-btn btn w-100 text-center py-2 mb-3">
+                            Add To Legacy
+                        </button>
+                    </a>
+                </div>
+                <div class="col-lg-3"></div>
+            </div>
+        </div>
+    </div>
+</div>
+@else
 <div class="container-fluid bg-create pb-4 h-auto upgrade-back">
     <div class="scroll-div h-auto">
         <form method="POST" action="{{ route('user.media.upload-media') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
             @csrf
             <input type="hidden" id="media_type" name="media_type" value="video">
-            <input type="hidden" id="upload_type" name="upload_type" value="">
+            <input type="hidden" id="upload_type" name="upload_type" value="mobile">
             <div class="row">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-6 mt-4">
@@ -117,16 +151,16 @@
                         @endforeach
                         @endif
                     </div>
-                    <div class="row pt-4" id="submit_button" style="display: none;">
+                    <div class="row pt-4">
                         <div class="col-12 ">
                             <button class="btn upg-add-img-btn w-100" id="first_form">Add To My Media</button>
                         </div>
                     </div>
-                    <div class="row pt-4 mb-4">
+                    <!-- <div class="row pt-4 mb-4">
                         <div class="col-12 ">
                             <a class="btn upg-add-img-btn w-100" onclick="uploadType(this)">Add To My Media</a>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row pt-4 mb-4">
                         <div class="col-12" id="show_msg"></div>
                     </div>
@@ -159,30 +193,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="selectType" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-6 text-center offset-lg-3">
-                        <img class="mt-4 mb-3 audio-pop" src="{{ asset('/public/assets/images/audio (2).png') }}" />
-                    </div>
-                </div>
-                <div class="row pt-3 pb-5 media-icons">
-                    <div class="col-lg-3"></div>
-                    <div class="col-lg-3">
-                        <button class="filter-btn btn w-100 text-center py-2 mb-3" onclick="addToMedia(this)">Add To Media</button>
-                    </div>
-                    <div class="col-lg-3">
-                        <button class="filter-btn btn w-100 text-center py-2 mb-3" onclick="addToLegacy(this)">Add To Legacy</button>
-                    </div>
-                    <div class="col-lg-3"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="modal fade" id="loader" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog logout-modal">
         <div class="modal-content">
@@ -197,27 +207,10 @@
         </div>
     </div>
 </div>
+@endif
 @endsection
 
 <script type="text/javascript">
-    function uploadType() {
-        $("#selectType").modal("show");
-    }
-
-    function addToMedia() {
-        var upload_type = document.getElementById('upload_type');
-        upload_type.value = 'media';
-        $("#selectType").modal("hide");
-        $("#first_form").click()
-    }
-
-    function addToLegacy() {
-        var upload_type = document.getElementById('upload_type');
-        upload_type.value = 'legacy';
-        $("#selectType").modal("hide");
-        $("#first_form").click()
-    }
-    
     function recipentByName(current) {
         var obj = JSON.parse('<?php echo json_encode($user_recipents) ?>');
         var base_path = '<?= $base_url ?>';

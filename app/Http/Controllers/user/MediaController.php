@@ -112,6 +112,9 @@ class MediaController extends Controller
             // ]);
             $folder = 'videos';
             $route = 'user.media.capture-video';
+            if ($request->upload_type == 'mobile') {
+                $route = 'user.media.upload-video';
+            }
         }
         if ($request->media_type == 'audio') {
             // $this->validate($request, [
