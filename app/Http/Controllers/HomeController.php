@@ -221,25 +221,25 @@ class HomeController extends Controller
     {
         $agent = new \Jenssegers\Agent\Agent;
    
-        // $result = $agent->isMobile();
-        // $result = $agent->isDesktop();
-        // $result = $agent->isTablet();
-        // $result = $agent->isiOS();
+        $result = $agent->isMobile();
+        $result = $agent->isDesktop();
+        $result = $agent->isTablet();
+        $result = $agent->isiOS();
+
+        if($agent->isDesktop()) {
+            dd('Yes desktop');
+        }
 
         $data = array(
             'user_name' => 'Love',
             'user_last_name' => 'Kumar'
         );
 
-        // Mail::send('emails.testEmail', $data, function ($message) {
-        //     $message->to('kumarkhatriosl2@gmail.com', 'Kumar')->subject('Test Notifications');
-        //     $message->from('team@beternal.life', 'bETERNAL Team');
-        // });
+        Mail::send('emails.testEmail', $data, function ($message) {
+            $message->to('kumarkhatriosl2@gmail.com', 'Kumar')->subject('Test Notifications');
+            $message->from('team@beternal.life', 'bETERNAL Team');
+        });
 
         dd('success');
-
-        if($agent->isDesktop()) {
-            dd('Yes desktop');
-        }
     }
 }
