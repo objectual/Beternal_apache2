@@ -73,6 +73,7 @@ class loginStatusNotification extends Command
 
                         $update = LoginHistory::findOrFail($user->id);
                         $update->push_notification = 1;
+                        $update->notification_date = $date_time;
                         $update->save();
 
                         $user_name = strtoupper($user->name);

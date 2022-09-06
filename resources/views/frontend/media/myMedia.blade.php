@@ -113,53 +113,53 @@
                 <div class="col-lg-2 mt-3"></div>
                 <div class="col-lg-8 mt-3">
                     @if($video_count > 0)
-                    <div class="" id="current_video"></div>
+                        <div class="" id="current_video"></div>
                     @else
-                    <p class="mb-0 contact-label text-center">Not Found!</p>
+                        <p class="mb-0 contact-label text-center">Not Found!</p>
                     @endif
                     <div class="row mt-3 px-2" id="all_videos">
                         @if(isset($all_media))
-                        @foreach($all_media as $key => $video)
-                        @if($video->type == 'video')
-                        @php
-                        $date_time = explode(" ", $video->created_at);
-                        $format = explode(".", $video->file_name);
-                        $ios = '#t=0.001';
-                        if ($format[1] == 'mov') {
-                        $set_format = 'video/mp4';
-                        } else {
-                        $set_format = 'video/'.$format[1];
-                        }
-                        @endphp
-                        <div class="col-lg-3 px-1 col-6 col-md-4">
-                            <a class="example-image-link d-block" id="{{ $video->file_name }}" onclick="selectVideo(this)">
-                                <video class="example-image">
-                                    <source src="{{ asset( $file_path.$video->file_name.$ios )}}" type="{{ $set_format }}">
-                                </video>
-                                <div class="play-bt-exm-one"></div>
-                                <div class="pt-1 bg-black">
-                                    <span class="above-img-span">
-                                        {{ $video->title }}
-                                    </span>
-
-                                    <span class="group-color">
-                                        Group : {{ $video->group_title }}
-                                    </span>
-                                </div>
-                                <span class="ab-img-span">
-                                    {{ $video->recipient_first_name }} {{ $video->recipient_last_name }}
-                                </span>
-
-                                <span class="date-time pb-2">
-                                    {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
-                                </span>
-                            </a>
-                            <a href="{{ route('user.media.my-media-details', ['id' => $video->id]) }}" class="btn-view-details">
-                                View Details
-                            </a>
-                        </div>
-                        @endif
-                        @endforeach
+                            @foreach($all_media as $key => $video)
+                                @if($video->type == 'video')
+                                    @php
+                                        $date_time = explode(" ", $video->created_at);
+                                        $date = explode("-", $date_time[0]);
+                                        $set_date = $date[1].'-'.$date[2].'-'.$date[0];
+                                        $format = explode(".", $video->file_name);
+                                        $ios = '#t=0.001';
+                                        if ($format[1] == 'mov') {
+                                            $set_format = 'video/mp4';
+                                        } else {
+                                            $set_format = 'video/'.$format[1];
+                                        }
+                                    @endphp
+                                    <div class="col-lg-3 px-1 col-6 col-md-4">
+                                        <a class="example-image-link d-block" id="{{ $video->file_name }}" onclick="selectVideo(this)">
+                                            <video class="example-image">
+                                                <source src="{{ asset( $file_path.$video->file_name.$ios )}}" type="{{ $set_format }}">
+                                            </video>
+                                            <div class="play-bt-exm-one"></div>
+                                            <div class="pt-1 bg-black">
+                                                <span class="above-img-span">
+                                                    {{ $video->title }}
+                                                </span>
+                                                <span class="group-color">
+                                                    Group : {{ $video->group_title }}
+                                                </span>
+                                            </div>
+                                            <span class="ab-img-span">
+                                                {{ $video->recipient_first_name }} {{ $video->recipient_last_name }}
+                                            </span>
+                                            <span class="date-time pb-2">
+                                                {{ $set_date }} &nbsp; {{ $date_time[1] }}
+                                            </span>
+                                        </a>
+                                        <a href="{{ route('user.media.my-media-details', ['id' => $video->id]) }}" class="btn-view-details">
+                                            View Details
+                                        </a>
+                                    </div>
+                                @endif
+                            @endforeach
                         @endif
                     </div>
                 </div>
@@ -171,43 +171,43 @@
                 <div class="col-lg-2 mt-3"></div>
                 <div class="col-lg-8 mt-3">
                     @if($photo_count == 0)
-                    <p class="mb-0 contact-label text-center">Not Found!</p>
+                        <p class="mb-0 contact-label text-center">Not Found!</p>
                     @endif
                     <div class="row mt-3 px-2" id="all_photos">
                         @if(isset($all_media))
-                        @foreach($all_media as $key => $photo)
-                        @if($photo->type == 'photo')
-                        @php $date_time = explode(" ", $photo->created_at); @endphp
-                        <div class="col-lg-3 px-1 col-6 col-md-4">
-                            <a class="example-image-link" href="{{ asset( $file_path.$photo->file_name )}}" id="{{ $photo->file_name }}" data-lightbox="example-set" data-title="<span>{{ $photo->description }}</span><br /><span>{{ $photo->created_at }}</span>" onclick="">
-                                <img class="example-image" src="{{ asset( $file_path.$photo->file_name )}}" alt="" />
-
-                                <div class="bg-black p-1">
-                                    <div class="d-flex pt-1 bg-black">
-                                        <span class="above-img-span">
-                                            {{ $photo->title }}
-
-                                        </span>
-
-                                        <span class="group-color">
-                                            Group : {{ $photo->group_title }}
-                                        </span>
+                            @foreach($all_media as $key => $photo)
+                                @if($photo->type == 'photo')
+                                    @php
+                                        $date_time = explode(" ", $photo->created_at);
+                                        $date = explode("-", $date_time[0]);
+                                        $set_date = $date[1].'-'.$date[2].'-'.$date[0];
+                                    @endphp
+                                    <div class="col-lg-3 px-1 col-6 col-md-4">
+                                        <a class="example-image-link" href="{{ asset( $file_path.$photo->file_name )}}" id="{{ $photo->file_name }}" data-lightbox="example-set" data-title="<span>{{ $photo->description }}</span><br /><span>{{ $photo->created_at }}</span>" onclick="">
+                                            <img class="example-image" src="{{ asset( $file_path.$photo->file_name )}}" alt="" />
+                                            <div class="bg-black p-1">
+                                                <div class="d-flex pt-1 bg-black">
+                                                    <span class="above-img-span">
+                                                        {{ $photo->title }}
+                                                    </span>
+                                                    <span class="group-color">
+                                                        Group : {{ $photo->group_title }}
+                                                    </span>
+                                                </div>
+                                                <span class="ab-img-span">
+                                                    {{ $photo->recipient_first_name }} {{ $photo->recipient_last_name }}
+                                                </span>
+                                                <span class="date-time pb-2">
+                                                    {{ $set_date }} &nbsp; {{ $date_time[1] }}
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <a href="{{ route('user.media.my-media-details', ['id' => $photo->id]) }}" class="btn-view-details">
+                                            View Details
+                                        </a>
                                     </div>
-                                    <span class="ab-img-span">
-                                        {{ $photo->recipient_first_name }} {{ $photo->recipient_last_name }}
-                                    </span>
-
-                                    <span class="date-time pb-2">
-                                        {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
-                                    </span>
-                                </div>
-                            </a>
-                            <a href="{{ route('user.media.my-media-details', ['id' => $photo->id]) }}" class="btn-view-details">
-                                View Details
-                            </a>
-                        </div>
-                        @endif
-                        @endforeach
+                                @endif
+                            @endforeach
                         @endif
                     </div>
                 </div>
@@ -220,47 +220,48 @@
                 <div class="col-lg-2 mt-3"></div>
                 <div class="col-lg-8 text-center mt-3">
                     @if($audio_count > 0)
-                    <div class="audio" id="current_audio"></div>
+                        <div class="audio" id="current_audio"></div>
                     @else
-                    <p class="mb-0 contact-label">Not Found!</p>
+                        <p class="mb-0 contact-label">Not Found!</p>
                     @endif
                     <div class="row mt-3 px-2" id="all_audios">
                         @if(isset($all_media))
-                        @foreach($all_media as $key => $audio)
-                        @if($audio->type == 'audio')
-                        @php $date_time = explode(" ", $audio->created_at); @endphp
-                        <div class="col-lg-3 px-1 col-md-4 col-6">
-                            <a class="example-image-link d-block" id="{{ $audio->file_name }}" onclick="selectAudio(this)">
-                                <img class="example-image" src="{{ asset('/public/assets/images/audio-thumb.jpg') }}" alt="" />
-                                <div class="audio-bt-exm-one"></div>
+                            @foreach($all_media as $key => $audio)
+                                @if($audio->type == 'audio')
+                                    @php
+                                        $date_time = explode(" ", $audio->created_at);
+                                        $date = explode("-", $date_time[0]);
+                                        $set_date = $date[1].'-'.$date[2].'-'.$date[0];
+                                    @endphp
+                                    <div class="col-lg-3 px-1 col-md-4 col-6">
+                                        <a class="example-image-link d-block" id="{{ $audio->file_name }}" onclick="selectAudio(this)">
+                                            <img class="example-image" src="{{ asset('/public/assets/images/audio-thumb.jpg') }}" alt="" />
+                                            <div class="audio-bt-exm-one"></div>
 
-                                <div class="bg-black p-1">
-                                    <div class="pt-1 bg-black">
-                                        <span class="above-img-span text-start">
-                                            {{ $audio->title }}
+                                            <div class="bg-black p-1">
+                                                <div class="pt-1 bg-black">
+                                                    <span class="above-img-span text-start">
+                                                        {{ $audio->title }}
+                                                    </span>
+                                                    <span class="group-color">
+                                                        Group : {{ $audio->group_title }}
+                                                    </span>
+                                                </div>
+                                                <span class="ab-img-span text-start">
+                                                    {{ $audio->recipient_first_name }} {{ $audio->recipient_last_name }}
+                                                </span>
+                                                <span class="date-time pb-2">
+                                                    {{ $set_date }} &nbsp; {{ $date_time[1] }}
+                                                </span>
+                                            </div>
 
-                                        </span>
-
-                                        <span class="group-color">
-                                            Group : {{ $audio->group_title }}
-                                        </span>
+                                        </a>
+                                        <a href="{{ route('user.media.my-media-details', ['id' => $audio->id]) }}" class="btn-view-details">
+                                            View Details
+                                        </a>
                                     </div>
-                                    <span class="ab-img-span text-start">
-                                        {{ $audio->recipient_first_name }} {{ $audio->recipient_last_name }}
-                                    </span>
-
-                                    <span class="date-time pb-2">
-                                        {{ $date_time[0] }} &nbsp; {{ $date_time[1] }}
-                                    </span>
-                                </div>
-
-                            </a>
-                            <a href="{{ route('user.media.my-media-details', ['id' => $audio->id]) }}" class="btn-view-details">
-                                View Details
-                            </a>
-                        </div>
-                        @endif
-                        @endforeach
+                                @endif
+                            @endforeach
                         @endif
                     </div>
                 </div>
@@ -393,13 +394,14 @@
                                 var media_title = all_media[i].title;
                                 var date_time = new Date(all_media[i].created_at);
                                 var year = date_time.getFullYear();
-                                var month = date_time.getMonth();
+                                // var month = date_time.getMonth();
+                                var month = (date_time.getMonth()+1);
                                 var date = date_time.getDate();
                                 var hour = date_time.getHours();
                                 var minute = date_time.getMinutes();
                                 var second = date_time.getSeconds();
                                 var display_time = hour + ':' + minute + ':' + second;
-                                var display_date = year + '-' + month + '-' + date;
+                                var display_date = month + '-' + date + '-' + year;
                                 if (all_media[i].type == 'video') {
                                     var my_file = file_name.split(".");
                                     var set_format = '';
@@ -459,13 +461,14 @@
                                 var media_title = all_media[i].title;
                                 var date_time = new Date(all_media[i].created_at);
                                 var year = date_time.getFullYear();
-                                var month = date_time.getMonth();
+                                // var month = date_time.getMonth();
+                                var month = (date_time.getMonth()+1);
                                 var date = date_time.getDate();
                                 var hour = date_time.getHours();
                                 var minute = date_time.getMinutes();
                                 var second = date_time.getSeconds();
                                 var display_time = hour + ':' + minute + ':' + second;
-                                var display_date = year + '-' + month + '-' + date;
+                                var display_date = month + '-' + date + '-' + year;
                                 if (all_media[i].type == 'video') {
                                     var my_file = file_name.split(".");
                                     var set_format = '';
@@ -525,13 +528,14 @@
                                 var media_title = all_media[i].title;
                                 var date_time = new Date(all_media[i].created_at);
                                 var year = date_time.getFullYear();
-                                var month = date_time.getMonth();
+                                // var month = date_time.getMonth();
+                                var month = (date_time.getMonth()+1);
                                 var date = date_time.getDate();
                                 var hour = date_time.getHours();
                                 var minute = date_time.getMinutes();
                                 var second = date_time.getSeconds();
                                 var display_time = hour + ':' + minute + ':' + second;
-                                var display_date = year + '-' + month + '-' + date;
+                                var display_date = month + '-' + date + '-' + year;
                                 if (all_media[i].type == 'video') {
                                     var my_file = file_name.split(".");
                                     var set_format = '';
@@ -586,13 +590,14 @@
                     var media_title = all_media[i].title;
                     var date_time = new Date(all_media[i].created_at);
                     var year = date_time.getFullYear();
-                    var month = date_time.getMonth();
+                    // var month = date_time.getMonth();
+                    var month = (date_time.getMonth()+1);
                     var date = date_time.getDate();
                     var hour = date_time.getHours();
                     var minute = date_time.getMinutes();
                     var second = date_time.getSeconds();
                     var display_time = hour + ':' + minute + ':' + second;
-                    var display_date = year + '-' + month + '-' + date;
+                    var display_date = month + '-' + date + '-' + year;
                     if (all_media[i].type == 'video') {
                         var my_file = file_name.split(".");
                         var set_format = '';
