@@ -235,10 +235,10 @@ class HomeController extends Controller
             'user_last_name' => 'Kumar'
         );
 
-        Mail::send('emails.testEmail', $data, function ($message) {
-            $message->to('kumarkhatriosl2@gmail.com', 'Kumar')->subject('Test Notifications');
-            $message->from('team@beternal.life', 'bETERNAL Team');
-        });
+        // Mail::send('emails.testEmail', $data, function ($message) {
+        //     $message->to('kumarkhatriosl2@gmail.com', 'Kumar')->subject('Test Notifications');
+        //     $message->from('team@beternal.life', 'bETERNAL Team');
+        // });
 
         dd('success');
     }
