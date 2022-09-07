@@ -9,14 +9,14 @@ use App\Models\UserContact;
 use App\Models\LoginHistory;
 use App\Models\PushNotification;
 
-class usersStatusEmail extends Command
+class loginStatusEmail extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'userstatus:cron';
+    protected $signature = 'login:statusemail';
 
     /**
      * The console command description.
@@ -57,6 +57,9 @@ class usersStatusEmail extends Command
         ->join('users', 'login_history.user_id', '=', 'users.id')
         ->get(['login_history.id', 'user_id', 'notification_date', 'user_first_email', 'name', 'email']);
 
+        $first_test_email = 0;
+        $second_test_email = 0;
+
         if (!$first_email_users->isEmpty()) {
             foreach ($first_email_users as $key => $user) {
                 if ($user->user_first_email == 0) {
@@ -86,10 +89,10 @@ class usersStatusEmail extends Command
                             'status_url' => $status_url
                         );
 
-                        Mail::send('emails.userStatusEmail', $data, function ($message) {
-                            $message->to(session()->get('email'), session()->get('name'))->subject('User Notifications');
-                            $message->from('team@beternal.life', 'bETERNAL Team');
-                        });
+                        // Mail::send('emails.userStatusEmail', $data, function ($message) {
+                        //     $message->to(session()->get('email'), session()->get('name'))->subject('User Notifications');
+                        //     $message->from('team@beternal.life', 'bETERNAL Team');
+                        // });
                     }
                 }
             }
@@ -128,10 +131,10 @@ class usersStatusEmail extends Command
                             'status_url' => $status_url
                         );
 
-                        Mail::send('emails.userStatusEmail', $data, function ($message) {
-                            $message->to(session()->get('email'), session()->get('name'))->subject('User Notifications');
-                            $message->from('team@beternal.life', 'bETERNAL Team');
-                        });
+                        // Mail::send('emails.userStatusEmail', $data, function ($message) {
+                        //     $message->to(session()->get('email'), session()->get('name'))->subject('User Notifications');
+                        //     $message->from('team@beternal.life', 'bETERNAL Team');
+                        // });
                     }
                 }
             }

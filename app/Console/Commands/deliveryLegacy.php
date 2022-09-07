@@ -17,7 +17,7 @@ class deliveryLegacy extends Command
      *
      * @var string
      */
-    protected $signature = 'deliverylegacy:cron';
+    protected $signature = 'delivery:legacy';
 
     /**
      * The console command description.

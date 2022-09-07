@@ -219,16 +219,16 @@ class HomeController extends Controller
 
     public function devloperTesting()
     {
-        $agent = new \Jenssegers\Agent\Agent;
+        // $agent = new \Jenssegers\Agent\Agent;
    
-        $result = $agent->isMobile();
-        $result = $agent->isDesktop();
-        $result = $agent->isTablet();
-        $result = $agent->isiOS();
+        // $result = $agent->isMobile();
+        // $result = $agent->isDesktop();
+        // $result = $agent->isTablet();
+        // $result = $agent->isiOS();
 
-        if($agent->isDesktop()) {
-            dd('Yes desktop');
-        }
+        // if($agent->isDesktop()) {
+        //     dd('Yes desktop');
+        // }
 
         $data = array(
             'user_name' => 'Love',

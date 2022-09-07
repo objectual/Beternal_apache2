@@ -14,7 +14,7 @@ class loginStatusNotification extends Command
      *
      * @var string
      */
-    protected $signature = 'loginstatus:cron';
+    protected $signature = 'loginstatus:notification';
 
     /**
      * The console command description.
@@ -51,7 +51,7 @@ class loginStatusNotification extends Command
         $set_time = $hours . ':' . $minutes . ':' . 0 . 0;
         $date_time = $set_date . ' ' . $set_time;
 
-        $logout_users = LoginHistory::where('login_history.status', 0)
+        $logout_users = LoginHistory::where(['login_history.status' => 0, 'users.role_id' => 2])
             ->join('users', 'login_history.user_id', '=', 'users.id')
             ->get(['login_history.id', 'last_logout', 'user_id', 'push_notification', 'users.name']);
 
@@ -85,7 +85,7 @@ class loginStatusNotification extends Command
                             "notification" => [
                                 "title" => 'bETERNAL Notification',
                                 "body" => $user_name . ', are you ok?  We have not heard from you today?',
-                                "click_action" => 'https://www.beternal.life/user-status/'.$token,
+                                "click_action" => 'https://www.beternal.life/user-status/' . $token,
                             ]
                         ];
                         $encodedData = json_encode($data);
