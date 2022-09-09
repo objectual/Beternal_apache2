@@ -11,128 +11,138 @@ use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
-    // public function setCountries()
-    // {
-    //     set_time_limit(1200);
-    //     $servername = "localhost";
-    //     $username = "root";
-    //     $password = "";
-    //     $dbname = "";
+    public function setCountries()
+    {
+        set_time_limit(1200);
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "world";
 
-    //     $conn = mysqli_connect($servername, $username, $password, $dbname);
-    //     if (!$conn) {
-    //         die("Connection failed: " . mysqli_connect_error());
-    //     }
+        $conn = mysqli_connect($servername, $username, $password, $dbname);
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
 
-    //     $sql = "SELECT id, name, iso2 FROM countries";
-    //     $result = $conn->query($sql);
+        $sql = "SELECT id, name, iso2 FROM countries WHERE id > 1";
+        $result = $conn->query($sql);
 
-    //     if ($result->num_rows > 0) {
-    //         while ($row = $result->fetch_assoc()) {
-    //             $country = new Country();
-    //             $country->country_name = $row["name"];
-    //             $country->country_code = $row["iso2"];
-    //             $country->save();
-    //         }
-    //         echo 'Success';
-    //     } else {
-    //         echo "0 results";
-    //     }
-    //     $conn->close();
-    // }
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $country = new Country();
+                $country->country_name = $row["name"];
+                $country->country_code = $row["iso2"];
+                $country->postal_code_format = '12345';
+                $country->save();
+            }
+            echo 'Success';
+        } else {
+            echo "0 results";
+        }
+        $conn->close();
+    }
 
-    // public function setStates()
-    // {
-    //     set_time_limit(1200);
-    //     $servername = "localhost";
-    //     $username = "root";
-    //     $password = "";
-    //     $dbname = "";
+    public function setStates()
+    {
+        $count_state =  StateProvince::count();
+        if ($count_state < 2) {
+            set_time_limit(1200);
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $dbname = "world";
 
-    //     $conn = mysqli_connect($servername, $username, $password, $dbname);
-    //     if (!$conn) {
-    //         die("Connection failed: " . mysqli_connect_error());
-    //     }
+            $conn = mysqli_connect($servername, $username, $password, $dbname);
+            if (!$conn) {
+                die("Connection failed: " . mysqli_connect_error());
+            }
 
-    //     $sql = "SELECT id, name, country_id FROM states";
-    //     $result = $conn->query($sql);
+            $update_sql = "SELECT id, name, country_id FROM states WHERE id = 1";
+            $result = $conn->query($update_sql);
 
-    //     if ($result->num_rows > 0) {
-    //         while ($row = $result->fetch_assoc()) {
-    //             $state = new StateProvince();
-    //             $state->id = $row["id"];
-    //             $state->name = $row["name"];
-    //             $state->country_id = $row["country_id"];
-    //             $state->save();
-    //         }
-    //         echo 'Success';
-    //     } else {
-    //         echo "0 results";
-    //     }
-    //     $conn->close();
-    // }
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $update_province = StateProvince::findOrFail(1);
+                    $update_province->name = $row["name"];
+                    $update_province->country_id = $row["country_id"];
+                    $update_province->save();
+                }
+            }
 
-    // public function setCities()
-    // {
-    //     set_time_limit(1200);
-    //     $servername = "localhost";
-    //     $username = "root";
-    //     $password = "";
-    //     $dbname = "";
+            $sql = "SELECT id, name, country_id FROM states WHERE id > 1";
+            $result = $conn->query($sql);
 
-    //     $conn = mysqli_connect($servername, $username, $password, $dbname);
-    //     if (!$conn) {
-    //         die("Connection failed: " . mysqli_connect_error());
-    //     }
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $state = new StateProvince();
+                    $state->id = $row["id"];
+                    $state->name = $row["name"];
+                    $state->country_id = $row["country_id"];
+                    $state->save();
+                }
+                echo 'Success';
+            } else {
+                echo "0 results";
+            }
+            $conn->close();
+        }
+    }
 
-    //     $sql = "SELECT id, name, state_id FROM cities WHERE country_id BETWEEN 200 AND 250";
-    //     $result = $conn->query($sql);
+    public function setCities()
+    {
+        set_time_limit(1800);
+        $servername = "http://167.99.0.236:8080/";
+        $username = "root";
+        $password = "my-secret-pw";
+        $dbname = "world";
 
-    //     if ($result->num_rows > 0) {
-    //         while ($row = $result->fetch_assoc()) {
-    //             $city = new City();
-    //             $city->city_name = $row["name"];
-    //             $city->state_province_id = $row["state_id"];
-    //             $city->save();
-    //         }
-    //         echo 'Success';
-    //     } else {
-    //         echo "0 results";
-    //     }
-    //     $conn->close();
-    // }
+        $conn = mysqli_connect($servername, $username, $password, $dbname);
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
 
-    // public function citiesData($id)
-    // {
-    //     set_time_limit(1200);
-    //     $servername = "localhost";
-    //     $username = "root";
-    //     $password = "";
-    //     $dbname = "";
+        $cities =  City::all();
+        foreach ($cities as $city) {
+            $city_name = $city->city_name;
+            $id = $city->state_province_id;
+            $sql = "INSERT INTO cities (city_name,state_province_id) VALUES ('$city_name','$id')";
 
-    //     $conn = mysqli_connect($servername, $username, $password, $dbname);
-    //     if (!$conn) {
-    //         die("Connection failed: " . mysqli_connect_error());
-    //     }
+            $add = mysqli_query($conn, $sql);
+        }
+        dd('success');
+    }
 
-    //     if ($id == 1) {
-    //         $sql = "SELECT id, city_name, state_id FROM city_1";
-    //         $result = $conn->query($sql);
+    public function citiesData($id)
+    {
+        set_time_limit(1200);
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "";
+
+        $conn = mysqli_connect($servername, $username, $password, $dbname);
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+
+        if ($id == 1) {
+            $sql = "SELECT id, city_name, state_id FROM city_1";
+            $result = $conn->query($sql);
             
-    //         if ($result->num_rows > 0) {
-    //             while ($row = $result->fetch_assoc()) {
-    //                 $city = new City();
-    //                 $city->city_name = $row["city_name"];
-    //                 $city->state_province_id = $row["state_id"];
-    //                 $city->save();
-    //             }
-    //             echo 'Success';
-    //         } else {
-    //             echo "0 results";
-    //         }
-    //     }
-    //     $conn->close();
-    // }
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $city = new City();
+                    $city->city_name = $row["city_name"];
+                    $city->state_province_id = $row["state_id"];
+                    $city->save();
+                }
+                echo 'Success';
+            } else {
+                echo "0 results";
+            }
+        }
+        $conn->close();
+    }
 
     public function index()
     {
