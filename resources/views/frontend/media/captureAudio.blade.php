@@ -63,7 +63,7 @@
                                 <div class="error">{{ $errors->first('file_name') }}</div>
                                 @endif
                                 <label class="record-images" style="color: #F7DB02;" for="file">&nbsp;&nbsp;Device Gallery</label>
-                                <p style="color: #F7DB02;">Accept format (audio/mp3)</p>
+                                <p style="color: #F7DB02;">Acceptable formats (mp3, M4A, wav)</p>
                                 <input type="file" accept="audio/*" name="file_name" id="file" style="display: none;" onchange="loadFile(event)">
                             </a>
                         </div>

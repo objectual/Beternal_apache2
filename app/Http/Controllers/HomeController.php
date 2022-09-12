@@ -91,9 +91,9 @@ class HomeController extends Controller
     public function setCities()
     {
         set_time_limit(1800);
-        $servername = "http://167.99.0.236:8080/";
+        $servername = "localhost";
         $username = "root";
-        $password = "my-secret-pw";
+        $password = "";
         $dbname = "world";
 
         $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -101,38 +101,27 @@ class HomeController extends Controller
             die("Connection failed: " . mysqli_connect_error());
         }
 
-        $cities =  City::all();
-        foreach ($cities as $city) {
-            $city_name = $city->city_name;
-            $id = $city->state_province_id;
-            $sql = "INSERT INTO cities (city_name,state_province_id) VALUES ('$city_name','$id')";
+        $count_cities =  City::count();
+        if ($count_cities == 1) {
+            $update_sql = "SELECT id, name, state_id FROM cities WHERE id = 1";
+            $result = $conn->query($update_sql);
 
-            $add = mysqli_query($conn, $sql);
-        }
-        dd('success');
-    }
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $update_city = City::findOrFail(1);
+                    $update_city->city_name = $row["name"];
+                    $update_city->state_province_id = $row["state_id"];
+                    $update_city->save();
+                }
+            }
 
-    public function citiesData($id)
-    {
-        set_time_limit(1200);
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "";
-
-        $conn = mysqli_connect($servername, $username, $password, $dbname);
-        if (!$conn) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-
-        if ($id == 1) {
-            $sql = "SELECT id, city_name, state_id FROM city_1";
+            $sql = "SELECT id, name, state_id FROM cities";
             $result = $conn->query($sql);
-            
+
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $city = new City();
-                    $city->city_name = $row["city_name"];
+                    $city->city_name = $row["name"];
                     $city->state_province_id = $row["state_id"];
                     $city->save();
                 }
@@ -140,8 +129,18 @@ class HomeController extends Controller
             } else {
                 echo "0 results";
             }
+            $conn->close();
         }
-        $conn->close();
+
+        // $cities =  City::all();
+        // foreach ($cities as $city) {
+        //     $city_name = $city->city_name;
+        //     $id = $city->state_province_id;
+        //     $sql = "INSERT INTO cities (city_name,state_province_id) VALUES ('$city_name','$id')";
+
+        //     $add = mysqli_query($conn, $sql);
+        // }
+        // dd('success');
     }
 
     public function index()

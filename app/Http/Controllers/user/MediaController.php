@@ -117,9 +117,9 @@ class MediaController extends Controller
             }
         }
         if ($request->media_type == 'audio') {
-            // $this->validate($request, [
-            //     'file_name' => 'required|file|mimetypes:audio/mpeg,mpga,mp3,mp4,wav',
-            // ]);
+            $this->validate($request, [
+                'file_name' => 'required|file|mimetypes:audio/mp3,audio/M4A,audio/wav',
+            ]);
             $folder = 'audios';
             $route = 'user.media.capture-audio';
         }
