@@ -8,43 +8,52 @@ use App\Models\StateProvince;
 use App\Models\City;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use App\Models\DataCountry;
+use App\Models\DataState;
+use App\Models\DataCity;
 
 class HomeController extends Controller
 {
     public function setCountries()
     {
-        set_time_limit(1200);
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "beternal";
+        // set_time_limit(1200);
+        // $servername = "localhost";
+        // $username = "root";
+        // $password = "";
+        // $dbname = "beternal";
 
-        $conn = mysqli_connect($servername, $username, $password, $dbname);
-        if (!$conn) {
-            die("Connection failed: " . mysqli_connect_error());
+        // $conn = mysqli_connect($servername, $username, $password, $dbname);
+        // if (!$conn) {
+        //     die("Connection failed: " . mysqli_connect_error());
+        // }
+
+        // $sql = "SELECT id, name, iso2 FROM countries WHERE id > 1";
+        // $result = $conn->query($sql);
+
+        // if ($result->num_rows > 0) {
+        //     while ($row = $result->fetch_assoc()) {
+        //         $country = new Country();
+        //         $country->country_name = $row["name"];
+        //         $country->country_code = $row["iso2"];
+        //         $country->postal_code_format = '12345';
+        //         $country->save();
+        //     }
+        //     echo 'Success';
+        // } else {
+        //     echo "0 results";
+        // }
+        // $conn->close();
+
+        $countries =  Country::all();
+        foreach ($countries as $country) {
+            $add_country = new DataCountry();
+            $add_country->country_name = $country->country_name;
+            $add_country->country_code = $country->country_code;
+            $add_country->postal_code_format = $country->postal_code_format;
+            $add_country->save();
         }
 
-        $sql = "SELECT id, country_name, country_code FROM countries WHERE id > 1";
-        $result = $conn->query($sql);
-
-        dd($result->num_rows > 0);
-
-        $sql = "SELECT id, name, iso2 FROM countries WHERE id > 1";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $country = new Country();
-                $country->country_name = $row["name"];
-                $country->country_code = $row["iso2"];
-                $country->postal_code_format = '12345';
-                $country->save();
-            }
-            echo 'Success';
-        } else {
-            echo "0 results";
-        }
-        $conn->close();
+        dd('success');
     }
 
     public function setStates()
