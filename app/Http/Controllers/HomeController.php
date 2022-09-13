@@ -158,10 +158,10 @@ class HomeController extends Controller
 
         $cities =  City::all();
         foreach ($cities as $city) {
-            $city = new DataCity();
-            $city->city_name = $city->city_name;
-            $city->state_province_id = $city->state_province_id;
-            $city->save();
+            $add_city = new DataCity();
+            $add_city->city_name = $city->city_name;
+            $add_city->state_province_id = $city->state_province_id;
+            $add_city->save();
         }
 
         dd('success');
