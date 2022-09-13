@@ -14,15 +14,20 @@ class HomeController extends Controller
     public function setCountries()
     {
         set_time_limit(1200);
-        $servername = "localhost";
+        $servername = "http://167.99.0.236:8080/";
         $username = "root";
-        $password = "";
-        $dbname = "world";
+        $password = "my-secret-pw";
+        $dbname = "beternal";
 
         $conn = mysqli_connect($servername, $username, $password, $dbname);
         if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
         }
+
+        $sql = "SELECT id, country_name, country_code FROM countries WHERE id > 1";
+        $result = $conn->query($sql);
+
+        dd($result->num_rows > 0);
 
         $sql = "SELECT id, name, iso2 FROM countries WHERE id > 1";
         $result = $conn->query($sql);
