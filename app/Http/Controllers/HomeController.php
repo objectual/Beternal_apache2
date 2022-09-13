@@ -156,15 +156,15 @@ class HomeController extends Controller
         //     $conn->close();
         // }
 
-        $cities =  City::all();
-        foreach ($cities as $city) {
-            $add_city = new DataCity();
-            $add_city->city_name = $city->city_name;
-            $add_city->state_province_id = $city->state_province_id;
-            $add_city->save();
-        }
+        // $cities =  City::whereBetween('id', [$ageFrom, $ageTo]);
+        // foreach ($cities as $city) {
+        //     $add_city = new DataCity();
+        //     $add_city->city_name = $city->city_name;
+        //     $add_city->state_province_id = $city->state_province_id;
+        //     $add_city->save();
+        // }
 
-        dd('success');
+        // dd('success');
     }
 
     public function index()
