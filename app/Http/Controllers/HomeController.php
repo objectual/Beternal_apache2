@@ -103,10 +103,10 @@ class HomeController extends Controller
 
         $states =  StateProvince::all();
         foreach ($states as $state) {
-            $state = new DataState();
-            $state->name = $state->name;
-            $state->country_id = $state->country_id;
-            $state->save();
+            $add_state = new DataState();
+            $add_state->name = $state->name;
+            $add_state->country_id = $state->country_id;
+            $add_state->save();
         }
 
         dd('success');
