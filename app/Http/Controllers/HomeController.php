@@ -14,9 +14,9 @@ class HomeController extends Controller
     public function setCountries()
     {
         set_time_limit(1200);
-        $servername = "http://167.99.0.236:8080/";
+        $servername = "localhost";
         $username = "root";
-        $password = "my-secret-pw";
+        $password = "";
         $dbname = "beternal";
 
         $conn = mysqli_connect($servername, $username, $password, $dbname);
