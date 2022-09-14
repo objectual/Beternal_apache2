@@ -108,7 +108,7 @@ class MediaController extends Controller
         date_default_timezone_set(session()->get('user_timezone'));
         if ($request->media_type == 'video') {
             // $this->validate($request, [
-            //     'file_name' => 'required|file|mimetypes:video/mp4,video/avi,video/mpeg,video/quicktime',
+            //     'file_name' => 'required|file|mimetypes:video/mp4,video/mov,video/mkv',
             // ]);
             $folder = 'videos';
             $route = 'user.media.capture-video';
