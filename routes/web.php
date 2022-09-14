@@ -29,16 +29,11 @@ use App\Http\Controllers\SubscriptionController;
 //     return view('frontend.home');
 // });
 
-Route::get('/set-countries', [HomeController::class, 'setCountries'])->name('set-countries');
-Route::get('/set-states', [HomeController::class, 'setStates'])->name('set-states');
-Route::get('/set-cities', [HomeController::class, 'setCities'])->name('set-cities');
-// Route::get('/cities-data/{id}', [HomeController::class, 'citiesData'])->name('cities-data');
+Route::get('/set-countries', [HomeController::class, 'setCountries']);
+Route::get('/set-states', [HomeController::class, 'setStates']);
+Route::get('/set-cities', [HomeController::class, 'setCities']);
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 // start routes for ajax request
 Route::get('/provinces/{id}', [StateProvinceController::class, 'getStateProvinces']);
