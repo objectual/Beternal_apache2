@@ -437,24 +437,24 @@ class UserController extends Controller
 
                 $data = array('first_name' => $add_recipent->name, 'last_name' => $add_recipent->last_name, 'contact_status' => $contact_title, 'deny_url' => $deny_url, 'confirm_url' => $confirmation_url);
 
-                // Mail::send($for_user, $data, function ($message) {
-                //     $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
-                //     $message->from('team@beternal.life', 'bETERNAL Team');
-                // });
+                Mail::send($for_user, $data, function ($message) {
+                    $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
+                    $message->from('team@beternal.life', 'bETERNAL Team');
+                });
             } else {
                 $deny_url = $base_url . '/deny/' . $add_user_recipent->token;
                 $confirmation_url = $base_url . '/confirmation/' . $add_user_recipent->token;
 
                 $data = array('first_name' => $add_recipent->name, 'last_name' => $add_recipent->last_name, 'contact_status' => $contact_title, 'deny_url' => $deny_url, 'confirm_url' => $confirmation_url);
 
-                // Mail::send($for_user, $data, function ($message) {
-                //     $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
-                //     $message->from('team@beternal.life', 'bETERNAL Team');
-                // });
-                // Mail::send($for_recipient, $data, function ($message) {
-                //     $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
-                //     $message->from('team@beternal.life', 'bETERNAL Team');
-                // });
+                Mail::send($for_user, $data, function ($message) {
+                    $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
+                    $message->from('team@beternal.life', 'bETERNAL Team');
+                });
+                Mail::send($for_recipient, $data, function ($message) {
+                    $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
+                    $message->from('team@beternal.life', 'bETERNAL Team');
+                });
             }
 
             session()->forget('email');
@@ -532,24 +532,24 @@ class UserController extends Controller
 
                     $data = array('first_name' => $add_user_recipent->name, 'last_name' => $add_user_recipent->last_name, 'contact_status' => $contact_title, 'deny_url' => $deny_url, 'confirm_url' => $confirmation_url);
 
-                    // Mail::send($for_user, $data, function ($message) {
-                    //     $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
-                    //     $message->from('team@beternal.life', 'bETERNAL Team');
-                    // });
+                    Mail::send($for_user, $data, function ($message) {
+                        $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
+                        $message->from('team@beternal.life', 'bETERNAL Team');
+                    });
                 } else {
                     $deny_url = $base_url . '/deny/' . $add_user_recipent->token;
                     $confirmation_url = $base_url . '/confirmation/' . $add_user_recipent->token;
 
                     $data = array('first_name' => $add_user_recipent->name, 'last_name' => $add_user_recipent->last_name, 'contact_status' => $contact_title, 'deny_url' => $deny_url, 'confirm_url' => $confirmation_url);
 
-                    // Mail::send($for_user, $data, function ($message) {
-                    //     $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
-                    //     $message->from('team@beternal.life', 'bETERNAL Team');
-                    // });
-                    // Mail::send($for_recipient, $data, function ($message) {
-                    //     $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
-                    //     $message->from('team@beternal.life', 'bETERNAL Team');
-                    // });
+                    Mail::send($for_user, $data, function ($message) {
+                        $message->to(Auth::user()->email, Auth::user()->name)->subject('Recipient Notifications');
+                        $message->from('team@beternal.life', 'bETERNAL Team');
+                    });
+                    Mail::send($for_recipient, $data, function ($message) {
+                        $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
+                        $message->from('team@beternal.life', 'bETERNAL Team');
+                    });
                 }
 
                 session()->forget('email');
@@ -605,14 +605,14 @@ class UserController extends Controller
 
                     $data = array('user_first_name' => $check_contact->name, 'user_last_name' => $check_contact->last_name, 'first_name' => $check_recipient->name, 'last_name' => $check_recipient->last_name, 'contact_title' => $check_contact->contact_title, 'confirm_url' => $confirmation_url);
 
-                    // Mail::send('emails.toUserConfirmationMail', $data, function ($message) {
-                    //     $message->to(session()->get('user_email'), session()->get('user_name'))->subject('Recipient Notifications');
-                    //     $message->from('team@beternal.life', 'bETERNAL Team');
-                    // });
-                    // Mail::send('emails.toRecipientConfirmationMail', $data, function ($message) {
-                    //     $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
-                    //     $message->from('team@beternal.life', 'bETERNAL Team');
-                    // });
+                    Mail::send('emails.toUserConfirmationMail', $data, function ($message) {
+                        $message->to(session()->get('user_email'), session()->get('user_name'))->subject('Recipient Notifications');
+                        $message->from('team@beternal.life', 'bETERNAL Team');
+                    });
+                    Mail::send('emails.toRecipientConfirmationMail', $data, function ($message) {
+                        $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
+                        $message->from('team@beternal.life', 'bETERNAL Team');
+                    });
 
                     session()->forget('email');
                     session()->forget('name');
@@ -623,10 +623,10 @@ class UserController extends Controller
 
                     $data = array('first_name' => $check_recipient->name, 'last_name' => $check_recipient->last_name, 'confirm_url' => $confirmation_url);
 
-                    // Mail::send('emails.toRecipientConfirmationMail', $data, function ($message) {
-                    //     $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
-                    //     $message->from('team@beternal.life', 'bETERNAL Team');
-                    // });
+                    Mail::send('emails.toRecipientConfirmationMail', $data, function ($message) {
+                        $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
+                        $message->from('team@beternal.life', 'bETERNAL Team');
+                    });
 
                     session()->forget('email');
                     session()->forget('name');
@@ -718,10 +718,10 @@ class UserController extends Controller
 
                 $data = array('first_name' => $check_recipient->name, 'last_name' => $check_recipient->last_name, 'contact_status' => $user_contact->contact_title, 'deny_url' => $deny_url, 'confirm_url' => $confirmation_url, 'user_first_name' => $user_contact->name, 'user_last_name' => $user_contact->last_name);
 
-                // Mail::send($for_recipient, $data, function ($message) {
-                //     $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
-                //     $message->from('team@beternal.life', 'bETERNAL Team');
-                // });
+                Mail::send($for_recipient, $data, function ($message) {
+                    $message->to(session()->get('email'), session()->get('name'))->subject('Recipient Notifications');
+                    $message->from('team@beternal.life', 'bETERNAL Team');
+                });
                 session()->forget('email');
                 session()->forget('name');
 
@@ -1372,10 +1372,10 @@ class UserController extends Controller
                                 'url' => $url
                             );
 
-                            // Mail::send('emails.legacyConfirmationEmail', $data, function ($message) {
-                            //     $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
-                            //     $message->from('team@beternal.life', 'bETERNAL Team');
-                            // });
+                            Mail::send('emails.legacyConfirmationEmail', $data, function ($message) {
+                                $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
+                                $message->from('team@beternal.life', 'bETERNAL Team');
+                            });
                         } else {
                             $message = "Not found any request!";
                         }
@@ -1421,10 +1421,10 @@ class UserController extends Controller
                                 'url' => $url
                             );
 
-                            // Mail::send('emails.legacyConfirmationEmail', $data, function ($message) {
-                            //     $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
-                            //     $message->from('team@beternal.life', 'bETERNAL Team');
-                            // });
+                            Mail::send('emails.legacyConfirmationEmail', $data, function ($message) {
+                                $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
+                                $message->from('team@beternal.life', 'bETERNAL Team');
+                            });
                         } else {
                             $message = "Not found any request!";
                         }
@@ -1470,10 +1470,10 @@ class UserController extends Controller
                                 'url' => $url
                             );
 
-                            // Mail::send('emails.legacyConfirmationEmail', $data, function ($message) {
-                            //     $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
-                            //     $message->from('team@beternal.life', 'bETERNAL Team');
-                            // });
+                            Mail::send('emails.legacyConfirmationEmail', $data, function ($message) {
+                                $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
+                                $message->from('team@beternal.life', 'bETERNAL Team');
+                            });
                         } else {
                             $message = "Not found any request!";
                         }
@@ -1519,10 +1519,10 @@ class UserController extends Controller
                                 'url' => $url
                             );
 
-                            // Mail::send('emails.legacyConfirmationEmail', $data, function ($message) {
-                            //     $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
-                            //     $message->from('team@beternal.life', 'bETERNAL Team');
-                            // });
+                            Mail::send('emails.legacyConfirmationEmail', $data, function ($message) {
+                                $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
+                                $message->from('team@beternal.life', 'bETERNAL Team');
+                            });
                         } else {
                             $message = "Not found any request!";
                         }
@@ -1568,10 +1568,10 @@ class UserController extends Controller
                                 'url' => $url
                             );
 
-                            // Mail::send('emails.legacyConfirmationEmail', $data, function ($message) {
-                            //     $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
-                            //     $message->from('team@beternal.life', 'bETERNAL Team');
-                            // });
+                            Mail::send('emails.legacyConfirmationEmail', $data, function ($message) {
+                                $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
+                                $message->from('team@beternal.life', 'bETERNAL Team');
+                            });
                         } else {
                             $message = "Not found any request!";
                         }
@@ -1617,10 +1617,10 @@ class UserController extends Controller
                                 'url' => $url
                             );
 
-                            // Mail::send('emails.legacyConfirmationEmail', $data, function ($message) {
-                            //     $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
-                            //     $message->from('team@beternal.life', 'bETERNAL Team');
-                            // });
+                            Mail::send('emails.legacyConfirmationEmail', $data, function ($message) {
+                                $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
+                                $message->from('team@beternal.life', 'bETERNAL Team');
+                            });
                         } else {
                             $message = "Not found any request!";
                         }
@@ -1684,10 +1684,10 @@ class UserController extends Controller
                                 'contact_name' => $contact_name
                             );
 
-                            // Mail::send('emails.legacyDistributionSuccess', $data, function ($message) {
-                            //     $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
-                            //     $message->from('team@beternal.life', 'bETERNAL Team');
-                            // });
+                            Mail::send('emails.legacyDistributionSuccess', $data, function ($message) {
+                                $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
+                                $message->from('team@beternal.life', 'bETERNAL Team');
+                            });
                         } else {
                             $message = "Not found any request!";
                         }
@@ -1722,10 +1722,10 @@ class UserController extends Controller
                                 'contact_name' => $contact_name
                             );
 
-                            // Mail::send('emails.legacyDistributionSuccess', $data, function ($message) {
-                            //     $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
-                            //     $message->from('team@beternal.life', 'bETERNAL Team');
-                            // });
+                            Mail::send('emails.legacyDistributionSuccess', $data, function ($message) {
+                                $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
+                                $message->from('team@beternal.life', 'bETERNAL Team');
+                            });
                         } else {
                             $message = "Not found any request!";
                         }
@@ -1760,10 +1760,10 @@ class UserController extends Controller
                                 'contact_name' => $contact_name
                             );
 
-                            // Mail::send('emails.legacyDistributionSuccess', $data, function ($message) {
-                            //     $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
-                            //     $message->from('team@beternal.life', 'bETERNAL Team');
-                            // });
+                            Mail::send('emails.legacyDistributionSuccess', $data, function ($message) {
+                                $message->to(session()->get('email'), session()->get('name'))->subject('Legacy Notifications');
+                                $message->from('team@beternal.life', 'bETERNAL Team');
+                            });
                         } else {
                             $message = "Not found any request!";
                         }

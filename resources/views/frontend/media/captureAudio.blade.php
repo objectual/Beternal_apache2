@@ -507,6 +507,22 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="checkFileFormat" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-black">
+            <div class="modal-body">
+                <button type="button" class="close close-select-media" data-dismiss="formatOption" onclick="closeFormat()">&times;</button>
+                <div class="row pt-3 pb-5 mt-5 media-icons">
+                    <div class="col-lg-12 text-center">
+                        <p style="color: #F7DB02;">File format not matched with require format</p>
+                        <p style="color: #F7DB02;">Acceptable formats (mp3, M4A, wav)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endif
 @endsection
 
@@ -517,6 +533,10 @@
 
     function closeOption() {
         location.reload();
+    }
+
+    function closeFormat() {
+        $("#checkFileFormat").modal("hide");
     }
 
     function recipentByName(current) {
@@ -664,12 +684,15 @@
     }
 
     function validateForm() {
+        var file_name = document.getElementById('file').value;
         var title = document.getElementById('title').value;
         var description = document.getElementById('description').value;
         var plan_details = JSON.parse('<?php echo json_encode($plan_details) ?>');
         var my_media = JSON.parse('<?php echo json_encode($my_media) ?>');
         var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
         var msg = '<span class="cl-white">Sorry format not matched! only alphanumeric characters allowed</span>';
+        var file_extension = file_name.split('.').pop();
+        var file_format = ['mp3', 'M4A', 'wav'];
 
         // if (format.test(title)) {
         //     $('#show_title_msg').empty();
@@ -682,6 +705,10 @@
         //     $("#show_description_msg").append(msg);
         //     return false;
         // }
+        if (!(file_format.includes(file_extension))) {
+            $("#checkFileFormat").modal("show");
+            return false;
+        }
         if (my_media < plan_details[0].video_audio_limit) {
             $("#loader").modal("show");
             return true;

@@ -117,16 +117,16 @@ class MediaController extends Controller
             }
         }
         if ($request->media_type == 'audio') {
-            $this->validate($request, [
-                'file_name' => 'required|file|mimetypes:audio/mp3,audio/M4A,audio/wav',
-            ]);
+            // $this->validate($request, [
+            //     'file_name' => 'required|file|mimetypes:audio/mp3,audio/M4A,audio/wav',
+            // ]);
             $folder = 'audios';
             $route = 'user.media.capture-audio';
         }
         if ($request->media_type == 'photo') {
-            $this->validate($request, [
-                'file_name' => 'required|image|mimes:jpeg,png,jpg,svg,bmp',
-            ]);
+            // $this->validate($request, [
+            //     'file_name' => 'required|image|mimes:jpeg,png,jpg,svg,bmp',
+            // ]);
             $folder = 'photo';
             $route = 'user.media.capture-image';
         }

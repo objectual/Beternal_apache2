@@ -618,6 +618,7 @@
                 <div class="row pt-3 pb-5 mt-5 media-icons">
                     <div class="col-lg-12 text-center">
                         <p style="color: #F7DB02;">File format not matched with require format</p>
+                        <p style="color: #F7DB02;">Acceptable formats (mp4, mov, mkv)</p>
                     </div>
                 </div>
             </div>

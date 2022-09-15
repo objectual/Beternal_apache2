@@ -110,10 +110,10 @@ class deliveryCron extends Command
                             'media_url' => $media_url
                         );
 
-                        // Mail::send('emails.deliveryMedia', $data, function ($message) {
-                        //     $message->to(session()->get('email'), session()->get('name'))->subject('Media Notifications');
-                        //     $message->from('team@beternal.life', 'bETERNAL Team');
-                        // });
+                        Mail::send('emails.deliveryMedia', $data, function ($message) {
+                            $message->to(session()->get('email'), session()->get('name'))->subject('Media Notifications');
+                            $message->from('team@beternal.life', 'bETERNAL Team');
+                        });
                     }
                 }
             }
