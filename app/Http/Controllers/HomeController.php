@@ -226,27 +226,36 @@ class HomeController extends Controller
 
     public function devloperTesting()
     {
-        // $agent = new \Jenssegers\Agent\Agent;
+        $agent = new \Jenssegers\Agent\Agent;
    
-        // $result = $agent->isMobile();
-        // $result = $agent->isDesktop();
-        // $result = $agent->isTablet();
-        // $result = $agent->isiOS();
+        $result = $agent->isMobile();
+        $result = $agent->isDesktop();
+        $result = $agent->isTablet();
+        $result = $agent->isiOS();
 
-        // if($agent->isDesktop()) {
-        //     dd('Yes desktop');
-        // }
+        if($agent->isDesktop()) {
+            dd('Yes desktop');
+        }
+        if($agent->isMobile()) {
+            dd('Yes mobile');
+        }
+        if($agent->isTablet()) {
+            dd('Yes tablet');
+        }
+        if($agent->isiOS()) {
+            dd('Yes iOS');
+        }
 
-        $data = array(
-            'user_name' => 'Love',
-            'user_last_name' => 'Kumar'
-        );
+        // $data = array(
+        //     'user_name' => 'Love',
+        //     'user_last_name' => 'Kumar'
+        // );
 
         // Mail::send('emails.testEmail', $data, function ($message) {
         //     $message->to('kumarkhatriosl2@gmail.com', 'Kumar')->subject('Test Notifications');
         //     $message->from('team@beternal.life', 'bETERNAL Team');
         // });
 
-        dd('success');
+        // dd('success');
     }
 }
