@@ -997,6 +997,7 @@ class MediaController extends Controller
                             $share_legacy = new ShareLegacy();
                             $share_legacy->legacy_id = $legacy->id;
                             $share_legacy->recipient_id = $request->recipient_id[$i];
+                            $share_legacy->user_id = Auth::user()->id;
                             $share_legacy->save();
                         }
                     }
