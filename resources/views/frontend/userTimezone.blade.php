@@ -8,14 +8,13 @@
 <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
 <script>
     var firebaseConfig = {
-        apiKey: "AIzaSyDmlagHFn1yw5KcbXHuIfuuWsw2EcXTmwE",
-        authDomain: "notification-test-a3f05.firebaseapp.com",
-        databaseURL: 'db-url',
-        projectId: "notification-test-a3f05",
-        storageBucket: "notification-test-a3f05.appspot.com",
-        messagingSenderId: "299026161686",
-        appId: "1:299026161686:web:53bf04a964fb438be01537",
-        measurementId: "G-RT6CHXQZTF"
+        apiKey: "AIzaSyBTlqtwrPryWwrJaqPA2yWC8ysIHRi9GfM",
+        authDomain: "beternal-notification.firebaseapp.com",
+        projectId: "beternal-notification",
+        storageBucket: "beternal-notification.appspot.com",
+        messagingSenderId: "523114589887",
+        appId: "1:523114589887:web:b2a6ae97d7c80cdc5fe00a",
+        measurementId: "G-LHVK7PR2P0"
     };
     firebase.initializeApp(firebaseConfig);
     const messaging = firebase.messaging();

@@ -79,7 +79,7 @@ class loginStatusNotification extends Command
                         $user_name = strtoupper($user->name);
                         $FcmToken = User::where('id', $user->user_id)->pluck('device_token')->all();
 
-                        $serverKey = 'AAAARZ9ZIBY:APA91bFwplB8ZL0lRXgW9dwRsVw3D8fsqvIhgNDKyOC708uZJ3qv1FiMBY2NksuyYKnKr5OgiYoqb0JLeS9YxqPVQgUa27sKLXzyV3Va47QRWiAJA-4LV19knVR60Uv67ZD9i5YJNZTk'; // ADD SERVER KEY HERE PROVIDED BY FCM
+                        $serverKey = 'AAAAecwPLr8:APA91bHBoKxLzL-QMGhenZPxEjZUbNxETYeMtRCFhtLBQZzld_DqjQ9FHwcRmSzZIxzgznfepSiDdWQw3dQLsXWd-NJ6p_hHyEhpzK_570aMLBBM38LTAoJr9fs42o_DhvGMkfvbqajY'; // ADD SERVER KEY HERE PROVIDED BY FCM
                         $data = [
                             "registration_ids" => $FcmToken,
                             "notification" => [
