@@ -29,9 +29,9 @@ use App\Http\Controllers\SubscriptionController;
 //     return view('frontend.home');
 // });
 
-Route::get('/set-countries', [HomeController::class, 'setCountries']);
-Route::get('/set-states', [HomeController::class, 'setStates']);
-Route::get('/set-cities', [HomeController::class, 'setCities']);
+// Route::get('/set-countries', [HomeController::class, 'setCountries']);
+// Route::get('/set-states', [HomeController::class, 'setStates']);
+// Route::get('/set-cities', [HomeController::class, 'setCities']);
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 
